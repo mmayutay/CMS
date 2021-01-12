@@ -7,7 +7,6 @@ import { UserData } from '../../providers/user-data';
 import { RequestsService } from '../../services/requests.service';
 
 
-
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -41,16 +40,11 @@ export class LoginPage {
       }
     })
   }
-
-  onSignup() {
-    this.router.navigateByUrl('/signup');
-  }
   async presentAlert() {
     const alert = await this.alertControl.create({
       cssClass: 'my-custom-class',
-      header: 'Alert',
-      subHeader: 'Subtitle',
-      message: 'This is an alert message.',
+      header: 'Error',
+      message: 'Email or password is incorrect.',
       buttons: ['OK']
     });
 
