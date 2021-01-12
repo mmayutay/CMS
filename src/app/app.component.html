@@ -26,7 +26,7 @@
           <ion-toggle [(ngModel)]="dark"></ion-toggle>
         </ion-item>
 
-        <ion-list *ngIf="loggedIn" lines="none">
+        <ion-list lines="none">
           <ion-list-header>
             Account
           </ion-list-header>
@@ -36,6 +36,15 @@
               <ion-icon slot="start" name="person"></ion-icon>
               <ion-label>
                 Account
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false">
+            <ion-item routerLink="/create-new-user" routerLinkActive="active" routerDirection="root" detail="false">
+              <ion-icon slot="start" name="person-add"></ion-icon>
+              <ion-label>
+                Create New User
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
