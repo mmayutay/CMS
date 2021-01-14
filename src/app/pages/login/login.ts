@@ -32,8 +32,8 @@ export class LoginPage {
 
   onLogin() {
     this.request.loginService(this.login).subscribe(res => {
-      if(res[0] != undefined) {
-        this.userData.storage.set(this.request.storageKey, res[0].email)
+      if(res) {
+        this.userData.storage.set(this.request.storageKey, this.login.email)
         this.router.navigate(['/app/tabs/schedule'])
       }else {
         this.presentAlert()
