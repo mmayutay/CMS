@@ -11,16 +11,18 @@ import { UserData } from '../../providers/user-data';
   styleUrls: ['./account.scss'],
 })
 export class AccountPage implements AfterViewInit {
-  username: string;
+  public username = "any";
 
   constructor(
     public alertCtrl: AlertController,
     public router: Router,
     public userData: UserData
-    ) { }
+  ) { }
 
+  ngInIt(){
+  }
   ngAfterViewInit() {
-    this.getUsername();
+    // this.getUsername();
   }
 
   updatePicture() {

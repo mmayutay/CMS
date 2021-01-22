@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-
-
+// import { AlertController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { UserData } from '../../providers/user-data';
 
-import { RequestsService } from '../../services/requests.service'
-
+import { RequestsService } from '../../services/requests.service';
 
 
 @Component({
@@ -25,7 +23,8 @@ export class LoginPage {
     public menu: MenuController,
     public userData: UserData,
     public router: Router,
-    private request: RequestsService
+    private request: RequestsService,
+    private alertControl: AlertController
   ) { }
 
   ngOnInit() {
@@ -33,14 +32,23 @@ export class LoginPage {
   } 
 
   onLogin() {
-    this.userAuthenticated = this.request.loginService(this.login)
-    console.log(this.userAuthenticated)
-    if(this.userAuthenticated) {
-      this.router.navigate(['/app/tabs/schedule'])
-    }
+    this.request.loginService(this.login).subscribe(res => {
+      if(res) {
+        this.userData.storage.set(this.request.storageKey, this.login.email)
+        this.router.navigate(['/app/tabs/schedule'])
+      }else {
+        this.presentAlert()
+      }
+    })
   }
+  async presentAlert() {
+    const alert = await this.alertControl.create({
+      cssClass: 'my-custom-class',
+      header: 'Error',
+      message: 'Email or password is incorrect.',
+      buttons: ['OK']
+    });
 
-  onSignup() {
-    this.router.navigateByUrl('/signup');
+    await alert.present();
   }
 }

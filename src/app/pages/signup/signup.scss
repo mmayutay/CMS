@@ -1,13 +1,37 @@
 .signup-logo {
-  padding: 20px 0;
-  min-height: 200px;
-  text-align: center;
+    padding: 20px 0;
+    min-height: 200px;
+    text-align: center;
 }
 
 .signup-logo img {
-  max-width: 150px;
+    max-width: 150px;
 }
 
 .list {
-  margin-bottom: 0;
+    margin-bottom: 0;
+}
+
+ion-input {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+ion-button {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ion-list {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    ion-button,
+    ion-list {
+        width: 100%;
+    }
 }
