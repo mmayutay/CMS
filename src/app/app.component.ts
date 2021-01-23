@@ -125,10 +125,7 @@ export class AppComponent implements OnInit {
     this.request.logoutService().then(res => {
       location.reload()
     })
-    return this.router.navigate(['/login'])
-    // this.userData.logout().then(() => {
-    //   return this.router.navigateByUrl('/app/tabs/schedule');
-    // });
+    return this.router.navigate(['/login']);
   }
 
   openTutorial() {

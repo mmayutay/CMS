@@ -28,6 +28,10 @@ export class RequestsService {
     return this.userdata.storage.get(this.storageKey);
   }
 
+  getTheCurrentUserIdInStorage() {
+    return this.userdata.storage.get(this.storageKeyUserId);
+  }
+
   signUp(userInfo){
     return this.http.post(this.url + 'sign-up', userInfo)
   }

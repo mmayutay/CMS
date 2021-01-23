@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
 import { UserData } from '../../providers/user-data';
 
 import { UserOptions } from '../../interfaces/user-options';
@@ -17,7 +16,7 @@ import { User } from '../../model/user.model';
   styleUrls: ['./signup.scss'],
 })
 export class SignupPage {
-  signup: User = {
+  signup = {
     newUser: {
       Lastname: '',
       Firstname: '',
@@ -33,6 +32,8 @@ export class SignupPage {
       Category: '',
     }, groupBelong: {
       Leader: ''
+    }, role: {
+      code: 'Member'
     }
   };
   submitted = false;
@@ -40,11 +41,12 @@ export class SignupPage {
   constructor(
     public router: Router,
     public userData: UserData,
-    public menu: MenuController,
     public request: RequestsService
   ) { }
   ngOnInit() {
-    this.menu.enable(false)
+    this.request.getTheCurrentUserIdInStorage().then(res => {
+      this.signup.groupBelong.Leader = res
+    })
   }
 
   onSignup(form: NgForm) {
@@ -52,6 +54,7 @@ export class SignupPage {
       console.log(res)
       this.router.navigate(['/app/tabs/schedule'])
     })
+  }
 
 
     // public userInfo: User = {
@@ -79,5 +82,5 @@ export class SignupPage {
     //   this.request.signUp(this.userInfo).subscribe(res => {
     //     this.router.navigate(['/app/tabs/schedule'])
     //   });
-  }
+  
 }
