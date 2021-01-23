@@ -15,6 +15,7 @@ export class RequestsService {
     created_at: "flaksdklfasd"
   }
   public storageKey = 'current-logged'
+  public storageKeyUserId = 'user-id'
   public boolean = true
   public userDataLength;
   public url = "http://localhost:8000/api/"
@@ -25,7 +26,7 @@ export class RequestsService {
   ) { }
 
   loginService(userData){
-    return userData.email == this.usersData.username;
+    return userData.username == this.usersData.username;
     // return this.http.post(this.url + 'login', userData)
   }
   logoutService() {

@@ -13,18 +13,40 @@
             <img src="https://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
             <h2>{{ username }}</h2>
         </div>
-    </ion-card>
+        <div>
+            <ion-tabs>
+                <ion-tab-bar slot="bottom">
+                    <ion-tab-button>
+                        <ion-icon name="person"></ion-icon>
+                        <ion-label>AUXILIARY</ion-label>
+                        <ion-select placeholder="View Auxiliary">
+                            <ion-select-option value="kids">Blessed Kids</ion-select-option>
+                            <ion-select-option value="youth">Blessed Youth(13-21)</ion-select-option>
+                            <ion-select-option value="single">Blessed Singles(Singles 22 up)</ion-select-option>
+                            <ion-select-option value="marriedMen">Blessed Men(Married men)</ion-select-option>
+                            <ion-select-option value="marriedWomen">Blessed Women(Married women)</ion-select-option>
+                        </ion-select>
+                    </ion-tab-button>
 
-    <!-- <ion-list inset>
-            <ion-item (click)="updatePicture()">Update Picture</ion-item>
-            <ion-item (click)="changeUsername()">Change Username</ion-item>
-            <ion-item (click)="changePassword()">Change Password</ion-item>
-            <ion-item (click)="support()">Support</ion-item>
-            <ion-item (click)="logout()">Logout</ion-item>
-        </ion-list> -->
-    <!-- <div class="ext-content">
-        External content for `<span>{{currentNavItem}}</span>`
-    </div> -->
+                    <ion-tab-button>
+                        <ion-icon name="person"></ion-icon>
+                        <ion-label>MINISTRIES</ion-label>
+                        <ion-select placeholder="View Ministry">
+                            <ion-select-option value="youth">Blessed Youth</ion-select-option>
+                            <ion-select-option value="single">Blessed Single</ion-select-option>
+                            <ion-select-option value="married">Blessed Married</ion-select-option>
+                            <!-- <ion-select-option value="single">Blessed Single</ion-select-option> -->
+                        </ion-select>
+                    </ion-tab-button>
+
+                    <ion-tab-button (click)="addNewUser()">
+                        <ion-icon name="person-add"></ion-icon>
+                        <ion-label>ADD NEW USER</ion-label>
+                    </ion-tab-button>
+                </ion-tab-bar>
+            </ion-tabs>
+        </div>
+    </ion-card>
     <h1>PERSONAL INFORMATION</h1>
     <hr class="solid">
     <div class="container">
@@ -39,14 +61,4 @@
             <p>Address</p>
         </div>
     </div>
-    <!-- </md-content> -->
-    <!-- <h1>AUXILIARY</h1>
-    <hr class="solid">
-    <div class="container">
-        <p>Tertiary</p>
-        <p>Members</p>
-    </div>
-
-    <h1>ADD NEW USER</h1>
-    <hr class="solid"> -->
 </ion-content>

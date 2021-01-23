@@ -20,6 +20,7 @@ export class AccountPage implements AfterViewInit {
   ) { }
 
   ngInIt(){
+
   }
   ngAfterViewInit() {
     // this.getUsername();
@@ -74,5 +75,9 @@ export class AccountPage implements AfterViewInit {
 
   support() {
     this.router.navigateByUrl('/support');
+  }
+
+  addNewUser() {
+    this.router.navigateByUrl('/create-new-user')
   }
 }

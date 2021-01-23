@@ -4,7 +4,7 @@ img {
 }
 
 ion-card {
-    background-color: #23c962;
+    background-color: #36B92A;
 }
 
 .container {
@@ -22,9 +22,42 @@ hr.solid {
     margin-right: 2%;
 }
 
+button {
+    margin-top: 5%;
+    margin-left: 2%;
+    margin-right: 2%;
+    border: 1px solid black;
+}
+
 .column {
     float: left;
     width: 50%;
     padding: 10px;
     height: 300px;
+}
+
+ion-tab-button {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #E9FDD8;
+}
+
+li {
+    float: left;
+    text-align: center;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ion-select:hover {
+    color: white;
+    background-color: #36B92A;
 }
