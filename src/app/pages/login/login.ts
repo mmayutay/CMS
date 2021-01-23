@@ -13,7 +13,7 @@ import { RequestsService } from '../../services/requests.service';
   styleUrls: ['./login.scss'],
 })
 export class LoginPage {
-  login = { email: '', password: '' };
+  login = { username: '', password: '' };
   submitted = false;
   public userAuthenticated = true
   public userLogin;
@@ -32,8 +32,10 @@ export class LoginPage {
 
   onLogin() {
     this.request.loginService(this.login).subscribe(res => {
+      console.log(res)
       if(res) {
-        this.userData.storage.set(this.request.storageKey, this.login.email)
+        this.userData.storage.set(this.request.storageKey, this.login.username)
+        this.userData.storage.set(this.request.storageKeyUserId, res[0].userid)
         this.router.navigate(['/app/tabs/schedule'])
       }else {
         this.presentAlert()

@@ -7,6 +7,7 @@ import { UserData } from '../providers/user-data'
 })
 export class RequestsService {
   public storageKey = 'current-logged'
+  public storageKeyUserId = 'user-id'
   public boolean = true
   public userDataLength;
   public url = "http://localhost:8000/api/"
