@@ -1,6 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { AlertController } from '@ionic/angular';
 
 import { UserData } from '../../providers/user-data';
@@ -18,7 +17,7 @@ export class AccountPage implements AfterViewInit {
     public alertCtrl: AlertController,
     public router: Router,
     public userData: UserData
-  ) { }
+    ) { }
 
   ngAfterViewInit() {
     this.getUsername();

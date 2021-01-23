@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserData } from '../providers/user-data'
+import { UserData } from '../providers/user-data';
+import { User } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,4 +36,9 @@ export class RequestsService {
   getCurrentUserInStorage() {
     return this.userdata.storage.get(this.storageKey);
   }
+
+  signUp(userInfo : User){
+    return this.http.post(this.url + 'sign-up', userInfo)
+  }
+
 }
