@@ -9,74 +9,104 @@
 
 <ion-content>
 
-  <div class="signup-logo">
+  <!-- <div class="signup-logo">
     <img src="assets/img/appicon.svg" alt="Ionic Logo">
-  </div>
+  </div> -->
 
-  <form #signupForm="ngForm">
-    <ion-list lines="none">
-      <ion-item>
-        <ion-label position="stacked" color="primary">Name</ion-label>
-        <ion-input [(ngModel)]="userInfo.Name" name="name" type="text" #name="ngModel" required></ion-input>
-      </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="name.valid || submitted == false" class="ion-padding-start">
-          Name is required
-        </p>
-      </ion-text>
-      <ion-item>
-        <ion-label position="stacked" color="primary">Age</ion-label>
-        <ion-input [(ngModel)]="userInfo.Age" name="age" type="text" #age="ngModel" required></ion-input>
-      </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="age.valid || submitted == false" class="ion-padding-start">
-          Age is required
-        </p>
-      </ion-text>
-      <ion-item>
-        <ion-label position="stacked" color="primary">Leader</ion-label>
-        <ion-input [(ngModel)]="userInfo.Leader" name="leader" type="text" #leader="ngModel" required></ion-input>
-      </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="leader.valid || submitted == false" class="ion-padding-start">
-          Leader is required
-        </p>
-      </ion-text>
-      <ion-item>
-        <ion-label position="stacked" color="primary">Member Status</ion-label>
-        <ion-input [(ngModel)]="userInfo.Member_status" name="member_status" type="text" #member="ngModel" required></ion-input>
-      </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="member.valid || submitted == false" class="ion-padding-start">
-          Member Status is required
-        </p>
-      </ion-text>
-      <ion-item>
-        <ion-label position="stacked" color="primary">Email</ion-label>
-        <ion-input [(ngModel)]="userInfo.Email" name="email" type="text" #email="ngModel" required>
+  <ion-card>
+    <ion-card-content>
+      <form #signupForm="ngForm" (ngSubmit)="onSignup(signupForm)" novalidate>
+        <ion-list lines="none">
+          <ion-item>
+            <ion-label position="stacked" color="primary">Lastname</ion-label>
+            <ion-input [(ngModel)]="signup.Lastname" name="Lastname" type="text" #lastname="ngModel" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked" color="primary">Firstname</ion-label>
+            <ion-input [(ngModel)]="signup.Firstname" name="Firstname" type="text" #firstname="ngModel" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked" color="primary">Birthday</ion-label>
+            <ion-input [(ngModel)]="signup.Birthday" name="Birthday" type="text" #birthday="ngModel" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked" color="primary">Age</ion-label>
+            <ion-input [(ngModel)]="signup.Age" name="Age" type="number" #age="ngModel" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked" color="primary">Address</ion-label>
+            <ion-input [(ngModel)]="signup.Address" name="Address" type="text" #address="ngModel" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked" color="primary">Marital Status</ion-label>
+            <ion-input [(ngModel)]="signup.Marital_status" name="Marital_status" type="text" #maritalstatus="ngModel"
+              required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked" color="primary">Email</ion-label>
+            <ion-input [(ngModel)]="signup.Email" name="Email" type="text" #email="ngModel" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked" color="primary">Contact Number</ion-label>
+            <ion-input [(ngModel)]="signup.Contact_number" name="Contact_number" type="number" #contactnumber="ngModel"
+              required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked" color="primary">Facebook</ion-label>
+            <ion-input [(ngModel)]="signup.Facebook" name="Facebook" type="text" #facebook="ngModel" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked" color="primary">Instagram</ion-label>
+            <ion-input [(ngModel)]="signup.Instagram" name="Instagram" type="text" #instagram="ngModel" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked" color="primary">Twitter</ion-label>
+            <ion-input [(ngModel)]="signup.Twitter" name="Twitter" type="text" #twitter="ngModel" required>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked" color="primary">Category</ion-label>
+            <ion-input [(ngModel)]="signup.Category" name="Category" type="text" #category="ngModel" required>
+            </ion-input>
+          </ion-item>
+
+          <!-- <ion-item>
+        <ion-label position="stacked" color="primary">Username</ion-label>
+        <ion-input [(ngModel)]="signup.username" name="username" type="text" #username="ngModel" required>
         </ion-input>
       </ion-item>
       <ion-text color="danger">
-        <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
-          Email is required
+        <p [hidden]="username.valid || submitted == false" class="ion-padding-start">
+          Username is required
         </p>
-      </ion-text>
-
-      <ion-item>
+      </ion-text> -->
+          <!-- <ion-item>
         <ion-label position="stacked" color="primary">Password</ion-label>
-        <ion-input [(ngModel)]="userInfo.Password" name="password" type="password" #password="ngModel" required>
+        <ion-input [(ngModel)]="signup.password" name="password" type="password" #password="ngModel" required>
         </ion-input>
       </ion-item>
       <ion-text color="danger">
         <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
           Password is required
         </p>
-      </ion-text>
-    </ion-list>
+      </ion-text> -->
+        </ion-list>
 
-    <div class="ion-padding">
-      <ion-button (click)="onSignup(signupForm)" type="submit" expand="block">Create User</ion-button>
-    </div>
-  </form>
+        <div class="ion-padding">
+          <ion-button (click)="onSignup(signupForm)" [disabled]="signupForm.invalid" type="submit" expand="block">Create</ion-button>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>

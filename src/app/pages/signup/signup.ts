@@ -17,30 +17,67 @@ import { User } from '../../model/user.model';
   styleUrls: ['./signup.scss'],
 })
 export class SignupPage {
-  public userInfo: User = {
-    Name: '',
-    Age: null,
-    Leader: '',
-    Member_status: '',
-    Email: '',
-    Password: '',
+  signup: User = {
+    newUser: {
+      Lastname: '',
+      Firstname: '',
+      Birthday: '',
+      Age: null,
+      Address: '',
+      Marital_status: '',
+      Email: '',
+      Contact_number: null,
+      Facebook: '',
+      Instagram: '',
+      Twitter: '',
+      Category: '',
+    }, groupBelong: {
+      Leader: ''
+    }
   };
-
-  signup: UserOptions = { username: '', password: '' };
   submitted = false;
 
   constructor(
-    public request: RequestsService,
     public router: Router,
     public userData: UserData,
-    public menu: MenuController 
-  ) {}
+    public menu: MenuController,
+    public request: RequestsService
+  ) { }
   ngOnInit() {
+    this.menu.enable(false)
   }
 
   onSignup(form: NgForm) {
-    this.request.signUp(this.userInfo).subscribe(res => {
+    this.request.signUp(this.signup).subscribe(res => {
+      console.log(res)
       this.router.navigate(['/app/tabs/schedule'])
-    });
+    })
+
+
+    // public userInfo: User = {
+    //   Name: '',
+    //   Age: null,
+    //   Leader: '',
+    //   Member_status: '',
+    //   Email: '',
+    //   Password: '',
+    // };
+
+    // signup: UserOptions = { username: '', password: '' };
+    // submitted = false;
+
+    // constructor(
+    //   public request: RequestsService,
+    //   public router: Router,
+    //   public userData: UserData,
+    //   public menu: MenuController 
+    // ) {}
+    // ngOnInit() {
+    // }
+
+    // onSignup(form: NgForm) {
+    //   this.request.signUp(this.userInfo).subscribe(res => {
+    //     this.router.navigate(['/app/tabs/schedule'])
+    //   });
   }
 }
