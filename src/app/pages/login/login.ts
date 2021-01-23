@@ -29,17 +29,17 @@ export class LoginPage {
 
   ngOnInit() {
     this.menu.enable(false)
-  } 
+  }
 
   onLogin() {
-    this.request.loginService(this.login).subscribe(res => {
-      if(res) {
-        this.userData.storage.set(this.request.storageKey, this.login.email)
-        this.router.navigate(['/app/tabs/schedule'])
-      }else {
-        this.presentAlert()
-      }
-    })
+    if (this.request.loginService(this.login).valueOf()) {
+      this.userData.storage.set(this.request.storageKey, this.login.email)
+      this.router.navigate(['/app/tabs/schedule'])
+    } else {
+      this.presentAlert()
+    }
+
+
   }
   async presentAlert() {
     const alert = await this.alertControl.create({
