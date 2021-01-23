@@ -21,7 +21,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
   },
   {
-    path: 'signup',
+    path: 'create-new-user',
     loadChildren: () => import('./pages/signup/signup.module').then(m => m.SignUpModule)
   },
   {
@@ -31,8 +31,7 @@ const routes: Routes = [
   {
     path: 'tutorial',
     loadChildren: () => import('./pages/tutorial/tutorial.module').then(m => m.TutorialModule)
-  },
-
+  }
 ];
 
 @NgModule({

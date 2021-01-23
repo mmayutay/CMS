@@ -2,15 +2,13 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
-
 import { UserData } from '../../providers/user-data';
-
-import { RequestsService} from '../../services/requests.service';
 
 import { UserOptions } from '../../interfaces/user-options';
 
-import { User } from '../../model/user.model';
+import { RequestsService } from '../../services/requests.service'
 
+import { User } from '../../model/user.model';
 
 
 @Component({
@@ -32,7 +30,7 @@ export class SignupPage {
       Facebook: '',
       Instagram: '',
       Twitter: '',
-      Category:'',
+      Category: '',
     }, groupBelong: {
       Leader: ''
     }
@@ -49,19 +47,37 @@ export class SignupPage {
     this.menu.enable(false)
   }
 
-  onSignup(form) {
-    this.submitted = true;
+  onSignup(form: NgForm) {
+    this.request.signUp(this.signup).subscribe(res => {
+      console.log(res)
+      this.router.navigate(['/app/tabs/schedule'])
+    })
 
-    // if (form.valid) {
-    //   // this.userData.signup(this.signup.username);
-    //   this.router.navigateByUrl('/app/tabs/schedule');
+
+    // public userInfo: User = {
+    //   Name: '',
+    //   Age: null,
+    //   Leader: '',
+    //   Member_status: '',
+    //   Email: '',
+    //   Password: '',
+    // };
+
+    // signup: UserOptions = { username: '', password: '' };
+    // submitted = false;
+
+    // constructor(
+    //   public request: RequestsService,
+    //   public router: Router,
+    //   public userData: UserData,
+    //   public menu: MenuController 
+    // ) {}
+    // ngOnInit() {
     // }
-    if (form.valid) {
-      console.log(form.value);
-      this.request.signUp(this.signup).subscribe(res=>{
-        console.log(res);
-        this.router.navigateByUrl('/login');
-      });
-    }
+
+    // onSignup(form: NgForm) {
+    //   this.request.signUp(this.userInfo).subscribe(res => {
+    //     this.router.navigate(['/app/tabs/schedule'])
+    //   });
   }
 }

@@ -11,3 +11,27 @@
 .list {
   margin-bottom: 0;
 }
+<<<<<<< HEAD
+=======
+ion-input {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+ion-button {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ion-list {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  ion-button, ion-list {
+    width: 100%;
+  }
+}
+>>>>>>> def725566e50124fa06780ead4fb39639c167cf0

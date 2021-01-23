@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserData } from '../providers/user-data';
-import { User } from '../model/user.model';
+import { UserData } from '../providers/user-data'
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestsService {
   public storageKey = 'current-logged'
+  public storageKeyUserId = 'user-id'
   public boolean = true
   public userDataLength;
   public url = "http://localhost:8000/api/"
@@ -18,16 +18,7 @@ export class RequestsService {
   ) { }
 
   loginService(userData){
-    this.http.post(this.url + 'login', userData).subscribe(res => {
-      this.userDataLength = res
-      if(this.userDataLength.length != 0) {
-        this.userdata.storage.set(this.storageKey, this.userDataLength[0].email)
-        this.boolean = true
-      }else {
-        this.boolean = false
-      }
-    })
-    return this.boolean
+    return this.http.post(this.url + 'login', userData)
   }
   logoutService() {
     return this.userdata.storage.clear()
@@ -37,8 +28,16 @@ export class RequestsService {
     return this.userdata.storage.get(this.storageKey);
   }
 
-  signUp(userInfo : User){
+  signUp(userInfo){
     return this.http.post(this.url + 'sign-up', userInfo)
   }
-
 }
+// $user->age = $request->input('Age');
+// $user->leader = $request->input('Leader');
+// $user->member_status = $request->input('Member_status');
+// $user->email = $request->input('Email');
+// $user->name = $request->input('Name');
+// $user->password = $request->input('Password');
+
+
+//[ {id: 1, name: 'rj', email: 'rj@gmail.com' }]
