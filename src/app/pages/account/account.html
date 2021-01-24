@@ -16,26 +16,33 @@
         <div>
             <ion-tabs>
                 <ion-tab-bar slot="bottom">
-                    <ion-tab-button>
+                    <!-- <ion-tab-button>
                         <ion-icon name="person"></ion-icon>
                         <ion-label>AUXILIARY</ion-label>
-                        <ion-select placeholder="View Auxiliary">
+                        <ion-select placeholder="View Auxiliary" >
                             <ion-select-option value="kids">Blessed Kids</ion-select-option>
                             <ion-select-option value="youth">Blessed Youth(13-21)</ion-select-option>
                             <ion-select-option value="single">Blessed Singles(Singles 22 up)</ion-select-option>
                             <ion-select-option value="marriedMen">Blessed Men(Married men)</ion-select-option>
                             <ion-select-option value="marriedWomen">Blessed Women(Married women)</ion-select-option>
                         </ion-select>
+                    </ion-tab-button> -->
+
+                    <ion-tab-button>
+                        <ion-icon name="person"></ion-icon>
+                        <ion-label>AUXILIARY</ion-label>
+                        <ion-select placeholder="View Auxiliary" (ionChange)="optAuxiliary(value)">
+                            <ion-select-option *ngFor="let value of auxiliary"> {{value}} </ion-select-option>
+                        </ion-select>
                     </ion-tab-button>
 
                     <ion-tab-button>
                         <ion-icon name="person"></ion-icon>
                         <ion-label>MINISTRIES</ion-label>
-                        <ion-select placeholder="View Ministry">
+                        <ion-select placeholder="View Ministry" okText="Okay" cancelText="Dismiss">
                             <ion-select-option value="youth">Blessed Youth</ion-select-option>
                             <ion-select-option value="single">Blessed Single</ion-select-option>
                             <ion-select-option value="married">Blessed Married</ion-select-option>
-                            <!-- <ion-select-option value="single">Blessed Single</ion-select-option> -->
                         </ion-select>
                     </ion-tab-button>
 
@@ -51,11 +58,11 @@
     <hr class="solid">
     <div class="container">
         <div class="column">
-            <p>Pangalan</p>
+            <p>Name: {{username}}</p>
             <p>Gmail</p>
             <p>Gender</p>
-        </div>
-        <div class="column">
+            <!-- </div>
+        <div class="column"> -->
             <p>Phone</p>
             <p>Birthdate</p>
             <p>Address</p>

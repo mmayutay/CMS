@@ -12,6 +12,9 @@ import { UserData } from '../../providers/user-data';
 })
 export class AccountPage implements AfterViewInit {
   public username = "any";
+  public partialData = ""
+  public auxiliary = ["Blessed Kids", "Blessed Youth", "Blessed Singles", "Blessed Married Men", "Blessed Married Women"];
+
 
   constructor(
     public alertCtrl: AlertController,
@@ -79,5 +82,9 @@ export class AccountPage implements AfterViewInit {
 
   addNewUser() {
     this.router.navigateByUrl('/create-new-user')
+  }
+
+  optAuxiliary(data){
+    console.log(data);
   }
 }
