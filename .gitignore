@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a83bb385f9d0f712f5327f6458ffde46492b313d
 # Logs
 logs
 *.log
@@ -103,6 +106,7 @@ dist
 
 # TernJS port file
 .tern-port
+<<<<<<< HEAD
 =======
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
@@ -140,3 +144,5 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 >>>>>>> def725566e50124fa06780ead4fb39639c167cf0
+=======
+>>>>>>> a83bb385f9d0f712f5327f6458ffde46492b313d

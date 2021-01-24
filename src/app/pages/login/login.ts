@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+// import { AlertController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { UserData } from '../../providers/user-data';
 
@@ -28,7 +29,7 @@ export class LoginPage {
 
   ngOnInit() {
     this.menu.enable(false)
-  } 
+  }
 
   onLogin() {
     this.request.loginService(this.login).subscribe(res => {

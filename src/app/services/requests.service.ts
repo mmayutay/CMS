@@ -6,6 +6,14 @@ import { UserData } from '../providers/user-data'
   providedIn: 'root'
 })
 export class RequestsService {
+  public usersData = {
+    id: 1,
+    userId: 3,
+    username: "mars",
+    password: "123",
+    updated_at: "aosdhfjihaw",
+    created_at: "flaksdklfasd"
+  }
   public storageKey = 'current-logged'
   public storageKeyUserId = 'user-id'
   public boolean = true
