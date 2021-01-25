@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+# CMS
+=======
+=======
+>>>>>>> a83bb385f9d0f712f5327f6458ffde46492b313d
 # Ionic Angular Conference Application
 
 This application is purely a kitchen-sink demo of the Ionic Framework and Angular.
@@ -87,3 +93,7 @@ See [CONTRIBUTING.md](https://github.com/ionic-team/ionic-conference-app/blob/ma
 ### iOS
 
 1. Run `ionic cordova run ios --prod`
+<<<<<<< HEAD
+>>>>>>> def725566e50124fa06780ead4fb39639c167cf0
+=======
+>>>>>>> a83bb385f9d0f712f5327f6458ffde46492b313d

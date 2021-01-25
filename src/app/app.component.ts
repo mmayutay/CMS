@@ -125,7 +125,7 @@ export class AppComponent implements OnInit {
     this.request.logoutService().then(res => {
       location.reload()
     })
-    return this.router.navigate(['/login'])
+    return this.router.navigate(['/login']);
   }
 
   openTutorial() {

@@ -26,8 +26,7 @@ export class RequestsService {
   ) { }
 
   loginService(userData){
-    return userData.username == this.usersData.username;
-    // return this.http.post(this.url + 'login', userData)
+    return this.http.post(this.url + 'login', userData)
   }
   logoutService() {
     return this.userdata.storage.clear()
@@ -35,6 +34,10 @@ export class RequestsService {
 
   getCurrentUserInStorage() {
     return this.userdata.storage.get(this.storageKey);
+  }
+
+  getTheCurrentUserIdInStorage() {
+    return this.userdata.storage.get(this.storageKeyUserId);
   }
 
   signUp(userInfo){

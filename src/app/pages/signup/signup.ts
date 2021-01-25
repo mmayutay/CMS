@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
 import { UserData } from '../../providers/user-data';
 
 import { UserOptions } from '../../interfaces/user-options';
@@ -17,30 +16,71 @@ import { User } from '../../model/user.model';
   styleUrls: ['./signup.scss'],
 })
 export class SignupPage {
-  public userInfo: User = {
-    Name: '',
-    Age: null,
-    Leader: '',
-    Member_status: '',
-    Email: '',
-    Password: '',
+  signup = {
+    newUser: {
+      Lastname: '',
+      Firstname: '',
+      Birthday: '',
+      Age: null,
+      Address: '',
+      Marital_status: '',
+      Email: '',
+      Contact_number: null,
+      Facebook: '',
+      Instagram: '',
+      Twitter: '',
+      Category: '',
+    }, groupBelong: {
+      Leader: ''
+    }, role: {
+      code: 'Member'
+    }
   };
-
-  signup: UserOptions = { username: '', password: '' };
   submitted = false;
 
   constructor(
-    public request: RequestsService,
     public router: Router,
     public userData: UserData,
-    public menu: MenuController 
-  ) {}
+    public request: RequestsService
+  ) { }
   ngOnInit() {
+    this.request.getTheCurrentUserIdInStorage().then(res => {
+      this.signup.groupBelong.Leader = res
+    })
   }
 
   onSignup(form: NgForm) {
-    this.request.signUp(this.userInfo).subscribe(res => {
+    this.request.signUp(this.signup).subscribe(res => {
+      console.log(res)
       this.router.navigate(['/app/tabs/schedule'])
-    });
+    })
   }
+
+
+    // public userInfo: User = {
+    //   Name: '',
+    //   Age: null,
+    //   Leader: '',
+    //   Member_status: '',
+    //   Email: '',
+    //   Password: '',
+    // };
+
+    // signup: UserOptions = { username: '', password: '' };
+    // submitted = false;
+
+    // constructor(
+    //   public request: RequestsService,
+    //   public router: Router,
+    //   public userData: UserData,
+    //   public menu: MenuController 
+    // ) {}
+    // ngOnInit() {
+    // }
+
+    // onSignup(form: NgForm) {
+    //   this.request.signUp(this.userInfo).subscribe(res => {
+    //     this.router.navigate(['/app/tabs/schedule'])
+    //   });
+  
 }

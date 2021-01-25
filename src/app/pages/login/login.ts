@@ -32,26 +32,15 @@ export class LoginPage {
   }
 
   onLogin() {
-    console.log(this.request.loginService(this.login).valueOf());
-    
-    if (this.request.loginService(this.login).valueOf()) {
-      this.userData.storage.set(this.request.storageKey, this.login.username)
-      this.router.navigate(['/app/tabs/schedule'])
-    } else {
-      this.presentAlert()
-    }
-
-
-    // this.request.loginService(this.login).subscribe(res => {
-    //   console.log(res)
-    //   if(res) {
-    //     this.userData.storage.set(this.request.storageKey, this.login.username)
-    //     this.userData.storage.set(this.request.storageKeyUserId, res[0].userid)
-    //     this.router.navigate(['/app/tabs/schedule'])
-    //   }else {
-    //     this.presentAlert()
-    //   }
-    // })
+    this.request.loginService(this.login).subscribe(res => {
+      if(res[0] != null) {
+        this.userData.storage.set(this.request.storageKey, this.login.username)
+        this.userData.storage.set(this.request.storageKeyUserId, res[0].userid)
+        this.router.navigate(['/app/tabs/schedule'])
+      }else {
+        this.presentAlert()
+      }
+    })
   }
   async presentAlert() {
     const alert = await this.alertControl.create({
