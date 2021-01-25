@@ -39,10 +39,8 @@
                     <ion-tab-button>
                         <ion-icon name="person"></ion-icon>
                         <ion-label>MINISTRIES</ion-label>
-                        <ion-select placeholder="View Ministry" okText="Okay" cancelText="Dismiss">
-                            <ion-select-option value="youth">Blessed Youth</ion-select-option>
-                            <ion-select-option value="single">Blessed Single</ion-select-option>
-                            <ion-select-option value="married">Blessed Married</ion-select-option>
+                        <ion-select ng-model="ministries" (ionChange)="addNewUser()" placeholder="View Ministry" okText="Okay" cancelText="Dismiss">
+                            <ion-select-option *ngFor="let ministry of ministries">{{ministry}}</ion-select-option>
                         </ion-select>
                     </ion-tab-button>
 

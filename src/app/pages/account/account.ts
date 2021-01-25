@@ -12,8 +12,22 @@ import { UserData } from '../../providers/user-data';
 })
 export class AccountPage implements AfterViewInit {
   public username = "any";
+  public userDetails = "any";
   public partialData = ""
-  public auxiliary = ["Blessed Kids", "Blessed Youth", "Blessed Singles", "Blessed Married Men", "Blessed Married Women"];
+  public auxiliary = [
+    "Blessed Kids",
+    "Blessed Youth(13-21)",
+    "Blessed Singles(Singles 22 up)",
+    "Blessed Men(Married Men)",
+    "Blessed Women(Married Women)"
+  ];
+  public ministries = [
+    "Blessed Kids",
+    "Blessed Youth",
+    "Blessed Singles",
+    "Blessed Married Men",
+    "Blessed Married Women"
+  ];
 
 
   constructor(
@@ -22,7 +36,7 @@ export class AccountPage implements AfterViewInit {
     public userData: UserData
   ) { }
 
-  ngInIt(){
+  ngInIt() {
 
   }
   ngAfterViewInit() {
@@ -84,7 +98,11 @@ export class AccountPage implements AfterViewInit {
     this.router.navigateByUrl('/create-new-user')
   }
 
-  optAuxiliary(data){
+  optAuxiliary(data) {
     console.log(data);
+  }
+
+  optMinistry(){
+
   }
 }
