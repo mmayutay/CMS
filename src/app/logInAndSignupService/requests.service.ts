@@ -6,14 +6,6 @@ import { UserData } from '../providers/user-data'
   providedIn: 'root'
 })
 export class RequestsService {
-  public usersData = {
-    id: 1,
-    userId: 3,
-    username: "mars",
-    password: "123",
-    updated_at: "aosdhfjihaw",
-    created_at: "flaksdklfasd"
-  }
   public storageKey = 'current-logged'
   public storageKeyUserId = 'user-id'
   public boolean = true
@@ -37,11 +29,15 @@ export class RequestsService {
   }
 
   getTheCurrentUserIdInStorage() {
-    return this.userdata.storage.get(this.storageKeyUserId);
+    return this.userdata.storage.get(this.storageKeyUserId)
   }
 
   signUp(userInfo){
     return this.http.post(this.url + 'sign-up', userInfo)
+  }
+
+  storeTheCurrentUserToStorage(loggedID) {
+    this.userdata.storage.set(this.storageKeyUserId, loggedID)
   }
 }
 // $user->age = $request->input('Age');

@@ -1,6 +1,8 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { RequestsService } from '../../logInAndSignupService/requests.service'
+import { DataRequestsService } from '../../request-to-BE/data-requests.service'
 
 import { UserData } from '../../providers/user-data';
 
@@ -11,6 +13,7 @@ import { UserData } from '../../providers/user-data';
   styleUrls: ['./account.scss'],
 })
 export class AccountPage implements AfterViewInit {
+  public currentUser;
   public username = "any";
   public partialData = ""
   public auxiliary = ["Blessed Kids", "Blessed Youth", "Blessed Singles", "Blessed Married Men", "Blessed Married Women"];
@@ -19,14 +22,19 @@ export class AccountPage implements AfterViewInit {
   constructor(
     public alertCtrl: AlertController,
     public router: Router,
-    public userData: UserData
+    public userData: UserData,
+    public request: RequestsService,
+    public datasRequest: DataRequestsService
   ) { }
 
-  ngInIt(){
-
-  }
   ngAfterViewInit() {
     // this.getUsername();
+    this.request.getTheCurrentUserIdInStorage().then(res => {
+
+      this.datasRequest.getTheCurrentUser({userID: res}).subscribe(data => {
+        console.log(data)
+      })
+    })
   }
 
   updatePicture() {
@@ -67,24 +75,8 @@ export class AccountPage implements AfterViewInit {
     });
   }
 
-  changePassword() {
-    console.log('Clicked to change password');
-  }
-
   logout() {
     this.userData.logout();
     this.router.navigateByUrl('/login');
-  }
-
-  support() {
-    this.router.navigateByUrl('/support');
-  }
-
-  addNewUser() {
-    this.router.navigateByUrl('/create-new-user')
-  }
-
-  optAuxiliary(data){
-    console.log(data);
   }
 }

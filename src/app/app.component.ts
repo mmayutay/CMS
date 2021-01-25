@@ -8,7 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { Storage } from '@ionic/storage';
-import { RequestsService } from './services/requests.service'
+import { RequestsService } from './logInAndSignupService/requests.service'
 
 import { UserData } from './providers/user-data';
 
@@ -124,6 +124,7 @@ export class AppComponent implements OnInit {
   logout() {
     this.request.logoutService().then(res => {
       location.reload()
+      console.log(res)
     })
     return this.router.navigate(['/login']);
   }

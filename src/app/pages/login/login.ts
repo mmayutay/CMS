@@ -5,7 +5,7 @@ import { MenuController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { UserData } from '../../providers/user-data';
 
-import { RequestsService } from '../../services/requests.service';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
 
 
 @Component({
@@ -34,8 +34,7 @@ export class LoginPage {
   onLogin() {
     this.request.loginService(this.login).subscribe(res => {
       if(res[0] != null) {
-        this.userData.storage.set(this.request.storageKey, this.login.username)
-        this.userData.storage.set(this.request.storageKeyUserId, res[0].userid)
+        this.request.storeTheCurrentUserToStorage(res[0].userid)
         this.router.navigate(['/app/tabs/schedule'])
       }else {
         this.presentAlert()
