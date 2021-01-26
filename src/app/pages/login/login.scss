@@ -1,3 +1,8 @@
+ion-button.btnLogin{
+    background-color: #23c962;
+    border-radius: 100%;
+}
+
 .login-logo {
     padding: 20px 0;
     min-height: 200px;
@@ -11,16 +16,20 @@
 .list {
     margin-bottom: 0;
 }
-.icon{
-  background-color: rgb(179, 174, 174, 0.1);
-  padding: 5px;
-  font: 30px;
+
+.iconLogin{
+//   background-color: rgb(179, 174, 174, .8);
+//   padding: 5px; 
+  font: 50px;
+  color:#23c962;
 }
 
 ion-card {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 20%;
+    padding: 20px;
 }
 
 .card {
@@ -33,6 +42,15 @@ ion-item {
     margin-top: 5%;
 }
 
+:root {
+  --ion-color-secondary: #23c962;
+  --ion-color-secondary-rgb: 0,102,0;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255,255,255;
+  --ion-color-secondary-shade: #005a00;
+  --ion-color-secondary-tint: #1a751a;
+}
+
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   .card {
@@ -40,8 +58,9 @@ ion-item {
     width: 100%;
   }
   ion-card{
+    margin-top: 10%;
     padding-top: 20%;
-    padding-bottom: 20%;
-    width: 100%;
+    padding: 10%;
+    width: 85%;
   }
 }
