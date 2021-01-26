@@ -30,7 +30,7 @@ export class AccountPage implements AfterViewInit {
   ngAfterViewInit() {
     // this.getUsername();
     this.request.getTheCurrentUserIdInStorage().then(res => {
-
+      console.log(res)
       this.datasRequest.getTheCurrentUser({userID: res}).subscribe(data => {
         console.log(data)
       })

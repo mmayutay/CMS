@@ -12,6 +12,6 @@ export class DataRequestsService {
   ) { }
 
   getTheCurrentUser(userId) {
-    return this.request.post(this.url + "getCurrentUser", userId);
+    return this.request.post(this.url + "info", userId);
   }
 }
