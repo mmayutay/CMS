@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import {RequestsService} from '../../services/requests.service'
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-ministries',
@@ -8,17 +7,14 @@ import {RequestsService} from '../../services/requests.service'
   styleUrls: ['./ministries.page.scss'],
 })
 export class MinistriesPage implements OnInit {
-  
+  public type = ''
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private activeRoute: ActivatedRoute
+    ) { }
 
   ngOnInit() {
+    this.type = this.activeRoute.snapshot.paramMap.get('type')
   }
-
-
-  // ministryFunction() {
-  //   this.router.navigateByUrl('ministries')
-  //   console.log("Ministry");
-    
-  // }
 }

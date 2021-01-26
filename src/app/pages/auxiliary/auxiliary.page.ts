@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'pages-auxiliary',
@@ -7,11 +7,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./auxiliary.page.scss'],
 })
 export class AuxiliaryPage implements OnInit {
+  public type = '';
 
-  constructor(private router: Router) { }
+  constructor(
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    
+    this.type = this.activatedRoute.snapshot.paramMap.get('type');
   }
 
   // auxiliaryFunction() {
