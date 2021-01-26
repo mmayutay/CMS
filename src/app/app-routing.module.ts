@@ -31,7 +31,16 @@ const routes: Routes = [
   {
     path: 'tutorial',
     loadChildren: () => import('./pages/tutorial/tutorial.module').then(m => m.TutorialModule)
+  },
+  {
+    path: 'auxiliary',
+    loadChildren: () => import('./pages/auxiliary/auxiliary.module').then( m => m.AuxiliaryPageModule)
+  },
+  {
+    path: 'ministries',
+    loadChildren: () => import('./pages/ministries/ministries.module').then( m => m.MinistriesPageModule)
   }
+
 ];
 
 @NgModule({

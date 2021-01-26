@@ -16,31 +16,27 @@
         <div>
             <ion-tabs>
                 <ion-tab-bar slot="bottom">
-                    <!-- <ion-tab-button>
+
+                    <ion-tab-button>
                         <ion-icon name="person"></ion-icon>
                         <ion-label>AUXILIARY</ion-label>
-                        <ion-select placeholder="View Auxiliary" >
+                        <ion-select placeholder="View Auxiliary" [(ngModel)]="auxliary" (ionChange)="optAuxiliary()">
                             <ion-select-option value="kids">Blessed Kids</ion-select-option>
                             <ion-select-option value="youth">Blessed Youth(13-21)</ion-select-option>
                             <ion-select-option value="single">Blessed Singles(Singles 22 up)</ion-select-option>
                             <ion-select-option value="marriedMen">Blessed Men(Married men)</ion-select-option>
                             <ion-select-option value="marriedWomen">Blessed Women(Married women)</ion-select-option>
                         </ion-select>
-                    </ion-tab-button> -->
-
-                    <ion-tab-button>
-                        <ion-icon name="person"></ion-icon>
-                        <ion-label>AUXILIARY</ion-label>
-                        <ion-select placeholder="View Auxiliary" (ionChange)="optAuxiliary(value)">
-                            <ion-select-option *ngFor="let value of auxiliary"> {{value}} </ion-select-option>
-                        </ion-select>
                     </ion-tab-button>
 
                     <ion-tab-button>
                         <ion-icon name="person"></ion-icon>
                         <ion-label>MINISTRIES</ion-label>
-                        <ion-select ng-model="ministries" (ionChange)="addNewUser()" placeholder="View Ministry" okText="Okay" cancelText="Dismiss">
-                            <ion-select-option *ngFor="let ministry of ministries">{{ministry}}</ion-select-option>
+                        <ion-select [(ngModel)]="ministries" (ionChange)="optMinistry()" placeholder="View Ministry">
+                            <ion-select-option value="praise">Praise & Worship</ion-select-option>
+                            <ion-select-option value="multimedia">Multimedia</ion-select-option>
+                            <ion-select-option value="hospitality">Hospitality</ion-select-option>
+                            <ion-select-option value="blessedkids">Blessed Kidz</ion-select-option>
                         </ion-select>
                     </ion-tab-button>
 
@@ -57,13 +53,16 @@
     <div class="container">
         <div class="column">
             <p>Name: {{username}}</p>
-            <p>Gmail</p>
-            <p>Gender</p>
-            <!-- </div>
-        <div class="column"> -->
-            <p>Phone</p>
-            <p>Birthdate</p>
-            <p>Address</p>
+            <!-- dapat lastname ni ug firstname ang e display -->
+            <p>Birthday: </p>
+            <p>Age: </p>
+            <p>Address: </p>
+            <p>Marital Status: </p>
+            <p>Email: </p>
+            <p>Contact Number: </p>
+            <p>Facebook: </p>
+            <p>Instagram: </p>
+            <p>Twitter: </p>
         </div>
     </div>
 </ion-content>

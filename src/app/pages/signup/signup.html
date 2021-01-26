@@ -1,86 +1,85 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-toolbar>
+        <!-- <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Create Another User</ion-title>
-  </ion-toolbar>
+    </ion-buttons> -->
+        <ion-icon name="arrow-back" [routerLink]="['/account']"></ion-icon>
+        <ion-title>Create Another User</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-content>
-      <form #signupForm="ngForm" novalidate>
-        <ion-list lines="none">
-          <ion-item>
-            <ion-label position="stacked" color="primary">Lastname</ion-label>
-            <ion-input [(ngModel)]="signup.newUser.Lastname" name="Lastname" type="text" #lastname="ngModel" required>
-            </ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked" color="primary">Firstname</ion-label>
-            <ion-input [(ngModel)]="signup.newUser.Firstname" name="Firstname" type="text" #firstname="ngModel" required>
-            </ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked" color="primary">Birthday</ion-label>
-            <ion-input [(ngModel)]="signup.newUser.Birthday" name="Birthday" type="text" #birthday="ngModel" required>
-            </ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked" color="primary">Age</ion-label>
-            <ion-input [(ngModel)]="signup.newUser.Age" name="Age" type="number" #age="ngModel" required>
-            </ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked" color="primary">Address</ion-label>
-            <ion-input [(ngModel)]="signup.newUser.Address" name="Address" type="text" #address="ngModel" required>
-            </ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked" color="primary">Marital Status</ion-label>
-            <ion-input [(ngModel)]="signup.newUser.Marital_status" name="Marital_status" type="text" #maritalstatus="ngModel"
-              required>
-            </ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked" color="primary">Email</ion-label>
-            <ion-input [(ngModel)]="signup.newUser.Email" name="Email" type="text" #email="ngModel" required>
-            </ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked" color="primary">Contact Number</ion-label>
-            <ion-input [(ngModel)]="signup.newUser.Contact_number" name="Contact_number" type="text" #contactnumber="ngModel"
-              required>
-            </ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked" color="primary">Facebook</ion-label>
-            <ion-input [(ngModel)]="signup.newUser.Facebook" name="Facebook" type="text" #facebook="ngModel" required>
-            </ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked" color="primary">Instagram</ion-label>
-            <ion-input [(ngModel)]="signup.newUser.Instagram" name="Instagram" type="text" #instagram="ngModel" required>
-            </ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked" color="primary">Twitter</ion-label>
-            <ion-input [(ngModel)]="signup.newUser.Twitter" name="Twitter" type="text" #twitter="ngModel" required>
-            </ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked" color="primary">Category</ion-label>
-            <ion-input [(ngModel)]="signup.newUser.Category" name="Category" type="text" #category="ngModel" required>
-            </ion-input>
-          </ion-item>
-        </ion-list>
+    <ion-card>
+        <ion-card-content>
+            <form #signupForm="ngForm" novalidate>
+                <ion-list lines="none">
+                    <ion-item>
+                        <ion-label position="stacked" color="primary">Lastname</ion-label>
+                        <ion-input [(ngModel)]="signup.newUser.Lastname" name="Lastname" type="text" #lastname="ngModel" required>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked" color="primary">Firstname</ion-label>
+                        <ion-input [(ngModel)]="signup.newUser.Firstname" name="Firstname" type="text" #firstname="ngModel" required>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked" color="primary">Birthday</ion-label>
+                        <ion-input [(ngModel)]="signup.newUser.Birthday" name="Birthday" type="text" #birthday="ngModel" required>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked" color="primary">Age</ion-label>
+                        <ion-input [(ngModel)]="signup.newUser.Age" name="Age" type="number" #age="ngModel" required>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked" color="primary">Address</ion-label>
+                        <ion-input [(ngModel)]="signup.newUser.Address" name="Address" type="text" #address="ngModel" required>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked" color="primary">Marital Status</ion-label>
+                        <ion-input [(ngModel)]="signup.newUser.Marital_status" name="Marital_status" type="text" #maritalstatus="ngModel" required>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked" color="primary">Email</ion-label>
+                        <ion-input [(ngModel)]="signup.newUser.Email" name="Email" type="text" #email="ngModel" required>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked" color="primary">Contact Number</ion-label>
+                        <ion-input [(ngModel)]="signup.newUser.Contact_number" name="Contact_number" type="text" #contactnumber="ngModel" required>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked" color="primary">Facebook</ion-label>
+                        <ion-input [(ngModel)]="signup.newUser.Facebook" name="Facebook" type="text" #facebook="ngModel" required>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked" color="primary">Instagram</ion-label>
+                        <ion-input [(ngModel)]="signup.newUser.Instagram" name="Instagram" type="text" #instagram="ngModel" required>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked" color="primary">Twitter</ion-label>
+                        <ion-input [(ngModel)]="signup.newUser.Twitter" name="Twitter" type="text" #twitter="ngModel" required>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked" color="primary">Category</ion-label>
+                        <ion-input [(ngModel)]="signup.newUser.Category" name="Category" type="text" #category="ngModel" required>
+                        </ion-input>
+                    </ion-item>
+                </ion-list>
 
-        <div class="ion-padding">
-          <ion-button (click)="onSignup(signupForm)" [disabled]="signupForm.invalid" type="submit" expand="block">Create</ion-button>
-        </div>
-      </form>
-    </ion-card-content>
-  </ion-card>
+                <div class="ion-padding">
+                    <ion-button (click)="onSignup(signupForm)" [disabled]="signupForm.invalid" type="submit" expand="block">Create</ion-button>
+                </div>
+            </form>
+        </ion-card-content>
+    </ion-card>
 
 </ion-content>

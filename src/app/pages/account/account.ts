@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 import { UserData } from '../../providers/user-data';
+import { MinistriesPage } from '../ministries/ministries.page';
+import { AuxiliaryPage } from '../auxiliary/auxiliary.page';
 
 
 @Component({
@@ -12,28 +14,19 @@ import { UserData } from '../../providers/user-data';
 })
 export class AccountPage implements AfterViewInit {
   public username = "any";
+  // username;
   public userDetails = "any";
   public partialData = ""
-  public auxiliary = [
-    "Blessed Kids",
-    "Blessed Youth(13-21)",
-    "Blessed Singles(Singles 22 up)",
-    "Blessed Men(Married Men)",
-    "Blessed Women(Married Women)"
-  ];
-  public ministries = [
-    "Blessed Kids",
-    "Blessed Youth",
-    "Blessed Singles",
-    "Blessed Married Men",
-    "Blessed Married Women"
-  ];
+  public auxliary = "any";
+  public ministries = "any";
 
 
   constructor(
     public alertCtrl: AlertController,
     public router: Router,
-    public userData: UserData
+    public userData: UserData,
+    public ministry: MinistriesPage,
+    public auxiliary: AuxiliaryPage
   ) { }
 
   ngInIt() {
@@ -98,11 +91,15 @@ export class AccountPage implements AfterViewInit {
     this.router.navigateByUrl('/create-new-user')
   }
 
-  optAuxiliary(data) {
-    console.log(data);
+  optAuxiliary( ) {
+    this.router.navigateByUrl('/auxiliary')
+    // this.auxiliary.auxiliaryFunction();
   }
 
   optMinistry(){
+    this.router.navigateByUrl('/ministries')
+    // this.ministry.ministryFunction();
+    console.log();
 
   }
 }
