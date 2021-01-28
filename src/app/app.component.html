@@ -5,6 +5,20 @@
       <ion-content>
         <ion-list lines="none">
           <ion-list-header>
+            BHCF
+          </ion-list-header>
+          <ion-menu-toggle autoHide="false">
+              <ion-item routerLink="/dashboard" routerLinkActive="selected" routerDirection="root" detail="false">
+                <ion-icon slot="start" name="bar-chart-outline"></ion-icon>
+                <ion-label>
+                  Dashboard
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+        </ion-list>
+
+        <ion-list lines="none">
+          <ion-list-header>
             Conference
           </ion-list-header>
           <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">
@@ -14,7 +28,6 @@
                 {{p.title}}
               </ion-label>
             </ion-item>
-
           </ion-menu-toggle>
         </ion-list>
 
