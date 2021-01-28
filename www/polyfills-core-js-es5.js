@@ -57,7 +57,7 @@
           return e;
         }, n.n = function (t) {
           var r = t && t.__esModule ? function () {
-            return t.default;
+            return t["default"];
           } : function () {
             return t;
           };
@@ -1328,7 +1328,7 @@
           try {
             return o ? r(e(n)[0], n[1]) : r(n);
           } catch (r) {
-            var i = t.return;
+            var i = t["return"];
             throw void 0 !== i && e(i.call(t)), r;
           }
         };
@@ -1353,7 +1353,7 @@
                 done: !!i++
               };
             },
-            return: function _return() {
+            "return": function _return() {
               o = !0;
             }
           };
@@ -1535,7 +1535,7 @@
 
                 t.first = t.last = void 0, l ? t.size = 0 : this.size = 0;
               },
-              delete: function _delete(t) {
+              "delete": function _delete(t) {
                 var r = p(this),
                     n = y(this, t);
 
@@ -1767,7 +1767,7 @@
             var n = m(this, t);
             n ? n[1] = r : this.entries.push([t, r]);
           },
-          delete: function _delete(t) {
+          "delete": function _delete(t) {
             var r = g(this.entries, function (r) {
               return r[0] === t;
             });
@@ -1790,11 +1790,11 @@
             };
 
             return e(l.prototype, {
-              delete: function _delete(t) {
+              "delete": function _delete(t) {
                 var r = v(this);
                 if (!u(t)) return !1;
                 var n = o(t);
-                return !0 === n ? y(r).delete(t) : n && f(n, r.id) && delete n[r.id];
+                return !0 === n ? y(r)["delete"](t) : n && f(n, r.id) && delete n[r.id];
               },
               has: function has(t) {
                 var r = v(this);
@@ -1966,7 +1966,7 @@
               value: r + ""
             }), n.updateURL();
           },
-          delete: function _delete(t) {
+          "delete": function _delete(t) {
             _(arguments.length, 1);
 
             for (var r = m(this), n = r.entries, e = t + "", o = 0; o < n.length;) {
@@ -3961,15 +3961,15 @@
         if (l && h) {
           e = c.getConstructor(v, "WeakMap", !0), u.REQUIRED = !0;
           var d = g.prototype,
-              y = d.delete,
+              y = d["delete"],
               x = d.has,
               m = d.get,
               b = d.set;
           i(d, {
-            delete: function _delete(t) {
+            "delete": function _delete(t) {
               if (s(t) && !p(t)) {
                 var r = f(this);
-                return r.frozen || (r.frozen = new e()), y.call(this, t) || r.frozen.delete(t);
+                return r.frozen || (r.frozen = new e()), y.call(this, t) || r.frozen["delete"](t);
               }
 
               return y.call(this, t);
@@ -5007,7 +5007,7 @@
         t = n(t), e = i(e);
         var r = this.map[t];
         this.map[t] = r ? r + ", " + e : e;
-      }, a.prototype.delete = function (t) {
+      }, a.prototype["delete"] = function (t) {
         delete this.map[n(t)];
       }, a.prototype.get = function (t) {
         return t = n(t), this.has(t) ? this.map[t] : null;

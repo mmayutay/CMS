@@ -49,9 +49,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var tabCss = ":host(.tab-hidden){display:none !important}";
 
-    var Tab =
-    /*#__PURE__*/
-    function () {
+    var Tab = /*#__PURE__*/function () {
       function Tab(hostRef) {
         _classCallCheck(this, Tab);
 
@@ -65,9 +63,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(Tab, [{
         key: "componentWillLoad",
         value: function () {
-          var _componentWillLoad = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee() {
+          var _componentWillLoad = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
@@ -99,9 +95,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setActive",
         value: function () {
-          var _setActive = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee2() {
+          var _setActive = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
             return regeneratorRuntime.wrap(function _callee2$(_context2) {
               while (1) {
                 switch (_context2.prev = _context2.next) {
@@ -158,7 +152,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             role: "tabpanel",
             "aria-hidden": !active ? 'true' : null,
             "aria-labelledby": "tab-button-".concat(tab),
-            class: {
+            "class": {
               'ion-page': component === undefined,
               'tab-hidden': !active
             }
@@ -184,9 +178,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     Tab.style = tabCss;
     var tabsCss = ":host{left:0;right:0;top:0;bottom:0;display:-ms-flexbox;display:flex;position:absolute;-ms-flex-direction:column;flex-direction:column;width:100%;height:100%;contain:layout size style;z-index:0}.tabs-inner{position:relative;-ms-flex:1;flex:1;contain:layout size style}";
 
-    var Tabs =
-    /*#__PURE__*/
-    function () {
+    var Tabs = /*#__PURE__*/function () {
       function Tabs(hostRef) {
         var _this = this;
 
@@ -222,9 +214,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(Tabs, [{
         key: "componentWillLoad",
         value: function () {
-          var _componentWillLoad2 = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee3() {
+          var _componentWillLoad2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
             var tabs;
             return regeneratorRuntime.wrap(function _callee3$(_context3) {
               while (1) {
@@ -285,9 +275,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "select",
         value: function () {
-          var _select = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee4(tab) {
+          var _select = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(tab) {
             var selectedTab;
             return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
@@ -337,9 +325,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getTab",
         value: function () {
-          var _getTab2 = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee5(tab) {
+          var _getTab2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(tab) {
             return regeneratorRuntime.wrap(function _callee5$(_context5) {
               while (1) {
                 switch (_context5.prev = _context5.next) {
@@ -374,9 +360,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "setRouteId",
         value: function () {
-          var _setRouteId = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee6(id) {
+          var _setRouteId = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(id) {
             var _this2 = this;
 
             var selectedTab;
@@ -428,9 +412,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getRouteId",
         value: function () {
-          var _getRouteId = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee7() {
+          var _getRouteId = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
             var tabId;
             return regeneratorRuntime.wrap(function _callee7$(_context7) {
               while (1) {
@@ -521,7 +503,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           }, Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", {
             name: "top"
           }), Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
-            class: "tabs-inner"
+            "class": "tabs-inner"
           }, Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null)), Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", {
             name: "bottom"
           }));

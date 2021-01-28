@@ -386,7 +386,7 @@
           var o = e.createElement("style");
           o.setAttribute("data-styles", ""), o.textContent = s, addGlobalStyle(t, o), r.parentNode.insertBefore(o, r), r.remove();
         }
-      }).catch(function (e) {
+      })["catch"](function (e) {
         console.error(e);
       });
     }
@@ -439,7 +439,7 @@
         return o.setAttribute("data-no-shim", ""), s.usesCssVars ? n ? (o["s-sc"] = t = s.scopeId + "-" + this.count, o.textContent = "/*needs update*/", this.hostStyleMap.set(e, o), this.hostScopeMap.set(e, reScope(s, t)), this.count++) : (s.styleEl = o, s.usesCssVars || (o.textContent = executeTemplate(s.template, {})), this.globalScopes.push(s), this.updateGlobal(), this.hostScopeMap.set(e, s)) : o.textContent = r, o;
       }, e.prototype.removeHost = function (e) {
         var t = this.hostStyleMap.get(e);
-        t && t.remove(), this.hostStyleMap.delete(e), this.hostScopeMap.delete(e);
+        t && t.remove(), this.hostStyleMap["delete"](e), this.hostScopeMap["delete"](e);
       }, e.prototype.updateHost = function (e) {
         var t = this.hostScopeMap.get(e);
 

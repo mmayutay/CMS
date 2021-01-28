@@ -1,3 +1,9 @@
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -75,9 +81,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var VIEW_STATE_ATTACHED = 2;
     var VIEW_STATE_DESTROYED = 3;
 
-    var ViewController =
-    /*#__PURE__*/
-    function () {
+    var ViewController = /*#__PURE__*/function () {
       function ViewController(component, params) {
         _classCallCheck(this, ViewController);
 
@@ -89,9 +93,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       _createClass(ViewController, [{
         key: "init",
         value: function () {
-          var _init = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee(container) {
+          var _init = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(container) {
             var component;
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
@@ -223,9 +225,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var navCss = ":host{left:0;right:0;top:0;bottom:0;position:absolute;contain:layout size style;overflow:hidden;z-index:0}";
 
-    var Nav =
-    /*#__PURE__*/
-    function () {
+    var Nav = /*#__PURE__*/function () {
       function Nav(hostRef) {
         _classCallCheck(this, Nav);
 
@@ -277,9 +277,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "componentDidLoad",
         value: function () {
-          var _componentDidLoad = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee2() {
+          var _componentDidLoad = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
             return regeneratorRuntime.wrap(function _callee2$(_context2) {
               while (1) {
                 switch (_context2.prev = _context2.next) {
@@ -293,15 +291,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     "./node_modules/@ionic/core/dist/esm/swipe-back-7b4b8b66.js"));
 
                   case 3:
-                    _context2.t0 = this.el;
-                    _context2.t1 = this.canStart.bind(this);
-                    _context2.t2 = this.onStart.bind(this);
-                    _context2.t3 = this.onMove.bind(this);
-                    _context2.t4 = this.onEnd.bind(this);
-                    this.gesture = _context2.sent.createSwipeBackGesture(_context2.t0, _context2.t1, _context2.t2, _context2.t3, _context2.t4);
+                    this.gesture = _context2.sent.createSwipeBackGesture(this.el, this.canStart.bind(this), this.onStart.bind(this), this.onMove.bind(this), this.onEnd.bind(this));
                     this.swipeGestureChanged();
 
-                  case 10:
+                  case 5:
                   case "end":
                     return _context2.stop();
                 }
@@ -318,30 +311,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "componentDidUnload",
         value: function componentDidUnload() {
-          var _iteratorNormalCompletion = true;
-          var _didIteratorError = false;
-          var _iteratorError = undefined;
+          var _iterator = _createForOfIteratorHelper(this.views),
+              _step;
 
           try {
-            for (var _iterator = this.views[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var view = _step.value;
               Object(_index_b60886e1_js__WEBPACK_IMPORTED_MODULE_3__["l"])(view.element, _index_b60886e1_js__WEBPACK_IMPORTED_MODULE_3__["d"]);
 
               view._destroy();
             }
           } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
+            _iterator.e(err);
           } finally {
-            try {
-              if (!_iteratorNormalCompletion && _iterator.return != null) {
-                _iterator.return();
-              }
-            } finally {
-              if (_didIteratorError) {
-                throw _iteratorError;
-              }
-            }
+            _iterator.f();
           }
 
           if (this.gesture) {
@@ -577,9 +560,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                 changed: true,
                 element: enteringEl,
                 markVisible: function () {
-                  var _markVisible = _asyncToGenerator(
-                  /*#__PURE__*/
-                  regeneratorRuntime.mark(function _callee3() {
+                  var _markVisible = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
                     return regeneratorRuntime.wrap(function _callee3$(_context3) {
                       while (1) {
                         switch (_context3.prev = _context3.next) {
@@ -635,9 +616,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "getRouteId",
         value: function () {
-          var _getRouteId = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee4() {
+          var _getRouteId = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
             var active;
             return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
@@ -839,9 +818,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "runTransition",
         value: function () {
-          var _runTransition = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee5(ti) {
+          var _runTransition = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(ti) {
             var leavingView, enteringView, requiresTransition, result;
             return regeneratorRuntime.wrap(function _callee5$(_context5) {
               while (1) {
@@ -987,12 +964,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           } // Check all the inserted view are correct
 
 
-          var _iteratorNormalCompletion2 = true;
-          var _didIteratorError2 = false;
-          var _iteratorError2 = undefined;
+          var _iterator2 = _createForOfIteratorHelper(viewControllers),
+              _step2;
 
           try {
-            for (var _iterator2 = viewControllers[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
               var view = _step2.value;
               view.delegate = ti.opts.delegate;
               var nav = view.nav;
@@ -1006,18 +982,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               }
             }
           } catch (err) {
-            _didIteratorError2 = true;
-            _iteratorError2 = err;
+            _iterator2.e(err);
           } finally {
-            try {
-              if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-                _iterator2.return();
-              }
-            } finally {
-              if (_didIteratorError2) {
-                throw _iteratorError2;
-              }
-            }
+            _iterator2.f();
           }
 
           ti.insertViews = viewControllers;
@@ -1092,29 +1059,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           if (insertViews) {
             // add the views to the
             var insertIndex = ti.insertStart;
-            var _iteratorNormalCompletion3 = true;
-            var _didIteratorError3 = false;
-            var _iteratorError3 = undefined;
+
+            var _iterator3 = _createForOfIteratorHelper(insertViews),
+                _step3;
 
             try {
-              for (var _iterator3 = insertViews[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+              for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
                 var _view = _step3.value;
                 this.insertViewAt(_view, insertIndex);
                 insertIndex++;
               }
             } catch (err) {
-              _didIteratorError3 = true;
-              _iteratorError3 = err;
+              _iterator3.e(err);
             } finally {
-              try {
-                if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
-                  _iterator3.return();
-                }
-              } finally {
-                if (_didIteratorError3) {
-                  throw _iteratorError3;
-                }
-              }
+              _iterator3.f();
             }
 
             if (ti.enteringRequiresTransition) {
@@ -1129,12 +1087,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
           if (destroyQueue && destroyQueue.length > 0) {
-            var _iteratorNormalCompletion4 = true;
-            var _didIteratorError4 = false;
-            var _iteratorError4 = undefined;
+            var _iterator4 = _createForOfIteratorHelper(destroyQueue),
+                _step4;
 
             try {
-              for (var _iterator4 = destroyQueue[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+              for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
                 var _view2 = _step4.value;
                 Object(_index_b60886e1_js__WEBPACK_IMPORTED_MODULE_3__["l"])(_view2.element, _index_b60886e1_js__WEBPACK_IMPORTED_MODULE_3__["b"]);
                 Object(_index_b60886e1_js__WEBPACK_IMPORTED_MODULE_3__["l"])(_view2.element, _index_b60886e1_js__WEBPACK_IMPORTED_MODULE_3__["c"]);
@@ -1142,54 +1099,33 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               } // once all lifecycle events has been delivered, we can safely detroy the views
 
             } catch (err) {
-              _didIteratorError4 = true;
-              _iteratorError4 = err;
+              _iterator4.e(err);
             } finally {
-              try {
-                if (!_iteratorNormalCompletion4 && _iterator4.return != null) {
-                  _iterator4.return();
-                }
-              } finally {
-                if (_didIteratorError4) {
-                  throw _iteratorError4;
-                }
-              }
+              _iterator4.f();
             }
 
-            var _iteratorNormalCompletion5 = true;
-            var _didIteratorError5 = false;
-            var _iteratorError5 = undefined;
+            var _iterator5 = _createForOfIteratorHelper(destroyQueue),
+                _step5;
 
             try {
-              for (var _iterator5 = destroyQueue[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+              for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
                 var _view3 = _step5.value;
                 this.destroyView(_view3);
               }
             } catch (err) {
-              _didIteratorError5 = true;
-              _iteratorError5 = err;
+              _iterator5.e(err);
             } finally {
-              try {
-                if (!_iteratorNormalCompletion5 && _iterator5.return != null) {
-                  _iterator5.return();
-                }
-              } finally {
-                if (_didIteratorError5) {
-                  throw _iteratorError5;
-                }
-              }
+              _iterator5.f();
             }
           }
         }
       }, {
         key: "transition",
         value: function () {
-          var _transition = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee6(enteringView, leavingView, ti) {
+          var _transition = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(enteringView, leavingView, ti) {
             var _this = this;
 
-            var opts, progressCallback, mode, enteringEl, leavingEl, animationOpts, _ref, hasCompleted;
+            var opts, progressCallback, mode, enteringEl, leavingEl, animationOpts, _yield$Object, hasCompleted;
 
             return regeneratorRuntime.wrap(function _callee6$(_context6) {
               while (1) {
@@ -1218,8 +1154,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                     return Object(_index_b60886e1_js__WEBPACK_IMPORTED_MODULE_3__["t"])(animationOpts);
 
                   case 8:
-                    _ref = _context6.sent;
-                    hasCompleted = _ref.hasCompleted;
+                    _yield$Object = _context6.sent;
+                    hasCompleted = _yield$Object.hasCompleted;
                     return _context6.abrupt("return", this.transitionFinish(hasCompleted, enteringView, leavingView, opts));
 
                   case 11:
@@ -1433,9 +1369,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       return Promise.resolve(false);
     };
 
-    var NavLink =
-    /*#__PURE__*/
-    function () {
+    var NavLink = /*#__PURE__*/function () {
       function NavLink(hostRef) {
         var _this3 = this;
 

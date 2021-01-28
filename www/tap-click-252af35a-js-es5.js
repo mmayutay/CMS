@@ -121,7 +121,7 @@
 
           if (deferId) {
             clearTimeout(deferId);
-            clearDefers.delete(el);
+            clearDefers["delete"](el);
           }
 
           var delay = isInstant(el) ? 0 : ADD_ACTIVATED_DEFERS;
@@ -168,7 +168,7 @@
         if (smooth && time > 0 && !isInstant(active)) {
           var deferId = setTimeout(function () {
             active.classList.remove(ACTIVATED);
-            clearDefers.delete(active);
+            clearDefers["delete"](active);
           }, CLEAR_STATE_DEFERS);
           clearDefers.set(active, deferId);
         } else {

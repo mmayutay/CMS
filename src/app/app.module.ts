@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { MinistriesPage } from './pages/ministries/ministries.page';
 import {AccountPage} from './pages/account/account';
 import { AuxiliaryPage } from './pages/auxiliary/auxiliary.page';
+import { ModalPagePage } from './pages/modal-page/modal-page.page';
 
 @NgModule({
   imports: [
@@ -32,7 +33,11 @@ import { AuxiliaryPage } from './pages/auxiliary/auxiliary.page';
   providers: [InAppBrowser, SplashScreen, StatusBar, 
     MinistriesPage,
     AuxiliaryPage,
-    AccountPage,],
+    AccountPage,
+    ModalPagePage
+  ],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule {}

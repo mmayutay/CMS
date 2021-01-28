@@ -76,7 +76,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var clone = cloneMap.get(componentEl);
 
       if (clone) {
-        cloneMap.delete(componentEl);
+        cloneMap["delete"](componentEl);
         clone.remove();
       }
 
@@ -251,12 +251,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
     };
 
-    var jsSetFocus =
-    /*#__PURE__*/
-    function () {
-      var _ref = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2(componentEl, inputEl, contentEl, footerEl, keyboardHeight) {
+    var jsSetFocus = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(componentEl, inputEl, contentEl, footerEl, keyboardHeight) {
         var scrollData, scrollContentTimeout, scrollContent, scrollEl, totalScrollAmount;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
@@ -295,12 +291,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   break;
                 }
 
-                scrollContent =
-                /*#__PURE__*/
-                function () {
-                  var _ref2 = _asyncToGenerator(
-                  /*#__PURE__*/
-                  regeneratorRuntime.mark(function _callee() {
+                scrollContent = /*#__PURE__*/function () {
+                  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
                     return regeneratorRuntime.wrap(function _callee$(_context) {
                       while (1) {
                         switch (_context.prev = _context.next) {
@@ -477,12 +469,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var hideCaretMap = new WeakMap();
       var scrollAssistMap = new WeakMap();
 
-      var registerInput =
-      /*#__PURE__*/
-      function () {
-        var _ref3 = _asyncToGenerator(
-        /*#__PURE__*/
-        regeneratorRuntime.mark(function _callee3(componentEl) {
+      var registerInput = /*#__PURE__*/function () {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(componentEl) {
           var inputRoot, inputEl, scrollEl, footerEl, rmFn, _rmFn;
 
           return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -542,7 +530,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             fn();
           }
 
-          hideCaretMap.delete(componentEl);
+          hideCaretMap["delete"](componentEl);
         }
 
         if (scrollAssist) {
@@ -552,7 +540,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             _fn();
           }
 
-          scrollAssistMap.delete(componentEl);
+          scrollAssistMap["delete"](componentEl);
         }
       };
 
