@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserData } from '../providers/user-data'
-import { userInfo } from 'os';
+// import { userInfo } from 'os';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestsService {
   public storageKey = 'current-logged'
+  public storageUserRole = 'user-role'
   public storageKeyUserId = 'user-id'
   public boolean = true
   public userDataLength;
@@ -38,10 +39,11 @@ export class RequestsService {
   }
 
   updateInfo(userDetails){
-    return this.http.post(this.url + 'userProfile', userDetails)
+    return this.http.post(this.url + 'updateUser', userDetails)
   }
 
-  storeTheCurrentUserToStorage(loggedID) {
+  storeTheCurrentUserToStorage(loggedID, loggedRole) {
+    this.userdata.storage.set(this.storageUserRole, loggedRole)
     this.userdata.storage.set(this.storageKeyUserId, loggedID)
   }
 }

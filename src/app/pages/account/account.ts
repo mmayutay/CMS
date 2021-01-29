@@ -16,6 +16,7 @@ import { UserData } from '../../providers/user-data';
 export class AccountPage implements AfterViewInit { 
   public currentUser;
   public username;
+  public role = ""
   // username;
   public userDetails = "any";
   public partialData = ""
@@ -35,9 +36,11 @@ export class AccountPage implements AfterViewInit {
   ) { }
 
   ngAfterViewInit() {
+    this.userData.storage.get(this.request.storageUserRole).then(res => {
+      this.role = res
+    })
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.datasRequest.getTheCurrentUser({userID: res}).subscribe(data => {
-        console.log(this.holder)
         this.holder = data[0]
       })
     })
