@@ -357,4 +357,3 @@ const openURL = async (url, ev, direction) => {
 /***/ })
 
 }]);
-//# sourceMappingURL=common-es2015.js.map

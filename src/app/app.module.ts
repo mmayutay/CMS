@@ -12,6 +12,9 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
+import { MinistriesPage } from './pages/ministries/ministries.page';
+import {AccountPage} from './pages/account/account';
+import { AuxiliaryPage } from './pages/auxiliary/auxiliary.page';
 
 @NgModule({
   imports: [
@@ -26,7 +29,10 @@ import { FormsModule } from '@angular/forms';
     })
   ],
   declarations: [AppComponent],
-  providers: [InAppBrowser, SplashScreen, StatusBar],
+  providers: [InAppBrowser, SplashScreen, StatusBar, 
+    MinistriesPage,
+    AuxiliaryPage,
+    AccountPage,],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

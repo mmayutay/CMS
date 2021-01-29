@@ -1,9 +1,10 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { RequestsService } from '../../logInAndSignupService/requests.service'
+import { DataRequestsService } from '../../request-to-BE/data-requests.service'
 
 import { UserData } from '../../providers/user-data';
-
 
 @Component({
   selector: 'page-account',
@@ -11,22 +12,31 @@ import { UserData } from '../../providers/user-data';
   styleUrls: ['./account.scss'],
 })
 export class AccountPage implements AfterViewInit {
-  public username = "any";
+  public currentUser;
+  public username;
+  // username;
+  public userDetails = "any";
   public partialData = ""
-  public auxiliary = ["Blessed Kids", "Blessed Youth", "Blessed Singles", "Blessed Married Men", "Blessed Married Women"];
+  public auxliary = "any";
+  public ministries = "any";
+  public holder=[];
 
 
   constructor(
     public alertCtrl: AlertController,
     public router: Router,
-    public userData: UserData
+    public userData: UserData,
+    public request: RequestsService,
+    public datasRequest: DataRequestsService
   ) { }
 
-  ngInIt(){
-
-  }
   ngAfterViewInit() {
-    // this.getUsername();
+    this.request.getTheCurrentUserIdInStorage().then(res => {
+      this.datasRequest.getTheCurrentUser({userID: res}).subscribe(data => {
+        this.holder = data[0]
+        console.log(this.holder)
+      })
+    })
   }
 
   updatePicture() {
@@ -67,10 +77,6 @@ export class AccountPage implements AfterViewInit {
     });
   }
 
-  changePassword() {
-    console.log('Clicked to change password');
-  }
-
   logout() {
     this.userData.logout();
     this.router.navigateByUrl('/login');
@@ -84,7 +90,13 @@ export class AccountPage implements AfterViewInit {
     this.router.navigateByUrl('/create-new-user')
   }
 
-  optAuxiliary(data){
-    console.log(data);
+  optAuxiliary( ) {
+    this.router.navigateByUrl('/auxiliary/'+this.auxliary)
+  }
+
+  optMinistry(){
+    this.router.navigateByUrl('/ministries/'+this.ministries)
+    console.log();
+
   }
 }

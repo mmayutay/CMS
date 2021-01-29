@@ -82,4 +82,3 @@ ProgressBar.style = {
 /***/ })
 
 }]);
-//# sourceMappingURL=43-es2015.js.map

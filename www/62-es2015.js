@@ -435,4 +435,3 @@ Slides.style = {
 /***/ })
 
 }]);
-//# sourceMappingURL=62-es2015.js.map

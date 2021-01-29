@@ -250,4 +250,3 @@ InfiniteScrollContent.style = {
 /***/ })
 
 }]);
-//# sourceMappingURL=26-es2015.js.map

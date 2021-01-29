@@ -6259,4 +6259,3 @@ Swiper.use([pagination, scrollbar, autoplay, zoom]);
 /***/ })
 
 }]);
-//# sourceMappingURL=swiper-bundle-f564f87c-js-es2015.js.map

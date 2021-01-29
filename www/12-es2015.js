@@ -299,4 +299,3 @@ Icon.style = iconCss;
 /***/ })
 
 }]);
-//# sourceMappingURL=12-es2015.js.map

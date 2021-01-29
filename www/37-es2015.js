@@ -566,4 +566,3 @@ MenuToggle.style = menuToggleCss;
 /***/ })
 
 }]);
-//# sourceMappingURL=37-es2015.js.map

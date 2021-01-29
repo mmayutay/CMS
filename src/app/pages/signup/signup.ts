@@ -5,7 +5,7 @@ import { UserData } from '../../providers/user-data';
 
 import { UserOptions } from '../../interfaces/user-options';
 
-import { RequestsService } from '../../services/requests.service'
+import { RequestsService } from '../../logInAndSignupService/requests.service'
 
 import { User } from '../../model/user.model';
 

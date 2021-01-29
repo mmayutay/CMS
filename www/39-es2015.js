@@ -509,4 +509,3 @@ Modal.style = {
 /***/ })
 
 }]);
-//# sourceMappingURL=39-es2015.js.map

@@ -36,4 +36,3 @@ Text.style = textCss;
 /***/ })
 
 }]);
-//# sourceMappingURL=69-es2015.js.map

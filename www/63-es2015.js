@@ -75,4 +75,3 @@ Spinner.style = spinnerCss;
 /***/ })
 
 }]);
-//# sourceMappingURL=63-es2015.js.map

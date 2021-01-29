@@ -867,4 +867,3 @@ const NavLink = class {
 /***/ })
 
 }]);
-//# sourceMappingURL=40-es2015.js.map

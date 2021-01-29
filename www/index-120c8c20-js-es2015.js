@@ -180,4 +180,3 @@ const copyLayoutViewport = (win) => {
 /***/ })
 
 }]);
-//# sourceMappingURL=index-120c8c20-js-es2015.js.map

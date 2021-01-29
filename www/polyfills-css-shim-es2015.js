@@ -16,4 +16,3 @@ var StyleNode=function(){this.start=0,this.end=0,this.previous=null,this.parent=
 /***/ })
 
 }]);
-//# sourceMappingURL=polyfills-css-shim-es2015.js.map

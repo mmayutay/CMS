@@ -72,4 +72,3 @@ Thumbnail.style = thumbnailCss;
 /***/ })
 
 }]);
-//# sourceMappingURL=6-es2015.js.map

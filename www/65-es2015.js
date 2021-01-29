@@ -163,4 +163,3 @@ SplitPane.style = {
 /***/ })
 
 }]);
-//# sourceMappingURL=65-es2015.js.map

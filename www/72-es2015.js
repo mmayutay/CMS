@@ -299,4 +299,3 @@ Toast.style = {
 /***/ })
 
 }]);
-//# sourceMappingURL=72-es2015.js.map

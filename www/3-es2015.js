@@ -405,4 +405,3 @@ Alert.style = {
 /***/ })
 
 }]);
-//# sourceMappingURL=3-es2015.js.map
