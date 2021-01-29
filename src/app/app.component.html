@@ -1,7 +1,6 @@
 <ion-app [class.dark-theme]="dark">
     <ion-split-pane contentId="main-content">
 
-<<<<<<< HEAD
     <ion-menu contentId="main-content">
       <ion-content>
         <ion-list lines="none">
@@ -31,24 +30,6 @@
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
-=======
-        <ion-menu contentId="main-content">
-            <ion-content>
-                <ion-list lines="none">
-                    <ion-list-header>
-                        Conference
-                    </ion-list-header>
-                    <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">
-                        <ion-item [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
-                            <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
-                            <ion-label>
-                                {{p.title}}
-                            </ion-label>
-                        </ion-item>
-
-                    </ion-menu-toggle>
-                </ion-list>
->>>>>>> 0c4aed92fcbb8364f3e6ee77c0e273565927689e
 
                 <ion-item>
                     <ion-icon slot="start" name="moon-outline"></ion-icon>

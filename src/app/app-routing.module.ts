@@ -38,8 +38,13 @@ const routes: Routes = [
   },
   {
     path: 'ministries/:type',
-    loadChildren: () => import('./pages/ministries/ministries.module').then(m => m.MinistriesPageModule)
+    loadChildren: () => import('./pages/ministries/ministries.module').then( m => m.MinistriesPageModule)
+  },
+  {
+    path: 'modal-page',
+    loadChildren: () => import('./pages/modal-page/modal-page.module').then( m => m.ModalPagePageModule)
   }
+
 
 ];
 
