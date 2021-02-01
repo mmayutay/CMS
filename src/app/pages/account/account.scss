@@ -5,11 +5,27 @@
     
     .card {
         background-color: #36B92A;
-        border: 1px solid black;
+        // border: 1px solid black;
     }
     
-    .ionCard {
-        border: 1px solid black;
+    ion-select:hover {
+        color: white;
+        background-color: #36B92A;
+    }
+    
+    // .ionCard {
+    //     border: -5px solid black;
+    // }
+    .ion-padding-bottom {
+        margin-top: 20px;
+        margin-bottom: 50px;
+    }
+    
+    button {
+        padding: 14px 40px;
+        background-color: #36B92A;
+        border: black;
+        margin-left: 14%;
     }
     
     h1 {
@@ -61,9 +77,5 @@
         }
         ion-label {
             font-size: 100%;
-        }
-        ion-select:hover {
-            color: white;
-            background-color: #36B92A;
         }
     }

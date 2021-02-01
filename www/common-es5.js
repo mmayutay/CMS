@@ -31,12 +31,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return detachComponent;
     });
 
-    var attachComponent =
-    /*#__PURE__*/
-    function () {
-      var _ref = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee(delegate, container, component, cssClasses, componentProps) {
+    var attachComponent = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(delegate, container, component, cssClasses, componentProps) {
         var el;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -494,12 +490,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     var SCHEME = /^[a-z][a-z0-9+\-.]*:/;
 
-    var openURL =
-    /*#__PURE__*/
-    function () {
-      var _ref3 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2(url, ev, direction) {
+    var openURL = /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(url, ev, direction) {
         var router;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {

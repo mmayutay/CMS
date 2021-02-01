@@ -16,7 +16,6 @@
         <div>
             <ion-tabs>
                 <ion-tab-bar slot="bottom">
-
                     <ion-tab-button>
                         <ion-icon name="person"></ion-icon>
                         <ion-label>AUXILIARY</ion-label>
@@ -36,11 +35,11 @@
                             <ion-select-option value="Praise And Worship">Praise & Worship</ion-select-option>
                             <ion-select-option value="Multimedia">Multimedia</ion-select-option>
                             <ion-select-option value="Hospitality">Hospitality</ion-select-option>
-                            <ion-select-option value="Blessedkids">Blessed Kidz</ion-select-option>
+                            <ion-select-option value="Blessed Kids">Blessed Kidz</ion-select-option>
                         </ion-select>
                     </ion-tab-button>
 
-                    <ion-tab-button routerLink="/create-new-user">
+                    <ion-tab-button *ngIf="role !== 'member'" routerLink="/create-new-user">
                         <ion-icon name="person-add"></ion-icon>
                         <ion-label>ADD NEW USER</ion-label>
                     </ion-tab-button>
@@ -48,11 +47,11 @@
             </ion-tabs>
         </div>
     </ion-card>
-    <h1>PERSONAL INFORMATION</h1>
-    <hr class="solid">
     <ion-card class="ionCard">
         <div class="container">
             <div class="column">
+                <h1>PERSONAL INFORMATION</h1>
+                <hr class="solid">
                 <p>Fullname: {{holder.firstname}} {{holder.lastname}}</p>
                 <p>Birthday: {{holder.birthday}}</p>
                 <p>Age: {{holder.age}}</p>
@@ -64,6 +63,7 @@
                 <p>Instagram: {{holder.instagram}}</p>
                 <p>Twitter: {{holder.twitter}}</p>
                 <p>Leader: {{holder.leader}}</p>
+            <button [routerLink]="['/modal-page']">UPDATE INFORMATION</button>
             </div>
         </div>
     </ion-card>

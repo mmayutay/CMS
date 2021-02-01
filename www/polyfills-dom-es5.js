@@ -50,7 +50,7 @@
             var f = e.localName;
 
             if ("link" === f && "import" === e.getAttribute("rel")) {
-              c = e.import;
+              c = e["import"];
               if (c instanceof Node && !d.has(c)) for (d.add(c), c = c.firstChild; c; c = c.nextSibling) {
                 p(c, b, d);
               }
@@ -152,15 +152,15 @@
 
         p(b, function (b) {
           if ("link" === b.localName && "import" === b.getAttribute("rel")) {
-            var d = b.import;
+            var d = b["import"];
             d instanceof Node && (d.__CE_isImportDocument = !0, d.__CE_hasRegistry = !0);
             d && "complete" === d.readyState ? d.__CE_documentLoadHandled = !0 : b.addEventListener("load", function () {
-              var d = b.import;
+              var d = b["import"];
 
               if (!d.__CE_documentLoadHandled) {
                 d.__CE_documentLoadHandled = !0;
                 var f = new Set(c);
-                f.delete(d);
+                f["delete"](d);
                 A(a, d, {
                   u: f,
                   i: e
@@ -1096,7 +1096,7 @@
             var f = e.localName;
 
             if ("link" === f && "import" === e.getAttribute("rel")) {
-              c = e.import;
+              c = e["import"];
               if (c instanceof Node && !d.has(c)) for (d.add(c), c = c.firstChild; c; c = c.nextSibling) {
                 p(c, b, d);
               }
@@ -1200,15 +1200,15 @@
 
         p(b, function (b) {
           if ("link" === b.localName && "import" === b.getAttribute("rel")) {
-            var d = b.import;
+            var d = b["import"];
             d instanceof Node && (d.__CE_isImportDocument = !0, d.__CE_hasRegistry = !0);
             d && "complete" === d.readyState ? d.__CE_documentLoadHandled = !0 : b.addEventListener("load", function () {
-              var d = b.import;
+              var d = b["import"];
 
               if (!d.__CE_documentLoadHandled) {
                 d.__CE_documentLoadHandled = !0;
                 var f = new Set(c);
-                f.delete(d);
+                f["delete"](d);
                 A(a, d, {
                   u: f,
                   i: e

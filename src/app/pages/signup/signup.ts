@@ -30,6 +30,7 @@ export class SignupPage {
       Instagram: '',
       Twitter: '',
       Category: '',
+      Description: 'ggh',
     }, groupBelong: {
       Leader: ''
     }, role: {
@@ -43,6 +44,7 @@ export class SignupPage {
     public userData: UserData,
     public request: RequestsService
   ) { }
+
   ngOnInit() {
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.signup.groupBelong.Leader = res
