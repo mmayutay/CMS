@@ -3,11 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserData } from '../../providers/user-data';
 
-import { UserOptions } from '../../interfaces/user-options';
-
-import { RequestsService } from '../../logInAndSignupService/requests.service'
-
-import { User } from '../../model/user.model';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
 
 
 @Component({
@@ -16,6 +12,7 @@ import { User } from '../../model/user.model';
   styleUrls: ['./signup.scss'],
 })
 export class SignupPage {
+  public theNewUserRole = ""
   signup = {
     newUser: {
       Lastname: '',
@@ -44,43 +41,29 @@ export class SignupPage {
     public request: RequestsService
   ) { }
   ngOnInit() {
+    this.declaringTheCurrentRole()
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.signup.groupBelong.Leader = res
     })
   }
 
-  onSignup(form: NgForm) {
+  onSignup(form: NgForm) {    
+    this.signup.role.code = this.theNewUserRole
     this.request.signUp(this.signup).subscribe(res => {
       console.log(res)
       this.router.navigate(['/app/tabs/schedule'])
     })
   }
-
-
-    // public userInfo: User = {
-    //   Name: '',
-    //   Age: null,
-    //   Leader: '',
-    //   Member_status: '',
-    //   Email: '',
-    //   Password: '',
-    // };
-
-    // signup: UserOptions = { username: '', password: '' };
-    // submitted = false;
-
-    // constructor(
-    //   public request: RequestsService,
-    //   public router: Router,
-    //   public userData: UserData,
-    //   public menu: MenuController 
-    // ) {}
-    // ngOnInit() {
-    // }
-
-    // onSignup(form: NgForm) {
-    //   this.request.signUp(this.userInfo).subscribe(res => {
-    //     this.router.navigate(['/app/tabs/schedule'])
-    //   });
   
+  declaringTheCurrentRole() {
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      if(res == "Leader") {
+        this.theNewUserRole = "Member"
+      }else if(res == "Admin") {
+        this.theNewUserRole = "Pastor"
+      }else if(res == "Pastor") {
+        this.theNewUserRole = "Leader"
+      }
+    })
+  }
 }

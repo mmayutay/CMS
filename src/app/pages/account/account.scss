@@ -21,8 +21,11 @@
     }
 
     button{
-        padding: 14px 40px;
+        padding: 14px 25px;
         background-color: #36B92A;
+        border-radius: 3%;
+        border: 1px solid black;
+        margin-left: 14%;
 
         // border:black;
     }
@@ -30,6 +33,7 @@
     h1 {
         margin-left: 3%;
         font-size: 20px;
+        font-style:bold;
     }
     
     hr.solid {

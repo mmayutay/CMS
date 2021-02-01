@@ -14,7 +14,7 @@ import { RequestsService } from '../../logInAndSignupService/requests.service';
   styleUrls: ['./login.scss'],
 })
 export class LoginPage {
-  login = { username: '', password: '' };
+  public login = { username: '', password: '' };
   submitted = false;
   public userAuthenticated = true
   public userLogin;
