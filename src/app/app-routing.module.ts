@@ -43,7 +43,12 @@ const routes: Routes = [
   {
     path: 'modal-page',
     loadChildren: () => import('./pages/modal-page/modal-page.module').then( m => m.ModalPagePageModule)
+  },
+  {
+    path: 'my-cell-admin',
+    loadChildren: () => import('./pages/my-cell-admin/my-cell-admin.module').then( m => m.MyCellAdminPageModule)
   }
+
 
 
 ];

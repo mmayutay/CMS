@@ -41,10 +41,20 @@
                     </ion-menu-toggle>
 
                     <ion-menu-toggle autoHide="false">
+                        <ion-item routerLink="/my-cell-admin" routerLinkActive="active" routerDirection="root" detail="false">
+                            <ion-icon slot="start" name="people"></ion-icon>
+                            <ion-label>
+                                My Cell
+                            </ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+
+
+                    <ion-menu-toggle autoHide="false">
                         <ion-item routerLink="/support" routerLinkActive="active" routerDirection="root" detail="false">
                             <ion-icon slot="start" name="help"></ion-icon>
                             <ion-label>
-                                Support
+                                Cell Group
                             </ion-label>
                         </ion-item>
                     </ion-menu-toggle>

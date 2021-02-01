@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
 
 import { AlertController, ToastController } from '@ionic/angular';
+
 
 
 @Component({
@@ -15,7 +17,8 @@ export class SupportPage {
 
   constructor(
     public alertCtrl: AlertController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public request: RequestsService,
   ) { }
 
   async ionViewDidEnter() {
@@ -41,6 +44,10 @@ export class SupportPage {
     }
   }
 
+  cellGroupFunction(){
+    this.request.cellGroup();
+    // console.log(this.request.cellGroup)
+  }
   // If the user enters text in the support question and then navigates
   // without submitting first, ask if they meant to leave the page
   // async ionViewCanLeave(): Promise<boolean> {

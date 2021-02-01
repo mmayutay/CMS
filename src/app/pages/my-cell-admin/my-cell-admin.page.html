@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>My Cell</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="topnav">
+    <a *ngFor="let leader of hierarchyByAdmin.leaders" (click)="showMembersBelongToThisGroup(leader.id)">{{leader.name}}</a>
+  </div>
+  <ul *ngFor="let member of members">
+    <li> {{member.name}} </li>
+  </ul>
+</ion-content>
