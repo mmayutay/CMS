@@ -18,7 +18,7 @@
                 <ion-tab-bar slot="bottom">
                     <ion-tab-button>
                         <ion-icon name="person"></ion-icon>
-                        <ion-label>AUXILIARY</ion-label>
+                        <ion-label class="name">AUXILIARY</ion-label>
                         <ion-select placeholder="View Auxiliary" [(ngModel)]="auxliary" (ionChange)="optAuxiliary()">
                             <ion-select-option value="Kids">Blessed Kids</ion-select-option>
                             <ion-select-option value="Youth">Blessed Youth(13-21)</ion-select-option>
@@ -30,7 +30,7 @@
 
                     <ion-tab-button>
                         <ion-icon name="person"></ion-icon>
-                        <ion-label>MINISTRIES</ion-label>
+                        <ion-label class="name">MINISTRIES</ion-label>
                         <ion-select [(ngModel)]="ministries" (ionChange)="optMinistry()" placeholder="View Ministry">
                             <ion-select-option value="Praise And Worship">Praise & Worship</ion-select-option>
                             <ion-select-option value="Multimedia">Multimedia</ion-select-option>

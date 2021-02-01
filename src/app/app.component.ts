@@ -19,6 +19,7 @@ import { UserData } from './providers/user-data';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
+  public sample = ''
   appPages = [
     {
       title: 'Schedule',
@@ -60,6 +61,10 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      console.log(res)
+      this.sample = res
+    })
     this.checkLoginStatus();
     this.listenForLoginEvents();
 
