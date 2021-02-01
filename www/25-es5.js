@@ -39,9 +39,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var imgCss = ":host{display:block;-o-object-fit:contain;object-fit:contain}img{display:block;width:100%;height:100%;-o-object-fit:inherit;object-fit:inherit;-o-object-position:inherit;object-position:inherit}";
 
-    var Img =
-    /*#__PURE__*/
-    function () {
+    var Img = /*#__PURE__*/function () {
       function Img(hostRef) {
         var _this = this;
 
@@ -120,7 +118,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "render",
         value: function render() {
           return Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
-            class: Object(_ionic_global_fbc9a2ac_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this)
+            "class": Object(_ionic_global_fbc9a2ac_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this)
           }, Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("img", {
             decoding: "async",
             src: this.loadSrc,

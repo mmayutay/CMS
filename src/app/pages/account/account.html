@@ -48,11 +48,11 @@
             </ion-tabs>
         </div>
     </ion-card>
-    <h1>PERSONAL INFORMATION</h1>
-    <hr class="solid">
     <ion-card class="ionCard">
         <div class="container">
             <div class="column">
+                <h1>PERSONAL INFORMATION</h1>
+                <hr class="solid">
                 <p>Fullname: {{holder.firstname}} {{holder.lastname}}</p>
                 <p>Birthday: {{holder.birthday}}</p>
                 <p>Age: {{holder.age}}</p>
@@ -64,6 +64,7 @@
                 <p>Instagram: {{holder.instagram}}</p>
                 <p>Twitter: {{holder.twitter}}</p>
                 <p>Leader: {{holder.leader}}</p>
+            <button [routerLink]="['/modal-page']">UPDATE INFORMATION</button>
             </div>
         </div>
     </ion-card>

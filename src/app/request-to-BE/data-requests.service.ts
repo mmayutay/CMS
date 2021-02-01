@@ -14,4 +14,12 @@ export class DataRequestsService {
   getTheCurrentUser(userId) {
     return this.request.post(this.url + "info", userId);
   }
+
+  editUserInfo(userId) {
+    return this.request.get(this.url + "info/edit", userId);
+  }
+
+  updateUserInfo(userId) {
+    return this.request.post(this.url + "info/update", userId);
+  }
 }

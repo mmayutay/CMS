@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserData } from '../providers/user-data'
+// import { userInfo } from 'os';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,10 @@ export class RequestsService {
 
   signUp(userInfo){
     return this.http.post(this.url + 'sign-up', userInfo)
+  }
+
+  updateInfo(userDetails){
+    return this.http.post(this.url + 'userProfile', userDetails)
   }
 
   storeTheCurrentUserToStorage(loggedID) {

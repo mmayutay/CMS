@@ -1,8 +1,10 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { RequestsService } from '../../logInAndSignupService/requests.service'
 import { DataRequestsService } from '../../request-to-BE/data-requests.service'
+import { ModalPagePage } from '../modal-page/modal-page.page';
 
 import { UserData } from '../../providers/user-data';
 
@@ -11,7 +13,7 @@ import { UserData } from '../../providers/user-data';
   templateUrl: 'account.html',
   styleUrls: ['./account.scss'],
 })
-export class AccountPage implements AfterViewInit {
+export class AccountPage implements AfterViewInit { 
   public currentUser;
   public username;
   // username;
@@ -24,17 +26,19 @@ export class AccountPage implements AfterViewInit {
 
   constructor(
     public alertCtrl: AlertController,
+    public modalController: ModalController,
     public router: Router,
     public userData: UserData,
     public request: RequestsService,
+    public modal: ModalPagePage,
     public datasRequest: DataRequestsService
   ) { }
 
   ngAfterViewInit() {
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.datasRequest.getTheCurrentUser({userID: res}).subscribe(data => {
-        this.holder = data[0]
         console.log(this.holder)
+        this.holder = data[0]
       })
     })
   }
@@ -70,6 +74,9 @@ export class AccountPage implements AfterViewInit {
     });
     await alert.present();
   }
+  
+  
+
 
   getUsername() {
     this.userData.getUsername().then((username) => {
@@ -88,6 +95,10 @@ export class AccountPage implements AfterViewInit {
 
   addNewUser() {
     this.router.navigateByUrl('/create-new-user')
+  }
+
+  updateInformation() {
+    
   }
 
   optAuxiliary( ) {

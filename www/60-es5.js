@@ -120,9 +120,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var selectIosCss = ":host{--placeholder-color:currentColor;--placeholder-opacity:0.33;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);display:-ms-flexbox;display:flex;position:relative;-ms-flex-align:center;align-items:center;font-family:var(--ion-font-family, inherit);overflow:hidden;z-index:2}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}:host(.in-item){position:static;max-width:45%}:host(.select-disabled){opacity:0.4;pointer-events:none}:host(.ion-focused) button{border:2px solid #5e9ed6}.select-placeholder{color:var(--placeholder-color);opacity:var(--placeholder-opacity)}button{left:0;top:0;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;position:absolute;width:100%;height:100%;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;outline:none}[dir=rtl] button,:host-context([dir=rtl]) button{left:unset;right:unset;right:0}button::-moz-focus-inner{border:0}.select-icon{position:relative;opacity:0.33}.select-text{-ms-flex:1;flex:1;min-width:16px;font-size:inherit;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.select-icon-inner{left:5px;top:50%;margin-top:-3px;position:absolute;width:0;height:0;border-top:5px solid;border-right:5px solid transparent;border-left:5px solid transparent;color:currentColor;pointer-events:none}[dir=rtl] .select-icon-inner,:host-context([dir=rtl]) .select-icon-inner{left:unset;right:unset;right:5px}:host{--padding-top:10px;--padding-end:10px;--padding-bottom:10px;--padding-start:20px}.select-icon{width:12px;height:18px}";
     var selectMdCss = ":host{--placeholder-color:currentColor;--placeholder-opacity:0.33;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);display:-ms-flexbox;display:flex;position:relative;-ms-flex-align:center;align-items:center;font-family:var(--ion-font-family, inherit);overflow:hidden;z-index:2}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}:host(.in-item){position:static;max-width:45%}:host(.select-disabled){opacity:0.4;pointer-events:none}:host(.ion-focused) button{border:2px solid #5e9ed6}.select-placeholder{color:var(--placeholder-color);opacity:var(--placeholder-opacity)}button{left:0;top:0;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;position:absolute;width:100%;height:100%;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;outline:none}[dir=rtl] button,:host-context([dir=rtl]) button{left:unset;right:unset;right:0}button::-moz-focus-inner{border:0}.select-icon{position:relative;opacity:0.33}.select-text{-ms-flex:1;flex:1;min-width:16px;font-size:inherit;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.select-icon-inner{left:5px;top:50%;margin-top:-3px;position:absolute;width:0;height:0;border-top:5px solid;border-right:5px solid transparent;border-left:5px solid transparent;color:currentColor;pointer-events:none}[dir=rtl] .select-icon-inner,:host-context([dir=rtl]) .select-icon-inner{left:unset;right:unset;right:5px}:host{--padding-top:10px;--padding-end:0;--padding-bottom:11px;--padding-start:16px}.select-icon{width:19px;height:19px}";
 
-    var Select =
-    /*#__PURE__*/
-    function () {
+    var Select = /*#__PURE__*/function () {
       function Select(hostRef) {
         var _this = this;
 
@@ -161,7 +159,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
          * The interface the select should use: `action-sheet`, `popover` or `alert`.
          */
 
-        this.interface = 'alert';
+        this["interface"] = 'alert';
         /**
          * Any additional options that the `alert`, `action-sheet` or `popover` interface
          * can take. See the [ion-alert docs](../alert), the
@@ -214,9 +212,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "connectedCallback",
         value: function () {
-          var _connectedCallback = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee2() {
+          var _connectedCallback = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
             var _this2 = this;
 
             return regeneratorRuntime.wrap(function _callee2$(_context2) {
@@ -225,11 +221,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
                   case 0:
                     this.updateOverlayOptions();
                     this.emitStyle();
-                    this.mutationO = watchForOptions(this.el, 'ion-select-option',
-                    /*#__PURE__*/
-                    _asyncToGenerator(
-                    /*#__PURE__*/
-                    regeneratorRuntime.mark(function _callee() {
+                    this.mutationO = watchForOptions(this.el, 'ion-select-option', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
                       return regeneratorRuntime.wrap(function _callee$(_context) {
                         while (1) {
                           switch (_context.prev = _context.next) {
@@ -281,9 +273,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "open",
         value: function () {
-          var _open = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee3(event) {
+          var _open = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(event) {
             var _this3 = this;
 
             var overlay;
@@ -334,7 +324,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "createOverlay",
         value: function createOverlay(ev) {
-          var selectInterface = this.interface;
+          var selectInterface = this["interface"];
 
           if ((selectInterface === 'action-sheet' || selectInterface === 'popover') && this.multiple) {
             console.warn("Select interface cannot be \"".concat(selectInterface, "\" with a multi-value select. Using the \"alert\" interface instead."));
@@ -368,7 +358,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var childOpts = this.childOpts;
           var value = this.value;
 
-          switch (this.interface) {
+          switch (this["interface"]) {
             case 'action-sheet':
               overlay.buttons = this.createActionSheetButtons(childOpts, value);
               break;
@@ -452,9 +442,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openPopover",
         value: function () {
-          var _openPopover = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee4(ev) {
+          var _openPopover = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(ev) {
             var interfaceOptions, mode, value, popoverOpts;
             return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
@@ -496,9 +484,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openActionSheet",
         value: function () {
-          var _openActionSheet = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee5() {
+          var _openActionSheet = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
             var mode, interfaceOptions, actionSheetOpts;
             return regeneratorRuntime.wrap(function _callee5$(_context5) {
               while (1) {
@@ -531,9 +517,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       }, {
         key: "openAlert",
         value: function () {
-          var _openAlert = _asyncToGenerator(
-          /*#__PURE__*/
-          regeneratorRuntime.mark(function _callee6() {
+          var _openAlert = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
             var _this7 = this;
 
             var label, labelText, interfaceOptions, inputType, mode, alertOpts;
@@ -676,16 +660,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             "aria-disabled": disabled ? 'true' : null,
             "aria-expanded": "".concat(isExpanded),
             "aria-labelledby": labelId,
-            class: (_class = {}, _defineProperty(_class, mode, true), _defineProperty(_class, 'in-item', Object(_theme_c2dc54d9_js__WEBPACK_IMPORTED_MODULE_5__["h"])('ion-item', el)), _defineProperty(_class, 'select-disabled', disabled), _class)
+            "class": (_class = {}, _defineProperty(_class, mode, true), _defineProperty(_class, 'in-item', Object(_theme_c2dc54d9_js__WEBPACK_IMPORTED_MODULE_5__["h"])('ion-item', el)), _defineProperty(_class, 'select-disabled', disabled), _class)
           }, Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
-            class: selectTextClasses,
+            "class": selectTextClasses,
             part: textPart
           }, selectText), Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
-            class: "select-icon",
+            "class": "select-icon",
             role: "presentation",
             part: "icon"
           }, Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
-            class: "select-icon-inner"
+            "class": "select-icon-inner"
           })), Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("button", {
             type: "button",
             onFocus: this.onFocus,
@@ -794,9 +778,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     };
     var selectOptionCss = ":host{display:none}";
 
-    var SelectOption =
-    /*#__PURE__*/
-    function () {
+    var SelectOption = /*#__PURE__*/function () {
       function SelectOption(hostRef) {
         _classCallCheck(this, SelectOption);
 
@@ -815,7 +797,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
             role: "option",
             id: this.inputId,
-            class: Object(_ionic_global_fbc9a2ac_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this)
+            "class": Object(_ionic_global_fbc9a2ac_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this)
           });
         }
       }, {
@@ -832,9 +814,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     SelectOption.style = selectOptionCss;
     var selectPopoverCss = ".sc-ion-select-popover-h ion-list.sc-ion-select-popover{margin-left:0;margin-right:0;margin-top:-1px;margin-bottom:-1px}.sc-ion-select-popover-h ion-list-header.sc-ion-select-popover,.sc-ion-select-popover-h ion-label.sc-ion-select-popover{margin-left:0;margin-right:0;margin-top:0;margin-bottom:0}";
 
-    var SelectPopover =
-    /*#__PURE__*/
-    function () {
+    var SelectPopover = /*#__PURE__*/function () {
       function SelectPopover(hostRef) {
         _classCallCheck(this, SelectPopover);
 
@@ -863,9 +843,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           });
           var checkedValue = checkedOption ? checkedOption.value : undefined;
           return Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
-            class: Object(_ionic_global_fbc9a2ac_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this)
+            "class": Object(_ionic_global_fbc9a2ac_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this)
           }, Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-list", null, this.header !== undefined && Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-list-header", null, this.header), (this.subHeader !== undefined || this.message !== undefined) && Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-item", null, Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-label", {
-            class: "ion-text-wrap"
+            "class": "ion-text-wrap"
           }, this.subHeader !== undefined && Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("h3", null, this.subHeader), this.message !== undefined && Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("p", null, this.message))), Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-radio-group", {
             value: checkedValue
           }, this.options.map(function (option) {

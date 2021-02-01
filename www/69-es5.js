@@ -47,9 +47,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
     var textCss = ":host(.ion-color){color:var(--ion-color-base)}";
 
-    var Text =
-    /*#__PURE__*/
-    function () {
+    var Text = /*#__PURE__*/function () {
       function Text(hostRef) {
         _classCallCheck(this, Text);
 
@@ -61,7 +59,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function render() {
           var mode = Object(_ionic_global_fbc9a2ac_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
           return Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
-            class: Object.assign(Object.assign({}, Object(_theme_c2dc54d9_js__WEBPACK_IMPORTED_MODULE_2__["c"])(this.color)), _defineProperty({}, mode, true))
+            "class": Object.assign(Object.assign({}, Object(_theme_c2dc54d9_js__WEBPACK_IMPORTED_MODULE_2__["c"])(this.color)), _defineProperty({}, mode, true))
           }, Object(_index_e23c3ffd_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null));
         }
       }]);
