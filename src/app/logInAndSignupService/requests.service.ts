@@ -8,6 +8,7 @@ import { UserData } from '../providers/user-data'
 })
 export class RequestsService {
   public storageKey = 'current-logged'
+  public storageUserRole = 'user-role'
   public storageKeyUserId = 'user-id'
   public boolean = true
   public userDataLength;
@@ -38,10 +39,11 @@ export class RequestsService {
   }
 
   updateInfo(userDetails){
-    return this.http.post(this.url + 'userProfile', userDetails)
+    return this.http.post(this.url + 'updateUser', userDetails)
   }
 
-  storeTheCurrentUserToStorage(loggedID) {
+  storeTheCurrentUserToStorage(loggedID, loggedRole) {
+    this.userdata.storage.set(this.storageUserRole, loggedRole)
     this.userdata.storage.set(this.storageKeyUserId, loggedID)
   }
 }

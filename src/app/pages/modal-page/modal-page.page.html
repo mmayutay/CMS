@@ -46,7 +46,7 @@
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked" color="primary">Email</ion-label>
-                        <ion-input name="Email" [value]="update.newUser.email" type="text" required>
+                        <ion-input name="Email" [value]="update.newUser.email" [(ngModel)]="updatedData.Email" type="text" required>
                         </ion-input>
                     </ion-item>
                     <ion-item>
@@ -72,7 +72,7 @@
                 </ion-list>
 
                 <div class="ion-padding">
-                    <ion-button (click)="onUpdate()" [disabled]="updateForm.invalid" type="submit"
+                    <ion-button (click)="onUpdate()" type="submit"
                         expand="block">Update</ion-button>
                 </div>
             </form>
