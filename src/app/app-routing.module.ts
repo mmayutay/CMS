@@ -33,8 +33,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/tutorial/tutorial.module').then(m => m.TutorialModule)
   },
   {
-    path: 'auxiliary/:type',
-    loadChildren: () => import('./pages/auxiliary/auxiliary.module').then( m => m.AuxiliaryPageModule)
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardPageModule)
   },
   {
     path: 'ministries/:type',
@@ -57,4 +57,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
