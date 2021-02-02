@@ -52,7 +52,7 @@
               <ion-icon name="calendar"></ion-icon>
             </div>&nbsp;&nbsp;
             
-            <input [(ngModel)]="signup.newUser.Age" class="input" #nameCtrl="ngModel" placeholder="Age" name="Age" type="number"
+            <input [disabled]="true" [(ngModel)]="signup.newUser.Age" class="input" #nameCtrl="ngModel" placeholder="Age" name="Age" type="number"
               #age="ngModel" required />
           </ion-item>
           <ion-label *ngIf="!age.valid && age.touched && age.errors?.required">

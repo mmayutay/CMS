@@ -53,11 +53,11 @@ export class SignupPage {
   }
 
 
-  getTheBirthday(data){
-    this.signup.newUser.Birthday = document.getElementById('birth').value;
+  getTheBirthday(data) {
+    this.signup.newUser.Birthday = (<HTMLInputElement>document.getElementById('birth')).value;
     this.CalculateAge();
   }
-  
+
   CalculateAge() {
     var today = new Date();
 
@@ -65,12 +65,12 @@ export class SignupPage {
 
     this.birthdate = this.signup.newUser.Birthday.split('-');
 
-    if(today.getMonth() > this.birthdate[1]) {
-      this.signup.newUser.Age = today.getFullYear() - this.birthdate[0]  
-    }else {
+    if (today.getMonth() > this.birthdate[1]) {
+      this.signup.newUser.Age = today.getFullYear() - this.birthdate[0]
+    } else {
       this.signup.newUser.Age = today.getFullYear() - this.birthdate[0] - 1
     }
-    
+
     // this.birthdate = "10/10/1981";
     // if (this.signup.newUser.Birthday) {
     //   var timeDiff = Math.abs(Date.now() - new Date(this.signup.newUser.Birthday).getTime());
