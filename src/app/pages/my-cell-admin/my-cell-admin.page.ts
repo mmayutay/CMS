@@ -17,10 +17,10 @@ export class MyCellAdminPage implements OnInit {
 
     ],
     members: [
-      {id: 1, name: "Raymond Yorong", leaderId: 2},
-      {id: 2, name: "Romeo Lenizo", leaderId: 3},
-      {id: 3, name: "JJ Villahermosa", leaderId: 1},
-      {id: 4, name: "Jessa Yosores", leaderId: 2},
+      {id: 1, name: "Lebron James", leaderId: 2},
+      {id: 2, name: "Dwayne Wade", leaderId: 3},
+      {id: 3, name: "Kyle Kuzma", leaderId: 1},
+      {id: 4, name: "Michael Jordan", leaderId: 2},
     ]
   }
 
