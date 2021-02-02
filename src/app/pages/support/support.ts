@@ -4,14 +4,24 @@ import { RequestsService } from '../../logInAndSignupService/requests.service';
 
 import { AlertController, ToastController } from '@ionic/angular';
 
-
-
 @Component({
   selector: 'page-support',
   templateUrl: 'support.html',
   styleUrls: ['./support.scss'],
 })
 export class SupportPage {
+  public userLeaderAndMember = {
+    leader: 'Jericho James Villahermosa',
+    members: [
+      {id: 1, name: 'Raymond Jay C. Yorong', age: 21, attendance: true},
+      {id: 2, name: 'Ma. Lyn Gamboa', age: 20, attendance: false},
+      {id: 3, name: 'Marichu Niere', age: 21, attendance: false},
+      {id: 4, name: 'Geneva Rivas', age: 22, attendance: true},
+      {id: 5, name: 'Jessa Yosores', age: 17, attendance: true},
+      {id: 6, name: 'Yubert Mariscal', age: 18, attendance: true},
+    ]
+  }
+
   submitted = false;
   supportMessage: string;
 
@@ -21,12 +31,15 @@ export class SupportPage {
     public request: RequestsService,
   ) { }
 
-  async ionViewDidEnter() {
-    const toast = await this.toastCtrl.create({
-      message: 'This does not actually send a support request.',
-      duration: 3000
+  ionViewDidEnter() {
+    this.userLeaderAndMember.members.forEach(element => {
+      document.getElementById(element.id.toString()).checked = element.attendance;
     });
-    await toast.present();
+    // const toast = await this.toastCtrl.create({
+      // message: 'This does not actually send a support request.',
+    //   duration: 1000
+    // });
+    // await toast.present();
   }
 
   async submit(form: NgForm) {

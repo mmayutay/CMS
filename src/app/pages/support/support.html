@@ -3,14 +3,27 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Cell Group</ion-title>
+    <ion-title>My Network</ion-title>
   </ion-toolbar>
 
 </ion-header>
 
 <ion-content>
-  
-  <!-- <div class="support-logo">
+  <p>Leader: {{userLeaderAndMember.leader}}</p>
+  <table>
+    <tr class="title">
+      <th>Name</th>
+      <th>Age</th>
+      <th>Attendance</th>
+    </tr>
+    <tr *ngFor="let member of userLeaderAndMember.members">
+      <th>{{member.name}}</th>
+      <th> {{member.age}} </th>
+      <th> <input type="radio" [id]="member.id"> </th>
+    </tr>
+  </table>
+</ion-content>
+<!-- <div class="support-logo">
     <img src="assets/img/appicon.svg" alt="Ionic Logo">
   </div>
 
@@ -32,4 +45,3 @@
       <ion-button expand="block" type="submit">Submit</ion-button>
     </div>
   </form> -->
-</ion-content>
