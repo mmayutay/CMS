@@ -13,7 +13,7 @@ import { UserData } from '../../providers/user-data';
   templateUrl: 'account.html',
   styleUrls: ['./account.scss'],
 })
-export class AccountPage implements AfterViewInit { 
+export class AccountPage implements AfterViewInit {
   public currentUser;
   public username;
   public role = ""
@@ -22,7 +22,9 @@ export class AccountPage implements AfterViewInit {
   public partialData = ""
   public auxliary = "any";
   public ministries = "any";
-  public holder=[];
+  public holder = [];
+  public roleHolder;
+  public isMember:boolean = true;
 
 
   constructor(
@@ -37,19 +39,49 @@ export class AccountPage implements AfterViewInit {
 
   ngAfterViewInit() {
     this.userData.storage.get(this.request.storageUserRole).then(res => {
+      console.log('ROLE::', res);
       this.role = res
+      // if(this.role === "Member"){
+      //   this.isMember;
+      //   console.log("Member ni siya...", this.isMember);
+      // }
+      // else{
+      //   this.isMember = false;
+      // }
     })
     this.request.getTheCurrentUserIdInStorage().then(res => {
-      this.datasRequest.getTheCurrentUser({userID: res}).subscribe(data => {
+      console.log(res);
+      this.datasRequest.getTheCurrentUser({ userID: res }).subscribe(data => {
         this.holder = data[0]
-        console.log('Holder:: ',this.holder)
+        console.log('Holder:: ', this.holder)
       })
     })
+
+    // this.ifRoleEqualsMember();
+
   }
 
   updatePicture() {
     console.log('Clicked to update picture');
   }
+
+  // ifRoleEqualsMember(){
+  //   this.userData.storage.get(this.request.storageUserRole).then(res => {      
+  //     this.role = res
+  //     console.log('ROLE::' ,this.role);
+  //     this.datasRequest.getTheCurrentUser({ userID: res }).subscribe(data => {
+  //       this.holder = data[0]
+  //       console.log('Holder:: ', this.holder)
+  //       if(this.role === 'member'){
+  //         if(this.holder){
+
+  //         }
+  //       }
+  //     })
+
+
+  //   })
+  // }
 
   // Present an alert with the current username populated
   // clicking OK will update the username and display it
@@ -101,15 +133,15 @@ export class AccountPage implements AfterViewInit {
   }
 
   updateInformation() {
-    
+
   }
 
-  optAuxiliary( ) {
-    this.router.navigateByUrl('/auxiliary/'+this.auxliary)
+  optAuxiliary() {
+    this.router.navigateByUrl('/auxiliary/' + this.auxliary)
   }
 
-  optMinistry(){
-    this.router.navigateByUrl('/ministries/'+this.ministries)
+  optMinistry() {
+    this.router.navigateByUrl('/ministries/' + this.ministries)
     console.log();
 
   }

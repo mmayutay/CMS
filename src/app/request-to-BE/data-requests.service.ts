@@ -12,6 +12,13 @@ export class DataRequestsService {
   ) { }
 
   getTheCurrentUser(userId) {
+    console.log(userId);
+    
     return this.request.post(this.url + "info", userId);
   }
+
+  // getTheCurrentUserRole(userRole) {
+  //   console.log("Nasud nas Get ROLE", userRole)
+  //   return this.request.post(this.url + "info", userRole);
+  // }
 }

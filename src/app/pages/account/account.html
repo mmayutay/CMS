@@ -16,10 +16,17 @@
         <div>
             <ion-tabs>
                 <ion-tab-bar slot="bottom">
-                    <ion-tab-button>
+                    <ion-tab-button *ngIf="role === 'Member'">
                         <ion-icon name="person"></ion-icon>
                         <ion-label>AUXILIARY</ion-label>
-                        <ion-select placeholder="View Auxiliary" [(ngModel)]="auxliary" (ionChange)="optAuxiliary()">
+                        <ion-label>{{holder.auxilliary}}</ion-label>
+                    </ion-tab-button>
+                    <ion-tab-button *ngIf="role !== 'Member'">
+                        <ion-icon name="person"></ion-icon>
+                        <ion-label>AUXILIARY</ion-label>
+                        <ion-label>{{holder.auxilliary}}</ion-label>
+
+                        <ion-select placeholder="View Auxiliary" [(ngModel)]="holder.auxilliary" (ionChange)="optAuxiliary()">
                             <ion-select-option value="Kids">Blessed Kids</ion-select-option>
                             <ion-select-option value="Youth">Blessed Youth(13-21)</ion-select-option>
                             <ion-select-option value="Single">Blessed Singles(Singles 22 up)</ion-select-option>
