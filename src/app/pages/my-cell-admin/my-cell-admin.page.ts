@@ -10,10 +10,10 @@ export class MyCellAdminPage implements OnInit {
   public hierarchyByAdmin = {
     admin: "Ma. Lyn Gamboa",
     leaders: [
-      {id: 1, name: "Raymond Yorong"},
-      {id: 2, name: "Romeo Lenizo"},
-      {id: 3, name: "JJ Villahermosa"},
-      {id: 4, name: "Jessa Yosores"},
+      {id: 1, name: "Raymond Yorong", age: 20, status: 'Single'},
+      {id: 2, name: "Romeo Lenizo", age: 20, status: 'Single'},
+      {id: 3, name: "JJ Villahermosa", age: 19, status: 'Single'},
+      {id: 4, name: "Jessa Yosores", age: 14, status: 'Single'},
 
     ],
     members: [
@@ -29,13 +29,8 @@ export class MyCellAdminPage implements OnInit {
   ngOnInit() {
   }
 
-  showMembersBelongToThisGroup(leaderID) {
-    this.members = []
-    this.hierarchyByAdmin.members.forEach(element => {
-      if(element.leaderId == leaderID) {
-        this.members.push(element)
-      }
-    });
+  showMembersBelongToThisGroup(data) {
+    console.log(data)
   }
 
 }

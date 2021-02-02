@@ -13,7 +13,7 @@
             <div class="iconLogin">
               <ion-icon name="mail"></ion-icon>
             </div>&nbsp;&nbsp;
-            <input [(ngModel)]="login.username" name="email" class="input" placeholder="Username" type="text" #email="ngModel"
+            <input [(ngModel)]="login.username" name="email" class="input" placeholder="Email" type="text" #email="ngModel"
               spellcheck="false" autocapitalize="off" required/>
           </ion-item>
           <ion-label *ngIf="!email.valid && email.touched && email.errors?.required">
