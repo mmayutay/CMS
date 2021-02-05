@@ -37,6 +37,15 @@ ion-card {
     box-shadow: 0 0 8px #23c962;
   }
 
+  ion-input.input:hover {
+    border: 1px solid orange;
+    border-radius: 8px;
+    padding:10px;
+    -moz-box-shadow: 0 0 8px #23c962;
+    -webkit-box-shadow: 0 0 8px #23c962;
+    box-shadow: 0 0 8px #23c962;
+  }
+
 .signup-logo img {
     max-width: 150px;
 }
@@ -72,4 +81,8 @@ ion-list {
   ion-button, ion-list {
     width: 100%;
   }
+}
+
+ion-tab-button{
+    margin-left: 0%;
 }

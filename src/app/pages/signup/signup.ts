@@ -5,6 +5,9 @@ import { UserData } from '../../providers/user-data';
 import * as moment from 'moment';
 
 import { RequestsService } from '../../logInAndSignupService/requests.service';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service'
+
+
 
 
 @Component({
@@ -16,6 +19,7 @@ export class SignupPage {
 
   public birthdate;
   public theNewUserRole = "";
+  public role = "";
 
   signup = {
     newUser: {
@@ -31,10 +35,11 @@ export class SignupPage {
       Instagram: '',
       Twitter: '',
       Category: '',
+      Description:''
     }, groupBelong: {
       Leader: ''
     }, role: {
-      code: 'Member'
+      code: ''
     }
   };
   submitted = false;
@@ -49,7 +54,11 @@ export class SignupPage {
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.signup.groupBelong.Leader = res
     })
-    // this.CalculateAge();
+
+    this.userData.storage.get(this.request.storageUserRole).then(res => {
+      console.log(' Sign Up ROLE::', res);
+      this.role = res
+    })
   }
 
 

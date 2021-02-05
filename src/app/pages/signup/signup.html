@@ -40,8 +40,8 @@
             <div class="iconLogin">
               <ion-icon name="calendar"></ion-icon>
             </div>&nbsp;&nbsp;
-            <input (change)="getTheBirthday($event)" class="input" ngModel placeholder="Birthday" name="Birthday"
-              type="date" #birthday="ngModel" id="birth" required />
+            <input (change)="getTheBirthday($event)" class="input" ngModel placeholder="Birthday" name="Birthday" type="date"
+              #birthday="ngModel" id="birth" required />
           </ion-item>
           <ion-label *ngIf="!birthday.valid && birthday.touched && birthday.errors?.required">
             <ion-text color="danger">Birthday is required</ion-text>
@@ -51,14 +51,35 @@
             <div class="iconLogin">
               <ion-icon name="calendar"></ion-icon>
             </div>&nbsp;&nbsp;
-            
-            <input [disabled]="true" [(ngModel)]="signup.newUser.Age" class="input" #nameCtrl="ngModel" placeholder="Age" name="Age" type="number"
-              #age="ngModel" required />
+
+            <input [disabled]="true" [(ngModel)]="signup.newUser.Age" class="input" #nameCtrl="ngModel" placeholder="Age"
+              name="Age" type="number" #age="ngModel" required />
           </ion-item>
           <ion-label *ngIf="!age.valid && age.touched && age.errors?.required">
             <ion-text color="danger">Age is required</ion-text>
           </ion-label><br>
+
           <ion-item>
+            <div class="iconLogin">
+              <ion-icon name="settings"></ion-icon>
+            </div>&nbsp;&nbsp;
+            <ion-input [(ngModel)]="signup.role.code" name="code" #codeControl="ngModel" class="input">
+                <ion-select  placeholder="Role" *ngIf="role === 'Admin'">
+                    <ion-select-option value="Pastor">Pastor</ion-select-option>
+                    <ion-select-option value="Leader">Leader</ion-select-option>
+                    <ion-select-option value="Member">Member</ion-select-option>
+                  </ion-select>
+                <ion-select  placeholder="Role" *ngIf="role === 'Pastor'">
+                    <ion-select-option value="Leader">Leader</ion-select-option>
+                    <ion-select-option value="Member">Member</ion-select-option>
+                  </ion-select>
+              <ion-select  placeholder="Role" *ngIf="role === 'Leader'">
+                <ion-select-option value="Member">Member</ion-select-option>
+              </ion-select>
+            </ion-input>
+          </ion-item><br>
+          <ion-item>
+
             <!-- <ion-label position="stacked" color="primary">Address</ion-label> -->
             <div class="iconLogin">
               <ion-icon name="location"></ion-icon>

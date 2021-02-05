@@ -41,13 +41,6 @@ export class AccountPage implements AfterViewInit {
     this.userData.storage.get(this.request.storageUserRole).then(res => {
       console.log('ROLE::', res);
       this.role = res
-      // if(this.role === "Member"){
-      //   this.isMember;
-      //   console.log("Member ni siya...", this.isMember);
-      // }
-      // else{
-      //   this.isMember = false;
-      // }
     })
     this.request.getTheCurrentUserIdInStorage().then(res => {
       console.log(res);
