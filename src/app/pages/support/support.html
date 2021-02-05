@@ -9,39 +9,17 @@
 </ion-header>
 
 <ion-content>
-  <p>Leader: {{userLeaderAndMember.leader}}</p>
+  <p *ngFor="let user of currentUser"> <b>Leader:</b> {{user.lastname}}, {{user.firstname}}</p>
   <table>
     <tr class="title">
       <th>Name</th>
       <th>Age</th>
       <th>Attendance</th>
     </tr>
-    <tr *ngFor="let member of userLeaderAndMember.members">
-      <th>{{member.name}}</th>
-      <th> {{member.age}} </th>
+    <tr *ngFor="let member of members">
+      <th>{{member.lastname}}, {{member.firstname}} </th>
+      <th> {{member.roles}} </th>
       <th> <input type="radio" [id]="member.id"> </th>
     </tr>
   </table>
 </ion-content>
-<!-- <div class="support-logo">
-    <img src="assets/img/appicon.svg" alt="Ionic Logo">
-  </div>
-
-  <form #submitForm="ngForm" novalidate (ngSubmit)="submit(submitForm)">
-    <ion-list lines="none">
-      <ion-item>
-        <ion-label position="stacked" color="primary">Enter your support message below</ion-label>
-        <ion-textarea [(ngModel)]="supportMessage" name="supportQuestion" #supportQuestion="ngModel" rows="6" required></ion-textarea>
-      </ion-item>
-    </ion-list>
-
-    <ion-text color="danger">
-      <p [hidden]="supportQuestion.valid || submitted === false" class="ion-padding-start">
-        Support message is required
-      </p>
-    </ion-text>
-
-    <div class="ion-padding">
-      <ion-button expand="block" type="submit">Submit</ion-button>
-    </div>
-  </form> -->

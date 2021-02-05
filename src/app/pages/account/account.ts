@@ -20,7 +20,7 @@ export class AccountPage implements AfterViewInit {
   // username;
   public userDetails = "any";
   public partialData = ""
-  public auxliary = "any";
+  public auxliary = "";
   public ministries = "any";
   public holder = [];
   public roleHolder;
@@ -39,21 +39,11 @@ export class AccountPage implements AfterViewInit {
 
   ngAfterViewInit() {
     this.userData.storage.get(this.request.storageUserRole).then(res => {
-      console.log('ROLE::', res);
       this.role = res
-      // if(this.role === "Member"){
-      //   this.isMember;
-      //   console.log("Member ni siya...", this.isMember);
-      // }
-      // else{
-      //   this.isMember = false;
-      // }
     })
     this.request.getTheCurrentUserIdInStorage().then(res => {
-      console.log(res);
       this.datasRequest.getTheCurrentUser({ userID: res }).subscribe(data => {
         this.holder = data[0]
-        console.log('Holder:: ', this.holder)
       })
     })
 
@@ -62,7 +52,6 @@ export class AccountPage implements AfterViewInit {
   }
 
   updatePicture() {
-    console.log('Clicked to update picture');
   }
 
   // ifRoleEqualsMember(){
@@ -142,7 +131,6 @@ export class AccountPage implements AfterViewInit {
 
   optMinistry() {
     this.router.navigateByUrl('/ministries/' + this.ministries)
-    console.log();
 
   }
 }

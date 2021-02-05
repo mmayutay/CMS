@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 
 import { AlertController, ToastController } from '@ionic/angular';
 
@@ -10,17 +11,8 @@ import { AlertController, ToastController } from '@ionic/angular';
   styleUrls: ['./support.scss'],
 })
 export class SupportPage {
-  public userLeaderAndMember = {
-    leader: 'Jericho James Villahermosa',
-    members: [
-      {id: 1, name: 'Raymond Jay C. Yorong', age: 21, attendance: true},
-      {id: 2, name: 'Ma. Lyn Gamboa', age: 20, attendance: false},
-      {id: 3, name: 'Marichu Niere', age: 21, attendance: false},
-      {id: 4, name: 'Geneva Rivas', age: 22, attendance: true},
-      {id: 5, name: 'Jessa Yosores', age: 17, attendance: true},
-      {id: 6, name: 'Yubert Mariscal', age: 18, attendance: true},
-    ]
-  }
+  public currentUser = [];
+  public members;
 
   submitted = false;
   supportMessage: string;
@@ -29,17 +21,11 @@ export class SupportPage {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public request: RequestsService,
+    private datarequest: DataRequestsService
   ) { }
 
   ionViewDidEnter() {
-    this.userLeaderAndMember.members.forEach(element => {
-      document.getElementById(element.id.toString()).checked = element.attendance;
-    });
-    // const toast = await this.toastCtrl.create({
-      // message: 'This does not actually send a support request.',
-    //   duration: 1000
-    // });
-    // await toast.present();
+    this.getTheCurrentUserRole();
   }
 
   async submit(form: NgForm) {
@@ -59,27 +45,32 @@ export class SupportPage {
 
   cellGroupFunction(){
     this.request.cellGroup();
-    // console.log(this.request.cellGroup)
   }
-  // If the user enters text in the support question and then navigates
-  // without submitting first, ask if they meant to leave the page
-  // async ionViewCanLeave(): Promise<boolean> {
-  //   // If the support message is empty we should just navigate
-  //   if (!this.supportMessage || this.supportMessage.trim().length === 0) {
-  //     return true;
-  //   }
 
-  //   return new Promise((resolve: any, reject: any) => {
-  //     const alert = await this.alertCtrl.create({
-  //       title: 'Leave this page?',
-  //       message: 'Are you sure you want to leave this page? Your support message will not be submitted.',
-  //       buttons: [
-  //         { text: 'Stay', handler: reject },
-  //         { text: 'Leave', role: 'cancel', handler: resolve }
-  //       ]
-  //     });
-
-  //     await alert.present();
-  //   });
-  // }
+  getTheCurrentUserRole() {
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
+        if(data[0].roles == "Admin"){
+          this.datarequest.getAllTheUserRoles().subscribe(data => {
+            this.members = data
+            this.members.forEach(element => {
+              if(element.roles == 'Admin') {
+                this.members.pop(element)
+                this.currentUser.push(element)
+              }
+            });
+          })
+        }else{
+          this.request.getTheCurrentUserIdInStorage().then(res => {
+            this.datarequest.getTheCurrentUser({userID: res}).subscribe((data) => {
+              this.currentUser.push(data[0])
+            })
+            this.datarequest.getMyCellgroup({leaderid: res}).subscribe((data) => {
+              this.members = data
+            })
+          })
+        }
+      })
+    })
+  }
 }

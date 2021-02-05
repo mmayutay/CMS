@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service'
 
 @Component({
   selector: 'app-my-cell-admin',
@@ -6,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-cell-admin.page.scss'],
 })
 export class MyCellAdminPage implements OnInit {
-  public members = []
+  public members;
   public hierarchyByAdmin = {
     admin: "Ma. Lyn Gamboa",
     leaders: [
@@ -24,13 +26,23 @@ export class MyCellAdminPage implements OnInit {
     ]
   }
 
-  constructor() { }
+  constructor(
+    private request: RequestsService,
+    private dataRequest: DataRequestsService
+  ) { }
 
   ngOnInit() {
+    this.showMembersBelongToThisGroup()
+
   }
 
-  showMembersBelongToThisGroup(data) {
-    console.log(data)
+  showMembersBelongToThisGroup() {
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      this.dataRequest.getNetworkWhereIBelong(res).subscribe(data => {
+        this.dataRequest.getMyNetwork(data[0].roles).subscribe(result => {
+          this.members = result
+        })
+      })
+    })
   }
-
 }

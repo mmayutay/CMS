@@ -6,19 +6,31 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DataRequestsService {
   public url = "http://localhost:8000/api/"
+  public currentUserRole = ''
 
   constructor(
     private request: HttpClient
-  ) { }
+  ) {  }
 
   getTheCurrentUser(userId) {
-    console.log(userId);
-    
     return this.request.post(this.url + "info", userId);
   }
 
-  // getTheCurrentUserRole(userRole) {
-  //   console.log("Nasud nas Get ROLE", userRole)
-  //   return this.request.post(this.url + "info", userRole);
-  // }
+  getMyCellgroup(leaderId){
+    return this.request.post(this.url + 'leader', leaderId)
+  }
+
+  getNetworkWhereIBelong(roleID) {
+    return this.request.post(this.url + 'currentUserRole', {id: roleID})
+  }
+
+  getMyNetwork(myRole){
+    return this.request.post(this.url + 'network', {role: myRole})
+  }
+
+  //for Admin request
+  getAllTheUserRoles() {
+    return this.request.get(this.url + 'getAllUserRoles')
+  }
+
 }

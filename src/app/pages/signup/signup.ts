@@ -30,6 +30,7 @@ export class SignupPage {
       Instagram: '',
       Twitter: '',
       Category: '',
+      Description: 'This is just a test!'
     }, groupBelong: {
       Leader: ''
     }, role: {
@@ -48,10 +49,7 @@ export class SignupPage {
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.signup.groupBelong.Leader = res
     })
-    // this.CalculateAge();
   }
-
-
   getTheBirthday(data){
     this.signup.newUser.Birthday = document.getElementById('birth').value;
     this.CalculateAge();
@@ -60,8 +58,6 @@ export class SignupPage {
   CalculateAge() {
     var today = new Date();
 
-    var data = today.getFullYear() + ' ' + today.getMonth() + ' ' + today.getDay();
-
     this.birthdate = this.signup.newUser.Birthday.split('-');
 
     if(today.getMonth() > this.birthdate[1]) {
@@ -69,21 +65,13 @@ export class SignupPage {
     }else {
       this.signup.newUser.Age = today.getFullYear() - this.birthdate[0] - 1
     }
-    
-    // this.birthdate = "10/10/1981";
-    // if (this.signup.newUser.Birthday) {
-    //   var timeDiff = Math.abs(Date.now() - new Date(this.signup.newUser.Birthday).getTime());
-    //   this.signup.newUser.Age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
-    //   console.log(this.signup.newUser.Age)
-    // }
-    // console.log(Date.now());
   }
 
   onSignup(form: NgForm) {
     this.signup.role.code = this.theNewUserRole
     this.request.signUp(this.signup).subscribe(res => {
       console.log(res)
-      this.router.navigate(['/app/tabs/schedule'])
+      this.router.navigate(['/account'])
     })
   }
 
