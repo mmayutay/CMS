@@ -33,7 +33,6 @@ export class LoginPage {
 
   onLogin() {
     this.request.loginService(this.login).subscribe(res => {
-      console.log(res);
       if(res[0] != null) {
         this.request.storeTheCurrentUserToStorage(res[0].userid, res[0].roles)
         this.router.navigate(['/app/tabs/schedule'])

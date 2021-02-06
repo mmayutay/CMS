@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 
@@ -11,8 +10,10 @@ import { AlertController, ToastController } from '@ionic/angular';
   styleUrls: ['./support.scss'],
 })
 export class SupportPage {
+  public currentUserRole = ''
   public currentUser = [];
   public members;
+  public groupMembers = []
 
   submitted = false;
   supportMessage: string;
@@ -28,35 +29,24 @@ export class SupportPage {
     this.getTheCurrentUserRole();
   }
 
-  async submit(form: NgForm) {
-    this.submitted = true;
-
-    if (form.valid) {
-      this.supportMessage = '';
-      this.submitted = false;
-
-      const toast = await this.toastCtrl.create({
-        message: 'Your support request has been sent.',
-        duration: 3000
-      });
-      await toast.present();
-    }
-  }
-
   cellGroupFunction(){
     this.request.cellGroup();
   }
 
   getTheCurrentUserRole() {
+    
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
         if(data[0].roles == "Admin"){
+          this.currentUserRole = data[0].roles
           this.datarequest.getAllTheUserRoles().subscribe(data => {
             this.members = data
             this.members.forEach(element => {
               if(element.roles == 'Admin') {
                 this.members.pop(element)
                 this.currentUser.push(element)
+              }else{
+                this.groupMembers.push(element)
               }
             });
           })
@@ -67,6 +57,11 @@ export class SupportPage {
             })
             this.datarequest.getMyCellgroup({leaderid: res}).subscribe((data) => {
               this.members = data
+              this.members.forEach(element => {
+                if(element.leader == res){
+                  this.groupMembers.push(element);
+                }
+              });
             })
           })
         }

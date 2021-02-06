@@ -9,17 +9,25 @@
 </ion-header>
 
 <ion-content>
-  <p *ngFor="let user of currentUser"> <b>Leader:</b> {{user.lastname}}, {{user.firstname}}</p>
+  <h3 *ngFor="let user of currentUser"> <b>Leader:</b> {{user.lastname}}, {{user.firstname}}</h3>
   <table>
     <tr class="title">
       <th>Name</th>
-      <th>Age</th>
+      <th *ngIf="currentUserRole != 'Admin'">Age</th>
+      <th *ngIf="currentUserRole == 'Admin'">Position</th>
       <th>Attendance</th>
     </tr>
-    <tr *ngFor="let member of members">
+    <tr *ngFor="let member of groupMembers">
       <th>{{member.lastname}}, {{member.firstname}} </th>
-      <th> {{member.roles}} </th>
+      <th *ngIf="currentUserRole != 'Admin'"> {{member.age}} </th>
+      <th *ngIf="currentUserRole == 'Admin'"> {{ member.roles }} </th>
       <th> <input type="radio" [id]="member.id"> </th>
     </tr>
   </table>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
