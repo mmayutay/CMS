@@ -21,7 +21,7 @@
       <th>{{member.lastname}}, {{member.firstname}} </th>
       <th *ngIf="currentUserRole != 'Admin'"> {{member.age}} </th>
       <th *ngIf="currentUserRole == 'Admin'"> {{ member.roles }} </th>
-      <th> <input type="radio" [id]="member.id"> </th>
+      <th> <input type="radio"> </th>
     </tr>
   </table>
 

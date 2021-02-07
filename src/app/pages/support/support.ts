@@ -10,6 +10,7 @@ import { AlertController, ToastController } from '@ionic/angular';
   styleUrls: ['./support.scss'],
 })
 export class SupportPage {
+  public currentUserId = ''
   public currentUserRole = ''
   public currentUser = [];
   public members;
@@ -27,17 +28,38 @@ export class SupportPage {
 
   ionViewDidEnter() {
     this.getTheCurrentUserRole();
+    this.request.getTheCurrentUserIdInStorage
   }
 
   cellGroupFunction(){
     this.request.cellGroup();
   }
 
-  getTheCurrentUserRole() {
-    
+  ifCurrentUserIsMember(){
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
-        if(data[0].roles == "Admin"){
+        if(data[0].roles == 'Member'){
+          this.currentUserRole = data[0].roles
+          this.request.getTheCurrentUserIdInStorage().then(result => {
+            this.currentUserId = result
+            this.datarequest.getTheCurrentUser({userID: result}).subscribe(response => {
+              this.datarequest.getTheCurrentUser({userID: response[0].leader}).subscribe(leaderData => {
+                this.currentUser.push(leaderData[0])
+                this.getAllMembers();
+              })
+            })
+          })
+        }
+      })
+    })
+  }
+
+  getTheCurrentUserRole() {
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
+        if(data[0].roles == 'Member') {
+          this.ifCurrentUserIsMember();
+        }else if(data[0].roles == "Admin"){
           this.currentUserRole = data[0].roles
           this.datarequest.getAllTheUserRoles().subscribe(data => {
             this.members = data
@@ -66,6 +88,17 @@ export class SupportPage {
           })
         }
       })
+    })
+  }
+
+  // this function is intended is the current user is also a member, so that this function will retrieve all the
+  //members of the group where the current user belong
+  getAllMembers() {
+    this.datarequest.getMyCellgroup({leaderid: this.currentUser[0].id}).subscribe(data => {
+      this.members = data
+      this.members.forEach(element => {
+        this.groupMembers.push(element)
+      });
     })
   }
 }
