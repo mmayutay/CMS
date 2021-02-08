@@ -8,23 +8,8 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service'
   styleUrls: ['./my-cell-admin.page.scss'],
 })
 export class MyCellAdminPage implements OnInit {
+  public currentUserRole = '';
   public members;
-  public hierarchyByAdmin = {
-    admin: "Ma. Lyn Gamboa",
-    leaders: [
-      {id: 1, name: "Raymond Yorong", age: 20, status: 'Single'},
-      {id: 2, name: "Romeo Lenizo", age: 20, status: 'Single'},
-      {id: 3, name: "JJ Villahermosa", age: 19, status: 'Single'},
-      {id: 4, name: "Jessa Yosores", age: 14, status: 'Single'},
-
-    ],
-    members: [
-      {id: 1, name: "Lebron James", leaderId: 2},
-      {id: 2, name: "Dwayne Wade", leaderId: 3},
-      {id: 3, name: "Kyle Kuzma", leaderId: 1},
-      {id: 4, name: "Michael Jordan", leaderId: 2},
-    ]
-  }
 
   constructor(
     private request: RequestsService,
@@ -32,7 +17,8 @@ export class MyCellAdminPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.showMembersBelongToThisGroup()
+    this.showMembersBelongToThisGroup();
+    this.getTheCurrentUserRole();
 
   }
 
@@ -45,4 +31,14 @@ export class MyCellAdminPage implements OnInit {
       })
     })
   }
+
+  getTheCurrentUserRole(){
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      this.dataRequest.getNetworkWhereIBelong(res).subscribe(result => {
+        console.log(result)
+      })
+    })
+  }
+
+
 }

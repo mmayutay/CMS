@@ -61,17 +61,18 @@ export class SupportPage {
           this.ifCurrentUserIsMember();
         }else if(data[0].roles == "Admin"){
           this.currentUserRole = data[0].roles
-          this.datarequest.getAllTheUserRoles().subscribe(data => {
-            this.members = data
+          this.datarequest.getAllTheUserRoles().subscribe(result => {
+            this.members = result
+            console.log(this.members)
             this.members.forEach(element => {
-              if(element.roles == 'Admin') {
-                this.members.pop(element)
+              if(element.roles == 'Admin'){
+                this.members.slice(this.members.indexOf(element), 1)
                 this.currentUser.push(element)
               }else{
                 this.groupMembers.push(element)
               }
             });
-          })
+          });
         }else{
           this.request.getTheCurrentUserIdInStorage().then(res => {
             this.datarequest.getTheCurrentUser({userID: res}).subscribe((data) => {
