@@ -10,14 +10,13 @@
           <ion-item>
             <!-- <ion-icon name="mail"></ion-icon>&nbsp;&nbsp; -->
             <!-- <ion-label position="floating" color="primary">Email</ion-label> -->
-            <div class="iconLogin">
-              <ion-icon name="mail"></ion-icon>
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="person-sharp"></ion-icon>
+              <input [(ngModel)]="login.username" name="email" class="input" placeholder="Username" type="text" #email="ngModel" spellcheck="false" autocapitalize="off" required />
             </div>&nbsp;&nbsp;
-            <input [(ngModel)]="login.username" name="email" class="input" placeholder="Email" type="text" #email="ngModel"
-              spellcheck="false" autocapitalize="off" required/>
           </ion-item>
           <ion-label *ngIf="!email.valid && email.touched && email.errors?.required">
-              <ion-text color="danger">Email is required</ion-text>
+            &nbsp;&nbsp;&nbsp;&nbsp;<ion-text color="danger">Email is required</ion-text>
           </ion-label><br>
 
           <!-- <ion-text color="danger">
@@ -28,14 +27,13 @@
 
           <ion-item>
             <!-- <ion-label position="floating" color="primary">Password</ion-label> -->
-            <div class="iconLogin">
-              <ion-icon name="key"></ion-icon>
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="key"></ion-icon>
+              <input [(ngModel)]="login.password" class="input" name="password" placeholder="Password" type="password" #password="ngModel" required />
             </div>&nbsp;&nbsp;
-            <input [(ngModel)]="login.password" class="input" name="password" placeholder="Password" type="password" #password="ngModel"
-              required/>
           </ion-item>
           <ion-label *ngIf="!password.valid && password.touched && password.errors?.required">
-              <ion-text color="danger">Password is required</ion-text>
+            &nbsp;&nbsp;&nbsp;&nbsp;<ion-text color="danger">Password is required</ion-text>
           </ion-label><br>
 
           <!-- <ion-text color="danger">
