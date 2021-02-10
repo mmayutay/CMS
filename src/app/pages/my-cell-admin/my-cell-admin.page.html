@@ -28,7 +28,7 @@
       <div id="data" class="w3-container">
         <h1>New Approved Members</h1>
         <ul class="w3-ul w3-border">
-          <li *ngFor="let name of newlyApprovedMembers.members" class=""> {{name.name}} </li>
+          <li *ngFor="let name of newlyApprovedMembers.members"> {{name.name}} </li>
         </ul>
       </div>
     </div>
@@ -44,9 +44,9 @@
       </div>
     </div>
     <div class="topnav">
-      <a class="leftNav" (click)="openApprovedMember('showLeftNav')">Approved Member</a>
+      <a class="leftNav" (click)="openApprovedMember('showLeftNav', 'showRightNav')">Approved Member</a>
       <a class="midNav">Notifications</a>
-      <a class="rightNav" (click)="openApprovedMember('showRightNav')">New Added Member</a>
+      <a class="rightNav" (click)="openApprovedMember('showRightNav', 'showLeftNav')">New Added Member</a>
     </div>
     <div class="cellGroupContent">
       <ul class="w3-ul w3-card-4">

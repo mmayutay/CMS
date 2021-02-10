@@ -33,4 +33,9 @@ export class DataRequestsService {
     return this.request.get(this.url + 'getAllUserRoles')
   }
 
+  //the data to pass should be {'newUser': {'leader': 'leaderID', 'member': 'userid', 'type': 'user role', 'date': ''}}
+  addAttendance(data) {
+    return this.request.post(this.url + 'attendance', data)
+  }
+
 }
