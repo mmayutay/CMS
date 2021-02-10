@@ -8,6 +8,15 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service'
   styleUrls: ['./my-cell-admin.page.scss'],
 })
 export class MyCellAdminPage implements OnInit {
+  public newlyApprovedMembers = {
+    leader: 'Pangulong Duterte',
+    members: [
+      {name: 'Raymond Jay'},
+      {name: 'Geneva'},
+      {name: 'Marichu Niere'},
+      {name: 'Ma. Lyn'},
+    ]
+  }
   public currentUserRole = '';
   public members;
 
@@ -19,7 +28,6 @@ export class MyCellAdminPage implements OnInit {
   ngOnInit() {
     this.showMembersBelongToThisGroup();
     this.getTheCurrentUserRole();
-
   }
 
   showMembersBelongToThisGroup() {
@@ -35,10 +43,22 @@ export class MyCellAdminPage implements OnInit {
   getTheCurrentUserRole(){
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.dataRequest.getNetworkWhereIBelong(res).subscribe(result => {
-        console.log(result)
+        this.currentUserRole = result[0].roles
       })
     })
   }
 
+  openApprovedMember(divID) {
+    document.getElementById('data').style.display = 'block'
+    document.getElementById(divID).style.width = '250px';
+  }
+  closeApprovedModal(divID){
+    document.getElementById('data').style.display = 'none'
+    document.getElementById(divID).style.width = '0'
+  }
+
+  addAttendance() {
+    console.log('Added')
+  }
 
 }

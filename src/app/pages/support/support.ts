@@ -28,7 +28,7 @@ export class SupportPage {
 
   ionViewDidEnter() {
     this.getTheCurrentUserRole();
-    this.request.getTheCurrentUserIdInStorage
+    this.request.getTheCurrentUserIdInStorage;
   }
 
   cellGroupFunction(){
@@ -63,7 +63,6 @@ export class SupportPage {
           this.currentUserRole = data[0].roles
           this.datarequest.getAllTheUserRoles().subscribe(result => {
             this.members = result
-            console.log(this.members)
             this.members.forEach(element => {
               if(element.roles == 'Admin'){
                 this.members.slice(this.members.indexOf(element), 1)
