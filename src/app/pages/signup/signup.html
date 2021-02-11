@@ -39,8 +39,7 @@
             <!-- <ion-label position="stacked" color="primary">Birthday</ion-label> -->
             <div class="input-container">
               <ion-icon class="iconLogin" name="calendar"></ion-icon>
-              <input (change)="getTheBirthday($event)" class="input" ngModel placeholder="Birthday" name="Birthday"
-                type="date" #birthday="ngModel" id="birth" required />
+              <input (change)="getTheBirthday($event)" class="input" ngModel placeholder="Birthday" name="Birthday" type="date" #birthday="ngModel" id="birth" required />
             </div>&nbsp;&nbsp;
           </ion-item>
           <ion-label *ngIf="!birthday.valid && birthday.touched && birthday.errors?.required">
@@ -85,8 +84,7 @@
             <!-- <ion-label position="stacked" color="primary">Address</ion-label> -->
             <div class="input-container">
               <ion-icon class="iconLogin" name="location"></ion-icon>
-              <input [(ngModel)]="signup.newUser.Address" class="input" placeholder="Address" name="Address" type="text"
-                #address="ngModel" required />
+              <input [(ngModel)]="signup.newUser.Address" class="input" placeholder="Address" name="Address" type="text" #address="ngModel" required />
             </div>
           </ion-item>
           <ion-label *ngIf="!address.valid && address.touched && address.errors?.required">
