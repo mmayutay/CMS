@@ -28,7 +28,7 @@
       <div id="data" class="w3-container">
         <h1>New Approved Members</h1>
         <ul class="w3-ul w3-border">
-          <li *ngFor="let name of newlyApprovedMembers.members"> {{name.name}} </li>
+          <li *ngFor="let name of newlyApprovedMembers"> {{name.member.lastname}}, {{name.member.firstname}} </li>
         </ul>
       </div>
     </div>
@@ -39,7 +39,7 @@
       <div id="data">
         <h1>New Added Members/VIP</h1>
         <ul class="w3-ul w3-border">
-          <li *ngFor="let name of newlyApprovedMembers.members" class=""> {{name.name}} </li>
+          <li *ngFor="let name of vipUsers" class=""> {{name.lastname}}, {{name.firstname}} </li>
         </ul>
       </div>
     </div>
@@ -50,8 +50,8 @@
     </div>
     <div class="cellGroupContent">
       <ul class="w3-ul w3-card-4">
-        <li *ngFor="let value of newlyApprovedMembers.members" class="w3-display-container">
-          <b>{{ newlyApprovedMembers.leader }}</b> added <b>{{value.name}}</b> to his/her group
+        <li *ngFor="let value of notificationsContent" class="w3-display-container">
+          <b>{{ value.leader.firstname }} {{ value.leader.lastname }}</b> added <b>{{value.member.firstname}} {{value.member.lastname}}</b> to his/her group
           <span onclick="this.parentElement.style.display='none'"
             class="w3-button w3-transparent w3-display-right">&times;</span>
         </li>

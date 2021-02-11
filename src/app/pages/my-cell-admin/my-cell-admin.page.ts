@@ -19,16 +19,10 @@ export class MyCellAdminPage implements OnInit {
     }
   }
   public currentUserData;
-  public newlyApprovedMembers = {
-    leader: 'Pangulong Duterte',
-    members: [
-      {name: 'Raymond Jay'},
-      {name: 'Geneva'},
-      {name: 'Marichu Niere'},
-      {name: 'Ma. Lyn'},
-    ]
-  }
+  public vipUsers;
+  public newlyApprovedMembers;
   public currentUserRole = '';
+  public notificationsContent;
   public members;
 
   constructor(
@@ -39,8 +33,7 @@ export class MyCellAdminPage implements OnInit {
 
   ngOnInit() {
     this.showMembersBelongToThisGroup();
-    this.getTheCurrentUserRole();
-    this.getTheCurrentUser();
+    this.getVIPMembers();
   }
 
   showMembersBelongToThisGroup() {
@@ -50,14 +43,10 @@ export class MyCellAdminPage implements OnInit {
           this.members = result
         })
       })
-    })
-  }
-
-  getTheCurrentUserRole(){
-    this.request.getTheUserRoleFromTheStorage().then(res => {
       this.dataRequest.getNetworkWhereIBelong(res).subscribe(result => {
         this.currentUserData = result
         this.currentUserRole = result[0].roles
+        this.getTheCurrentUser();
       })
     })
   }
@@ -80,6 +69,30 @@ export class MyCellAdminPage implements OnInit {
         this.dataAttendanceToPass.newUser.type = this.currentUserData[0].id
         this.dataAttendanceToPass.newUser.date = this.date.toString();
       })
+    })
+  }
+
+
+  //Get all the new added members or all the VIP
+  getVIPMembers() {
+    this.dataRequest.allVipUsers().subscribe(vipData => {
+      this.vipUsers = vipData
+    })
+    this.getVipMembersWithLeader();
+    this.notifVipAndLeader();
+  }
+
+  //Get all the new members or VIP but this function is also the leader return
+  getVipMembersWithLeader() {
+    this.dataRequest.getAllVipUsersWithLeader().subscribe(returnData => {
+      this.notificationsContent = returnData
+    })
+  }
+
+  //Get the notifications in which it contains the name of the VIP and also the name of his/her leader
+  notifVipAndLeader() {
+    this.dataRequest.vipUsersToDisplayAsNotification().subscribe(dataFetched => {
+      this.newlyApprovedMembers = dataFetched
     })
   }
 

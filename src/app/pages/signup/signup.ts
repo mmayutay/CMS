@@ -34,7 +34,7 @@ export class SignupPage {
       Instagram: '',
       Twitter: '',
       Category: '',
-      Description:''
+      Description:'A new member added!'
     }, groupBelong: {
       Leader: ''
     }, role: {
@@ -54,7 +54,7 @@ export class SignupPage {
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.signup.groupBelong.Leader = res
     })
-    this.roleDeclaration()
+    this.roleDeclaration();
   }
 
 
@@ -76,9 +76,10 @@ export class SignupPage {
   }
 
   onSignup(form: NgForm) {
-    this.signup.role.code = this.theNewUserRole
+    if(this.role == 'Leader'){
+      this.signup.role.code = 'Member'
+    }
     this.request.signUp(this.signup).subscribe(res => {
-      console.log(res)
       this.router.navigate(['/account'])
     })
   }

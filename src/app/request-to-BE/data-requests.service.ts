@@ -38,4 +38,19 @@ export class DataRequestsService {
     return this.request.post(this.url + 'attendance', data)
   }
 
+  //This is for the admin to get all VIP Users
+  allVipUsers () {
+    return this.request.get(this.url + 'vip-users')
+  }
+
+  //This function fetch all the vip users but this function includes to get the leader 
+  getAllVipUsersWithLeader() {
+    return this.request.get(this.url + 'vip-user-with-leader')
+  }
+
+  //This function is for the notification who displays the leader and the member
+  vipUsersToDisplayAsNotification() {
+    return this.request.get(this.url + 'all-new-unvip-members');
+  }
+
 }
