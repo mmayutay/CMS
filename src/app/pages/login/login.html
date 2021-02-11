@@ -13,12 +13,11 @@
             <div class="iconLogin">
               <ion-icon name="mail"></ion-icon>
             </div>&nbsp;&nbsp;
-            <ion-input [(ngModel)]="login.username" name="email" class="input" placeholder="Email" type="text" #email="ngModel"
-              spellcheck="false" autocapitalize="off" required>
-            </ion-input>
+            <input [(ngModel)]="login.username" name="email" class="input" placeholder="Email" type="text" #email="ngModel"
+              spellcheck="false" autocapitalize="off" required/>
           </ion-item>
           <ion-label *ngIf="!email.valid && email.touched && email.errors?.required">
-              <ion-text color="danger">Email is required</ion-text>
+              <ion-text color="danger">Username is required</ion-text>
           </ion-label><br>
 
           <!-- <ion-text color="danger">
@@ -32,9 +31,8 @@
             <div class="iconLogin">
               <ion-icon name="key"></ion-icon>
             </div>&nbsp;&nbsp;
-            <ion-input [(ngModel)]="login.password" class="input" name="password" placeholder="Password" type="password" #password="ngModel"
-              required>
-            </ion-input>
+            <input [(ngModel)]="login.password" class="input" name="password" placeholder="Password" type="password" #password="ngModel"
+              required/>
           </ion-item>
           <ion-label *ngIf="!password.valid && password.touched && password.errors?.required">
               <ion-text color="danger">Password is required</ion-text>

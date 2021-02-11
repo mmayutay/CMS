@@ -1,35 +1,35 @@
 <ion-app [class.dark-theme]="dark">
     <ion-split-pane contentId="main-content">
 
-    <ion-menu contentId="main-content">
-      <ion-content>
-        <ion-list lines="none">
-          <ion-list-header>
-            BHCF
-          </ion-list-header>
-          <ion-menu-toggle autoHide="false">
-              <ion-item routerLink="/dashboard" routerLinkActive="selected" routerDirection="root" detail="false">
-                <ion-icon slot="start" name="bar-chart-outline"></ion-icon>
-                <ion-label>
-                  Dashboard
-                </ion-label>
-              </ion-item>
-            </ion-menu-toggle>
-        </ion-list>
+        <ion-menu contentId="main-content">
+            <ion-content>
+                <ion-list lines="none">
+                    <ion-list-header>
+                        BHCF
+                    </ion-list-header>
+                    <ion-menu-toggle autoHide="false">
+                        <ion-item routerLink="/dashboard" routerLinkActive="selected" routerDirection="root" detail="false">
+                            <ion-icon slot="start" name="bar-chart-outline"></ion-icon>
+                            <ion-label>
+                                Dashboard
+                            </ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
 
-        <ion-list lines="none">
-          <ion-list-header>
-            Conference
-          </ion-list-header>
-          <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
-              <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
+                <ion-list lines="none">
+                    <ion-list-header>
+                        Conference
+                    </ion-list-header>
+                    <ion-menu-toggle autoHide="false" *ngFor="let p of appPages; let i = index">
+                        <ion-item [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
+                            <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
+                            <ion-label>
+                                {{p.title}}
+                            </ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
 
                 <ion-item>
                     <ion-icon slot="start" name="moon-outline"></ion-icon>
@@ -54,10 +54,19 @@
                     </ion-menu-toggle>
 
                     <ion-menu-toggle autoHide="false">
-                        <ion-item routerLink="/support" routerLinkActive="active" routerDirection="root" detail="false">
-                            <ion-icon slot="start" name="help"></ion-icon>
+                        <ion-item routerLink="/my-cell-admin" routerLinkActive="active" routerDirection="root" detail="false">
+                            <ion-icon slot="start" name="people"></ion-icon>
                             <ion-label>
-                                Cell Group
+                                My Cell Group
+                            </ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+
+                    <ion-menu-toggle autoHide="false">
+                        <ion-item routerLink="/support" routerLinkActive="active" routerDirection="root" detail="false">
+                            <ion-icon slot="start" name="people"></ion-icon>
+                            <ion-label>
+                                My Network
                             </ion-label>
                         </ion-item>
                     </ion-menu-toggle>

@@ -14,7 +14,7 @@ import { RequestsService } from '../../logInAndSignupService/requests.service';
   styleUrls: ['./login.scss'],
 })
 export class LoginPage {
-  login = { username: '', password: '' };
+  public login = { username: '', password: '' };
   submitted = false;
   public userAuthenticated = true
   public userLogin;
@@ -33,6 +33,7 @@ export class LoginPage {
 
   onLogin() {
     this.request.loginService(this.login).subscribe(res => {
+      console.log(res);
       if(res[0] != null) {
         this.request.storeTheCurrentUserToStorage(res[0].userid, res[0].roles)
         this.router.navigate(['/app/tabs/schedule'])

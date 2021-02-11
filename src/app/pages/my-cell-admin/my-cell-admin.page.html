@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>My Cell Group</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <table>
+    <tr class="title">
+      <th>Name</th>
+      <th>Age</th>
+      <th>Marital Status</th>
+    </tr>
+    <tr *ngFor="let leader of hierarchyByAdmin.leaders" (click)="showMembersBelongToThisGroup(leader)">
+      <th>{{ leader.name }}</th>
+      <th>{{ leader.age }}</th>
+      <th>{{ leader.status }}</th>
+    </tr>
+  </table>
+</ion-content>
