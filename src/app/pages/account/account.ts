@@ -42,6 +42,7 @@ export class AccountPage implements AfterViewInit {
       console.log('ROLE::', res);
       this.role = res
     })
+    
     this.request.getTheCurrentUserIdInStorage().then(res => {
       console.log(res);
       this.datasRequest.getTheCurrentUser({ userID: res }).subscribe(data => {
