@@ -11,3 +11,18 @@
 .list {
   margin-bottom: 0;
 }
+
+table {
+  margin-top: 5%;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, td, th {
+  border: 1px solid black;
+  padding: 10px;
+  font-size: 100;
+}
+.title {
+  background-color: rgb(141, 141, 141);
+}

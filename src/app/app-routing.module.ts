@@ -37,6 +37,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardPageModule)
   },
   {
+    path: 'auxiliary/:type',
+    loadChildren: () => import('./pages/auxiliary/auxiliary.module').then(m => m.AuxiliaryPageModule)
+  },
+  {
     path: 'ministries/:type',
     loadChildren: () => import('./pages/ministries/ministries.module').then( m => m.MinistriesPageModule)
   },
