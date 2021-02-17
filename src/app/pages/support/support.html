@@ -3,27 +3,26 @@
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>Cell Group</ion-title>
+        <ion-title>My Network</ion-title>
     </ion-toolbar>
 
 </ion-header>
 
 <ion-content>
-    <p>Cell Leader: </p>
-    <div style="overflow-x:auto;">
-        <h1>CELL MEMBERS</h1>
-        <table>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Age</th>
-            </tr>
-            <tr>
-                <td>Jill</td>
-                <td>Smith</td>
-                <td>50</td>
-            </tr>
-        </table>
-    </div>
+    <h3 *ngFor="let user of currentUser"> <b>Leader:</b> {{user.lastname}}, {{user.firstname}}</h3>
+    <table>
+        <tr class="title">
+            <th>Name</th>
+            <th *ngIf="currentUserRole != 'Admin'">Age</th>
+            <th *ngIf="currentUserRole == 'Admin'">Position</th>
+            <th>Attendance</th>
+        </tr>
+        <tr *ngFor="let member of groupMembers">
+            <th>{{member.lastname}}, {{member.firstname}} </th>
+            <th *ngIf="currentUserRole != 'Admin'"> {{member.age}} </th>
+            <th *ngIf="currentUserRole == 'Admin'"> {{ member.roles }} </th>
+            <th> <input type="radio"> </th>
+        </tr>
+    </table>
 
 </ion-content>

@@ -16,7 +16,7 @@ ion-card {
     width: 95%;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
 }
 
 
@@ -29,6 +29,15 @@ ion-card {
     padding:20px;
   }
   input.input:hover {
+    border: 1px solid orange;
+    border-radius: 8px;
+    padding:10px;
+    -moz-box-shadow: 0 0 8px #23c962;
+    -webkit-box-shadow: 0 0 8px #23c962;
+    box-shadow: 0 0 8px #23c962;
+  }
+
+  ion-input.input:hover {
     border: 1px solid orange;
     border-radius: 8px;
     padding:10px;
@@ -51,8 +60,14 @@ ion-input {
 .iconLogin{
     //   background-color: rgb(179, 174, 174, .8);
     //   padding: 5px; 
-    font: 70px;
-    color:#23c962;
+    font: 50px;
+    color:white;
+    padding: 10px;
+    background: #23c962;
+    // color: white;
+    min-width: 10%;
+    height: auto;
+    text-align: center;
 }
 
 ion-button {
@@ -73,3 +88,24 @@ ion-list {
     width: 100%;
   }
 }
+
+ion-tab-button{
+    margin-left: 0%;
+}
+
+.input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+//   .input-field {
+//     width: 100%;
+//     padding: 10px;
+//     outline: none;
+//   }
+  
+//   .input-field:focus {
+//     border: 2px solid orange;
+//   }

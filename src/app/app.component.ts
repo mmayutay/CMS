@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { Storage } from '@ionic/storage';
 import { RequestsService } from './logInAndSignupService/requests.service'
+import { DataRequestsService } from './request-to-BE/data-requests.service'
 
 import { UserData } from './providers/user-data';
 
@@ -56,13 +57,14 @@ export class AppComponent implements OnInit {
     private userData: UserData,
     private swUpdate: SwUpdate,
     private toastCtrl: ToastController,
+    private datarequest: DataRequestsService
   ) {
     this.initializeApp();
   }
 
   async ngOnInit() {
+
     this.request.getTheUserRoleFromTheStorage().then(res => {
-      console.log(res)
       this.sample = res
     })
     this.checkLoginStatus();

@@ -28,6 +28,20 @@ tr:nth-child(even) {
     background-color: #f2f2f2
 }
 
-h1 {
-    text-align: center;
+table {
+    margin-top: 5%;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table,
+td,
+th {
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 100;
+}
+
+.title {
+    background-color: rgb(141, 141, 141);
 }

@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { UserData } from '../../providers/user-data';
 
 import { RequestsService } from '../../logInAndSignupService/requests.service';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service'
+
+
 
 
 @Component({
@@ -15,6 +18,7 @@ export class SignupPage {
 
   public birthdate;
   public theNewUserRole = "";
+  public role = "";
 
   signup = {
     newUser: {
@@ -30,11 +34,11 @@ export class SignupPage {
       Instagram: '',
       Twitter: '',
       Category: '',
-      Description: 'ggh',
+      Description:'A new member added!'
     }, groupBelong: {
       Leader: ''
     }, role: {
-      code: 'Member'
+      code: ''
     }
   };
   submitted = false;
@@ -42,7 +46,8 @@ export class SignupPage {
   constructor(
     public router: Router,
     public userData: UserData,
-    public request: RequestsService
+    public request: RequestsService,
+    public dataRequest: DataRequestsService
   ) { }
 
   ngOnInit() {
@@ -50,43 +55,33 @@ export class SignupPage {
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.signup.groupBelong.Leader = res
     })
-    console.log(this.theNewUserRole)
-    // this.CalculateAge();
+    this.roleDeclaration();
   }
 
 
-  getTheBirthday(data){
+  getTheBirthday(data) {
     this.signup.newUser.Birthday = (<HTMLInputElement>document.getElementById('birth')).value;
     this.CalculateAge();
   }
-  
+
   CalculateAge() {
     var today = new Date();
 
-    var data = today.getFullYear() + ' ' + today.getMonth() + ' ' + today.getDay();
-
     this.birthdate = this.signup.newUser.Birthday.split('-');
 
-    if(today.getMonth() > this.birthdate[1]) {
-      this.signup.newUser.Age = today.getFullYear() - this.birthdate[0]  
-    }else {
+    if (today.getMonth() > this.birthdate[1]) {
+      this.signup.newUser.Age = today.getFullYear() - this.birthdate[0]
+    } else {
       this.signup.newUser.Age = today.getFullYear() - this.birthdate[0] - 1
     }
-    
-    // this.birthdate = "10/10/1981";
-    // if (this.signup.newUser.Birthday) {
-    //   var timeDiff = Math.abs(Date.now() - new Date(this.signup.newUser.Birthday).getTime());
-    //   this.signup.newUser.Age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
-    //   console.log(this.signup.newUser.Age)
-    // }
-    // console.log(Date.now());
   }
 
   onSignup(form: NgForm) {
-    this.signup.role.code = this.theNewUserRole
+    if(this.role == 'Leader'){
+      this.signup.role.code = 'Member'
+    }
     this.request.signUp(this.signup).subscribe(res => {
-      console.log(res)
-      // this.router.navigate(['/app/tabs/schedule'])
+      this.router.navigate(['/account'])
     })
   }
 
@@ -99,6 +94,13 @@ export class SignupPage {
       } else if (res == "Pastor") {
         this.theNewUserRole = "Leader"
       }
+    })
+  }
+  roleDeclaration() {
+    this.request.getTheUserRoleFromTheStorage().then(result => {
+      this.dataRequest.getNetworkWhereIBelong(result).subscribe(data => {
+        this.role = data[0].roles
+      })
     })
   }
 }
