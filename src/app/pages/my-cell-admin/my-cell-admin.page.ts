@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { AlertController } from '@ionic/angular';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+
 
 @Component({
   selector: 'app-my-cell-admin',
@@ -9,6 +11,11 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./my-cell-admin.page.scss'],
 })
 export class MyCellAdminPage implements OnInit {
+  //for qr scanner
+  qrData = null;
+  createdCode = null;
+  scannedCode = null;
+
   public date = new Date();
   public dataAttendanceToPass = {
     newUser: {
@@ -28,7 +35,8 @@ export class MyCellAdminPage implements OnInit {
   constructor(
     private request: RequestsService,
     private dataRequest: DataRequestsService,
-    private alertControl: AlertController
+    private alertControl: AlertController,
+    private qrScanner: QRScanner
   ) { }
 
   ngOnInit() {
@@ -130,5 +138,40 @@ export class MyCellAdminPage implements OnInit {
 
     await alert.present();
   }
+  createCode() {
+    this.createdCode = this.qrData
+  } 
+
+  qrCodeScanner() {
+    this.qrScanner.scan().subscribe(status  => {
+      console.log(status)
+    })
+    // .then((status: QRScannerStatus) => {
+    //   console.log(status)
+    //    if (status.authorized) {
+    //      // camera permission was granted
+  
+  
+    //      // start scanning
+    //      let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+    //        console.log('Scanned something', text);
+  
+    //        this.qrScanner.hide(); // hide camera preview
+    //        scanSub.unsubscribe(); // stop scanning
+    //      });
+  
+    //    } else if (status.denied) {
+    //      // camera permission was permanently denied
+    //      // you must use QRScanner.openSettings() method to guide the user to the settings page
+    //      // then they can grant the permission from there
+    //    } else {
+    //      // permission was denied, but not permanently. You can ask for permission again at a later time.
+    //    }
+    // })
+    // .catch((e: any) => console.log(e));
+  }
 
 }
+
+// ionic cordova plugin add cordova-plugin-qrscanner
+// npm install @ionic-native/qr-scanner
