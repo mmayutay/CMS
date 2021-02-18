@@ -5,7 +5,7 @@ import { CheckTutorial } from './providers/check-tutorial.service';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/landingpage',
     pathMatch: 'full'
   },
   {
@@ -51,7 +51,12 @@ const routes: Routes = [
   {
     path: 'my-cell-admin',
     loadChildren: () => import('./pages/my-cell-admin/my-cell-admin.module').then( m => m.MyCellAdminPageModule)
+  },
+  {
+    path: 'landingpage',
+    loadChildren: () => import('./pages/landingpage/landingpage.module').then( m => m.LandingpagePageModule)
   }
+
 
 
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service'
+import { RequestsService } from '../../logInAndSignupService/requests.service'
 
 @Component({
   selector: 'app-dashboard',
@@ -6,33 +8,43 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+//array of users attendance
+  public userAttendanceArray = []
+//for the calendar
   public numberOfDaysInAWeek = []
   public arrayOfDatesForAmonth = []
   public lengthOfMonthsDate = []
   public dayToday = "";
   public calendarMonth = "";
+//for the selected month
+  public selectedMonth = 0;
+  public currentMonth = 0;
 
-  constructor() { }
+  constructor(
+    private datarequest: DataRequestsService,
+    private request: RequestsService
+  ) { }
 
   ngOnInit() {
-    var dateObj = new Date();
-    this.checkTheDayToday(dateObj.getDay());
+    this.getCurrentMonth();
+    this.getAllDateFromUser();
     this.firstDayOftheMonthAndLast();
   }
 
-  checkTheDayToday(dayToday) {
-    var weekday = new Array(7);
-    weekday[0] = "Sunday";
-    weekday[1] = "Monday";
-    weekday[2] = "Tuesday";
-    weekday[3] = "Wednesday";
-    weekday[4] = "Thursday";
-    weekday[5] = "Friday";
-    weekday[6] = "Saturday";
-    this.dayToday = weekday[dayToday];
-  }
+  // checkTheDayToday(dayToday) {
+  //   var weekday = new Array(7);
+  //   weekday[0] = "Sunday";
+  //   weekday[1] = "Monday";
+  //   weekday[2] = "Tuesday";
+  //   weekday[3] = "Wednesday";
+  //   weekday[4] = "Thursday";
+  //   weekday[5] = "Friday";
+  //   weekday[6] = "Saturday";
+  //   this.dayToday = weekday[dayToday];
+  // }
 
   convertMonth(monthInput) {
+    this.selectedMonth = monthInput
     var month = new Array();
     month[0] = "January";
     month[1] = "February";
@@ -49,10 +61,20 @@ export class DashboardPage implements OnInit {
     this.calendarMonth = month[monthInput];
   }
 
+  getCurrentDate() {
+    var date = new Date();
+    var dateId = date.getDate().toString();
+    document.getElementById(dateId).style.backgroundColor = "rgb(210, 210, 210, 0.7)";  
+  }
 
 
   getDaysInMonth(month, year) {
     return new Date(year, month + 1, 0).getDate();;
+  }
+
+  getCurrentMonth() {
+    var date = new Date();
+    this.currentMonth = date.getMonth();
   }
 
   firstDayOftheMonthAndLast() {
@@ -86,12 +108,53 @@ export class DashboardPage implements OnInit {
         this.arrayOfDatesForAmonth.push({date: '', day: this.arrayOfDatesForAmonth[this.arrayOfDatesForAmonth.length - 1].day + 1})
       }
     }
-    // console.log(this.arrayOfDatesForAmonth);
-    // console.log(this.lengthOfMonthsDate);
   }
 
   counter(i: number) {
     return new Array(i);
   }
 
+
+  getAllDateFromUser() {
+    var currentTime = new Date();
+    var partialDataHandler;
+    var time;
+    this.request.getTheCurrentUserIdInStorage().then(res => {
+      this.datarequest.getTheCurrentUserAttendance(res).subscribe((data) => {
+        partialDataHandler = data
+        this.getCurrentDate();
+        for (let i = 0; i < this.arrayOfDatesForAmonth.length; i++) {
+          for (let j = 0; j < partialDataHandler.length; j++) {
+            time = new Date(partialDataHandler[j]);
+            if(this.arrayOfDatesForAmonth[i].day == time.getDay()) {
+              if(this.arrayOfDatesForAmonth[i].date != "") {
+                if(this.arrayOfDatesForAmonth[i].date > currentTime.getDate()) {
+                  this.getCurrentDate();
+                  document.getElementById(this.arrayOfDatesForAmonth[i].date).style.backgroundColor = "rgba(255, 255, 255, 0.1)"
+                }else {
+                  if(this.arrayOfDatesForAmonth[i].date == time.getDate()) {
+                    document.getElementById(this.arrayOfDatesForAmonth[i].date).style.backgroundColor  = "rgba(90, 255, 105, 0.7)"
+                  }else {
+                    document.getElementById(this.arrayOfDatesForAmonth[i].date).style.backgroundColor = "rgba(255, 140, 111, 0.7)"
+                  }
+                }
+              }
+          }
+          if(this.currentMonth != this.selectedMonth) {
+            document.getElementById("" + currentTime.getDate()).style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+            if(this.currentMonth < this.selectedMonth) {
+              if(this.arrayOfDatesForAmonth[i].date !=  "") {
+                if(this.arrayOfDatesForAmonth[i].day == 0) {
+                  console.log(this.arrayOfDatesForAmonth[i])
+                  document.getElementById(this.arrayOfDatesForAmonth[i].date.toString()).style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+                }
+              }
+            }
+          } 
+          }
+        }
+        this.userAttendanceArray.push({month: time.getMonth(), date: time.getDate(), year: time.getFullYear(), day: time.getDay()})
+      })
+    });
+  }
 }

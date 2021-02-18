@@ -113,6 +113,7 @@ export class AccountPage implements AfterViewInit {
   getUserRole(){
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.datasRequest.getNetworkWhereIBelong(res).subscribe(data => {
+        console.log(data)
         this.role = data[0].roles        
       })
     })
