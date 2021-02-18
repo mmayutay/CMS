@@ -14,66 +14,83 @@
             <!-- <form [formGroup]="updateForm"> -->
             <form #updateForm="ngForm" novalidate>
                 <ion-list lines="none">
+                    <!-- <ion-item>
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="person"></ion-icon>
+                            <input [(ngModel)]="signup.newUser.Lastname" class="input" placeholder="Lastname" name="Lastname" type="text" #lastname="ngModel" required />
+                        </div>
+                    </ion-item> -->
                     <ion-item>
-                        <ion-label position="stacked" color="primary">Lastname</ion-label>
-                        <ion-input name="Lastname" [value]="update.newUser.lastname" type="text" [(ngModel)]="updatedData.Lastname" required>
-                        </ion-input>
+                        <ion-label position="stacked" color="primary">Lastname</ion-label><br>
+                        <div class="input-container">
+                            <input class="input" name="Lastname" [value]="update.newUser.lastname" type="text" [(ngModel)]="updatedData.Lastname"
+                                required>
+                        </div>
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked" color="primary">Firstname</ion-label>
-                        <ion-input name="Firstname" [value]="update.newUser.firstname" type="text" [(ngModel)]="updatedData.Firstname" required>
+                        <ion-input name="Firstname" [value]="update.newUser.firstname" type="text" [(ngModel)]="updatedData.Firstname"
+                            required>
                         </ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked" color="primary">Birthday</ion-label>
-                        <ion-input name="Birthday" [value]="update.newUser.birthday" type="text" [(ngModel)]="updatedData.Birthday" required>
+                        <ion-input name="Birthday" [value]="update.newUser.birthday" type="date" [(ngModel)]="updatedData.Birthday"
+                            required>
                         </ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked" color="primary">Age</ion-label>
-                        <ion-input name="Age" [value]="update.newUser.age" type="number" [(ngModel)]="updatedData.Age" required>
+                        <ion-input name="Age" [value]="update.newUser.age" type="number" [(ngModel)]="updatedData.Age"
+                            required>
                         </ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked" color="primary">Address</ion-label>
-                        <ion-input name="Address" [value]="update.newUser.address" type="text" [(ngModel)]="updatedData.Address" required>
+                        <ion-input name="Address" [value]="update.newUser.address" type="text" [(ngModel)]="updatedData.Address"
+                            required>
                         </ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked" color="primary">Marital Status</ion-label>
-                        <ion-input name="Marital_status" [value]="update.newUser.marital_status" type="text" [(ngModel)]="updatedData.Marital_status" required>
+                        <ion-input name="Marital_status" [value]="update.newUser.marital_status" type="text"
+                            [(ngModel)]="updatedData.Marital_status" required>
                         </ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked" color="primary">Email</ion-label>
-                        <ion-input name="Email" [value]="update.newUser.email" [(ngModel)]="updatedData.Email" type="text" required>
+                        <ion-input name="Email" [value]="update.newUser.email" [(ngModel)]="updatedData.Email" type="text"
+                            required>
                         </ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked" color="primary">Contact Number</ion-label>
-                        <ion-input name="Contact_number" [value]="update.newUser.contact_number" type="text" [(ngModel)]="updatedData.Contact_number" required>
+                        <ion-input name="Contact_number" [value]="update.newUser.contact_number" type="text"
+                            [(ngModel)]="updatedData.Contact_number" required>
                         </ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked" color="primary">Facebook</ion-label>
-                        <ion-input name="Facebook" [value]="update.newUser.facebook" type="text" [(ngModel)]="updatedData.Facebook" required>
+                        <ion-input name="Facebook" [value]="update.newUser.facebook" type="text" [(ngModel)]="updatedData.Facebook"
+                            required>
                         </ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked" color="primary">Instagram</ion-label>
-                        <ion-input name="Instagram" [value]="update.newUser.instagram" type="text" [(ngModel)]="updatedData.Instagram" required>
+                        <ion-input name="Instagram" [value]="update.newUser.instagram" type="text" [(ngModel)]="updatedData.Instagram"
+                            required>
                         </ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked" color="primary">Twitter</ion-label>
-                        <ion-input name="Twitter" [value]="update.newUser.twitter" type="text" [(ngModel)]="updatedData.Twitter" required>
+                        <ion-input name="Twitter" [value]="update.newUser.twitter" type="text" [(ngModel)]="updatedData.Twitter"
+                            required>
                         </ion-input>
                     </ion-item>
                 </ion-list>
 
                 <div class="ion-padding">
-                    <ion-button (click)="onUpdate()" type="submit"
-                        expand="block">Update</ion-button>
+                    <ion-button class="btnLogin" (click)="onUpdate()" type="submit" expand="block">Update</ion-button>
                 </div>
             </form>
         </ion-card-content>

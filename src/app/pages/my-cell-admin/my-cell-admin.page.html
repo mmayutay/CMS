@@ -1,68 +1,73 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>My Cell Group</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>My Cell Group</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <table *ngIf="currentUserRole != 'Admin'">
-    <tr class="title">
-      <th>Name</th>
-      <th>Role</th>
-      <th>Description</th>
-    </tr>
-    <tr *ngFor="let member of members">
-      <th>{{ member.lastname }}, {{ member.firstname }} </th>
-      <th>{{ member.roles }}</th>
-      <th>{{ member.description }}</th>
-    </tr>
-  </table>
-  <div *ngIf="currentUserRole == 'Admin'">
+    <table *ngIf="currentUserRole != 'Admin'">
+        <tr class="title">
+            <th>Name</th>
+            <th>Role</th>
+            <th>Description</th>
+        </tr>
+        <tr *ngFor="let member of members">
+            <th>{{ member.lastname }}, {{ member.firstname }} </th>
+            <th>{{ member.roles }}</th>
+            <th>{{ member.description }}</th>
+        </tr>
+    </table>
+    <div *ngIf="currentUserRole == 'Admin'">
 
-    <!-- This will show the left nav -->
-    <div id="showLeftNav" class="sidenav">
-      <a class="exit" (click)="closeApprovedModal('showLeftNav')">x</a>
-      <div id="data" class="w3-container">
-        <h1>New Approved Members</h1>
-        <ul class="w3-ul w3-border">
-          <li *ngFor="let name of newlyApprovedMembers"> {{name.member.lastname}}, {{name.member.firstname}} </li>
-        </ul>
-      </div>
-    </div>
+        <!-- This will show the left nav -->
+        <div id="showLeftNav" class="sidenav">
+            <a class="exit" (click)="closeApprovedModal('showLeftNav')">x</a>
+            <div id="data" class="w3-container">
+                <h1>New Approved Members</h1>
+                <ul class="w3-ul w3-border">
+                    <ion-card>
+                        <ion-card-title>List: </ion-card-title>
+                        <li *ngFor="let name of newlyApprovedMembers"> {{name.member.lastname}}, {{name.member.firstname}} </li>
+                    </ion-card>
+                </ul>
+            </div>
+        </div>
 
-    <!-- This will show the right nav -->
-    <div id="showRightNav" class="rightnav">
-      <a class="exit" (click)="closeApprovedModal('showRightNav')">x</a>
-      <div id="data">
-        <h1>New Added Members/VIP</h1>
-        <ul class="w3-ul w3-border">
-          <li *ngFor="let name of vipUsers" class=""> {{name.lastname}}, {{name.firstname}} </li>
-        </ul>
-      </div>
+        <!-- This will show the right nav -->
+        <div id="showRightNav" class="rightnav">
+            <a class="exit" (click)="closeApprovedModal('showRightNav')">x</a>
+            <div id="data">
+                <h1>New Added Members/VIP</h1>
+                <ul class="w3-ul w3-border">
+                    <ion-card>
+                        <ion-card-title>List: </ion-card-title>
+                        <li *ngFor="let name of vipUsers" class=""> {{name.lastname}}, {{name.firstname}} </li>
+                    </ion-card>
+                </ul>
+            </div>
+        </div>
+        <div class="topnav">
+            <a class="leftNav" (click)="openApprovedMember('showLeftNav', 'showRightNav')">Approved Member</a>
+            <a class="midNav">Notifications</a>
+            <a class="rightNav" (click)="openApprovedMember('showRightNav', 'showLeftNav')">New Added Member</a>
+        </div>
+        <div class="cellGroupContent">
+            <ul class="w3-ul w3-card-4">
+                <li *ngFor="let value of notificationsContent" class="w3-display-container">
+                    <b>{{ value.leader.firstname }} {{ value.leader.lastname }}</b> added <b>{{value.member.firstname}} {{value.member.lastname}}</b> to his/her group
+                    <span onclick="this.parentElement.style.display='none'" class="w3-button w3-transparent w3-display-right">&times;</span>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="topnav">
-      <a class="leftNav" (click)="openApprovedMember('showLeftNav', 'showRightNav')">Approved Member</a>
-      <a class="midNav">Notifications</a>
-      <a class="rightNav" (click)="openApprovedMember('showRightNav', 'showLeftNav')">New Added Member</a>
+    <div *ngIf="currentUserRole == 'Member'">
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button (click)="addAttendance()">
+                <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
     </div>
-    <div class="cellGroupContent">
-      <ul class="w3-ul w3-card-4">
-        <li *ngFor="let value of notificationsContent" class="w3-display-container">
-          <b>{{ value.leader.firstname }} {{ value.leader.lastname }}</b> added <b>{{value.member.firstname}} {{value.member.lastname}}</b> to his/her group
-          <span onclick="this.parentElement.style.display='none'"
-            class="w3-button w3-transparent w3-display-right">&times;</span>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div *ngIf="currentUserRole == 'Member'">
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="addAttendance()">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </div>
 </ion-content>

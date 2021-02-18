@@ -1,55 +1,59 @@
 <ion-content>
-  <ion-card>
-    <div class="card">
-      <div class="login-logo">
-        <img src="assets/img/BHCFLogo.png" alt="Ionic logo">
-        <p>Blessed Hope of Christian Fellowship</p>
-      </div>
-      <form #loginForm="ngForm" novalidate>
-        <ion-list>
-          <ion-item>
-            <!-- <ion-icon name="mail"></ion-icon>&nbsp;&nbsp; -->
-            <!-- <ion-label position="floating" color="primary">Email</ion-label> -->
-            <div class="input-container">
-              <ion-icon class="iconLogin" name="person-sharp"></ion-icon>
-              <input autocomplete="off" [(ngModel)]="login.username" name="email" class="input" placeholder="Username" type="text" #email="ngModel" spellcheck="false" autocapitalize="off" required />
-            </div>&nbsp;&nbsp;
-          </ion-item>
-          <ion-label *ngIf="!email.valid && email.touched && email.errors?.required">
-            &nbsp;&nbsp;&nbsp;&nbsp;<ion-text color="danger">Email is required</ion-text>
-          </ion-label><br>
+    <ion-card>
+        <div class="card">
+            <div class="login-logo">
+                <img src="assets/img/BHCFLogo.png" alt="Ionic logo">
+                <p>Blessed Hope of Christian Fellowship</p>
+            </div>
+            <div>
+                <p>Login as: {{ userType }}</p>
+            </div>
+            <form #loginForm="ngForm" novalidate>
+                <ion-list>
+                    <ion-item>
+                        <!-- <ion-icon name="mail"></ion-icon>&nbsp;&nbsp; -->
+                        <!-- <ion-label position="floating" color="primary">Email</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="person-sharp"></ion-icon>
+                            <input autocomplete="off" [(ngModel)]="login.username" name="email" class="input" placeholder="Username" type="text" #email="ngModel" spellcheck="false" autocapitalize="off" required />
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!email.valid && email.touched && email.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Email is required</ion-text>
+                    </ion-label><br>
 
-          <!-- <ion-text color="danger">
+                    <!-- <ion-text color="danger">
             <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
               Email is required
             </p>
           </ion-text> -->
+                    <ion-item>
+                        <!-- <ion-label position="floating" color="primary">Password</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="key"></ion-icon>
+                            <input [(ngModel)]="login.password" class="input" name="password" placeholder="Password" type="password" #password="ngModel" required />
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!password.valid && password.touched && password.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Password is required</ion-text>
+                    </ion-label><br>
+                </ion-list>
 
-          <ion-item>
-            <!-- <ion-label position="floating" color="primary">Password</ion-label> -->
-            <div class="input-container">
-              <ion-icon class="iconLogin" name="key"></ion-icon>
-              <input [(ngModel)]="login.password" class="input" name="password" placeholder="Password" type="password" #password="ngModel" required />
-            </div>&nbsp;&nbsp;
-          </ion-item>
-          <ion-label *ngIf="!password.valid && password.touched && password.errors?.required">
-            &nbsp;&nbsp;&nbsp;&nbsp;<ion-text color="danger">Password is required</ion-text>
-          </ion-label><br>
-        </ion-list>
-
-        <ion-row>
-          <ion-col>
-            <ion-button class="btnLogin" (click)="onLogin()" type="submit" expand="block">Login</ion-button>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-button class="btnLogin" color="secondary" type="submit" expand="block">Forgot Password</ion-button>
-          </ion-col>
-        </ion-row>
-      </form>
-    </div>
-  </ion-card>
+                <ion-row>
+                    <ion-col>
+                        <ion-button class="btnLogin" (click)="onLogin()" type="submit" expand="block">Login</ion-button>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-button class="btnLogin" color="secondary" type="submit" expand="block">Forgot Password</ion-button>
+                    </ion-col>
+                </ion-row>
+            </form>
+        </div>
+    </ion-card>
 
 
 </ion-content>
