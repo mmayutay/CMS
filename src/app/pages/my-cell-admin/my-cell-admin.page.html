@@ -4,6 +4,10 @@
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>My Cell Group</ion-title>
+        <a slot="end" (click)="openApprovedMember('showRightNav', 'showLeftNav')">
+            <ion-icon size="large" slot="end" name="notifications-circle-outline">
+            </ion-icon>
+        </a>
     </ion-toolbar>
 </ion-header>
 
@@ -22,46 +26,65 @@
     </table>
     <div *ngIf="currentUserRole == 'Admin'">
 
-        <!-- This will show the left nav -->
-        <div id="showLeftNav" class="sidenav">
-            <a class="exit" (click)="closeApprovedModal('showLeftNav')">x</a>
-            <div id="data" class="w3-container">
-                <h1>New Approved Members</h1>
-                <ul class="w3-ul w3-border">
-                    <ion-card>
-                        <ion-card-title>List: </ion-card-title>
-                        <li *ngFor="let name of newlyApprovedMembers"> {{name.member.lastname}}, {{name.member.firstname}} </li>
-                    </ion-card>
-                </ul>
-            </div>
-        </div>
-
-        <!-- This will show the right nav -->
+        <!-- This will show the Notification Nav -->
         <div id="showRightNav" class="rightnav">
             <a class="exit" (click)="closeApprovedModal('showRightNav')">x</a>
             <div id="data">
-                <h1>New Added Members/VIP</h1>
+                <h1>Notifications</h1>
                 <ul class="w3-ul w3-border">
-                    <ion-card>
-                        <ion-card-title>List: </ion-card-title>
-                        <li *ngFor="let name of vipUsers" class=""> {{name.lastname}}, {{name.firstname}} </li>
-                    </ion-card>
+                    <li *ngFor="let value of notificationsContent" class="w3-display-container">
+                        <b>{{ value.leader.firstname }} {{ value.leader.lastname }}</b> added <b>{{value.member.firstname}}
+              {{value.member.lastname}}</b> to his/her group
+                        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-transparent w3-display-right">&times;</span>
+                    </li>
                 </ul>
             </div>
         </div>
-        <div class="topnav">
-            <a class="leftNav" (click)="openApprovedMember('showLeftNav', 'showRightNav')">Approved Member</a>
-            <a class="midNav">Notifications</a>
-            <a class="rightNav" (click)="openApprovedMember('showRightNav', 'showLeftNav')">New Added Member</a>
+        <ion-card>
+            <ion-segment value="NewApprovedMembers" scrollable="true" [(ngModel)]="segmentModel">
+                <ion-segment-button value="NewApprovedMembers">
+                    <ion-label>New Approved <br> Members</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="NewAddedMembers">
+                    <ion-label>New Added <br> Members</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+        </ion-card>
+
+        <div *ngIf="segmentModel === 'NewApprovedMembers'">
+            <form #form="ngForm" novalidate>
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>
+                            New Approved Members
+                        </ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ul class="w3-ul w3-border">
+                            <li *ngFor="let name of newlyApprovedMembers"> {{name.member.lastname}}, {{name.member.firstname}} </li>
+                        </ul>
+                    </ion-card-content>
+                </ion-card>
+            </form>
         </div>
-        <div class="cellGroupContent">
-            <ul class="w3-ul w3-card-4">
-                <li *ngFor="let value of notificationsContent" class="w3-display-container">
-                    <b>{{ value.leader.firstname }} {{ value.leader.lastname }}</b> added <b>{{value.member.firstname}} {{value.member.lastname}}</b> to his/her group
-                    <span onclick="this.parentElement.style.display='none'" class="w3-button w3-transparent w3-display-right">&times;</span>
-                </li>
-            </ul>
+
+        <div *ngIf="segmentModel === 'NewAddedMembers'">
+            <form #form="ngForm" novalidate>
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>
+                            New Added Members
+                        </ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ul class="w3-ul w3-border">
+                            <li *ngFor="let name of vipUsers" class=""> {{name.lastname}}, {{name.firstname}} </li>
+                        </ul>
+                    </ion-card-content>
+                </ion-card>
+            </form>
         </div>
+
     </div>
     <div *ngIf="currentUserRole == 'Member'">
         <ion-fab vertical="bottom" horizontal="end" slot="fixed">

@@ -18,6 +18,7 @@ th {
 .topnav {
     overflow: hidden;
     background-color: #333;
+    height: 20%;
 }
 
 p,
@@ -51,7 +52,7 @@ h1 {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: rgba(35, 201, 98, 0.9);
+    background-color: rgb(35, 201, 98, 0.9);
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -61,7 +62,6 @@ h1 {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    // color: #818181;
     color: white;
     display: block;
     transition: 0.3s;
@@ -81,6 +81,7 @@ h1 {
 
 .exit {
     float: right;
+    color: white;
 }
 
 //this is for the right navigation bar show
@@ -91,8 +92,7 @@ h1 {
     z-index: 1;
     top: 0;
     right: 0;
-    background-color: rgba(35, 201, 98, 0.9);
-    // background-color: rgba(131, 131, 131, 0.9);
+    background-color: rgb(35, 201, 98);
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -102,7 +102,6 @@ h1 {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    // color: #818181;
     color: white;
     display: block;
     transition: 0.3s;
