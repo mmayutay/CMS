@@ -49,6 +49,7 @@ export class SignupPage {
     public request: RequestsService,
     public dataRequest: DataRequestsService
   ) { }
+
   ngOnInit() {
     this.declaringTheCurrentRole()
     this.request.getTheCurrentUserIdInStorage().then(res => {

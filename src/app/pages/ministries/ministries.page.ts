@@ -10,7 +10,7 @@ export class MinistriesPage implements OnInit {
   public type = ''
 
   constructor(
-    private router: Router,
+    // private router: Router,
     private activeRoute: ActivatedRoute
     ) { }
 

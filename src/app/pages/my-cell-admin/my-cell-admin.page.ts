@@ -34,7 +34,7 @@ export class MyCellAdminPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.showMembersBelongToThisGroup();
+    this.showMembersBelongToThisGroup();  
     this.getVIPMembers();
   }
 

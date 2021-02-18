@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 // import { AlertController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
@@ -18,17 +18,26 @@ export class LoginPage {
   submitted = false;
   public userAuthenticated = true
   public userLogin;
+  public userType = ''
 
   constructor(
     public menu: MenuController,
     public userData: UserData,
     public router: Router,
     private request: RequestsService,
-    private alertControl: AlertController
+    private alertControl: AlertController,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    
+    this.userType = this.activatedRoute.snapshot.paramMap.get('userType')
+    console.log(this.userType)
+
     this.menu.enable(false)
+
+    
+    
   }
 
   onLogin() {

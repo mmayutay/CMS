@@ -1,15 +1,49 @@
+ion-row:first-child {
+    background-color: #2dd36f;
+    font-weight: bold;
+}
+
+ion-col {
+    border: 1px solid black;
+    border-bottom: 0;
+    border-right: 0;
+}
+
+ion-col:last-child {
+    border-right: 1px solid black;
+}
+
+ion-row:last-child {
+    border-bottom: 1px solid black;
+}
+
+@media only screen and (min-width: 600px) {
+    ion-grid {
+        --ion-grid-column-padding: 10px;
+        border-collapse: collapse;
+        border-style: hidden;
+    }
+}
+
 table {
-    margin-top: 10%;    
+    margin-top: 10%;
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
     border: 1px solid black;
-  }
-  
-  th, td {
+}
+
+th,
+td {
     text-align: left;
     padding: 8px;
     border: 1px solid black;
-  }
-  
-  tr:nth-child(even){background-color: #f2f2f2}
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}

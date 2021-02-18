@@ -1,4 +1,4 @@
-ion-button.btnLogin{
+ion-button.btnLogin {
     background-color: #23c962;
     border-radius: 100%;
 }
@@ -17,17 +17,21 @@ ion-button.btnLogin{
     margin-bottom: 0;
 }
 
-.iconLogin{
-//   background-color: rgb(179, 174, 174, .8);
-//   padding: 5px; 
-  font: 50px;
-  color:white;
-  padding: 10px;
-  background: #23c962;
-  // color: white;
-  min-width: 10%;
-  height: auto;
-  text-align: center;
+p {
+    text-align: center
+}
+
+.iconLogin {
+    //   background-color: rgb(179, 174, 174, .8);
+    //   padding: 5px; 
+    font: 50px;
+    color: white;
+    padding: 10px;
+    background: #23c962;
+    // color: white;
+    min-width: 10%;
+    height: auto;
+    text-align: center;
 }
 
 ion-card {
@@ -57,8 +61,9 @@ ion-card {
     height: 35px;
     padding: 20px;
     outline: none;
-  }
-  input.input:hover {
+}
+
+input.input:hover {
     // border: 1px solid orange;
     // border-radius: 8px;
     padding: 20px;

@@ -5,8 +5,13 @@ import { CheckTutorial } from './providers/check-tutorial.service';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/landing',
     pathMatch: 'full'
+  },
+  
+  {
+    path: 'landing',
+    loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule)
   },
   {
     path: 'account',
@@ -17,7 +22,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/support/support.module').then(m => m.SupportModule)
   },
   {
-    path: 'login',
+    path: 'login/:userType',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
   },
   {
@@ -51,7 +56,8 @@ const routes: Routes = [
   {
     path: 'my-cell-admin',
     loadChildren: () => import('./pages/my-cell-admin/my-cell-admin.module').then( m => m.MyCellAdminPageModule)
-  }
+  },
+
 
 
 
