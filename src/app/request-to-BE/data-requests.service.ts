@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class DataRequestsService {
   public url = "http://localhost:8000/api/"
   public currentUserRole = ''
+  public roleToLogged = ""
 
   constructor(
     private request: HttpClient

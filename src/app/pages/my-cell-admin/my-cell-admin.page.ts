@@ -11,10 +11,7 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
   styleUrls: ['./my-cell-admin.page.scss'],
 })
 export class MyCellAdminPage implements OnInit {
-  //for qr scanner
-  qrData = null;
-  createdCode = null;
-  scannedCode = null;
+  segmentModel = "NewApprovedMembers";
 
   public date = new Date();
   public dataAttendanceToPass = {
@@ -62,7 +59,7 @@ export class MyCellAdminPage implements OnInit {
   openApprovedMember(divID, divToClose) {
     document.getElementById('data').style.display = 'block'
     document.getElementById(divID).style.width = '250px';
-    document.getElementById(divToClose).style.width = '0';
+    // document.getElementById(divToClose).style.width = '0';
   }
   closeApprovedModal(divID){
     document.getElementById('data').style.display = 'none'
@@ -138,9 +135,9 @@ export class MyCellAdminPage implements OnInit {
 
     await alert.present();
   }
-  createCode() {
-    this.createdCode = this.qrData
-  } 
+  // createCode() {
+  //   this.createdCode = this.qrData
+  // } 
 
   qrCodeScanner() {
     this.qrScanner.scan().subscribe(status  => {

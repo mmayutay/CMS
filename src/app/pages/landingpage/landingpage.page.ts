@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 
 @Component({
   selector: 'app-landingpage',
@@ -13,7 +14,8 @@ export class LandingpagePage implements OnInit {
 
   constructor(
     private router: Router,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private dataRequest: DataRequestsService
   ) { }
 
   ngOnInit() {
@@ -21,6 +23,7 @@ export class LandingpagePage implements OnInit {
   }
 
   usersLogin() {
+    this.dataRequest.roleToLogged = this.usersLog
     this.router.navigateByUrl('/login')
   }
 
