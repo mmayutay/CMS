@@ -9,10 +9,11 @@
 <!-- *ngIf="username"  -->
 <ion-content>
     <ion-card class="card">
-        <div class="ion-padding-bottom ion-text-center">
+        <!-- <div class="ion-padding-bottom ion-text-center"> -->
+        <div class="ion-text-center">
             <img src="../../../assets/img/avatar.png" alt="avatar">
-            <h2>{{holder.firstname}} {{holder.lastname}}</h2>
-            <h3> {{ role }}</h3>
+            <h2><b>{{holder.firstname}} {{holder.lastname}}</b></h2>
+            <h4>{{ role }}</h4> 
         </div>
         <div>
             <!-- <ion-tabs> -->
@@ -20,24 +21,22 @@
             <ion-row>
                 <ion-col>
                     <ion-card class="auxiCard">
-                        <!-- <ion-tab-button *ngIf="role === 'Member'">
-                    <ion-icon name="person"></ion-icon>
-                    <ion-label>AUXILIARY</ion-label>
-                    <ion-label>{{auxliary}}</ion-label>
-                </ion-tab-button> -->
+                        <ion-tab-button *ngIf="role === 'Member'">
+                            <ion-icon name="person"></ion-icon>
+                            <ion-label>AUXILIARY</ion-label>
+                            <ion-label>{{auxliary}}</ion-label>
+                        </ion-tab-button>
                         <ion-tab-button>
                             <ion-icon name="person"></ion-icon>
                             <ion-label>AUXILIARY</ion-label>
-                            <span>Blessed Youth</span>
-                            <!-- 
-                    <ion-select placeholder="View Auxiliary" [(ngModel)]="auxliary" (ionChange)="optAuxiliary()">
-                        <ion-select-option value="Blessed Kids">Blessed Kids</ion-select-option>
-                        <ion-select-option value="Blessed Youth">Blessed Youth(13-21)</ion-select-option>
-                        <ion-select-option value="Blessed Singles">Blessed Singles(Singles 22 up)
-                        </ion-select-option>
-                        <ion-select-option value="Married Men">Blessed Men(Married men)</ion-select-option>
-                        <ion-select-option value="Married Women">Blessed Women(Married women)</ion-select-option>
-                    </ion-select> -->
+                            <ion-select placeholder="View Auxiliary" [(ngModel)]="auxliary" (ionChange)="optAuxiliary()">
+                                <ion-select-option value="Blessed Kids">Blessed Kids</ion-select-option>
+                                <ion-select-option value="Blessed Youth">Blessed Youth(13-21)</ion-select-option>
+                                <ion-select-option value="Blessed Singles">Blessed Singles(Singles 22 up)
+                                </ion-select-option>
+                                <ion-select-option value="Married Men">Blessed Men(Married men)</ion-select-option>
+                                <ion-select-option value="Married Women">Blessed Women(Married women)</ion-select-option>
+                            </ion-select>
                         </ion-tab-button>
                     </ion-card>
                 </ion-col>
@@ -56,8 +55,8 @@
                     </ion-card>
                 </ion-col>
                 <ion-col>
-                    <ion-card class="addUserCard">
-                        <ion-tab-button *ngIf="role !== 'Member'" routerLink="/create-new-user">
+                    <ion-card *ngIf="role !== 'Member'" class="addUserCard">
+                        <ion-tab-button routerLink="/create-new-user">
                             <ion-icon name="person-add"></ion-icon>
                             <ion-label>ADD NEW USER</ion-label>
                         </ion-tab-button>

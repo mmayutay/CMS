@@ -9,6 +9,8 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./my-cell-admin.page.scss'],
 })
 export class MyCellAdminPage implements OnInit {
+  segmentModel = "NewApprovedMembers";
+
   public date = new Date();
   public dataAttendanceToPass = {
     newUser: {
@@ -54,7 +56,7 @@ export class MyCellAdminPage implements OnInit {
   openApprovedMember(divID, divToClose) {
     document.getElementById('data').style.display = 'block'
     document.getElementById(divID).style.width = '250px';
-    document.getElementById(divToClose).style.width = '0';
+    // document.getElementById(divToClose).style.width = '0';
   }
   closeApprovedModal(divID){
     document.getElementById('data').style.display = 'none'
