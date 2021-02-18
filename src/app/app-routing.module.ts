@@ -7,6 +7,11 @@ const routes: Routes = [
     redirectTo: '/landingpage',
     pathMatch: 'full'
   },
+  
+  {
+    path: 'landing',
+    loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule)
+  },
   {
     path: 'account',
     loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule)
@@ -16,7 +21,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/support/support.module').then(m => m.SupportModule)
   },
   {
-    path: 'login',
+    path: 'login/:usertype',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
   },
   {
@@ -54,7 +59,11 @@ const routes: Routes = [
   {
     path: 'landingpage',
     loadChildren: () => import('./pages/landingpage/landingpage.module').then( m => m.LandingpagePageModule)
+  },  {
+    path: 'reportings',
+    loadChildren: () => import('./pages/reportings/reportings.module').then( m => m.ReportingsPageModule)
   }
+
 
 
 

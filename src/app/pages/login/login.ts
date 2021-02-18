@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 // import { AlertController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
@@ -19,7 +19,7 @@ export class LoginPage {
   submitted = false;
   public userAuthenticated = true
   public userLogin;
-  public userLoggedRole;
+  public userType = ''
 
   constructor(
     public menu: MenuController,
@@ -27,16 +27,22 @@ export class LoginPage {
     public router: Router,
     private request: RequestsService,
     private alertControl: AlertController,
+    private activatedRoute: ActivatedRoute,
     private dataRequest: DataRequestsService
   ) { }
 
   ngOnInit() {
+    this.userType = this.activatedRoute.snapshot.paramMap.get('usertype');
+
     this.menu.enable(false)
+
+    
+    
   }
 
   onLogin() {
     this.request.loginService(this.login).subscribe(res => {
-      if(res[0] != null) {
+      if(res != null) {
         this.getTheUsersCurrentRole(res[0].roles, res);
       }else {
         this.presentAlert()
@@ -55,7 +61,7 @@ export class LoginPage {
   }
   getTheUsersCurrentRole(roleID, currentuser) {
     this.dataRequest.getNetworkWhereIBelong(roleID).subscribe(res => {
-      if(res[0].roles == this.dataRequest.roleToLogged) {
+      if(res[0].roles == this.userType) {
         this.request.storeTheCurrentUserToStorage(currentuser[0].userid, currentuser[0].roles)
         this.router.navigate(['/app/tabs/schedule'])
       }else {
@@ -69,7 +75,7 @@ export class LoginPage {
     const alert = await this.alertControl.create({
       cssClass: 'my-custom-class',
       header: 'Error',
-      message: 'You want to logged as a/an '+this.dataRequest.roleToLogged + ' but the user you logged is not a/an ' + this.dataRequest.roleToLogged,
+      message: 'You want to logged as a/an '+this.userType + ' but the user you logged is not a/an ' + this.userType,
       buttons: ['OK']
     });
 

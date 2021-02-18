@@ -16,10 +16,5 @@ export class AuxiliaryPage implements OnInit {
     this.type = this.activatedRoute.snapshot.paramMap.get('type');
   }
 
-  // auxiliaryFunction() {
-  //   this.router.navigateByUrl('auxiliary')
-  //   console.log("Auxiliary");
-    
-  // }
 
 }

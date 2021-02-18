@@ -23,8 +23,7 @@ export class LandingpagePage implements OnInit {
   }
 
   usersLogin() {
-    this.dataRequest.roleToLogged = this.usersLog
-    this.router.navigateByUrl('/login')
+    this.router.navigateByUrl('/login/' + this.usersLog)
   }
 
 }

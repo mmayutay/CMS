@@ -1,96 +1,96 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>My Cell Group</ion-title>
-    <a slot="end" (click)="openApprovedMember('showRightNav', 'showLeftNav')">
-      <ion-icon size="large" slot="end" name="notifications-circle-outline">
-      </ion-icon>
-    </a>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>My Cell Group</ion-title>
+        <a slot="end" (click)="openApprovedMember('showRightNav', 'showLeftNav')">
+            <ion-icon size="large" slot="end" name="notifications-circle-outline">
+            </ion-icon>
+        </a>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <table *ngIf="currentUserRole != 'Admin'">
-    <tr class="title">
-      <th>Name</th>
-      <th>Role</th>
-      <th>Description</th>
-    </tr>
-    <tr *ngFor="let member of members">
-      <th>{{ member.lastname }}, {{ member.firstname }} </th>
-      <th>{{ member.roles }}</th>
-      <th>{{ member.description }}</th>
-    </tr>
-  </table>
-  <div *ngIf="currentUserRole == 'Admin'">
+    <table *ngIf="currentUserRole != 'Admin'">
+        <tr class="title">
+            <th>Name</th>
+            <th>Role</th>
+            <th>Description</th>
+        </tr>
+        <tr *ngFor="let member of members">
+            <th>{{ member.lastname }}, {{ member.firstname }} </th>
+            <th>{{ member.roles }}</th>
+            <th>{{ member.description }}</th>
+        </tr>
+    </table>
+    <div *ngIf="currentUserRole == 'Admin'">
 
-    <!-- This will show the Notification Nav -->
-    <div id="showRightNav" class="rightnav">
-      <a class="exit" (click)="closeApprovedModal('showRightNav')">x</a>
-      <div id="data">
-        <h1>Notifications</h1>
-        <ul class="w3-ul w3-border">
-          <li *ngFor="let value of notificationsContent" class="w3-display-container">
-            <b>{{ value.leader.firstname }} {{ value.leader.lastname }}</b> added <b>{{value.member.firstname}}
+        <!-- This will show the Notification Nav -->
+        <div id="showRightNav" class="rightnav">
+            <a class="exit" (click)="closeApprovedModal('showRightNav')">x</a>
+            <div id="data">
+                <h1>Notifications</h1>
+                <ul class="w3-ul w3-border">
+                    <li *ngFor="let value of notificationsContent" class="w3-display-container">
+                        <b>{{ value.leader.firstname }} {{ value.leader.lastname }}</b> added <b>{{value.member.firstname}}
               {{value.member.lastname}}</b> to his/her group
-            <span onclick="this.parentElement.style.display='none'" class="w3-button w3-transparent w3-display-right">&times;</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <ion-card>
-      <ion-segment value="NewApprovedMembers" scrollable="true" [(ngModel)]="segmentModel">
-        <ion-segment-button value="NewApprovedMembers">
-          <ion-label>New Approved <br> Members</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="NewAddedMembers">
-          <ion-label>New Added <br> Members</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-    </ion-card>
-
-    <div *ngIf="segmentModel === 'NewApprovedMembers'">
-      <form #form="ngForm" novalidate>
+                        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-transparent w3-display-right">&times;</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <ion-card>
-          <ion-card-header>
-            <ion-card-title>
-                New Approved Members
-            </ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ul class="w3-ul w3-border">
-              <li *ngFor="let name of newlyApprovedMembers"> {{name.member.lastname}}, {{name.member.firstname}} </li>
-            </ul>
-          </ion-card-content>
+            <ion-segment value="NewApprovedMembers" scrollable="true" [(ngModel)]="segmentModel">
+                <ion-segment-button value="NewApprovedMembers">
+                    <ion-label>New Approved <br> Members</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="NewAddedMembers">
+                    <ion-label>New Added <br> Members</ion-label>
+                </ion-segment-button>
+            </ion-segment>
         </ion-card>
-      </form>
-    </div>
 
-    <div *ngIf="segmentModel === 'NewAddedMembers'">
-      <form #form="ngForm" novalidate>
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>
-                New Added Members
-            </ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ul class="w3-ul w3-border">
-              <li *ngFor="let name of vipUsers" class=""> {{name.lastname}}, {{name.firstname}} </li>
-            </ul>
-          </ion-card-content>
-        </ion-card>
-      </form>
-    </div>
+        <div *ngIf="segmentModel === 'NewApprovedMembers'">
+            <form #form="ngForm" novalidate>
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>
+                            New Approved Members
+                        </ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ul class="w3-ul w3-border">
+                            <li *ngFor="let name of newlyApprovedMembers"> {{name.member.lastname}}, {{name.member.firstname}} </li>
+                        </ul>
+                    </ion-card-content>
+                </ion-card>
+            </form>
+        </div>
 
-  </div>
-  <div *ngIf="currentUserRole == 'Member'">
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="addAttendance()">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </div>
+        <div *ngIf="segmentModel === 'NewAddedMembers'">
+            <form #form="ngForm" novalidate>
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>
+                            New Added Members
+                        </ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ul class="w3-ul w3-border">
+                            <li *ngFor="let name of vipUsers" class=""> {{name.lastname}}, {{name.firstname}} </li>
+                        </ul>
+                    </ion-card-content>
+                </ion-card>
+            </form>
+        </div>
+
+    </div>
+    <div *ngIf="currentUserRole == 'Member'">
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button (click)="addAttendance()">
+                <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+    </div>
 </ion-content>
