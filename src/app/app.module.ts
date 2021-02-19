@@ -17,6 +17,10 @@ import {AccountPage} from './pages/account/account';
 import { AuxiliaryPage } from './pages/auxiliary/auxiliary.page';
 import { ModalPagePage } from './pages/modal-page/modal-page.page';
 
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -27,15 +31,19 @@ import { ModalPagePage } from './pages/modal-page/modal-page.page';
     IonicStorageModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
-    })
+    }),
+    NgxQRCodeModule
   ],
   declarations: [AppComponent],
-  providers: [InAppBrowser, SplashScreen, StatusBar, 
+  providers: [
+    InAppBrowser, SplashScreen, StatusBar, 
     MinistriesPage,
     AuxiliaryPage,
     AccountPage,
-    ModalPagePage
+    ModalPagePage,
+    QRScanner
   ],
+  
   bootstrap: [AppComponent]
 })
 

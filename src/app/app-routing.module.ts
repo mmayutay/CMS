@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CheckTutorial } from './providers/check-tutorial.service';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/landing',
+    redirectTo: '/landingpage',
     pathMatch: 'full'
   },
   
@@ -22,7 +21,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/support/support.module').then(m => m.SupportModule)
   },
   {
-    path: 'login/:userType',
+    path: 'login/:usertype',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
   },
   {
@@ -57,6 +56,14 @@ const routes: Routes = [
     path: 'my-cell-admin',
     loadChildren: () => import('./pages/my-cell-admin/my-cell-admin.module').then( m => m.MyCellAdminPageModule)
   },
+  {
+    path: 'landingpage',
+    loadChildren: () => import('./pages/landingpage/landingpage.module').then( m => m.LandingpagePageModule)
+  },  {
+    path: 'reportings',
+    loadChildren: () => import('./pages/reportings/reportings.module').then( m => m.ReportingsPageModule)
+  }
+
 
 
 

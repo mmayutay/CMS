@@ -39,16 +39,13 @@ export class AccountPage implements AfterViewInit {
 
   ngAfterViewInit() {
     this.getUserRole();
-
     this.userData.storage.get(this.request.storageUserRole).then(res => {
       this.role = res
     })
     
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.datasRequest.getTheCurrentUser({ userID: res }).subscribe(data => {
-        console.log(data)
-        this.holder = data[0]
-        console.log('Holder Response:: ', this.holder);
+        this.holder = data[0];
       })
     })
 
@@ -117,6 +114,7 @@ export class AccountPage implements AfterViewInit {
   getUserRole(){
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.datasRequest.getNetworkWhereIBelong(res).subscribe(data => {
+        console.log(data)
         this.role = data[0].roles        
       })
     })

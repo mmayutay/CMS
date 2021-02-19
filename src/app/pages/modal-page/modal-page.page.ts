@@ -13,8 +13,7 @@ import { userModel } from '../../interfaces/user-options';
   styleUrls: ['./modal-page.page.scss'],
 })
 export class ModalPagePage implements OnInit {
-  public updatedData: userModel
-  update: userModel = {
+  public updatedData  = {
     newUser: {
       Lastname: '',
       Firstname: '',
@@ -33,6 +32,7 @@ export class ModalPagePage implements OnInit {
       code: 'Member'
     }
   };
+  public update;
 
   constructor(
     private request: RequestsService,
@@ -41,16 +41,16 @@ export class ModalPagePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.updatedData = this.update
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.datasRequest.editUserInfo({userID: res}).subscribe(data => {
         this.update.newUser = data[0]
+        console.log(this.update)
       })
     })
   }
   
 
-  onUpdate(form: NgForm) {
+  onUpdate() {
     this.request.updateInfo(this.update).subscribe(res => {
       location.reload();
       this.router.navigate(['/account'])
