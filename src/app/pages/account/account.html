@@ -20,12 +20,12 @@
                     <ion-tab-button>
                         <ion-icon name="person"></ion-icon>
                         <ion-label>AUXILIARY</ion-label>
-                        <ion-select placeholder="View Auxiliary" [(ngModel)]="auxliary" (ionChange)="optAuxiliary()">
-                            <ion-select-option value="Kids">Blessed Kids</ion-select-option>
+                        <ion-select name="auxi[]" id="auxi" placeholder="View Auxiliary" #newSelect [(ngModel)]="auxiliary" (ionChange)="optAuxiliary(auxiliary)">
+                            <ion-select-option value="Kids" >Blessed Kids</ion-select-option>
                             <ion-select-option value="Youth">Blessed Youth(13-21)</ion-select-option>
                             <ion-select-option value="Single">Blessed Singles(Singles 22 up)</ion-select-option>
-                            <ion-select-option value="Married Men">Blessed Men(Married men)</ion-select-option>
-                            <ion-select-option value="Married Women">Blessed Women(Married women)</ion-select-option>
+                            <ion-select-option value="Mmen">Blessed Men(Married men)</ion-select-option>
+                            <ion-select-option value="Mwomen">Blessed Women(Married women)</ion-select-option>
                         </ion-select>
                     </ion-tab-button>
 

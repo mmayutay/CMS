@@ -101,8 +101,15 @@ export class AccountPage implements AfterViewInit {
     
   }
 
-  optAuxiliary( ) {
-    this.router.navigateByUrl('/auxiliary/'+this.auxliary)
+  optAuxiliary(value) {
+    console.log(value);
+    this.router.navigate(['/auxiliary/'+this.auxliary], { queryParams: {content: value} })
+    console.log("Selected auxiliary: ", value);
+    // this.datasRequest.displayAuxiliary({auxi: value}).subscribe(data => {
+    //   this.storage = data;
+    //   console.log(data);
+    //   console.log("Sample data: ", this.storage);
+    // });
   }
 
   optMinistry(){

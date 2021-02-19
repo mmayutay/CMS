@@ -22,4 +22,9 @@ export class DataRequestsService {
   updateUserInfo(userId) {
     return this.request.post(this.url + "info/update", userId);
   }
+
+  displayAuxiliary(auxiliaryValue) {
+    console.log(auxiliaryValue);
+    return this.request.post(this.url + "profile/auxiliary" , auxiliaryValue);
+  }
 }
