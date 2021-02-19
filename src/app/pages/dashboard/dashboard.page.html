@@ -37,27 +37,4 @@
     </ion-row>
 
   </ion-card>
-  <ion-card>
-    <h1> {{ calendarMonth }} </h1>
-    <table>
-      <tr>
-        <th>Sun</th>
-        <th>Mon</th>
-        <th>Tue</th>
-        <th>Wed</th>
-        <th>Thu</th>
-        <th>Fri</th>
-        <th>Sat</th>
-      </tr>
-      <tr *ngFor="let value of lengthOfMonthsDate">
-        <td [id]="arrayOfDatesForAmonth[value[0]].date">{{ arrayOfDatesForAmonth[value[0]].date }}</td>
-        <td [id]="arrayOfDatesForAmonth[value[1]].date">{{ arrayOfDatesForAmonth[value[1]].date }}</td>
-        <td [id]="arrayOfDatesForAmonth[value[2]].date">{{ arrayOfDatesForAmonth[value[2]].date }}</td>
-        <td [id]="arrayOfDatesForAmonth[value[3]].date">{{ arrayOfDatesForAmonth[value[3]].date }}</td>
-        <td [id]="arrayOfDatesForAmonth[value[4]].date">{{ arrayOfDatesForAmonth[value[4]].date }}</td>
-        <td [id]="arrayOfDatesForAmonth[value[5]].date">{{ arrayOfDatesForAmonth[value[5]].date }}</td>
-        <td [id]="arrayOfDatesForAmonth[value[6]].date">{{ arrayOfDatesForAmonth[value[6]].date }}</td>
-      </tr>
-    </table>
-  </ion-card>
 </ion-content>
