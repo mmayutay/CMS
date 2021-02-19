@@ -102,9 +102,16 @@ export class AccountPage implements AfterViewInit {
     this.router.navigateByUrl('/create-new-user')
   }
 
-  optAuxiliary() {
-    this.router.navigateByUrl('/auxiliary/' + this.auxliary)
+  optAuxiliary(value) {
+    this.router.navigate(['auxiliary/:type'], { queryParams: {content: value} })
+    console.log("Selected auxiliary: ", value);
+    // this.datasRequest.displayAuxiliary({auxi: value}).subscribe(data => {
+    //   this.storage = data;
+    //   console.log(data);
+    //   console.log("Sample data: ", this.storage);
+    // });
   }
+
 
   optMinistry() {
     this.router.navigateByUrl('/ministries/' + this.ministries)
