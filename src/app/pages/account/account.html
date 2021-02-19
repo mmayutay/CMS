@@ -9,9 +9,11 @@
 <!-- *ngIf="username"  -->
 <ion-content>
     <ion-card class="card">
-        <div class="ion-padding-bottom ion-text-center">
+        <!-- <div class="ion-padding-bottom ion-text-center"> -->
+        <div class="ion-text-center">
             <img src="../../../assets/img/avatar.png" alt="avatar">
-            <!-- <h2>{{ username }}</h2> -->
+            <h2><b>{{holder.firstname}} {{holder.lastname}}</b></h2>
+            <h4>{{ role }}</h4> 
         </div>
         <div>
             <ion-tabs>
@@ -53,7 +55,7 @@
             <div class="column">
                 <h1>PERSONAL INFORMATION</h1>
                 <hr class="solid">
-                <p>Fullname: {{holder.firstname}} {{holder.lastname}}</p>
+                <!-- <p>Fullname: {{holder.firstname}} {{holder.lastname}}</p> -->
                 <p>Birthday: {{holder.birthday}}</p>
                 <p>Age: {{holder.age}}</p>
                 <p>Address: {{holder.address}}</p>
@@ -64,8 +66,9 @@
                 <p>Instagram: {{holder.instagram}}</p>
                 <p>Twitter: {{holder.twitter}}</p>
                 <p>Leader: {{holder.leader}}</p>
-            <button [routerLink]="['/modal-page']">UPDATE INFORMATION</button>
             </div>
+            <ion-button type="submit" class="btnLogin" [routerLink]="['/modal-page']">UPDATE INFORMATION
+            </ion-button><br><br>
         </div>
     </ion-card>
 </ion-content>

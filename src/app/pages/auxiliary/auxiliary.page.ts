@@ -42,10 +42,5 @@ export class AuxiliaryPage implements OnInit {
     // });
   }
 
-  // auxiliaryFunction() {
-  //   this.router.navigateByUrl('auxiliary')
-  //   console.log("Auxiliary");
-    
-  // }
 
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 
 import { AlertController, ToastController } from '@ionic/angular';
-
 
 @Component({
   selector: 'page-support',
@@ -10,56 +10,95 @@ import { AlertController, ToastController } from '@ionic/angular';
   styleUrls: ['./support.scss'],
 })
 export class SupportPage {
+  public currentUserId = ''
+  public currentUserRole = ''
+  public currentUser = [];
+  public members;
+  public groupMembers = []
+
   submitted = false;
   supportMessage: string;
 
   constructor(
     public alertCtrl: AlertController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public request: RequestsService,
+    private datarequest: DataRequestsService
   ) { }
 
-  async ionViewDidEnter() {
-    const toast = await this.toastCtrl.create({
-      message: 'This does not actually send a support request.',
-      duration: 3000
-    });
-    await toast.present();
+  ionViewDidEnter() {
+    this.getTheCurrentUserRole();
+    this.request.getTheCurrentUserIdInStorage;
   }
 
-  async submit(form: NgForm) {
-    this.submitted = true;
+  cellGroupFunction(){
+    this.request.cellGroup();
+  }
 
-    if (form.valid) {
-      this.supportMessage = '';
-      this.submitted = false;
+  ifCurrentUserIsMember(){
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
+        if(data[0].roles == 'Member'){
+          this.currentUserRole = data[0].roles
+          this.request.getTheCurrentUserIdInStorage().then(result => {
+            this.currentUserId = result
+            this.datarequest.getTheCurrentUser({userID: result}).subscribe(response => {
+              this.datarequest.getTheCurrentUser({userID: response[0].leader}).subscribe(leaderData => {
+                this.currentUser.push(leaderData[0])
+                this.getAllMembers();
+              })
+            })
+          })
+        }
+      })
+    })
+  }
 
-      const toast = await this.toastCtrl.create({
-        message: 'Your support request has been sent.',
-        duration: 3000
+  getTheCurrentUserRole() {
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
+        if(data[0].roles == 'Member') {
+          this.ifCurrentUserIsMember();
+        }else if(data[0].roles == "Admin"){
+          this.currentUserRole = data[0].roles
+          this.datarequest.getAllTheUserRoles().subscribe(result => {
+            this.members = result
+            this.members.forEach(element => {
+              if(element.roles == 'Admin'){
+                this.members.slice(this.members.indexOf(element), 1)
+                this.currentUser.push(element)
+              }else{
+                this.groupMembers.push(element)
+              }
+            });
+          });
+        }else{
+          this.request.getTheCurrentUserIdInStorage().then(res => {
+            this.datarequest.getTheCurrentUser({userID: res}).subscribe((data) => {
+              this.currentUser.push(data[0])
+            })
+            this.datarequest.getMyCellgroup({leaderid: res}).subscribe((data) => {
+              this.members = data
+              this.members.forEach(element => {
+                if(element.leader == res){
+                  this.groupMembers.push(element);
+                }
+              });
+            })
+          })
+        }
+      })
+    })
+  }
+
+  // this function is intended is the current user is also a member, so that this function will retrieve all the
+  //members of the group where the current user belong
+  getAllMembers() {
+    this.datarequest.getMyCellgroup({leaderid: this.currentUser[0].id}).subscribe(data => {
+      this.members = data
+      this.members.forEach(element => {
+        this.groupMembers.push(element)
       });
-      await toast.present();
-    }
+    })
   }
-
-  // If the user enters text in the support question and then navigates
-  // without submitting first, ask if they meant to leave the page
-  // async ionViewCanLeave(): Promise<boolean> {
-  //   // If the support message is empty we should just navigate
-  //   if (!this.supportMessage || this.supportMessage.trim().length === 0) {
-  //     return true;
-  //   }
-
-  //   return new Promise((resolve: any, reject: any) => {
-  //     const alert = await this.alertCtrl.create({
-  //       title: 'Leave this page?',
-  //       message: 'Are you sure you want to leave this page? Your support message will not be submitted.',
-  //       buttons: [
-  //         { text: 'Stay', handler: reject },
-  //         { text: 'Leave', role: 'cancel', handler: resolve }
-  //       ]
-  //     });
-
-  //     await alert.present();
-  //   });
-  // }
 }

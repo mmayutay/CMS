@@ -5,8 +5,13 @@ import { CheckTutorial } from './providers/check-tutorial.service';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/landing',
     pathMatch: 'full'
+  },
+  
+  {
+    path: 'landing',
+    loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule)
   },
   {
     path: 'account',
@@ -17,7 +22,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/support/support.module').then(m => m.SupportModule)
   },
   {
-    path: 'login',
+    path: 'login/:userType',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
   },
   {
@@ -33,8 +38,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/tutorial/tutorial.module').then(m => m.TutorialModule)
   },
   {
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardPageModule)
+  },
+  {
     path: 'auxiliary/:type',
-    loadChildren: () => import('./pages/auxiliary/auxiliary.module').then( m => m.AuxiliaryPageModule)
+    loadChildren: () => import('./pages/auxiliary/auxiliary.module').then(m => m.AuxiliaryPageModule)
   },
   {
     path: 'ministries/:type',
@@ -43,7 +52,13 @@ const routes: Routes = [
   {
     path: 'modal-page',
     loadChildren: () => import('./pages/modal-page/modal-page.module').then( m => m.ModalPagePageModule)
-  }
+  },
+  {
+    path: 'my-cell-admin',
+    loadChildren: () => import('./pages/my-cell-admin/my-cell-admin.module').then( m => m.MyCellAdminPageModule)
+  },
+
+
 
 
 ];
@@ -52,4 +67,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

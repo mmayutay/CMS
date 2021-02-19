@@ -13,15 +13,18 @@ import { UserData } from '../../providers/user-data';
   templateUrl: 'account.html',
   styleUrls: ['./account.scss'],
 })
-export class AccountPage implements AfterViewInit { 
+export class AccountPage implements AfterViewInit {
   public currentUser;
   public username;
+  public role = ""
   // username;
   public userDetails = "any";
   public partialData = ""
-  public auxliary = "any";
+  public auxliary = "";
   public ministries = "any";
-  public holder=[];
+  public holder = [];
+  public roleHolder;
+  public isMember:boolean = true;
 
 
   constructor(
@@ -35,17 +38,22 @@ export class AccountPage implements AfterViewInit {
   ) { }
 
   ngAfterViewInit() {
+    this.getUserRole();
+
+    this.userData.storage.get(this.request.storageUserRole).then(res => {
+      this.role = res
+    })
+    
     this.request.getTheCurrentUserIdInStorage().then(res => {
-      this.datasRequest.getTheCurrentUser({userID: res}).subscribe(data => {
-        console.log(this.holder)
+      this.datasRequest.getTheCurrentUser({ userID: res }).subscribe(data => {
+        console.log(data)
         this.holder = data[0]
+        console.log('Holder Response:: ', this.holder);
       })
     })
+
   }
 
-  updatePicture() {
-    console.log('Clicked to update picture');
-  }
 
   // Present an alert with the current username populated
   // clicking OK will update the username and display it
@@ -97,24 +105,20 @@ export class AccountPage implements AfterViewInit {
     this.router.navigateByUrl('/create-new-user')
   }
 
-  updateInformation() {
-    
+  optAuxiliary() {
+    this.router.navigateByUrl('/auxiliary/' + this.auxliary)
   }
 
-  optAuxiliary(value) {
-    console.log(value);
-    this.router.navigate(['/auxiliary/'+this.auxliary], { queryParams: {content: value} })
-    console.log("Selected auxiliary: ", value);
-    // this.datasRequest.displayAuxiliary({auxi: value}).subscribe(data => {
-    //   this.storage = data;
-    //   console.log(data);
-    //   console.log("Sample data: ", this.storage);
-    // });
+  optMinistry() {
+    this.router.navigateByUrl('/ministries/' + this.ministries)
+
   }
 
-  optMinistry(){
-    this.router.navigateByUrl('/ministries/'+this.ministries)
-    console.log();
-
+  getUserRole(){
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      this.datasRequest.getNetworkWhereIBelong(res).subscribe(data => {
+        this.role = data[0].roles        
+      })
+    })
   }
 }

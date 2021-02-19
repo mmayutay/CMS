@@ -5,28 +5,37 @@
     </ion-toolbar>
 </ion-header>
 
-<!-- <ion-content> -->
-<ion-content class="ion-margin">
+<ion-content>
     <ion-grid class="ion-margin">
-        <ion-row>
-            <ion-col>S.No</ion-col>
-            <ion-col>Name</ion-col>
-            <ion-col>Gender</ion-col>
-            <ion-col>Country</ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>fdfd</ion-col>
-            <ion-col>fdfdfd</ion-col>
-            <ion-col>afdd</ion-col>
-            <ion-col>efedsfsfsd</ion-col>
-        </ion-row>
+        <ion-card>
+            <ion-row>
+                <ion-col>First Name</ion-col>
+                <ion-col>Last Name</ion-col>
+                <ion-col>Age</ion-col>
+                <ion-col>Birthday</ion-col>
+                <ion-col>Address</ion-col>
+                <ion-col>Marital Status</ion-col>
+                <ion-col>Email</ion-col>
+                <ion-col>Contact No.</ion-col>
+                <ion-col>Leader</ion-col>
+            </ion-row>
+            <!-- <ion-row *ngFor="let student of students; index as i"> -->
+            <!-- <ion-col>{{ i + 1 }}</ion-col> -->
+            <ion-row>
+                <ion-col>{{this.storage.firstname}}</ion-col>
+                <ion-col>{{this.storage.lastname}}</ion-col>
+                <ion-col>{{this.storage.age}}</ion-col>
+            </ion-row>
+            <!-- <ion-row>
+                <ion-col>Geneva</ion-col>
+                <ion-col>Rivas</ion-col>
+                <ion-col>21</ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>Geneva</ion-col>
+                <ion-col>Rivas</ion-col>
+                <ion-col>21</ion-col>
+            </ion-row> -->
+        </ion-card>
     </ion-grid>
 </ion-content>
-<!-- </ion-content>
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title>
-      Ionic Table using Ionic grid component
-    </ion-title>
-  </ion-toolbar>
-</ion-header> -->

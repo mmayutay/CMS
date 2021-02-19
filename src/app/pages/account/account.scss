@@ -7,9 +7,17 @@
         background-color: #36B92A;
         // border: 1px solid black;
     }
+    
     ion-select:hover {
         color: white;
         background-color: #36B92A;
+    }
+    
+    ion-button.btnLogin {
+        background-color: #23c962;
+        border-radius: 100%;
+        margin-left: 10%;
+        margin-right: 10%;
     }
     
     // .ionCard {
@@ -19,19 +27,23 @@
         margin-top: 20px;
         margin-bottom: 50px;
     }
-
-    button{
+    
+    button {
         padding: 14px 40px;
-        background-color: yellowgreen;
-
+        background-color: #36B92A;
+        border-radius: 10px;
+        border: 1px solid black;
+        margin-left: 14%;
+        margin-bottom: 10%;
         // border:black;
     }
     
     h1 {
         margin-left: 3%;
         font-size: 20px;
+        font-style: bold;
     }
-    
+   
     hr.solid {
         border-top: 1px solid black;
         margin-left: 2%;
@@ -40,6 +52,8 @@
     
     .container {
         margin-left: 10%;
+        margin-left: 5%;
+        margin-right: 5%;
     }
     
     ion-tab-button {
@@ -50,16 +64,23 @@
         background-color: #E9FDD8;
     }
     
+    .auxiCard {
+        height: 80%;
+    }
+    
+    .miniCard {
+        height: 80%;
+    }
+    
+    .addUserCard {
+        height: 80%;
+    }
+    
     @media only screen and (min-width: 600px) {
-        button {
-            margin-top: 5%;
-            margin-left: 2%;
-            margin-right: 2%;
-            border: 1px solid black;
-        }
         .column {
             float: left;
-            width: 50%;
+            width: 100%;
+            height: auto;
             padding: 10px;
             height: 50%;
         }
@@ -76,5 +97,11 @@
         }
         ion-label {
             font-size: 100%;
+        }
+        ion-button.btnLogin {
+            background-color: #23c962;
+            border-radius: 100%;
+            margin-left: 10%;
+            margin-right: 10%;
         }
     }

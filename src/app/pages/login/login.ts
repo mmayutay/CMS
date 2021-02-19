@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 // import { AlertController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
@@ -14,27 +14,36 @@ import { RequestsService } from '../../logInAndSignupService/requests.service';
   styleUrls: ['./login.scss'],
 })
 export class LoginPage {
-  login = { username: '', password: '' };
+  public login = { username: '', password: '' };
   submitted = false;
   public userAuthenticated = true
   public userLogin;
+  public userType = ''
 
   constructor(
     public menu: MenuController,
     public userData: UserData,
     public router: Router,
     private request: RequestsService,
-    private alertControl: AlertController
+    private alertControl: AlertController,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    
+    this.userType = this.activatedRoute.snapshot.paramMap.get('userType')
+    console.log(this.userType)
+
     this.menu.enable(false)
+
+    
+    
   }
 
   onLogin() {
     this.request.loginService(this.login).subscribe(res => {
       if(res[0] != null) {
-        this.request.storeTheCurrentUserToStorage(res[0].userid)
+        this.request.storeTheCurrentUserToStorage(res[0].userid, res[0].roles)
         this.router.navigate(['/app/tabs/schedule'])
       }else {
         this.presentAlert()

@@ -1,80 +1,173 @@
 <ion-header>
     <ion-toolbar>
-        <!-- <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons> -->
         <ion-icon name="arrow-back" [routerLink]="['/account']"></ion-icon>
         <ion-title>Create Another User</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card>
+    <ion-card class="card">
         <ion-card-content>
             <form #signupForm="ngForm" novalidate>
                 <ion-list lines="none">
                     <ion-item>
-                        <ion-label position="stacked" color="primary">Lastname</ion-label>
-                        <ion-input [(ngModel)]="signup.newUser.Lastname" name="Lastname" type="text" #lastname="ngModel" required>
-                        </ion-input>
+                        <!-- <ion-label position="stacked" color="primary">Lastname</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="person"></ion-icon>
+                            <input [(ngModel)]="signup.newUser.Lastname" class="input" placeholder="Lastname" name="Lastname" type="text" #lastname="ngModel" required />
+                        </div>&nbsp;&nbsp;
                     </ion-item>
+                    <ion-label *ngIf="!lastname.valid && lastname.touched && lastname.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Lastname is required</ion-text>
+                    </ion-label><br>
                     <ion-item>
-                        <ion-label position="stacked" color="primary">Firstname</ion-label>
-                        <ion-input [(ngModel)]="signup.newUser.Firstname" name="Firstname" type="text" #firstname="ngModel" required>
-                        </ion-input>
+                        <!-- <ion-label position="stacked" color="primary">Firstname</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="person"></ion-icon>
+                            <input [(ngModel)]="signup.newUser.Firstname" class="input" #nameCtrl="ngModel" placeholder="Firstname" name="Firstname" type="text" #firstname="ngModel" required />
+                        </div>&nbsp;&nbsp;
                     </ion-item>
+                    <ion-label *ngIf="!firstname.valid && firstname.touched && firstname.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Firstname is required</ion-text>
+                    </ion-label><br>
                     <ion-item>
-                        <ion-label position="stacked" color="primary">Birthday</ion-label>
-                        <ion-input [(ngModel)]="signup.newUser.Birthday" name="Birthday" type="text" #birthday="ngModel" required>
-                        </ion-input>
+                        <!-- <ion-label position="stacked" color="primary">Birthday</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="calendar"></ion-icon>
+                            <input (change)="getTheBirthday($event)" class="input" ngModel placeholder="Birthday" name="Birthday" type="date" #birthday="ngModel" id="birth" required />
+                        </div>&nbsp;&nbsp;
                     </ion-item>
+                    <ion-label *ngIf="!birthday.valid && birthday.touched && birthday.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Birthday is required</ion-text>
+                    </ion-label><br>
                     <ion-item>
-                        <ion-label position="stacked" color="primary">Age</ion-label>
-                        <ion-input [(ngModel)]="signup.newUser.Age" name="Age" type="number" #age="ngModel" required>
-                        </ion-input>
+                        <!-- <ion-label position="stacked" color="primary">Age</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="calendar"></ion-icon>
+                            <input [disabled]="true" [(ngModel)]="signup.newUser.Age" class="input" placeholder="Age" name="Age" type="number" #age="ngModel" required />
+                        </div>&nbsp;&nbsp;
                     </ion-item>
-                    <ion-item>
-                        <ion-label position="stacked" color="primary">Address</ion-label>
-                        <ion-input [(ngModel)]="signup.newUser.Address" name="Address" type="text" #address="ngModel" required>
-                        </ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="stacked" color="primary">Marital Status</ion-label>
-                        <ion-input [(ngModel)]="signup.newUser.Marital_status" name="Marital_status" type="text" #maritalstatus="ngModel" required>
-                        </ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="stacked" color="primary">Email</ion-label>
-                        <ion-input [(ngModel)]="signup.newUser.Email" name="Email" type="text" #email="ngModel" required>
-                        </ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="stacked" color="primary">Contact Number</ion-label>
-                        <ion-input [(ngModel)]="signup.newUser.Contact_number" name="Contact_number" type="text" #contactnumber="ngModel" required>
-                        </ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="stacked" color="primary">Facebook</ion-label>
-                        <ion-input [(ngModel)]="signup.newUser.Facebook" name="Facebook" type="text" #facebook="ngModel" required>
-                        </ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="stacked" color="primary">Instagram</ion-label>
-                        <ion-input [(ngModel)]="signup.newUser.Instagram" name="Instagram" type="text" #instagram="ngModel" required>
-                        </ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="stacked" color="primary">Twitter</ion-label>
-                        <ion-input [(ngModel)]="signup.newUser.Twitter" name="Twitter" type="text" #twitter="ngModel" required>
-                        </ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="stacked" color="primary">Category</ion-label>
-                        <ion-input [(ngModel)]="signup.newUser.Category" name="Category" type="text" #category="ngModel" required>
-                        </ion-input>
-                    </ion-item>
-                </ion-list>
+                    <ion-label *ngIf="!age.valid && age.touched && age.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Age is required</ion-text>
+                    </ion-label><br>
 
+                    <ion-item>
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="settings"></ion-icon>
+                            <ion-input [(ngModel)]="signup.role.code" name="code" #codeControl="ngModel" class="input">
+                                <ion-select placeholder="Role" *ngIf="role === 'Admin'">
+                                    <ion-select-option value="Pastor">Pastor</ion-select-option>
+                                    <ion-select-option value="Leader">Leader</ion-select-option>
+                                    <ion-select-option value="Member">Member</ion-select-option>
+                                </ion-select>
+                                <ion-select placeholder="Role" *ngIf="role === 'Pastor'">
+                                    <ion-select-option value="Leader">Leader</ion-select-option>
+                                    <ion-select-option value="Member">Member</ion-select-option>
+                                </ion-select>
+                                <ion-select placeholder="Role" *ngIf="role === 'Leader'">
+                                    <ion-select-option value="Member">Member</ion-select-option>
+                                </ion-select>
+                            </ion-input>
+                        </div>&nbsp;&nbsp;
+                    </ion-item><br>
+                    <ion-item>
+                        <ion-label *ngIf="!codeControl.valid && codeControl.touched && codeControl.errors?.required">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <ion-text color="danger">Role is required</ion-text>
+                        </ion-label><br>
+
+                        <!-- <ion-label position="stacked" color="primary">Address</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="location"></ion-icon>
+                            <input [(ngModel)]="signup.newUser.Address" class="input" placeholder="Address" name="Address" type="text" #address="ngModel" required />
+                        </div>
+                    </ion-item>
+                    <ion-label *ngIf="!address.valid && address.touched && address.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Address is required</ion-text>
+                    </ion-label><br>
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Marital Status</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="male-female-sharp"></ion-icon>
+                            <input [(ngModel)]="signup.newUser.Marital_status" class="input" placeholder="Marital Status" name="Marital_status" type="text" #maritalstatus="ngModel" required />
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!maritalstatus.valid && maritalstatus.touched && maritalstatus.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Marital Status is required</ion-text>
+                    </ion-label><br>
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Email</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="mail"></ion-icon>
+                            <input [(ngModel)]="signup.newUser.Email" class="input" placeholder="Email" name="Email" type="text" #email="ngModel" required />
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!email.valid && email.touched && email.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Email is required</ion-text>
+                    </ion-label><br>
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Contact Number</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="call-sharp"></ion-icon>
+                            <input [(ngModel)]="signup.newUser.Contact_number" class="input" placeholder="Contact Number" name="Contact_number" type="number" #contactnumber="ngModel" required />
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!contactnumber.valid && contactnumber.touched && contactnumber.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Contact Number is required</ion-text>
+                    </ion-label><br>
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Facebook</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="logo-facebook"></ion-icon>
+                            <input [(ngModel)]="signup.newUser.Facebook" class="input" placeholder="Facebook" name="Facebook" type="text" #facebook="ngModel" required />
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!facebook.valid && facebook.touched && facebook.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Facebook is required</ion-text>
+                    </ion-label><br>
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Instagram</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="logo-instagram"></ion-icon>
+                            <input [(ngModel)]="signup.newUser.Instagram" class="input" placeholder="Instagram" name="Instagram" type="text" #instagram="ngModel" required />
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!instagram.valid && instagram.touched && instagram.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Instagram is required</ion-text>
+                    </ion-label><br>
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Twitter</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="logo-twitter"></ion-icon>
+                            <input [(ngModel)]="signup.newUser.Twitter" class="input" placeholder="Twitter" name="Twitter" type="text" #twitter="ngModel" required />
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!twitter.valid && twitter.touched && twitter.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Twitter is required</ion-text>
+                    </ion-label><br>
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Category</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="list-circle-sharp"></ion-icon>
+                            <input [(ngModel)]="signup.newUser.Category" class="input" placeholder="Category" name="Category" type="text" #category="ngModel" required />
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!category.valid && category.touched && category.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Category is required</ion-text>
+                    </ion-label><br>
+                </ion-list>
                 <div class="ion-padding">
                     <ion-button (click)="onSignup(signupForm)" [disabled]="signupForm.invalid" type="submit" expand="block">Create</ion-button>
                 </div>

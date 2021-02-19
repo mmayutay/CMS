@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { Storage } from '@ionic/storage';
 import { RequestsService } from './logInAndSignupService/requests.service'
+import { DataRequestsService } from './request-to-BE/data-requests.service'
 
 import { UserData } from './providers/user-data';
 
@@ -19,6 +20,7 @@ import { UserData } from './providers/user-data';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
+  public sample = ''
   appPages = [
     {
       title: 'Schedule',
@@ -55,11 +57,16 @@ export class AppComponent implements OnInit {
     private userData: UserData,
     private swUpdate: SwUpdate,
     private toastCtrl: ToastController,
+    private datarequest: DataRequestsService
   ) {
     this.initializeApp();
   }
 
   async ngOnInit() {
+
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      this.sample = res
+    })
     this.checkLoginStatus();
     this.listenForLoginEvents();
 
@@ -124,7 +131,6 @@ export class AppComponent implements OnInit {
   logout() {
     this.request.logoutService().then(res => {
       location.reload()
-      console.log(res)
     })
     return this.router.navigate(['/login']);
   }

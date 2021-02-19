@@ -3,11 +3,10 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserData } from '../../providers/user-data';
 
-import { UserOptions } from '../../interfaces/user-options';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service'
 
-import { RequestsService } from '../../logInAndSignupService/requests.service'
 
-import { User } from '../../model/user.model';
 
 
 @Component({
@@ -16,6 +15,11 @@ import { User } from '../../model/user.model';
   styleUrls: ['./signup.scss'],
 })
 export class SignupPage {
+
+  public birthdate;
+  public theNewUserRole = "";
+  public role = "";
+
   signup = {
     newUser: {
       Lastname: '',
@@ -30,10 +34,11 @@ export class SignupPage {
       Instagram: '',
       Twitter: '',
       Category: '',
+      Description:'A new member added!'
     }, groupBelong: {
       Leader: ''
     }, role: {
-      code: 'Member'
+      code: ''
     }
   };
   submitted = false;
@@ -41,46 +46,61 @@ export class SignupPage {
   constructor(
     public router: Router,
     public userData: UserData,
-    public request: RequestsService
+    public request: RequestsService,
+    public dataRequest: DataRequestsService
   ) { }
+
   ngOnInit() {
+    this.declaringTheCurrentRole()
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.signup.groupBelong.Leader = res
     })
+    this.roleDeclaration();
+  }
+
+
+  getTheBirthday(data) {
+    this.signup.newUser.Birthday = (<HTMLInputElement>document.getElementById('birth')).value;
+    this.CalculateAge();
+  }
+
+  CalculateAge() {
+    var today = new Date();
+
+    this.birthdate = this.signup.newUser.Birthday.split('-');
+
+    if (today.getMonth() > this.birthdate[1]) {
+      this.signup.newUser.Age = today.getFullYear() - this.birthdate[0]
+    } else {
+      this.signup.newUser.Age = today.getFullYear() - this.birthdate[0] - 1
+    }
   }
 
   onSignup(form: NgForm) {
+    if(this.role == 'Leader'){
+      this.signup.role.code = 'Member'
+    }
     this.request.signUp(this.signup).subscribe(res => {
-      console.log(res)
-      this.router.navigate(['/app/tabs/schedule'])
+      this.router.navigate(['/account'])
     })
   }
 
-
-    // public userInfo: User = {
-    //   Name: '',
-    //   Age: null,
-    //   Leader: '',
-    //   Member_status: '',
-    //   Email: '',
-    //   Password: '',
-    // };
-
-    // signup: UserOptions = { username: '', password: '' };
-    // submitted = false;
-
-    // constructor(
-    //   public request: RequestsService,
-    //   public router: Router,
-    //   public userData: UserData,
-    //   public menu: MenuController 
-    // ) {}
-    // ngOnInit() {
-    // }
-
-    // onSignup(form: NgForm) {
-    //   this.request.signUp(this.userInfo).subscribe(res => {
-    //     this.router.navigate(['/app/tabs/schedule'])
-    //   });
-  
+  declaringTheCurrentRole() {
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      if (res == "Leader") {
+        this.theNewUserRole = "Member"
+      } else if (res == "Admin") {
+        this.theNewUserRole = "Pastor"
+      } else if (res == "Pastor") {
+        this.theNewUserRole = "Leader"
+      }
+    })
+  }
+  roleDeclaration() {
+    this.request.getTheUserRoleFromTheStorage().then(result => {
+      this.dataRequest.getNetworkWhereIBelong(result).subscribe(data => {
+        this.role = data[0].roles
+      })
+    })
+  }
 }

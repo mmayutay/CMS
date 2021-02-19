@@ -45,19 +45,16 @@ export class ModalPagePage implements OnInit {
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.datasRequest.editUserInfo({userID: res}).subscribe(data => {
         this.update.newUser = data[0]
-        console.log(this.updatedData)
       })
     })
   }
   
 
   onUpdate(form: NgForm) {
-    console.log(this.updatedData)
-
-    // this.request.updateInfo(this.update).subscribe(res => {
-    //   console.log(res)
-    //   this.router.navigate(['/app/tabs/account'])
-    // })
+    this.request.updateInfo(this.update).subscribe(res => {
+      location.reload();
+      this.router.navigate(['/account'])
+    })
   }
 }
 
