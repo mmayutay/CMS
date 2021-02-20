@@ -231,7 +231,6 @@ export class ReportingsPage implements OnInit {
     if(this.typeChoice != 'Weekly') {
       for (let index = 0; index < this.arrayOfDatesForAmonth.length; index++) {
         if(this.arrayOfDatesForAmonth[index].date != "" && this.arrayOfDatesForAmonth[index].day == 0) {
-          console.log(this.arrayOfDatesForAmonth[index])
           document.getElementById(this.arrayOfDatesForAmonth[index].date.toString()).style.backgroundColor = "rgba(255, 140, 111, 0.7)";
         }
       }
