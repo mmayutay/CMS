@@ -39,16 +39,13 @@ export class AccountPage implements AfterViewInit {
 
   ngAfterViewInit() {
     this.getUserRole();
-
     this.userData.storage.get(this.request.storageUserRole).then(res => {
       this.role = res
     })
     
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.datasRequest.getTheCurrentUser({ userID: res }).subscribe(data => {
-        console.log(data)
-        this.holder = data[0]
-        console.log('Holder Response:: ', this.holder);
+        this.holder = data[0];
       })
     })
 
@@ -82,7 +79,8 @@ export class AccountPage implements AfterViewInit {
     });
     await alert.present();
   }
-
+  
+  
 
 
   getUsername() {
@@ -104,9 +102,16 @@ export class AccountPage implements AfterViewInit {
     this.router.navigateByUrl('/create-new-user')
   }
 
-  optAuxiliary() {
-    this.router.navigateByUrl('/auxiliary/' + this.auxliary)
+  optAuxiliary(value) {
+    this.router.navigate(['auxiliary/:type'], { queryParams: {content: value} })
+    console.log("Selected auxiliary: ", value);
+    // this.datasRequest.displayAuxiliary({auxi: value}).subscribe(data => {
+    //   this.storage = data;
+    //   console.log(data);
+    //   console.log("Sample data: ", this.storage);
+    // });
   }
+
 
   optMinistry() {
     this.router.navigateByUrl('/ministries/' + this.ministries)
@@ -116,6 +121,7 @@ export class AccountPage implements AfterViewInit {
   getUserRole(){
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.datasRequest.getNetworkWhereIBelong(res).subscribe(data => {
+        console.log(data)
         this.role = data[0].roles        
       })
     })

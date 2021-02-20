@@ -2,16 +2,30 @@
     <ion-split-pane contentId="main-content">
 
         <ion-menu contentId="main-content">
+            <ion-header>
+                <div id="head"><br>
+                    <ion-list-header>
+                        <ion-img id="header_logo" src="../assets/img/BHCFLogo.png"></ion-img>&nbsp;
+                        <span><b>Blessed Hope Christian Fellowship</b></span>
+                        <!-- <h2 id="church">Blessed Hope Christian Fellowship</h2> -->
+                    </ion-list-header><br>
+                </div>
+            </ion-header>
             <ion-content>
                 <ion-list lines="none">
-                    <ion-list-header>
-                        BHCF
-                    </ion-list-header>
                     <ion-menu-toggle autoHide="false">
                         <ion-item routerLink="/dashboard" routerLinkActive="selected" routerDirection="root" detail="false">
                             <ion-icon slot="start" name="bar-chart-outline"></ion-icon>
                             <ion-label>
                                 Dashboard
+                            </ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle autoHide="false">
+                        <ion-item routerLink="/reportings" routerLinkActive="selected" routerDirection="root" detail="false">
+                            <ion-icon slot="start" name="calendar"></ion-icon>
+                            <ion-label>
+                                Reportings
                             </ion-label>
                         </ion-item>
                     </ion-menu-toggle>

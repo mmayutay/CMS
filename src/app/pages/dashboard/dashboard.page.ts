@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service'
+import { RequestsService } from '../../logInAndSignupService/requests.service'
 
 @Component({
   selector: 'app-dashboard',

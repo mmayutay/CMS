@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class DataRequestsService {
   public url = "http://localhost:8000/api/"
   public currentUserRole = ''
+  public roleToLogged = ""
 
   constructor(
     private request: HttpClient
@@ -16,6 +17,18 @@ export class DataRequestsService {
     return this.request.post(this.url + "info", userId);
   }
 
+  editUserInfo(userId) {
+    return this.request.get(this.url + "info/edit", userId);
+  }
+
+  updateUserInfo(userId) {
+    return this.request.post(this.url + "info/update", userId);
+  }
+
+  displayAuxiliary(auxiliaryValue) {
+    console.log(auxiliaryValue);
+    return this.request.post(this.url + "profile/auxiliary" , auxiliaryValue);
+  }
   getMyCellgroup(leaderId){
     return this.request.post(this.url + 'leader', leaderId)
   }
@@ -36,6 +49,11 @@ export class DataRequestsService {
   //the data to pass should be {'newUser': {'leader': 'leaderID', 'member': 'userid', 'type': 'user role', 'date': ''}}
   addAttendance(data) {
     return this.request.post(this.url + 'attendance', data)
+  }
+
+  //data to pass is the current user's id
+  getTheCurrentUserAttendance(currentUserId) {
+    return this.request.post(this.url + 'current-user-attendance', {currentUserId: currentUserId});
   }
 
   //This is for the admin to get all VIP Users
