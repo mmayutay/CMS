@@ -40,8 +40,8 @@ export class DataRequestsService {
   }
 
   //data to pass is the current user's id
-  getTheCurrentUserAttendance(currentUserId) {
-    return this.request.post(this.url + 'current-user-attendance', {currentUserId: currentUserId});
+  getTheCurrentUserAttendance(currentUserId, month) {
+    return this.request.post(this.url + 'current-user-attendance', {currentUserId: currentUserId, month: month});
   }
 
   //This is for the admin to get all VIP Users

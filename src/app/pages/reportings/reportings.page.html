@@ -1,16 +1,55 @@
 <ion-header>
   <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>Reportings</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Reportings</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
   <ion-card>
-    <h1> {{ calendarMonth }} </h1>
+    <p>Display Dates: </p>
+      <ion-input [(ngModel)]="typeChoice" (ionChange)="typeOfDisplay($event)" name="code" ngModel class="input">
+        <ion-select placeholder="Choose Type">
+          <ion-select-option *ngFor="let type of typeOfDisplays" [value]="type">{{ type }}</ion-select-option>
+        </ion-select>
+      </ion-input>
+      <ion-input [(ngModel)]="month" (ionChange)="monthChose($event)" name="code" ngModel class="input">
+        <ion-select class="monthDisplay" placeholder="Choose Month">
+          <ion-select-option *ngFor="let month of monthChoices" [value]="month">{{ month }}</ion-select-option>
+        </ion-select>
+      </ion-input>
+  </ion-card>
+
+  <!-- Display by week -->
+  <ion-card *ngIf=" typeChoice == 'Weekly'">
+    <h1> {{ month }} </h1>
+    <table>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+      <tr>
+        <td [id]="arrayOfDatesForAmonth[0].date">{{ arrayOfDatesForAmonth[0].date }}</td>
+        <td [id]="arrayOfDatesForAmonth[1].date">{{ arrayOfDatesForAmonth[1].date }}</td>
+        <td [id]="arrayOfDatesForAmonth[2].date">{{ arrayOfDatesForAmonth[2].date }}</td>
+        <td [id]="arrayOfDatesForAmonth[3].date">{{ arrayOfDatesForAmonth[3].date }}</td>
+        <td [id]="arrayOfDatesForAmonth[4].date">{{ arrayOfDatesForAmonth[4].date }}</td>
+        <td [id]="arrayOfDatesForAmonth[5].date">{{ arrayOfDatesForAmonth[5].date }}</td>
+        <td [id]="arrayOfDatesForAmonth[6].date">{{ arrayOfDatesForAmonth[6].date }}</td>
+      </tr>
+    </table>
+  </ion-card>
+
+  <!-- Display by month -->
+  <ion-card *ngIf=" typeChoice == 'Monthly'">
+    <h1> {{ month }} </h1>
     <table>
       <tr>
         <th>Sun</th>
@@ -32,5 +71,5 @@
       </tr>
     </table>
   </ion-card>
-  
+
 </ion-content>
