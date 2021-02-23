@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { DataRequestsService } from "../../request-to-BE/data-requests.service";
 import { RequestsService } from "../../logInAndSignupService/requests.service";
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: "app-reportings",
@@ -8,6 +11,27 @@ import { RequestsService } from "../../logInAndSignupService/requests.service";
   styleUrls: ["./reportings.page.scss"],
 })
 export class ReportingsPage implements OnInit {
+  //User is VIP or not
+  public userVip = false
+  //This is used for proceeding to another week selected for a month
+  public rowCounter = 0
+
+  //This will get the current users attendance for both event and sunday celebration
+  public attendanceInTableView = [];
+
+  //This is for the user to add his/her attendance
+  public attendanceOfUserFromBackend;
+  public currentUserData;
+  public dataAttendanceToPass = {
+    newUser: {
+      leader: '',
+      member: '',
+      type: '',
+      date: ''
+  }
+}
+  public currentUserRole = '';
+  public typeOfView = false;
   public counter = 0
 
   //option in display of date
@@ -39,14 +63,20 @@ export class ReportingsPage implements OnInit {
 
   constructor(
     private datarequest: DataRequestsService,
-    private request: RequestsService
+    private request: RequestsService,
+    public alertControl: AlertController,
+    private router: Router
   ) {}
 
   ngOnInit() {
+    this.getVipOrNot();
+    this.currentUsersAttendance();
     this.chosenMonth = this.currentTime.getMonth();
     this.getCurrentMonth();
     this.getAllDateFromUser();
     this.firstDayOftheMonthAndLast();
+    this.showMembersBelongToThisGroup();
+    this.getTheCurrentUser();
   }
   convertMonth(monthInput) {
     this.selectedMonth = monthInput;
@@ -74,13 +104,15 @@ export class ReportingsPage implements OnInit {
     this.chosenMonth = this.monthChoices.indexOf(this.month);
     this.counter += 1
     if(this.counter == 1) {
-      this.getAllDateFromUser();
-      this.firstDayOftheMonthAndLast();
+        this.firstDayOftheMonthAndLast();
+        this.getAllDateFromUser();
     }
   }
   //choosing for display
   typeOfDisplay(value){
-    this.typeChoice = value.detail.value
+    this.typeChoice = value.detail.value;
+    this.firstDayOftheMonthAndLast();
+    this.getAllDateFromUser();
   }
 
   getCurrentDate() {
@@ -103,10 +135,11 @@ export class ReportingsPage implements OnInit {
   }
 
   firstDayOftheMonthAndLast() {
+    var counter = 0;
+    this.numberOfDaysInAWeek.length = 0
     this.lengthOfMonthsDate.length = 0
     this.arrayOfDatesForAmonth.length = 0
     var daysInAmonth;
-    var counter = 0;
     var date = new Date(2021, this.chosenMonth);
     for (let index = 0; index < 40; index++) {
       if (this.arrayOfDatesForAmonth.length < this.getDaysInMonth(this.chosenMonth, 2021)) {
@@ -194,7 +227,8 @@ export class ReportingsPage implements OnInit {
           } else {
             if(this.currentMonth > this.selectedMonth){
               this.getTheDatesOfMonthChosen(2, 1);
-              // this.shadeUnattended();
+            }else if(this.currentMonth == this.selectedMonth) {
+              this.currentMonthIsEquealToSelected();
             }else {
               if(this.typeChoice != "Weekly") {
                 this.getCurrentDate();
@@ -262,5 +296,125 @@ export class ReportingsPage implements OnInit {
       }
     }
   }
+
+  currentMonthIsEquealToSelected() {
+    this.getCurrentDate();
+    if(this.typeChoice != 'Weekly') {
+      for (let index = 0; index < this.arrayOfDatesForAmonth.length; index++) {
+        if(this.arrayOfDatesForAmonth[index].day == 0) {
+          if(this.currentTime.getDate() > this.arrayOfDatesForAmonth[index].date) {
+            if(this.arrayOfDatesForAmonth[index].date != "") {
+              document.getElementById(this.arrayOfDatesForAmonth[index].date.toString()).style.backgroundColor = "rgba(255, 140, 111, 0.7)";
+            }
+          }
+        }
+        
+      }
+    }
+  }
+
+  typeOfViewController(params) {
+    if(params == 'Calendar') {
+      this.typeOfView = false
+    }else {
+      this.typeOfView = true
+    }
+  }
+//This function is accessing the current user's role, the naming of the function is not efficient
+  showMembersBelongToThisGroup() {
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      this.datarequest.getNetworkWhereIBelong(res).subscribe(result => {
+        this.currentUserData = result
+        this.currentUserRole = result[0].roles
+      })
+    })
+  }
+//This function is for the user for his/her attendance
+  addAttendance() {
+    this.datarequest.addAttendance(this.dataAttendanceToPass).subscribe(data => {
+      if(data != false){
+        this.sundayCelebAttended();
+      }else {
+        this.unableToAttend();
+      }
+    })
+  }
+
+  async sundayCelebAttended() {
+    const alert = await this.alertControl.create({
+      cssClass: 'my-custom-class',
+      header: 'Attendance Added!',
+      message: "You now attended the Sunday Celebration!",
+      buttons: ['OK']
+    })
+
+    await alert.present();
+  }
+
+
+  async unableToAttend() {
+    const alert = await this.alertControl.create({
+      cssClass: 'my-custom-class',
+      header: 'Wrong Day!',
+      message: "You can't attend a Sunday Celebration today because today is not Sunday!",
+      buttons: ['OK']
+    })
+
+    await alert.present();
+  }
+//This is to get the current user's data and also his/her role
+  getTheCurrentUser() {
+    this.request.getTheCurrentUserIdInStorage().then(res => {
+      this.datarequest.getTheCurrentUser({userID: res}).subscribe((data) => {
+        this.dataAttendanceToPass.newUser.member = data[0].id
+        this.dataAttendanceToPass.newUser.leader = data[0].leader
+        this.dataAttendanceToPass.newUser.type = this.currentUserData[0].id
+        this.dataAttendanceToPass.newUser.type = this.currentTime.toString();
+      })
+    })
+  }
+
+  //This function will let the user get his/her attendance to both events and sunday celebration attendance
+  currentUsersAttendance() {
+    var partialDataHandler;
+    var date;  
+    var concatenateAndPush = ""
+    this.request.getTheCurrentUserIdInStorage().then(res => {
+      this.datarequest.getTheCurrentUserAttendance(res, 'Feb').subscribe(response => {
+        this.attendanceOfUserFromBackend = response
+        partialDataHandler = response
+        for (let index = 0; index < partialDataHandler.length; index++) {
+          date = new Date(partialDataHandler[index]);
+          this.convertMonth(date.getMonth());
+          concatenateAndPush = this.month + '-' + date.getDate() + '-' + date.getFullYear()
+          this.attendanceInTableView.push(concatenateAndPush)
+        }
+      })
+    })
+  }
+
+  //This will let the user to proceed to another row 
+  indexCounter(action) {
+    if(action == 'next') {
+      if(this.rowCounter != 35) {
+        this.rowCounter += 7
+      }
+    }else{
+      if(this.rowCounter != 0) {
+        this.rowCounter -= 7
+      }
+    }
+  }
+  //This function will classify 
+  getVipOrNot() {
+    this.request.getUserIsVipOrNot().then(res => {
+      this.userVip = res
+    })
+  }
+  logout() {
+    this.request.logoutService().then(res => {
+      location.reload()
+    })
+    this.router.navigate(['']);
+  }
 }
-// daysInAmonth = new Date(date.getFullYear(), date.getMonth(), index + 1);

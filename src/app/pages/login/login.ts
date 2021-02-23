@@ -16,7 +16,7 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 })
 export class LoginPage {
   public login = { username: '', password: '' };
-  submitted = false;
+  public submitted = false;
   public userAuthenticated = true
   public userLogin;
   public userType = ''
@@ -44,8 +44,8 @@ export class LoginPage {
     this.request.loginService(this.login).subscribe(res => {
       if(res != null) {
         this.getTheUsersCurrentRole(res[0].roles, res);
-      }else {
-        this.presentAlert()
+      }else{
+        this.presentAlert();
       }
     })
   }
@@ -63,7 +63,17 @@ export class LoginPage {
     this.dataRequest.getNetworkWhereIBelong(roleID).subscribe(res => {
       if(res[0].roles == this.userType) {
         this.request.storeTheCurrentUserToStorage(currentuser[0].userid, currentuser[0].roles)
-        this.router.navigate(['/app/tabs/schedule'])
+        this.dataRequest.getTheCurrentUser({userID: currentuser[0].userid}).subscribe(response => {
+          if(response[0].isCGVIP == 1 && response[0].isSCVIP == 1) {
+            this.request.userIsVipOrNot(true);
+            this.router.navigate(['/reportings'])            
+            console.log(true)
+          }else{
+            this.request.userIsVipOrNot(false);
+            this.router.navigate(['/app/tabs/schedule'])
+            console.log(false)
+          }
+        })
       }else {
         this.wantToLogged();
       }
