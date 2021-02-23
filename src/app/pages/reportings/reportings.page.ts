@@ -308,7 +308,6 @@ export class ReportingsPage implements OnInit {
             }
           }
         }
-        
       }
     }
   }

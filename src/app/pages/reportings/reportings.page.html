@@ -11,7 +11,7 @@
 <ion-content>
 
   <!-- Navigation bar top -->
-  <ion-tabs>
+  <ion-tabs *ngIf="!userVip">
     <ion-tab-bar slot="top">
       <ion-tab-button (click)="typeOfViewController('Calendar')">
         <ion-icon name="calendar"></ion-icon>
