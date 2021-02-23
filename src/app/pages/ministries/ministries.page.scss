@@ -1,18 +1,45 @@
+.table {
+  margin-top: 10%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid black;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid black;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2
+}
+
+tr:nth-child(odd) {
+  background-color: #f2f2f2
+}
+
 table {
-    margin-top: 10%;    
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-    border: 1px solid black;
-  }
-  
-  th, td {
-    text-align: left;
-    padding: 8px;
-    border: 1px solid black;
-  }
-  
-  tr:nth-child(even){background-color: #f2f2f2}
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+th{
+  background-color: #68ED9A;
+}
 
   ion-icon{
     font-size: 30px;
