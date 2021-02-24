@@ -22,102 +22,37 @@ export class MinistriesPage implements OnInit {
     this.type = this.activeRoute.snapshot.paramMap.get('type')
   }
 
-  async addMinistryAlert() {
+  async presentPrompt() {
     const alert = await this.alertCtrl.create({
-      cssClass: "my-custom-class",
-      header: "Add Member",
-      message: "Please add member.",
+      header: 'Add Member:',
+      message: `<ion-icon name="search"></ion-icon> Search User`,
       inputs: [
-        {
-          name: "name",
-          placeholder: "First Name",
-          type: "text",
-        },
-        {
-          name: "last",
-          placeholder: "Lastname",
-          type: "text",
-        },
-        {
-          name: "address",
-          placeholder: "Address",
-          type: "text",
-        },
-        {
-          name: "email",
-          placeholder: "Email",
-          type: "text",
-        },
-        {
-          name: "contact",
-          placeholder: "Contact Number",
-          type: "number",
-        },
-        {
-          name: "leader",
-          placeholder: "Leader",
-          type: "text",
+        { 
+          name: 'addedMember',
+          placeholder: 'Search here...',
         }
       ],
       buttons: [
         {
-          text: "Cancel",
-          role: "cancel",
-          handler: () => {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
           }
         },
         {
-          text: "OK",
-          handler: (data) => {
-            Swal.fire({
-              title: 'Do you want to save the changes? <br><br> Total Cost: ₱',
-              showDenyButton: true,
-              showCancelButton: true,
-              confirmButtonText: `Save`,
-              denyButtonText: `Don't save`,
-            }).then((result) => {
-              if (result.isConfirmed) {
-                /* Read more about isConfirmed, isDenied below */
-                if (data.name && data.last && data.address && data.email && data.contact && data.leader) {
-                  Swal.fire('Saved!', '', 'success')
-               
-                } else {
-                  this.inputError();
-                }
-              } else if (result.isDenied) {
-                Swal.fire('Changes are not saved', '', 'info')
-              }
-            })
+          text: 'Add',
+          handler: data => {
+            // if (User.isValid(data.username, data.password)) {
+            //   // logged in!
+            // } else {
+            //   // invalid login
+            //   return false;
+            // }
           }
         }
       ]
     });
-
     await alert.present();
   }
-
-  async inputError() {
-    const alert = await this.alertCtrl.create({
-      cssClass: "my-custom-class",
-      header: "Error!",
-      message: "Please fill up the needed information.",
-      buttons: [
-        {
-          text: "Cancel",
-          role: "cancel",
-          handler: () => {
-          }
-        },
-        {
-          text: "OK",
-          handler: () => {
-            this.addMinistryAlert();
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
-
 }

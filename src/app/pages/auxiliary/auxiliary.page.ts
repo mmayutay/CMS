@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+// import { MenuController } from '@ionic/angular';
+
 import { filter } from 'rxjs/operators';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 
@@ -16,9 +18,13 @@ export class AuxiliaryPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    public datasRequest: DataRequestsService) { }
+    public datasRequest: DataRequestsService,
+    // public menuController: MenuController
+    ) { }
 
   ngOnInit() {
+    // this.menuController.enable(false);
+
     this.activatedRoute.queryParams.pipe(
       filter((params => params.content))
     ).subscribe(params => {
