@@ -6,42 +6,44 @@
 </ion-header>
 
 <ion-content>
-    <ion-grid class="ion-margin">
-        <ion-card>
-            <ion-row>
-                <ion-col>First Name</ion-col>
-                <ion-col>Last Name</ion-col>
-                <ion-col>Age</ion-col>
-                <ion-col>Birthday</ion-col>
-                <ion-col>Address</ion-col>
-                <ion-col>Marital Status</ion-col>
-                <ion-col>Email</ion-col>
-                <ion-col>Contact No.</ion-col>
-                <ion-col>Leader</ion-col>
-            </ion-row>
-            <ion-row *ngFor="let info of storage; index as i">
-                <ion-col>{{ i + 1 }}</ion-col>
-                <ion-row>
-                    <ion-col>{{info.firstname}}</ion-col>
-                    <ion-col>{{info.lastname}}</ion-col>
-                    <ion-col>{{info.age}}</ion-col>
-                    <ion-col>{{info.birthday}}</ion-col>
-                    <ion-col>{{info.address}}</ion-col>
-                    <ion-col>{{info.marital_status}}</ion-col>
-                    <ion-col>{{info.email}}</ion-col>
-                    <ion-col>{{info.contact_number}}</ion-col>
-                    <ion-col>{{info.leader}}</ion-col>
-                </ion-row>
-                <!-- <ion-row>
+    <ion-card style="overflow-x:auto;">
+        <table class="table">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <!-- <th>Age</th> -->
+                <!-- <th>Birthday</th> -->
+                <th>Address</th>
+                <!-- <th>Marital Status</th> -->
+                <th>Email</th>
+                <th>Contact No.</th>
+                <th>Leader</th>
+            </tr>
+            <tr *ngFor="let info of storage; index as i">
+                <!-- <ion-col>{{ i + 1 }}</ion-col> -->
+                <td>{{info.firstname}}</td>
+                <td>{{info.lastname}}</td>
+                <!-- <td>{{info.age}}</td>
+                <td>{{info.birthday}}</td> -->
+                <td>{{info.address}}</td>
+                <!-- <td>{{info.marital_status}}</td> -->
+                <td>{{info.email}}</td>
+                <td>{{info.contact_number}}</td>
+                <td>{{info.leader}}</td>
+            </tr>
+            <!-- <ion-row>
                 <ion-col>Geneva</ion-col>
                 <ion-col>Rivas</ion-col>
                 <ion-col>21</ion-col> -->
-            </ion-row>
+            <!-- </ion-row> -->
             <!-- <ion-row>
                 <ion-col>Geneva</ion-col>
                 <ion-col>Rivas</ion-col>
                 <ion-col>21</ion-col>
             </ion-row> -->
-        </ion-card>
-    </ion-grid>
+        </table>
+    </ion-card>
+    <a class="float" (click)="presentPrompt()">
+        <b><ion-icon color="primary" class="my-float" name="add"></ion-icon></b>
+    </a>
 </ion-content>

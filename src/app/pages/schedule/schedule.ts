@@ -5,7 +5,7 @@ import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingContr
 import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
 import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
-import { RequestsService } from '../../logInAndSignupService/requests.service'
+import { RequestsService } from '../../logInAndSignupService/requests.service';
 
 @Component({
   selector: 'page-schedule',

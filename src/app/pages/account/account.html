@@ -8,7 +8,7 @@
 </ion-header>
 <!-- *ngIf="username"  -->
 <ion-content>
-    <ion-card class="card">
+    <ion-card class="card"><br>
         <!-- <div class="ion-padding-bottom ion-text-center"> -->
         <div class="ion-text-center">
             <img src="../../../assets/img/avatar.png" alt="avatar">
@@ -34,7 +34,7 @@
                     <ion-tab-button>
                         <ion-icon name="person"></ion-icon>
                         <ion-label>MINISTRIES</ion-label>
-                        <ion-select name="ministries[]" id="ministries" placeholder="View Ministry" #newSelect [(ngModel)]="ministries" (ionChange)="optMinistry(ministry)" >
+                        <ion-select name="ministries[]" id="ministries" placeholder="View Ministry" #newSelect [(ngModel)]="ministries" (ionChange)="optMinistry(ministries)" >
                             <ion-select-option value="PraiseAndWorship">Praise & Worship</ion-select-option>
                             <ion-select-option value="Multimedia">Multimedia</ion-select-option>
                             <ion-select-option value="Hospitality">Hospitality</ion-select-option>
