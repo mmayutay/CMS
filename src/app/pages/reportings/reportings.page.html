@@ -40,6 +40,11 @@
           <ion-select-option *ngFor="let month of monthChoices" [value]="month">{{ month }}</ion-select-option>
         </ion-select>
       </ion-input>
+      <ion-input [(ngModel)]="yearChoice" (ionChange)="yearChose($event)" name="code" ngModel class="input">
+        <ion-select placeholder="Choose Year">
+          <ion-select-option *ngFor="let year of yearChoices" [value]="year">{{ year }}</ion-select-option>
+        </ion-select>
+      </ion-input>
     </ion-card>
 
     <!-- Display by week -->
@@ -90,6 +95,18 @@
           <td [id]="arrayOfDatesForAmonth[value[4]].date">{{ arrayOfDatesForAmonth[value[4]].date }}</td>
           <td [id]="arrayOfDatesForAmonth[value[5]].date">{{ arrayOfDatesForAmonth[value[5]].date }}</td>
           <td [id]="arrayOfDatesForAmonth[value[6]].date">{{ arrayOfDatesForAmonth[value[6]].date }}</td>
+        </tr>
+      </table>
+    </ion-card>
+
+    <!-- Display yearly -->
+    <ion-card *ngIf="typeChoice == 'Yearly'">
+      <h1>2021</h1>
+      <table>
+        <tr *ngFor="let month of yearlyArray">
+          <th [id]="month[0]" (click)="monthSelectedClick(month[0])" >{{ month[0] }}</th>
+          <th [id]="month[1]" (click)="monthSelectedClick(month[1])">{{ month[1] }}</th>
+          <th [id]="month[2]" (click)="monthSelectedClick(month[2])">{{ month[2] }}</th>
         </tr>
       </table>
     </ion-card>

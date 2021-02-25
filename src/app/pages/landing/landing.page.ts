@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular'
+import { MenuController } from '@ionic/angular'
 
 @Component({
   selector: 'app-landing',
@@ -13,14 +14,15 @@ export class LandingPage implements OnInit {
 
   constructor(
     private router: Router,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private menuCtrl: MenuController
   ) { }
 
   ngOnInit() {
+    this.menuCtrl.enable(false)
   }
 
   async userLogin() {
-    console.log("nisud siya diri...")
       const loading = await this.loadingController.create({
         cssClass: 'my-custom-class',
         message: 'Please wait...',
@@ -29,7 +31,6 @@ export class LandingPage implements OnInit {
       await loading.present();
   
       const { role, data } = await loading.onDidDismiss();
-      console.log('Loading dismissed!');
     
     this.router.navigateByUrl('/login/' + this.users)
   }
