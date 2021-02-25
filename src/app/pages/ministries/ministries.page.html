@@ -1,7 +1,11 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-icon name="arrow-back" [routerLink]="['/account']"></ion-icon>
+    <ion-toolbar *ngIf="!addClicked">
+        <ion-icon slot="end" color="primary" name="add" (click)="btnAdd()"></ion-icon>
+        <ion-icon slot="start" name="arrow-back" [routerLink]="['/account']"></ion-icon>
         <ion-title>{{ type }}</ion-title>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="addClicked">
+        <ion-searchbar [(ngModel)]="queryText" placeholder="Search"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
@@ -37,7 +41,9 @@
             </tr>
         </table>
     </ion-card>
-    <a class="float" (click)="presentPrompt()">
-        <b><ion-icon color="primary" class="my-float" name="add"></ion-icon></b>
-    </a>
+    <!-- <a class="float" (click)="presentPrompt()">
+        <b>
+            <ion-icon color="primary" class="my-float" name="add"></ion-icon>
+        </b>
+    </a> -->
 </ion-content>
