@@ -118,15 +118,14 @@
         <p>Sunday Celebration</p>
         <ion-label>{{ event }}</ion-label>
       </ion-item>
+      <ion-item *ngFor="let event of eventAttendanceTableView">
+        <p>Events Attended</p>
+        <ion-label>{{ event }}</ion-label>
+      </ion-item>
     </ion-list>
   </ion-card>
 </ion-content>
-<div *ngIf="currentUserRole == 'Member'">
-  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addAttendance()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
+<div *ngIf="currentUserRole == 'Member' || currentUserRole == 'Leader'">
   <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
@@ -135,7 +134,7 @@
       <ion-fab-button style="width: 50px;height: 50px;"><p class="tag">Event</p>
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button style="width: 50px;height: 50px;"><p class="tag">S. C.</p>
+      <ion-fab-button (click)="addAttendance()" style="width: 50px;height: 50px;"><p class="tag">S. C.</p>
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>

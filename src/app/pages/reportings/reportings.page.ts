@@ -25,6 +25,7 @@ export class ReportingsPage implements OnInit {
 
   //This will get the current users attendance for both event and sunday celebration
   public attendanceInTableView = [];
+  public eventAttendanceTableView = [];
 
   //This is for the user to add his/her attendance
   public currentUserId = "";
@@ -525,6 +526,8 @@ export class ReportingsPage implements OnInit {
         if(data[0].currentEventsAttendance.length != 0) {
           for (let index = 0; index < data[0].currentEventsAttendance.length; index++) {
             date = new Date(data[0].currentEventsAttendance[index].date)
+            this.convertMonth(date.getMonth())
+            this.eventAttendanceTableView.push(this.month + '-' + date.getDate() + '-' + date.getFullYear())
             if(this.typeChoice != 'Weekly') {
               if(this.chosenMonth == date.getMonth()) {
                 document.getElementById(date.getDate().toString()).style.backgroundColor = "rgba(90, 255, 105, 0.7)";
