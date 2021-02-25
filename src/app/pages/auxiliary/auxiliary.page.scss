@@ -68,6 +68,29 @@ th{
     background-color: #68ED9A;
 }
 
+ion-icon{
+    font-size: 30px;
+    // color: white;
+  }
+
+  .float{
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:40px;
+    right:40px;
+    background-color:#FFF;
+    // color:#68ED9A;
+    border-radius:50px;
+    text-align:center;
+    box-shadow: 2px 2px 2px 2px #999;
+  }
+  
+  .my-float{
+    margin-top:15px;
+    font-size:35px;
+  }
+
 // @media 
 // only screen and (max-width: 760px) {
 
