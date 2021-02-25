@@ -43,6 +43,10 @@ export class DataRequestsService {
   getTheCurrentUserAttendance(currentUserId, month) {
     return this.request.post(this.url + 'current-user-attendance', {currentUserId: currentUserId, month: month});
   }
+  //This function will get the current users attendance through his/her chosed year 
+  usersAttendanceChosenYear(monthChose, yearChose, currentUserId) {
+    return this.request.post(this.url + 'user-attendance-year-selected', {currentUserId: currentUserId, month: monthChose, year: yearChose})
+  }
 
   //This is for the admin to get all VIP Users
   allVipUsers () {
@@ -57,6 +61,11 @@ export class DataRequestsService {
   //This function is for the notification who displays the leader and the member
   vipUsersToDisplayAsNotification() {
     return this.request.get(this.url + 'all-new-unvip-members');
+  }
+
+  //Function that get the current user's attendance in both event and sunday celebration
+  getEventAndSCAttendance(currentUserId) {
+    return this.request.post(this.url + 'viewAttendancesOfSCandEvents', {currentUserId: currentUserId})
   }
 
 }

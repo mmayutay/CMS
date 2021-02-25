@@ -11,9 +11,10 @@ import { MenuController } from "@ionic/angular";
   styleUrls: ["./reportings.page.scss"],
 })
 export class ReportingsPage implements OnInit {
+  public yearToFilter = 2021;
   //This is an array for yearly display
-  public yearChoice = ''
-  public yearChoices = []
+  public yearChoice = "";
+  public yearChoices = [];
   public yearCounting = 0;
   public yearCounter = [];
   public yearlyArray = [];
@@ -26,6 +27,7 @@ export class ReportingsPage implements OnInit {
   public attendanceInTableView = [];
 
   //This is for the user to add his/her attendance
+  public currentUserId = "";
   public attendanceOfUserFromBackend;
   public currentUserData;
   public dataAttendanceToPass = {
@@ -50,14 +52,13 @@ export class ReportingsPage implements OnInit {
   //get The current date
   public currentTime = new Date();
   //array of users attendance
-  public userAttendanceArray = [];
+  // public userAttendanceArray = [];
   //for the calendar
   public dateForAMonthOfAttendance = [];
   public numberOfDaysInAWeek = [];
   //array of dates by month
   public arrayOfDatesForAmonth = [];
-  //array of dates by week
-  public dateWeekly = [];
+  //array of dates by wee
 
   public lengthOfMonthsDate = [];
   //for the selected month
@@ -107,16 +108,34 @@ export class ReportingsPage implements OnInit {
 
   //This is for the yearly typeChoice
   monthSelectedClick(month) {
-    this.typeChoice = 'Monthly'
+    this.typeChoice = "Monthly";
     this.month = month;
-    this.chosenMonth = this.monthChoices.indexOf(this.month)
+    this.chosenMonth = this.monthChoices.indexOf(this.month);
     this.firstDayOftheMonthAndLast();
     this.getAllDateFromUser();
   }
 
   //This is for the certain year that the user chose
   yearChose(value) {
-    console.log(value.detail)
+    var partialDataHandler;
+    this.yearToFilter = value.detail.value;
+    this.firstDayOftheMonthAndLast();
+    this.datarequest
+      .usersAttendanceChosenYear(
+        this.month,
+        value.detail.value,
+        this.currentUserId
+      )
+      .subscribe((data) => {
+        partialDataHandler = data;
+        if (partialDataHandler.length != 0) {
+          this.dateShadingIfAttended(partialDataHandler);
+        } else {
+          if (this.currentTime.getFullYear() > parseInt(value.detail.value)) {
+            this.getTheDatesOfMonthChosen();
+          }
+        }
+      });
   }
 
   //For the month the user chose
@@ -165,11 +184,11 @@ export class ReportingsPage implements OnInit {
     this.lengthOfMonthsDate.length = 0;
     this.arrayOfDatesForAmonth.length = 0;
     var daysInAmonth;
-    var date = new Date(2021, this.chosenMonth);
+    var date = new Date(this.yearToFilter, this.chosenMonth);
     for (let index = 0; index < 40; index++) {
       if (
         this.arrayOfDatesForAmonth.length <
-        this.getDaysInMonth(this.chosenMonth, 2021)
+        this.getDaysInMonth(this.chosenMonth, this.yearToFilter)
       ) {
         daysInAmonth = new Date(date.getFullYear(), date.getMonth(), index + 1);
         this.arrayOfDatesForAmonth.push({
@@ -222,53 +241,14 @@ export class ReportingsPage implements OnInit {
     var partialDataHandler;
     var time;
     this.request.getTheCurrentUserIdInStorage().then((res) => {
+      this.currentUserId = res;
+      this.getSundayAndEventAttendance();
       this.datarequest
         .getTheCurrentUserAttendance(res, this.month)
         .subscribe((data) => {
           partialDataHandler = data;
           if (partialDataHandler.length != 0) {
-            for (let i = 0; i < this.arrayOfDatesForAmonth.length; i++) {
-              for (let j = 0; j < partialDataHandler.length; j++) {
-                time = new Date(partialDataHandler[j]);
-                if (this.arrayOfDatesForAmonth[i].day == time.getDay()) {
-                  if (this.arrayOfDatesForAmonth[i].date != "") {
-                    this.forAllTheDateOfAttendance(i);
-                    if (
-                      this.arrayOfDatesForAmonth[i].date >
-                      this.currentTime.getDate()
-                    ) {
-                      if (this.typeChoice != "Weekly") {
-                        document.getElementById(
-                          this.arrayOfDatesForAmonth[i].date
-                        ).style.backgroundColor = "rgba(255, 255, 255, 0.1)";
-                      }
-                    } else {
-                      if (
-                        this.arrayOfDatesForAmonth[i].date == time.getDate()
-                      ) {
-                        this.attendanceDates.push(
-                          this.arrayOfDatesForAmonth[i].date
-                        );
-                      } else {
-                        if (this.typeChoice != "Weekly") {
-                          document.getElementById(
-                            this.arrayOfDatesForAmonth[i].date
-                          ).style.backgroundColor = "rgba(255, 140, 111, 0.7)";
-                        }
-                      }
-                    }
-                  }
-                }
-                this.selectedMonthNotCurrentMonth(i);
-              }
-            }
-            this.shadedTheAttendanceOfCurrentUser();
-            this.userAttendanceArray.push({
-              month: time.getMonth(),
-              date: time.getDate(),
-              year: time.getFullYear(),
-              day: time.getDay(),
-            });
+            this.dateShadingIfAttended(partialDataHandler);
           } else {
             if (this.currentMonth > this.selectedMonth) {
               this.getTheDatesOfMonthChosen();
@@ -306,21 +286,6 @@ export class ReportingsPage implements OnInit {
     }
   }
 
-  shadeUnattended() {
-    if (this.typeChoice != "Weekly") {
-      for (let index = 0; index < this.arrayOfDatesForAmonth.length; index++) {
-        if (
-          this.arrayOfDatesForAmonth[index].date != "" &&
-          this.arrayOfDatesForAmonth[index].day == 0
-        ) {
-          document.getElementById(
-            this.arrayOfDatesForAmonth[index].date.toString()
-          ).style.backgroundColor = "rgba(255, 140, 111, 0.7)";
-        }
-      }
-    }
-  }
-
   selectedMonthNotCurrentMonth(i) {
     if (this.currentMonth < this.selectedMonth) {
       for (let index = 0; index < this.arrayOfDatesForAmonth.length; index++) {
@@ -338,7 +303,7 @@ export class ReportingsPage implements OnInit {
 
   getTheDatesOfMonthChosen() {
     var daysInAmonth;
-    var date = new Date(2021, 0);
+    var date = new Date(this.yearToFilter, this.chosenMonth);
     for (
       let index = 0;
       index < this.getDaysInMonth(date.getMonth(), date.getFullYear());
@@ -346,6 +311,7 @@ export class ReportingsPage implements OnInit {
     ) {
       daysInAmonth = new Date(date.getFullYear(), date.getMonth(), index + 1);
       if (daysInAmonth.getDay() == 0) {
+        console.log(daysInAmonth);
         document.getElementById(
           "" + daysInAmonth.getDate()
         ).style.backgroundColor = "rgba(255, 140, 111, 0.7)";
@@ -504,14 +470,59 @@ export class ReportingsPage implements OnInit {
       }
     }
   }
+  //This is the function who will filter the current year from chosen
   listOfYears() {
-    var startYear = 2019-10
-    var currentYear = new Date().getFullYear()
-    var years = []
+    var startYear = 2019 - 10;
+    var currentYear = new Date().getFullYear();
+    var years = [];
     startYear = startYear || 1980;
-    while(startYear <= currentYear) {
-      years.push(startYear++)
+    while (startYear <= currentYear) {
+      years.push(startYear++);
     }
-    this.yearChoices = years
+    this.yearChoices = years;
+  }
+
+  dateShadingIfAttended(partialDataHandler) {
+    var time;
+    for (let i = 0; i < this.arrayOfDatesForAmonth.length; i++) {
+      for (let j = 0; j < partialDataHandler.length; j++) {
+        time = new Date(partialDataHandler[j]);
+        if (this.arrayOfDatesForAmonth[i].day == time.getDay()) {
+          if (this.arrayOfDatesForAmonth[i].date != "") {
+            this.forAllTheDateOfAttendance(i);
+            if (
+              this.arrayOfDatesForAmonth[i].date > this.currentTime.getDate()
+            ) {
+              if (this.typeChoice != "Weekly") {
+                document.getElementById(
+                  this.arrayOfDatesForAmonth[i].date
+                ).style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+              }
+            } else {
+              if (this.arrayOfDatesForAmonth[i].date == time.getDate()) {
+                this.attendanceDates.push(this.arrayOfDatesForAmonth[i].date);
+              } else {
+                if (this.typeChoice != "Weekly") {
+                  document.getElementById(
+                    this.arrayOfDatesForAmonth[i].date
+                  ).style.backgroundColor = "rgba(255, 140, 111, 0.7)";
+                }
+              }
+            }
+          }
+        }
+        this.selectedMonthNotCurrentMonth(i);
+      }
+    }
+    this.shadedTheAttendanceOfCurrentUser();
+  }
+
+  //Get the current user's attendance in both sunday celebration and events
+  getSundayAndEventAttendance() {
+    this.datarequest
+      .getEventAndSCAttendance(this.currentUserId)
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 }
