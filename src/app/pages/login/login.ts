@@ -63,12 +63,10 @@ export class LoginPage {
         this.dataRequest.getTheCurrentUser({userID: currentuser[0].userid}).subscribe(response => {
           if(response[0].isCGVIP == 1 && response[0].isSCVIP == 1) {
             this.request.userIsVipOrNot(true);
-            this.router.navigate(['/reportings'])            
-            console.log(true)
+            this.router.navigate(['/reportings'])
           }else{
             this.request.userIsVipOrNot(false);
             this.router.navigate(['/app/tabs/schedule'])
-            console.log(false)
           }
         })
       }else {

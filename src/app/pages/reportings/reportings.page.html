@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Reportings</ion-title>
-    <button  *ngIf="userVip" style="position: fixed;margin-left: 70%;top: 18px;" (click)="logout()">Log-out</button>
+    <button *ngIf="userVip" style="position: fixed;margin-left: 70%;top: 18px;" (click)="logout()">Log-out</button>
   </ion-toolbar>
 </ion-header>
 
@@ -104,7 +104,7 @@
       <h1>2021</h1>
       <table>
         <tr *ngFor="let month of yearlyArray">
-          <th [id]="month[0]" (click)="monthSelectedClick(month[0])" >{{ month[0] }}</th>
+          <th [id]="month[0]" (click)="monthSelectedClick(month[0])">{{ month[0] }}</th>
           <th [id]="month[1]" (click)="monthSelectedClick(month[1])">{{ month[1] }}</th>
           <th [id]="month[2]" (click)="monthSelectedClick(month[2])">{{ month[2] }}</th>
         </tr>
@@ -122,9 +122,22 @@
   </ion-card>
 </ion-content>
 <div *ngIf="currentUserRole == 'Member'">
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="addAttendance()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
+  </ion-fab> -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button style="width: 50px;height: 50px;"><p class="tag">Event</p>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button style="width: 50px;height: 50px;"><p class="tag">S. C.</p>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
   </ion-fab>
 </div>

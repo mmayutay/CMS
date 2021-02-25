@@ -311,7 +311,6 @@ export class ReportingsPage implements OnInit {
     ) {
       daysInAmonth = new Date(date.getFullYear(), date.getMonth(), index + 1);
       if (daysInAmonth.getDay() == 0) {
-        console.log(daysInAmonth);
         document.getElementById(
           "" + daysInAmonth.getDate()
         ).style.backgroundColor = "rgba(255, 140, 111, 0.7)";
@@ -519,10 +518,20 @@ export class ReportingsPage implements OnInit {
 
   //Get the current user's attendance in both sunday celebration and events
   getSundayAndEventAttendance() {
+    var date;
     this.datarequest
       .getEventAndSCAttendance(this.currentUserId)
       .subscribe((data) => {
-        console.log(data);
+        if(data[0].currentEventsAttendance.length != 0) {
+          for (let index = 0; index < data[0].currentEventsAttendance.length; index++) {
+            date = new Date(data[0].currentEventsAttendance[index].date)
+            if(this.typeChoice != 'Weekly') {
+              if(this.chosenMonth == date.getMonth()) {
+                document.getElementById(date.getDate().toString()).style.backgroundColor = "rgba(90, 255, 105, 0.7)";
+              }
+            }
+          }
+        }
       });
   }
 }
