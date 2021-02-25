@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertController } from '@ionic/angular';
 import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.scss'
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
@@ -15,16 +14,15 @@ export class MinistriesPage implements OnInit {
   public type = '';
   public storage: any;
   content:string;
+  public addClicked = false;
 
   constructor(
-    // private router: Router,
+    
     private activeRoute: ActivatedRoute,
     private dataRequest: DataRequestsService,
-    private alertCtrl: AlertController,
     ) { }
 
   ngOnInit() {
-    // this.type = this.activeRoute.snapshot.paramMap.get('type')
     this.activeRoute.queryParams.pipe(
       filter((params => params.content))
     ).subscribe(params => {
@@ -41,37 +39,9 @@ export class MinistriesPage implements OnInit {
     });
   }
 
-  async presentPrompt() {
-    const alert = await this.alertCtrl.create({
-      header: 'Add Member:',
-      message: `<ion-icon name="search"></ion-icon> Search User`,
-      inputs: [
-        { 
-          name: 'addedMember',
-          placeholder: 'Search here...',
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Add',
-          handler: data => {
-            // if (User.isValid(data.username, data.password)) {
-            //   // logged in!
-            // } else {
-            //   // invalid login
-            //   return false;
-            // }
-          }
-        }
-      ]
-    });
-    await alert.present();
+  btnAdd(){
+    this.addClicked = true;
+    console.log(this.addClicked);
+    
   }
 }

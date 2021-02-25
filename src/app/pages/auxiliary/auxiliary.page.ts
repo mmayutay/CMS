@@ -43,48 +43,6 @@ export class AuxiliaryPage implements OnInit {
           console.log("Sample data: ", this.storage);
         });
     });
-    // this.activatedRoute.queryParams.filter(params => params.content)
-    // .subscribe(params => {
-    //   console.log(params);
-
-    //   this.content = params.content;
-    //   console.log("Auxiliary: ", this.content);
-    // });
   }
-
-  async presentPrompt() {
-    const alert = await this.alertCtrl.create({
-      header: 'Add Member:',
-      message: `<ion-icon name="search"></ion-icon> Search User`,
-      inputs: [
-        { 
-          name: 'addedMember',
-          placeholder: 'Search here...',
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Add',
-          handler: data => {
-            // if (User.isValid(data.username, data.password)) {
-            //   // logged in!
-            // } else {
-            //   // invalid login
-            //   return false;
-            // }
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
-
 
 }
