@@ -34,8 +34,8 @@
                     <ion-tab-button>
                         <ion-icon name="person"></ion-icon>
                         <ion-label>MINISTRIES</ion-label>
-                        <ion-select [(ngModel)]="ministries" (ionChange)="optMinistry()" placeholder="View Ministry">
-                            <ion-select-option value="Praise And Worship">Praise & Worship</ion-select-option>
+                        <ion-select name="ministries[]" id="ministries" placeholder="View Ministry" #newSelect [(ngModel)]="ministries" (ionChange)="optMinistry(ministry)" >
+                            <ion-select-option value="PraiseAndWorship">Praise & Worship</ion-select-option>
                             <ion-select-option value="Multimedia">Multimedia</ion-select-option>
                             <ion-select-option value="Hospitality">Hospitality</ion-select-option>
                             <ion-select-option value="Blessedkids">Blessed Kidz</ion-select-option>
