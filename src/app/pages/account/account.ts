@@ -5,6 +5,8 @@ import { ModalController } from '@ionic/angular';
 import { RequestsService } from '../../logInAndSignupService/requests.service'
 import { DataRequestsService } from '../../request-to-BE/data-requests.service'
 import { ModalPagePage } from '../modal-page/modal-page.page';
+// import { MenuController } from '@ionic/angular';
+
 
 import { UserData } from '../../providers/user-data';
 
@@ -34,10 +36,12 @@ export class AccountPage implements AfterViewInit {
     public userData: UserData,
     public request: RequestsService,
     public modal: ModalPagePage,
-    public datasRequest: DataRequestsService
+    public datasRequest: DataRequestsService,
+    // public menuController: MenuController,
   ) { }
 
   ngAfterViewInit() {
+    // this.menuController.enable(true);
     this.getUserRole();
     this.userData.storage.get(this.request.storageUserRole).then(res => {
       this.role = res
@@ -79,7 +83,8 @@ export class AccountPage implements AfterViewInit {
     });
     await alert.present();
   }
-
+  
+  
 
 
   getUsername() {
@@ -101,9 +106,16 @@ export class AccountPage implements AfterViewInit {
     this.router.navigateByUrl('/create-new-user')
   }
 
-  optAuxiliary() {
-    this.router.navigateByUrl('/auxiliary/' + this.auxliary)
+  optAuxiliary(value) {
+    this.router.navigate(['auxiliary/:type'], { queryParams: {content: value} })
+    console.log("Selected auxiliary: ", value);
+    // this.datasRequest.displayAuxiliary({auxi: value}).subscribe(data => {
+    //   this.storage = data;
+    //   console.log(data);
+    //   console.log("Sample data: ", this.storage);
+    // });
   }
+
 
   optMinistry() {
     this.router.navigateByUrl('/ministries/' + this.ministries)

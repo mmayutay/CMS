@@ -6,18 +6,38 @@
 </ion-header>
 
 <ion-content>
-    <div style="overflow-x:auto;">
-        <table>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Age</th>
-          </tr>
-          <tr>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr>
+    <ion-card style="overflow-x:auto;">
+        <table class="table">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Contact No.</th>
+                <th>Leader</th>
+            </tr>
+            <tr>
+                <td>Jill</td>
+                <td>Smith</td>
+                <td>50</td>
+                <td>Australia</td>
+                <td>smith@gmail.com</td>
+                <td>09227039012</td>
+                <td>Marichu</td>
+            </tr>
+            <tr>
+                <td>Geneva</td>
+                <td>Rivas</td>
+                <td>21</td>
+                <td>Catolohan</td>
+                <td>geneva@gmail.com</td>
+                <td>09482850377</td>
+                <td>Marichu</td>
+            </tr>
         </table>
-    </div>
+    </ion-card>
+    <a class="float" (click)="presentPrompt()">
+        <b><ion-icon color="primary" class="my-float" name="add"></ion-icon></b>
+    </a>
 </ion-content>
