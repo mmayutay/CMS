@@ -117,8 +117,10 @@ export class AccountPage implements AfterViewInit {
   }
 
 
-  optMinistry() {
-    this.router.navigateByUrl('/ministries/' + this.ministries)
+  optMinistry(value) {
+    console.log(value);
+    this.router.navigate(['ministries/:type'], { queryParams: {content: value} })
+    console.log("Selected ministry: ", value);
 
   }
 

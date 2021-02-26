@@ -16,54 +16,38 @@
             <h4>{{ role }}</h4> 
         </div>
         <div>
-            <!-- <ion-tabs> -->
-            <!-- <ion-tab-bar slot="bottom"> -->
-            <ion-row>
-                <ion-col>
-                    <ion-card class="auxiCard">
-                        <ion-tab-button *ngIf="role === 'Member'">
-                            <ion-icon color="primary" name="person"></ion-icon>
-                            <ion-label>AUXILIARY</ion-label>
-                            <ion-label>{{auxliary}}</ion-label>
-                        </ion-tab-button>
-                        <ion-tab-button>
-                            <ion-icon color="primary" name="person"></ion-icon>
-                            <ion-label>AUXILIARY</ion-label>
-                            <ion-select name="auxi[]" id="auxi" placeholder="View Auxiliary" #newSelect [(ngModel)]="auxiliary" (ionChange)="optAuxiliary(auxiliary)">
-                                    <ion-select-option value="Kids" >Blessed Kids</ion-select-option>
-                                    <ion-select-option value="Youth">Blessed Youth(13-21)</ion-select-option>
-                                    <ion-select-option value="Single">Blessed Singles(Singles 22 up)</ion-select-option>
-                                    <ion-select-option value="Mmen">Blessed Men(Married men)</ion-select-option>
-                                    <ion-select-option value="Mwomen">Blessed Women(Married women)</ion-select-option>
-                                </ion-select>
-                        </ion-tab-button>
-                    </ion-card>
-                </ion-col>
-                <ion-col>
-                    <ion-card class="miniCard">
-                        <ion-tab-button>
-                            <ion-icon color="primary" name="person"></ion-icon>
-                            <ion-label>MINISTRIES</ion-label>
-                            <ion-select [(ngModel)]="ministries" (ionChange)="optMinistry()" placeholder="View Ministry">
-                                <ion-select-option value="Praise And Worship">Praise & Worship</ion-select-option>
-                                <ion-select-option value="Multimedia">Multimedia</ion-select-option>
-                                <ion-select-option value="Hospitality">Hospitality</ion-select-option>
-                                <ion-select-option value="Blessed Kids">Blessed Kidz</ion-select-option>
-                            </ion-select>
-                        </ion-tab-button>
-                    </ion-card>
-                </ion-col>
-                <ion-col>
-                    <ion-card *ngIf="role !== 'Member'" class="addUserCard">
-                        <ion-tab-button routerLink="/create-new-user">
-                            <ion-icon color="primary" name="person-add"></ion-icon>
-                            <ion-label>ADD NEW USER</ion-label>
-                        </ion-tab-button>
-                    </ion-card>
-                </ion-col>
-            </ion-row>
-            <!-- </ion-tab-bar>
-            </ion-tabs> -->
+            <ion-tabs>
+                <ion-tab-bar slot="bottom">
+
+                    <ion-tab-button>
+                        <ion-icon name="person"></ion-icon>
+                        <ion-label>AUXILIARY</ion-label>
+                        <ion-select name="auxi[]" id="auxi" placeholder="View Auxiliary" #newSelect [(ngModel)]="auxiliary" (ionChange)="optAuxiliary(auxiliary)">
+                            <ion-select-option value="Kids" >Blessed Kids</ion-select-option>
+                            <ion-select-option value="Youth">Blessed Youth(13-21)</ion-select-option>
+                            <ion-select-option value="Single">Blessed Singles(Singles 22 up)</ion-select-option>
+                            <ion-select-option value="Mmen">Blessed Men(Married men)</ion-select-option>
+                            <ion-select-option value="Mwomen">Blessed Women(Married women)</ion-select-option>
+                        </ion-select>
+                    </ion-tab-button>
+
+                    <ion-tab-button>
+                        <ion-icon name="person"></ion-icon>
+                        <ion-label>MINISTRIES</ion-label>
+                        <ion-select name="ministries[]" id="ministries" placeholder="View Ministry" #newSelect [(ngModel)]="ministries" (ionChange)="optMinistry(ministries)" >
+                            <ion-select-option value="PraiseAndWorship">Praise & Worship</ion-select-option>
+                            <ion-select-option value="Multimedia">Multimedia</ion-select-option>
+                            <ion-select-option value="Hospitality">Hospitality</ion-select-option>
+                            <ion-select-option value="Blessedkids">Blessed Kidz</ion-select-option>
+                        </ion-select>
+                    </ion-tab-button>
+
+                    <ion-tab-button routerLink="/create-new-user">
+                        <ion-icon name="person-add"></ion-icon>
+                        <ion-label>ADD NEW USER</ion-label>
+                    </ion-tab-button>
+                </ion-tab-bar>
+            </ion-tabs>
         </div>
     </ion-card>
     <ion-card class="ionCard">
