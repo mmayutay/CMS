@@ -12,11 +12,11 @@
 <ion-content>
     <ion-card *ngIf="addClicked">
         <table>
-            <tr *ngFor="let names of allMemberUsers" >
-                <td>{{ names.fname }}</td>
-                <td>{{ names.lname }}</td>
+            <tr *ngFor="let lists of list; index as i">
+                <td>{{lists.firstname}}</td>
+                <td>{{lists.lastname}}</td>
                 <td>
-                    <ion-button size="small" color="primary" (click)="addMember(names)">Add</ion-button>
+                    <ion-button size="small" color="primary" (click)="addMember(lists)">Add</ion-button>
                 </td>
             </tr>
         </table>

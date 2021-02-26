@@ -4,22 +4,29 @@ import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.scss'
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { filter } from 'rxjs/operators';
+import { User } from '../../model/user.model';
+
+import {AfterViewInit, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+
 
 @Component({
   selector: 'app-ministries',
   templateUrl: './ministries.page.html',
   styleUrls: ['./ministries.page.scss'],
 })
-export class MinistriesPage implements OnInit {
+export class MinistriesPage implements AfterViewInit  {
+  displayedColumns: string[] = ['Firstname', 'Lastname', 'Add'];
+  dataSource = new MatTableDataSource<User>();
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
   public type = '';
   public storage: any;
   content:string;
+  public list:any;
+  public details;
   public addClicked = false;
-  public allMemberUsers = [
-    {fname: 'Raymond', lname: 'Yorong'},
-    {fname: 'Romeo', lname: 'Lenizo'},
-    {fname: 'Yubert', lname: 'Mariscal'},
-  ]
+ 
 
   constructor(
     
@@ -27,7 +34,8 @@ export class MinistriesPage implements OnInit {
     private dataRequest: DataRequestsService,
     ) { }
 
-  ngOnInit() {
+    ngAfterViewInit () {
+      // this.dataSource.paginator = this.paginator;
     this.activeRoute.queryParams.pipe(
       filter((params => params.content))
     ).subscribe(params => {
@@ -38,12 +46,18 @@ export class MinistriesPage implements OnInit {
 
       this.dataRequest.displayMinistry({ministries: this.content}).subscribe(data => {
         this.storage = data;
-        console.log(data);
         console.log("Ministry: ", this.storage);
       });
     });
+
+
+    this.dataRequest.ministryList().subscribe(lists => {
+      this.list = lists;
+      console.log("Ministry List: ", this.list);
+    });
   }
 
+  
   btnAdd(){
     this.addClicked = true;
     console.log(this.addClicked);
@@ -56,12 +70,13 @@ export class MinistriesPage implements OnInit {
   }
 
   updateList(ev){
-    this.allMemberUsers.forEach(element => {
-      if(element.fname.includes(ev.target.value) && element.lname.includes(ev.target.value)) {
-        this.allMemberUsers.length = 0
-        this.allMemberUsers.push(element)
-      }
-    });
+    // this.list.forEach(element => {
+    //   console.log(element);
+    //   if(element.firstname.includes(ev.target.value) && element.lastname.includes(ev.target.value)) {
+    //     this.list.length = 0
+    //     this.list.push(element)
+    //   }
+    // });
     // this.dataRequest.searchMinistryMember({search: ev.target.value}).subscribe(data =>{
     //   console.log(data);  
     // });
