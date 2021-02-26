@@ -34,6 +34,12 @@ export class DataRequestsService {
     console.log(ministryValue);
     return this.request.post( this.url + "profile/ministries" , ministryValue);
   }
+
+  searchMinistryMember(searchValue) {
+    console.log(searchValue);
+    return this.request.post( this.url + "profile/ministries/search" , searchValue);
+  }
+
   getMyCellgroup(leaderId){
     return this.request.post(this.url + 'leader', leaderId)
   }

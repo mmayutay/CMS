@@ -15,6 +15,11 @@ export class MinistriesPage implements OnInit {
   public storage: any;
   content:string;
   public addClicked = false;
+  public allMemberUsers = [
+    {fname: 'Raymond', lname: 'Yorong'},
+    {fname: 'Romeo', lname: 'Lenizo'},
+    {fname: 'Yubert', lname: 'Mariscal'},
+  ]
 
   constructor(
     
@@ -45,7 +50,21 @@ export class MinistriesPage implements OnInit {
     
   }
 
-  addMember(){
+  addMember(member){
+    console.log(member)
     this.addClicked = false;
+  }
+
+  updateList(ev){
+    this.allMemberUsers.forEach(element => {
+      if(element.fname.includes(ev.target.value) && element.lname.includes(ev.target.value)) {
+        this.allMemberUsers.length = 0
+        this.allMemberUsers.push(element)
+      }
+    });
+    // this.dataRequest.searchMinistryMember({search: ev.target.value}).subscribe(data =>{
+    //   console.log(data);  
+    // });
+    console.log(ev.target.value);
   }
 }

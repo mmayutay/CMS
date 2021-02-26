@@ -5,32 +5,18 @@
         <ion-title>{{ content }}</ion-title>
     </ion-toolbar>
     <ion-toolbar *ngIf="addClicked">
-        <ion-searchbar [(ngModel)]="queryText" value="search" name="search" placeholder="Search"></ion-searchbar>
+        <ion-searchbar [(ngModel)]="queryText" (keyup)="updateList($event)" value="search" name="search" placeholder="Search"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-card *ngIf="addClicked">
         <table>
-            <tr>
-                <td>Geneva</td>
-                <td>Rivas</td>
+            <tr *ngFor="let names of allMemberUsers" >
+                <td>{{ names.fname }}</td>
+                <td>{{ names.lname }}</td>
                 <td>
-                    <ion-button size="small" color="primary" (click)="addMember()">Add</ion-button>
-                </td>
-            </tr>
-            <tr>
-                <td>Marichu</td>
-                <td>Niere</td>
-                <td>
-                    <ion-button size="small" color="primary" (click)="addMember()">Add</ion-button>
-                </td>
-            </tr>
-            <tr>
-                <td>Malyn</td>
-                <td>Gamboa</td>
-                <td>
-                    <ion-button size="small" color="primary" (click)="addMember()">Add</ion-button>
+                    <ion-button size="small" color="primary" (click)="addMember(names)">Add</ion-button>
                 </td>
             </tr>
         </table>
