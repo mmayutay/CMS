@@ -26,7 +26,7 @@ export class MinistriesPage implements OnInit {
     this.activeRoute.queryParams.pipe(
       filter((params => params.content))
     ).subscribe(params => {
-      console.log(params);
+      console.log("Params:: ",params);
 
       this.content = params.content;
       console.log("Ministry: ", this.content);
@@ -43,5 +43,9 @@ export class MinistriesPage implements OnInit {
     this.addClicked = true;
     console.log(this.addClicked);
     
+  }
+
+  addMember(){
+    this.addClicked = false;
   }
 }

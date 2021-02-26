@@ -2,7 +2,7 @@
     <ion-toolbar *ngIf="!addClicked">
         <ion-icon slot="end" color="primary" name="add" (click)="btnAdd()"></ion-icon>
         <ion-icon slot="start" name="arrow-back" [routerLink]="['/account']"></ion-icon>
-        <ion-title>{{ type }}</ion-title>
+        <ion-title>{{ content }}</ion-title>
     </ion-toolbar>
     <ion-toolbar *ngIf="addClicked">
         <ion-searchbar [(ngModel)]="queryText" value="search" name="search" placeholder="Search"></ion-searchbar>
@@ -10,24 +10,37 @@
 </ion-header>
 
 <ion-content>
-    <!-- <form *ngIf="addClicked" role="search">
-        <div class="input-group">
-            <input type="text" class="form-control" name="q" placeholder="Search users"> <span class="input-group-btn">
-                <button type="submit" class="btn btn-default">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-            </span>
-        </div>
-    </form> -->
-    <ion-card style="overflow-x:auto;">
+    <ion-card *ngIf="addClicked">
+        <table>
+            <tr>
+                <td>Geneva</td>
+                <td>Rivas</td>
+                <td>
+                    <ion-button size="small" color="primary" (click)="addMember()">Add</ion-button>
+                </td>
+            </tr>
+            <tr>
+                <td>Marichu</td>
+                <td>Niere</td>
+                <td>
+                    <ion-button size="small" color="primary" (click)="addMember()">Add</ion-button>
+                </td>
+            </tr>
+            <tr>
+                <td>Malyn</td>
+                <td>Gamboa</td>
+                <td>
+                    <ion-button size="small" color="primary" (click)="addMember()">Add</ion-button>
+                </td>
+            </tr>
+        </table>
+    </ion-card>
+    <ion-card *ngIf="!addClicked" style="overflow-x:auto;">
         <table class="table">
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <!-- <th>Age</th> -->
-                <!-- <th>Birthday</th> -->
                 <th>Address</th>
-                <!-- <th>Marital Status</th> -->
                 <th>Email</th>
                 <th>Contact No.</th>
                 <th>Leader</th>
@@ -36,10 +49,7 @@
                 <!-- <ion-col>{{ i + 1 }}</ion-col> -->
                 <td>{{info.firstname}}</td>
                 <td>{{info.lastname}}</td>
-                <!-- <td>{{info.age}}</td>
-                <td>{{info.birthday}}</td> -->
                 <td>{{info.address}}</td>
-                <!-- <td>{{info.marital_status}}</td> -->
                 <td>{{info.email}}</td>
                 <td>{{info.contact_number}}</td>
                 <td>{{info.leader}}</td>

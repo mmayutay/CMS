@@ -22,7 +22,7 @@ export class AccountPage implements AfterViewInit {
   // username;
   public userDetails = "any";
   public partialData = ""
-  public auxliary = "";
+  public auxiliary = "";
   public ministries = "any";
   public holder = [];
   public roleHolder;
