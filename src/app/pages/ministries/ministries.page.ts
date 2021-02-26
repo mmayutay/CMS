@@ -14,6 +14,8 @@ export class MinistriesPage implements OnInit {
   public type = '';
   public storage: any;
   content:string;
+  public list:any;
+  public details;
   public addClicked = false;
 
   constructor(
@@ -33,12 +35,18 @@ export class MinistriesPage implements OnInit {
 
       this.dataRequest.displayMinistry({ministries: this.content}).subscribe(data => {
         this.storage = data;
-        console.log(data);
         console.log("Ministry: ", this.storage);
       });
     });
+
+
+    this.dataRequest.ministryList().subscribe(lists => {
+      this.list = lists;
+      console.log("Ministry List: ", this.list);
+    });
   }
 
+  
   btnAdd(){
     this.addClicked = true;
     console.log(this.addClicked);

@@ -12,14 +12,14 @@
 <ion-content>
     <ion-card *ngIf="addClicked">
         <table>
-            <tr>
-                <td>Geneva</td>
-                <td>Rivas</td>
+            <tr *ngFor="let lists of list; index as i">
+                <td>{{lists.firstname}}</td>
+                <td>{{lists.lastname}}</td>
                 <td>
                     <ion-button size="small" color="primary" (click)="addMember()">Add</ion-button>
                 </td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td>Marichu</td>
                 <td>Niere</td>
                 <td>
@@ -32,7 +32,7 @@
                 <td>
                     <ion-button size="small" color="primary" (click)="addMember()">Add</ion-button>
                 </td>
-            </tr>
+            </tr> -->
         </table>
     </ion-card>
     <ion-card *ngIf="!addClicked" style="overflow-x:auto;">
