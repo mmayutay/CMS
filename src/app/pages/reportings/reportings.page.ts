@@ -13,7 +13,6 @@ import { MenuController } from "@ionic/angular";
 export class ReportingsPage implements OnInit {
   public yearToFilter = 2021;
   //This is an array for yearly display
-  public yearChoice = "";
   public yearChoices = [];
   public yearCounting = 0;
   public yearCounter = [];
@@ -78,11 +77,11 @@ export class ReportingsPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.chosenMonth = this.currentTime.getMonth();;
     this.firstDayOftheMonthAndLast();
     this.listOfYears();
     this.getVipOrNot();
     this.currentUsersAttendance();
-    this.chosenMonth = this.currentTime.getMonth();
     this.getCurrentMonth();
     this.getAllDateFromUser();
     this.showMembersBelongToThisGroup();
@@ -112,6 +111,7 @@ export class ReportingsPage implements OnInit {
     this.typeChoice = "Monthly";
     this.month = month;
     this.chosenMonth = this.monthChoices.indexOf(this.month);
+    this.selectedMonth = this.monthChoices.indexOf(this.month);
     this.firstDayOftheMonthAndLast();
     this.getAllDateFromUser();
   }
@@ -144,6 +144,7 @@ export class ReportingsPage implements OnInit {
     this.counter = 0;
     this.month = value.detail.value;
     this.chosenMonth = this.monthChoices.indexOf(this.month);
+    this.selectedMonth = this.monthChoices.indexOf(this.month);
     this.counter += 1;
     if (this.counter == 1) {
       this.firstDayOftheMonthAndLast();
@@ -239,23 +240,33 @@ export class ReportingsPage implements OnInit {
     this.datarequest.getTheCurrentUserAttendance(this.currentUserId, this.month).subscribe(data => {
       usersAttedanceOfAMonth = data;
       if(usersAttedanceOfAMonth.length == 0) {
-        for (let index = 0; index < this.arrayOfDatesForAmonth.length; index++) {
-          if(this.arrayOfDatesForAmonth[index].day == 0) {
-            if(this.arrayOfDatesForAmonth[index].date != "") {
-              document.getElementById(this.arrayOfDatesForAmonth[index].date.toString()).style.backgroundColor = "rgba(255, 140, 111, 0.7)";
+        if(this.currentTime.getFullYear() == this.yearToFilter ) {
+          this.selectedMonthNotCurrentMonth();
+          if(this.selectedMonth < this.currentMonth) {
+            for (let index = 0; index < this.arrayOfDatesForAmonth.length; index++) {
+              if(this.arrayOfDatesForAmonth[index].day == 0) {
+                if(this.arrayOfDatesForAmonth[index].date != "") {
+                  document.getElementById(this.arrayOfDatesForAmonth[index].date.toString()).style.backgroundColor = "rgba(255, 140, 111, 0.7)";
+                }
+              }
             }
-          }
+          }else {
+            this.selectedMonthNotCurrentMonth();
+          } 
+        }else {
+          this.selectedMonthNotCurrentMonth();
         }
       }else {
-        console.log(this.chosenMonth + " and " + this.currentMonth)
-        if(this.chosenMonth > this.currentMonth) {
-          if(parseInt(this.yearChoice) < this.currentTime.getFullYear()) {
-           this.selectedMonthNotCurrentMonth();
-          }
+        if(this.currentTime.getFullYear() > this.yearToFilter) {
+          this.dateShadingIfAttended(usersAttedanceOfAMonth)
+          this.selectedMonthNotCurrentMonth();
+        }else {
+          this.selectedMonthNotCurrentMonth();
         }
       }
     })
   }
+  
 
 
   //This calendar renders the calendar of a certain month that the user chose

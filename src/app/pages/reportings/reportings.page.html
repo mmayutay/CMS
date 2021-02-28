@@ -30,17 +30,17 @@
 
     <ion-card>
       <p>Display Dates: </p>
-      <ion-input [(ngModel)]="typeChoice" (ionChange)="typeOfDisplay($event)" name="code" ngModel class="input">
+      <ion-input (ionChange)="typeOfDisplay($event)" name="code" ngModel class="input">
         <ion-select placeholder="Choose Type">
           <ion-select-option *ngFor="let type of typeOfDisplays" [value]="type">{{ type }}</ion-select-option>
         </ion-select>
       </ion-input>
-      <ion-input [(ngModel)]="month" (ionChange)="monthChose($event)" name="code" ngModel class="input">
+      <ion-input (ionChange)="monthChose($event)" name="code" ngModel class="input">
         <ion-select class="monthDisplay" placeholder="Choose Month">
           <ion-select-option *ngFor="let month of monthChoices" [value]="month">{{ month }}</ion-select-option>
         </ion-select>
       </ion-input>
-      <ion-input [(ngModel)]="yearChoice" (ionChange)="yearChose($event)" name="code" ngModel class="input">
+      <ion-input (ionChange)="yearChose($event)" name="code" ngModel class="input">
         <ion-select placeholder="Choose Year">
           <ion-select-option *ngFor="let year of yearChoices" [value]="year">{{ year }}</ion-select-option>
         </ion-select>
