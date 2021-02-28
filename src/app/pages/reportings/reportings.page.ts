@@ -496,7 +496,6 @@ export class ReportingsPage implements OnInit {
     }
     this.yearChoices = years;
   }
-
   dateShadingIfAttended(partialDataHandler) {
     var time;
     for (let i = 0; i < this.arrayOfDatesForAmonth.length; i++) {
