@@ -78,13 +78,13 @@ export class ReportingsPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.firstDayOftheMonthAndLast();
     this.listOfYears();
     this.getVipOrNot();
     this.currentUsersAttendance();
     this.chosenMonth = this.currentTime.getMonth();
     this.getCurrentMonth();
     this.getAllDateFromUser();
-    this.firstDayOftheMonthAndLast();
     this.showMembersBelongToThisGroup();
     this.getTheCurrentUser();
   }
@@ -147,7 +147,7 @@ export class ReportingsPage implements OnInit {
     this.counter += 1;
     if (this.counter == 1) {
       this.firstDayOftheMonthAndLast();
-      this.getAllDateFromUser();
+      this.onlySundaysOfMonth(value.detail);
     }
   }
   //choosing for display
@@ -187,10 +187,7 @@ export class ReportingsPage implements OnInit {
     var daysInAmonth;
     var date = new Date(this.yearToFilter, this.chosenMonth);
     for (let index = 0; index < 40; index++) {
-      if (
-        this.arrayOfDatesForAmonth.length <
-        this.getDaysInMonth(this.chosenMonth, this.yearToFilter)
-      ) {
+      if (this.arrayOfDatesForAmonth.length < this.getDaysInMonth(this.chosenMonth, this.yearToFilter)) {
         daysInAmonth = new Date(date.getFullYear(), date.getMonth(), index + 1);
         this.arrayOfDatesForAmonth.push({
           date: daysInAmonth.getDate(),
@@ -236,11 +233,34 @@ export class ReportingsPage implements OnInit {
       }
     }
   }
+  //Get all sundays of a month
+  onlySundaysOfMonth(params) {
+    var usersAttedanceOfAMonth;
+    this.datarequest.getTheCurrentUserAttendance(this.currentUserId, this.month).subscribe(data => {
+      usersAttedanceOfAMonth = data;
+      if(usersAttedanceOfAMonth.length == 0) {
+        for (let index = 0; index < this.arrayOfDatesForAmonth.length; index++) {
+          if(this.arrayOfDatesForAmonth[index].day == 0) {
+            if(this.arrayOfDatesForAmonth[index].date != "") {
+              document.getElementById(this.arrayOfDatesForAmonth[index].date.toString()).style.backgroundColor = "rgba(255, 140, 111, 0.7)";
+            }
+          }
+        }
+      }else {
+        console.log(this.chosenMonth + " and " + this.currentMonth)
+        if(this.chosenMonth > this.currentMonth) {
+          if(parseInt(this.yearChoice) < this.currentTime.getFullYear()) {
+           this.selectedMonthNotCurrentMonth();
+          }
+        }
+      }
+    })
+  }
+
 
   //This calendar renders the calendar of a certain month that the user chose
   getAllDateFromUser() {
     var partialDataHandler;
-    var time;
     this.request.getTheCurrentUserIdInStorage().then((res) => {
       this.currentUserId = res;
       this.getSundayAndEventAttendance();
@@ -256,7 +276,7 @@ export class ReportingsPage implements OnInit {
             } else if (this.currentMonth == this.selectedMonth) {
               this.currentMonthIsEquealToSelected();
             } else {
-              if (this.typeChoice != "Weekly") {
+              if (this.typeChoice == "Yearly") {
                 this.getCurrentDate();
                 this.firstDayOftheMonthAndLast();
               }
@@ -267,14 +287,8 @@ export class ReportingsPage implements OnInit {
   }
 
   forAllTheDateOfAttendance(index: number) {
-    if (
-      !this.dateForAMonthOfAttendance.includes(
-        this.arrayOfDatesForAmonth[index].date
-      )
-    ) {
-      this.dateForAMonthOfAttendance.push(
-        this.arrayOfDatesForAmonth[index].date
-      );
+    if (!this.dateForAMonthOfAttendance.includes(this.arrayOfDatesForAmonth[index].date)) {
+      this.dateForAMonthOfAttendance.push(this.arrayOfDatesForAmonth[index].date);
     }
   }
   shadedTheAttendanceOfCurrentUser() {
@@ -287,15 +301,11 @@ export class ReportingsPage implements OnInit {
     }
   }
 
-  selectedMonthNotCurrentMonth(i) {
+  selectedMonthNotCurrentMonth() {
     if (this.currentMonth < this.selectedMonth) {
       for (let index = 0; index < this.arrayOfDatesForAmonth.length; index++) {
-        document.getElementById(
-          this.currentTime.getDate().toString()
-        ).style.backgroundColor = "rgba(255, 255, 255, 0.1)";
-        document.getElementById(
-          this.arrayOfDatesForAmonth[i].date.toString()
-        ).style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+        document.getElementById(this.currentTime.getDate().toString()).style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+        document.getElementById(this.arrayOfDatesForAmonth[index].date.toString()).style.backgroundColor = "rgba(255, 255, 255, 0.1)";
       }
     } else if (this.currentMonth == this.selectedMonth) {
       this.getCurrentDate();
@@ -305,16 +315,10 @@ export class ReportingsPage implements OnInit {
   getTheDatesOfMonthChosen() {
     var daysInAmonth;
     var date = new Date(this.yearToFilter, this.chosenMonth);
-    for (
-      let index = 0;
-      index < this.getDaysInMonth(date.getMonth(), date.getFullYear());
-      index++
-    ) {
+    for (let index = 0; index < this.getDaysInMonth(date.getMonth(), date.getFullYear()); index++) {
       daysInAmonth = new Date(date.getFullYear(), date.getMonth(), index + 1);
       if (daysInAmonth.getDay() == 0) {
-        document.getElementById(
-          "" + daysInAmonth.getDate()
-        ).style.backgroundColor = "rgba(255, 140, 111, 0.7)";
+        document.getElementById("" + daysInAmonth.getDate()).style.backgroundColor = "rgba(255, 140, 111, 0.7)";
       }
     }
   }
@@ -490,13 +494,9 @@ export class ReportingsPage implements OnInit {
         if (this.arrayOfDatesForAmonth[i].day == time.getDay()) {
           if (this.arrayOfDatesForAmonth[i].date != "") {
             this.forAllTheDateOfAttendance(i);
-            if (
-              this.arrayOfDatesForAmonth[i].date > this.currentTime.getDate()
-            ) {
+            if (this.arrayOfDatesForAmonth[i].date > this.currentTime.getDate()) {
               if (this.typeChoice != "Weekly") {
-                document.getElementById(
-                  this.arrayOfDatesForAmonth[i].date
-                ).style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+                document.getElementById(this.arrayOfDatesForAmonth[i].date).style.backgroundColor = "rgba(255, 255, 255, 0.1)";
               }
             } else {
               if (this.arrayOfDatesForAmonth[i].date == time.getDate()) {
@@ -511,7 +511,7 @@ export class ReportingsPage implements OnInit {
             }
           }
         }
-        this.selectedMonthNotCurrentMonth(i);
+        this.selectedMonthNotCurrentMonth();
       }
     }
     this.shadedTheAttendanceOfCurrentUser();

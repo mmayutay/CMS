@@ -101,7 +101,7 @@
 
     <!-- Display yearly -->
     <ion-card *ngIf="typeChoice == 'Yearly'">
-      <h1>2021</h1>
+      <h1>{{ yearToFilter }}</h1>
       <table>
         <tr *ngFor="let month of yearlyArray">
           <th [id]="month[0]" (click)="monthSelectedClick(month[0])">{{ month[0] }}</th>
