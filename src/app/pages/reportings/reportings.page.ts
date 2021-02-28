@@ -478,7 +478,7 @@ export class ReportingsPage implements OnInit {
         } else {
           if (this.yearCounter.length == 3) {
             this.yearlyArray.push(this.yearCounter);
-          }
+          }   
           this.yearCounter = [];
           this.yearCounter.push(this.monthChoices[index]);
         }
