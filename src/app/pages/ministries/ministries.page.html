@@ -5,7 +5,7 @@
         <ion-title>{{ content }}</ion-title>
     </ion-toolbar>
     <ion-toolbar *ngIf="addClicked">
-        <ion-searchbar [(ngModel)]="queryText" value="search" name="search" placeholder="Search"></ion-searchbar>
+        <ion-searchbar [(ngModel)]="filterTerm" animated="true" placeholder="Search"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
@@ -16,7 +16,7 @@
                 <td>{{lists.firstname}}</td>
                 <td>{{lists.lastname}}</td>
                 <td>
-                    <ion-button size="small" color="primary" (click)="addMember()">Add</ion-button>
+                    <ion-button size="small" color="primary" (click)="addMember($value, this.id)">Add</ion-button>
                 </td>
             </tr>
             <!-- <tr>
@@ -62,3 +62,4 @@
         </b>
     </a> -->
 </ion-content>
+

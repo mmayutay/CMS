@@ -38,6 +38,11 @@ export class DataRequestsService {
   ministryList() {
     return this.request.get( this.url + 'ministries/list');
   }
+
+  addMinistryMember(ministryValue, id) {
+    return this.request.get( this.url + "ministries/add", id);
+  }
+
   getMyCellgroup(leaderId){
     return this.request.post(this.url + 'leader', leaderId)
   }

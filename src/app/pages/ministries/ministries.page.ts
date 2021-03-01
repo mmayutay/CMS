@@ -17,6 +17,8 @@ export class MinistriesPage implements OnInit {
   public list:any;
   public details;
   public addClicked = false;
+  public value:any;
+  public id:any;
 
   constructor(
     
@@ -53,7 +55,10 @@ export class MinistriesPage implements OnInit {
     
   }
 
-  addMember(){
+  addMember(value, id){
+    this.dataRequest.addMinistryMember({ministryValue: this.value} , {id: this.id}).subscribe(data => {
+      this.storage = data;
+    });
     this.addClicked = false;
   }
 }
