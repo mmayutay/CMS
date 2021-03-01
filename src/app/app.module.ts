@@ -22,6 +22,8 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatTableModule} from '@angular/material/table';
+// import {MatPaginatorModule} from '@angular/material/paginator';
+// import {MatTableDataSource} from '@angular/material/table';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import {MatTableModule} from '@angular/material/table';
     HttpClientModule,
     FormsModule,
     MatTableModule,
+    // MatPaginatorModule,
+    // MatTableDataSource,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
