@@ -21,17 +21,17 @@
             <ion-row>
                 <ion-col>
                     <ion-card class="auxiCard">
-                        <ion-tab-button *ngIf="role === 'Member'">
+                        <ion-tab-button (click)="optAuxiliaryMember($event)" *ngIf="role === 'Member'">
                             <ion-icon color="primary" name="person"></ion-icon>
                             <ion-label>AUXILIARY</ion-label>
-                            <ion-label>{{auxiliary}}</ion-label>
+                            <ion-label>{{ auxiliary }}</ion-label>
                         </ion-tab-button>
-                        <ion-tab-button>
+                        <ion-tab-button *ngIf="role === 'Admin'">
                             <ion-icon color="primary" name="person"></ion-icon>
                             <ion-label>AUXILIARY</ion-label>
                             <ion-select name="auxi[]" id="auxi" placeholder="View Auxiliary" #newSelect [(ngModel)]="auxiliary" (ionChange)="optAuxiliary(auxiliary)">
                                     <ion-select-option value="Kids" >Blessed Kids</ion-select-option>
-                                    <ion-select-option value="Youth">Blessed Youth(13-21)</ion-select-option>
+                                    <ion-select-option value="Blessed Youth">Blessed Youth(13-21)</ion-select-option>
                                     <ion-select-option value="Single">Blessed Singles(Singles 22 up)</ion-select-option>
                                     <ion-select-option value="Mmen">Blessed Men(Married men)</ion-select-option>
                                     <ion-select-option value="Mwomen">Blessed Women(Married women)</ion-select-option>

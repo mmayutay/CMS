@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/landingpage',
+    redirectTo: '/landing',
     pathMatch: 'full'
   },
   
@@ -57,16 +57,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/my-cell-admin/my-cell-admin.module').then( m => m.MyCellAdminPageModule)
   },
   {
-    path: 'landingpage',
-    loadChildren: () => import('./pages/landingpage/landingpage.module').then( m => m.LandingpagePageModule)
-  },  {
     path: 'reportings',
     loadChildren: () => import('./pages/reportings/reportings.module').then( m => m.ReportingsPageModule)
   }
-
-
-
-
 
 ];
 

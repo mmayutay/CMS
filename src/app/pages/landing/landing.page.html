@@ -5,14 +5,18 @@
                 <img src="assets/img/BHCFLogo.png" alt="Ionic logo">
                 <p>Blessed Hope of Christian Fellowship</p>
             </div>
-
             <ion-label>Login as: </ion-label>
-            <ion-select [(ngModel)]="users" (ionChange)="userLogin()" placeholder="Users">
-                <ion-select-option value="Admin">Admin</ion-select-option>
-                <ion-select-option value="Pastor">Pastor</ion-select-option>
-                <ion-select-option value="Leader">Leader</ion-select-option>
-                <ion-select-option value="Member">Member</ion-select-option>
-            </ion-select>
+            <div class="input-container">
+                <ion-icon class="logo" name="people"></ion-icon>
+                <ion-input [(ngModel)]="users" name="code" #codeControl="ngModel" class="input">
+                    <ion-select [(ngModel)]="users" (ionChange)="userLogin()" placeholder="Users">
+                        <ion-select-option value="Admin">Admin</ion-select-option>
+                        <ion-select-option value="Pastor">Pastor</ion-select-option>
+                        <ion-select-option value="Leader">Leader</ion-select-option>
+                        <ion-select-option value="Member">Member</ion-select-option>
+                    </ion-select>
+                </ion-input>
+            </div>
         </div>
     </ion-card>
 </ion-content>

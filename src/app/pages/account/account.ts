@@ -29,6 +29,7 @@ export class AccountPage implements AfterViewInit {
   public isMember:boolean = true;
 
 
+
   constructor(
     public alertCtrl: AlertController,
     public modalController: ModalController,
@@ -50,9 +51,11 @@ export class AccountPage implements AfterViewInit {
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.datasRequest.getTheCurrentUser({ userID: res }).subscribe(data => {
         this.holder = data[0];
+        console.log(data[0].auxilliary);
+        this.auxiliary = data[0].auxilliary
+        
       })
     })
-
   }
 
 
@@ -114,6 +117,10 @@ export class AccountPage implements AfterViewInit {
     //   console.log(data);
     //   console.log("Sample data: ", this.storage);
     // });
+  }
+
+  optAuxiliaryMember(event){
+    this.router.navigate(['auxiliary/' + this.auxiliary])
   }
 
 

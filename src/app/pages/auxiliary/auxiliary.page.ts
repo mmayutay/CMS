@@ -28,6 +28,9 @@ export class AuxiliaryPage implements OnInit {
 
   ngOnInit() {
     // this.menuController.enable(false);
+    let val = this.activatedRoute.snapshot.paramMap.get('type')
+    console.log(val)
+    this.getAllAuxiliaryMembers(val);
 
     this.activatedRoute.queryParams.pipe(
       filter((params => params.content))
@@ -43,6 +46,14 @@ export class AuxiliaryPage implements OnInit {
           console.log("Sample data: ", this.storage);
         });
     });
+  }
+
+  getAllAuxiliaryMembers(aux) {
+    console.log(aux)
+    this.datasRequest.displayAuxiliary({auxi: aux}).subscribe(data => {
+      console.log(data)
+      this.storage = data
+    })
   }
 
 }

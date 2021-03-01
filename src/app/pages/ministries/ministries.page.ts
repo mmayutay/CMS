@@ -10,6 +10,7 @@ import { AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-ministries',
@@ -86,6 +87,7 @@ export class MinistriesPage implements AfterViewInit {
 
   addMember(member) {
     this.dataRequest.getTheCurrentUser({ userID: member.id }).subscribe(data => {
+      console.log(data);
       this.storage.push(data[0])
     })
     this.addClicked = false;

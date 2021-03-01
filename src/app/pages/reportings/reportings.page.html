@@ -1,36 +1,142 @@
 <ion-header>
   <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>Reportings</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Reportings</ion-title>
+    <button *ngIf="userVip" style="position: fixed;margin-left: 70%;top: 18px;" (click)="logout()">Log-out</button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-card>
-    <h1> {{ calendarMonth }} </h1>
-    <table>
-      <tr>
-        <th>Sun</th>
-        <th>Mon</th>
-        <th>Tue</th>
-        <th>Wed</th>
-        <th>Thu</th>
-        <th>Fri</th>
-        <th>Sat</th>
-      </tr>
-      <tr *ngFor="let value of lengthOfMonthsDate">
-        <td [id]="arrayOfDatesForAmonth[value[0]].date">{{ arrayOfDatesForAmonth[value[0]].date }}</td>
-        <td [id]="arrayOfDatesForAmonth[value[1]].date">{{ arrayOfDatesForAmonth[value[1]].date }}</td>
-        <td [id]="arrayOfDatesForAmonth[value[2]].date">{{ arrayOfDatesForAmonth[value[2]].date }}</td>
-        <td [id]="arrayOfDatesForAmonth[value[3]].date">{{ arrayOfDatesForAmonth[value[3]].date }}</td>
-        <td [id]="arrayOfDatesForAmonth[value[4]].date">{{ arrayOfDatesForAmonth[value[4]].date }}</td>
-        <td [id]="arrayOfDatesForAmonth[value[5]].date">{{ arrayOfDatesForAmonth[value[5]].date }}</td>
-        <td [id]="arrayOfDatesForAmonth[value[6]].date">{{ arrayOfDatesForAmonth[value[6]].date }}</td>
-      </tr>
-    </table>
+  <!-- Navigation bar top -->
+  <ion-tabs *ngIf="!userVip">
+    <ion-tab-bar slot="top">
+      <ion-tab-button (click)="typeOfViewController('Calendar')">
+        <ion-icon name="calendar"></ion-icon>
+        <ion-label>Calendar View</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button (click)="typeOfViewController('Table')">
+        <ion-icon name="eye"></ion-icon>
+        <ion-label>Table View</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs><br><br>
+
+  <!-- Calendar View Card -->
+  <ion-card *ngIf="!typeOfView">
+
+    <ion-card>
+      <p>Display Dates: </p>
+      <ion-input (ionChange)="typeOfDisplay($event)" name="code" ngModel class="input">
+        <ion-select placeholder="Choose Type">
+          <ion-select-option *ngFor="let type of typeOfDisplays" [value]="type">{{ type }}</ion-select-option>
+        </ion-select>
+      </ion-input>
+      <ion-input (ionChange)="monthChose($event)" name="code" ngModel class="input">
+        <ion-select class="monthDisplay" placeholder="Choose Month">
+          <ion-select-option *ngFor="let month of monthChoices" [value]="month">{{ month }}</ion-select-option>
+        </ion-select>
+      </ion-input>
+      <ion-input (ionChange)="yearChose($event)" name="code" ngModel class="input">
+        <ion-select placeholder="Choose Year">
+          <ion-select-option *ngFor="let year of yearChoices" [value]="year">{{ year }}</ion-select-option>
+        </ion-select>
+      </ion-input>
+    </ion-card>
+
+    <!-- Display by week -->
+    <ion-card *ngIf=" typeChoice == 'Weekly'">
+      <button (click)="indexCounter('back')">Back</button>
+      <button style="float: right;" (click)="indexCounter('next')">Next</button>
+      <h1> {{ month }} </h1>
+      <table>
+        <tr>
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+        <tr>
+          <td [id]="arrayOfDatesForAmonth[rowCounter + 0].date">{{ arrayOfDatesForAmonth[rowCounter + 0].date }}</td>
+          <td [id]="arrayOfDatesForAmonth[rowCounter + 1].date">{{ arrayOfDatesForAmonth[rowCounter + 1].date }}</td>
+          <td [id]="arrayOfDatesForAmonth[rowCounter + 2].date">{{ arrayOfDatesForAmonth[rowCounter + 2].date }}</td>
+          <td [id]="arrayOfDatesForAmonth[rowCounter + 3].date">{{ arrayOfDatesForAmonth[rowCounter + 3].date }}</td>
+          <td [id]="arrayOfDatesForAmonth[rowCounter + 4].date">{{ arrayOfDatesForAmonth[rowCounter + 4].date }}</td>
+          <td [id]="arrayOfDatesForAmonth[rowCounter + 5].date">{{ arrayOfDatesForAmonth[rowCounter + 5].date }}</td>
+          <td [id]="arrayOfDatesForAmonth[rowCounter + 6].date">{{ arrayOfDatesForAmonth[rowCounter + 6].date }}</td>
+        </tr>
+      </table>
+    </ion-card>
+
+    <!-- Display by month -->
+    <ion-card *ngIf=" typeChoice == 'Monthly'">
+      <h1> {{ month }} </h1>
+      <table>
+        <tr>
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+        <tr *ngFor="let value of lengthOfMonthsDate">
+          <td [id]="arrayOfDatesForAmonth[value[0]].date">{{ arrayOfDatesForAmonth[value[0]].date }}</td>
+          <td [id]="arrayOfDatesForAmonth[value[1]].date">{{ arrayOfDatesForAmonth[value[1]].date }}</td>
+          <td [id]="arrayOfDatesForAmonth[value[2]].date">{{ arrayOfDatesForAmonth[value[2]].date }}</td>
+          <td [id]="arrayOfDatesForAmonth[value[3]].date">{{ arrayOfDatesForAmonth[value[3]].date }}</td>
+          <td [id]="arrayOfDatesForAmonth[value[4]].date">{{ arrayOfDatesForAmonth[value[4]].date }}</td>
+          <td [id]="arrayOfDatesForAmonth[value[5]].date">{{ arrayOfDatesForAmonth[value[5]].date }}</td>
+          <td [id]="arrayOfDatesForAmonth[value[6]].date">{{ arrayOfDatesForAmonth[value[6]].date }}</td>
+        </tr>
+      </table>
+    </ion-card>
+
+    <!-- Display yearly -->
+    <ion-card *ngIf="typeChoice == 'Yearly'">
+      <h1>{{ yearToFilter }}</h1>
+      <table>
+        <tr *ngFor="let month of yearlyArray">
+          <th [id]="month[0]" (click)="monthSelectedClick(month[0])">{{ month[0] }}</th>
+          <th [id]="month[1]" (click)="monthSelectedClick(month[1])">{{ month[1] }}</th>
+          <th [id]="month[2]" (click)="monthSelectedClick(month[2])">{{ month[2] }}</th>
+        </tr>
+      </table>
+    </ion-card>
+
   </ion-card>
-  
+  <ion-card *ngIf="typeOfView">
+    <ion-list>
+      <ion-item *ngFor="let event of attendanceInTableView">
+        <p>Sunday Celebration</p>
+        <ion-label>{{ event }}</ion-label>
+      </ion-item>
+      <ion-item *ngFor="let event of eventAttendanceTableView">
+        <p>Events Attended</p>
+        <ion-label>{{ event }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 </ion-content>
+<div *ngIf="currentUserRole == 'Member' || currentUserRole == 'Leader'">
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button style="width: 50px;height: 50px;"><p class="tag">Event</p>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="addAttendance()" style="width: 50px;height: 50px;"><p class="tag">S. C.</p>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</div>
