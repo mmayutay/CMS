@@ -77,7 +77,8 @@ export class ReportingsPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.chosenMonth = this.currentTime.getMonth();;
+    this.chosenMonth = this.currentTime.getMonth();
+    //function who will get all the dates for a month
     this.firstDayOftheMonthAndLast();
     this.listOfYears();
     this.getVipOrNot();
@@ -187,6 +188,7 @@ export class ReportingsPage implements OnInit {
     this.arrayOfDatesForAmonth.length = 0;
     var daysInAmonth;
     var date = new Date(this.yearToFilter, this.chosenMonth);
+    this.convertMonth(date.getMonth());
     for (let index = 0; index < 40; index++) {
       if (this.arrayOfDatesForAmonth.length < this.getDaysInMonth(this.chosenMonth, this.yearToFilter)) {
         daysInAmonth = new Date(date.getFullYear(), date.getMonth(), index + 1);
@@ -203,7 +205,6 @@ export class ReportingsPage implements OnInit {
         });
       }
     }
-    this.convertMonth(date.getMonth());
     for (let index = 0; index < 45; index++) {
       if (this.numberOfDaysInAWeek.length != 7) {
         this.numberOfDaysInAWeek.push(counter);
@@ -236,6 +237,7 @@ export class ReportingsPage implements OnInit {
   }
   //Get all sundays of a month
   onlySundaysOfMonth(params) {
+    var date;
     var usersAttedanceOfAMonth;
     this.datarequest.getTheCurrentUserAttendance(this.currentUserId, this.month).subscribe(data => {
       usersAttedanceOfAMonth = data;
@@ -260,6 +262,11 @@ export class ReportingsPage implements OnInit {
         if(this.currentTime.getFullYear() > this.yearToFilter) {
           this.dateShadingIfAttended(usersAttedanceOfAMonth)
           this.selectedMonthNotCurrentMonth();
+        }else if(this.currentTime.getFullYear() == this.yearToFilter) {
+          for (let i = 0; i < usersAttedanceOfAMonth.length; i++) {
+            date = new Date(usersAttedanceOfAMonth[i]);
+            document.getElementById(date.getDate().toString()).style.backgroundColor = "rgba(90, 255, 105, 0.7)";
+          }
         }else {
           this.selectedMonthNotCurrentMonth();
         }
@@ -423,15 +430,14 @@ export class ReportingsPage implements OnInit {
     var concatenateAndPush = "";
     this.request.getTheCurrentUserIdInStorage().then((res) => {
       this.datarequest
-        .getTheCurrentUserAttendance(res, "Feb")
+        .getTheCurrentUserAttendance(res, this.month)
         .subscribe((response) => {
           this.attendanceOfUserFromBackend = response;
           partialDataHandler = response;
           for (let index = 0; index < partialDataHandler.length; index++) {
             date = new Date(partialDataHandler[index]);
             this.convertMonth(date.getMonth());
-            concatenateAndPush =
-              this.month + "-" + date.getDate() + "-" + date.getFullYear();
+            concatenateAndPush = this.month + "-" + date.getDate() + "-" + date.getFullYear();
             this.attendanceInTableView.push(concatenateAndPush);
           }
         });
@@ -530,14 +536,26 @@ export class ReportingsPage implements OnInit {
   //Get the current user's attendance in both sunday celebration and events
   getSundayAndEventAttendance() {
     var date;
+    var month = new Array();
+    month[0] = "Jan";
+    month[1] = "Feb";
+    month[2] = "Mar";
+    month[3] = "Apr";
+    month[4] = "May";
+    month[5] = "Jun";
+    month[6] = "Jul";
+    month[7] = "Aug";
+    month[8] = "Sep";
+    month[9] = "Oct";
+    month[10] = "Nov";
+    month[11] = "Dec";
     this.datarequest
       .getEventAndSCAttendance(this.currentUserId)
       .subscribe((data) => {
         if(data[0].currentEventsAttendance.length != 0) {
           for (let index = 0; index < data[0].currentEventsAttendance.length; index++) {
-            date = new Date(data[0].currentEventsAttendance[index].date)
-            this.convertMonth(date.getMonth())
-            this.eventAttendanceTableView.push(this.month + '-' + date.getDate() + '-' + date.getFullYear())
+            date = new Date(data[0].currentEventsAttendance[index].date);
+            this.eventAttendanceTableView.push(month[date.getMonth()] + '-' + date.getDate() + '-' + date.getFullYear())
             if(this.typeChoice != 'Weekly') {
               if(this.chosenMonth == date.getMonth()) {
                 document.getElementById(date.getDate().toString()).style.backgroundColor = "rgba(90, 255, 105, 0.7)";
