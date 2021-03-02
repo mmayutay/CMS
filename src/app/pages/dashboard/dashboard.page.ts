@@ -1,23 +1,31 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { Chart } from 'chart.js';
+import { Chart } from "chart.js";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.page.html',
-  styleUrls: ['./dashboard.page.scss'],
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.page.html",
+  styleUrls: ["./dashboard.page.scss"],
 })
 export class DashboardPage implements OnInit {
-  @ViewChild("barCanvas",  { static: true }) barCanvas: ElementRef;
-  @ViewChild("lineCanvas", {static: true}) lineCanvas: ElementRef;
+  @ViewChild("barCanvas", { static: true }) barCanvas: ElementRef;
+  @ViewChild("lineCanvas", { static: true }) lineCanvas: ElementRef;
 
-  public arrayOfCellgroup = [20, 100, 20, 20]
-  public arrayOfSundayCeleb = [20, 60, 100, 20]
+  public arrayOfCellgroup = [20, 100, 20, 20];
+  public arrayOfSundayCeleb = [20, 60, 100, 20];
 
   private barChart: Chart;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
+    var slides = document.querySelector("ion-slides");
+
+    // Optional parameters to pass to the swiper instance.
+    // See http://idangero.us/swiper/api/ for valid options.
+    slides.options = {
+      initialSlide: 1,
+      speed: 400,
+    };
     this.graphCreated(this.barCanvas, this.arrayOfCellgroup);
     this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb);
   }
@@ -45,24 +53,23 @@ export class DashboardPage implements OnInit {
               "rgba(255, 206, 86, 1)",
               "rgba(75, 192, 192, 1)",
               "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)"
+              "rgba(255, 159, 64, 1)",
             ],
-            borderWidth: 0
-          }
-        ]
+            borderWidth: 0,
+          },
+        ],
       },
       options: {
         scales: {
           yAxes: [
             {
               ticks: {
-                beginAtZero: true
-              }
-            }
-          ]
-        }
-      }
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+      },
     });
   }
-
 }

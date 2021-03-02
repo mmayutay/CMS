@@ -8,47 +8,63 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-content>
+  <ion-slides pager="true">
+    <ion-slide>
+      <!-- This is for the Statistics  -->
+      <ion-card>
+        <!-- For all the cellgroup's attendance Statistics  -->
+        <ion-card-header>
+          <h1>CellGroup Attendance</h1>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas #barCanvas></canvas>
+        </ion-card-content><br>
 
-    </ion-card-content>
+        <!-- Sunday Celebration attendance Statistics -->
+        <ion-card-header>
+          <h1>Sundays Attendance</h1>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas #lineCanvas></canvas>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
 
-    <ion-row>
-      <ion-col>
-        <button ion-button icon-start clear small>
-          <ion-icon name="thumbs-up"></ion-icon>
-          <div>12 Likes</div>
-        </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button icon-start clear small>
-          <ion-icon name="text"></ion-icon>
-          <div>4 Comments</div>
-        </button>
-      </ion-col>
-      <ion-col align-self-center text-center>
-        <ion-note>
-          11h ago
-        </ion-note>
-      </ion-col>
-    </ion-row>
+    <ion-slide>
+      <!-- This is for the view of the members -->
+      <!-- Vip and Regular members -->
+      <div class="tableMembers">
+        <table>
+          <tr>
+            <th>Vip Members</th>
+            <th>Regular Members</th>
+          </tr>
+          <tr>
+            <td>Lebron James</td>
+            <td>Dwayne Wade</td>
+          </tr>
+        </table>
+      </div>
 
-  </ion-card>
+    </ion-slide>
 
-  <ion-card>
-    <ion-card-header>
-      <h1>CellGroup Attendance</h1>
-    </ion-card-header>
-    <ion-card-content>
-      <canvas #barCanvas></canvas>
-    </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <ion-card-header>
-      <h1>Sundays Attendance</h1>
-    </ion-card-header>
-    <ion-card-content>
-      <canvas #lineCanvas></canvas>
-    </ion-card-content>
-  </ion-card>
+    <ion-slide>
+      <!-- This is for the view of the members -->
+      <!-- Vip and Regular members -->
+      <div class="tableMembers">
+        <table>
+          <tr>
+            <th>Active Members</th>
+            <th>Inactive Members</th>
+          </tr>
+          <tr>
+            <td>Lebron James</td>
+            <td>Dwayne Wade</td>
+          </tr>
+        </table>
+      </div>
+
+    </ion-slide>
+
+  </ion-slides>
 </ion-content>
