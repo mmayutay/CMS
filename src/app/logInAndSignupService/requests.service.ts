@@ -10,6 +10,7 @@ export class RequestsService {
   public storageKey = 'current-logged'
   public storageUserRole = 'user-role'
   public storageKeyUserId = 'user-id'
+  public storageKeyVIP = 'is-vip'
   public boolean = true
   public userDataLength;
   public url = "http://localhost:8000/api/"
@@ -47,8 +48,17 @@ export class RequestsService {
     this.userdata.storage.set(this.storageUserRole, loggedRole)
     this.userdata.storage.set(this.storageKeyUserId, loggedID)
   }
+
+  userIsVipOrNot(boolean: Boolean) {
+    this.userdata.storage.set(this.storageKeyVIP, boolean);
+  }
+
   getTheUserRoleFromTheStorage() {
     return this.userdata.storage.get(this.storageUserRole)
+  }
+
+  getUserIsVipOrNot() {
+    return this.userdata.storage.get(this.storageKeyVIP)
   }
 
   cellGroup(){

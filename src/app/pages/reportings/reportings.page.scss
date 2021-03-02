@@ -1,0 +1,32 @@
+ion-item {
+    color: rgb(112, 112, 112);
+}
+p {
+    margin-right: 20%;
+}
+table{
+    width: 90%;
+    border-collapse: collapse;
+    margin: 10px;
+}
+.tag {
+    padding-left: 7px;
+}
+
+table, td, th {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid rgb(180, 180, 180);
+}
+h1 {
+    text-align: center;
+    width: 100%;
+}
+.monthDisplay {
+    float: right;
+    width: 100%;
+    margin-left: 50%;
+}
+#activeButton {
+    background-color: rgba(70, 255, 85, 0.5);
+}

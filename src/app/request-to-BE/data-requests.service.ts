@@ -17,6 +17,27 @@ export class DataRequestsService {
     return this.request.post(this.url + "info", userId);
   }
 
+  editUserInfo(userId) {
+    return this.request.get(this.url + "info/edit", userId);
+  }
+
+  updateUserInfo(userId) {
+    return this.request.post(this.url + "info/update", userId);
+  }
+
+  displayAuxiliary(auxiliaryValue) {
+    console.log(auxiliaryValue);
+    return this.request.post(this.url + "profile/auxiliary" , auxiliaryValue);
+  }
+
+  displayMinistry(ministryValue) {
+    console.log(ministryValue);
+    return this.request.post( this.url + "profile/ministries" , ministryValue);
+  }
+
+  ministryList() {
+    return this.request.get( this.url + 'ministries/list');
+  }
   getMyCellgroup(leaderId){
     return this.request.post(this.url + 'leader', leaderId)
   }
@@ -40,8 +61,12 @@ export class DataRequestsService {
   }
 
   //data to pass is the current user's id
-  getTheCurrentUserAttendance(currentUserId) {
-    return this.request.post(this.url + 'current-user-attendance', {currentUserId: currentUserId});
+  getTheCurrentUserAttendance(currentUserId, month) {
+    return this.request.post(this.url + 'current-user-attendance', {currentUserId: currentUserId, month: month});
+  }
+  //This function will get the current users attendance through his/her chosed year 
+  usersAttendanceChosenYear(monthChose, yearChose, currentUserId) {
+    return this.request.post(this.url + 'user-attendance-year-selected', {currentUserId: currentUserId, month: monthChose, year: yearChose})
   }
 
   //This is for the admin to get all VIP Users
@@ -57,6 +82,11 @@ export class DataRequestsService {
   //This function is for the notification who displays the leader and the member
   vipUsersToDisplayAsNotification() {
     return this.request.get(this.url + 'all-new-unvip-members');
+  }
+
+  //Function that get the current user's attendance in both event and sunday celebration
+  getEventAndSCAttendance(currentUserId) {
+    return this.request.post(this.url + 'viewAttendancesOfSCandEvents', {currentUserId: currentUserId})
   }
 
 }

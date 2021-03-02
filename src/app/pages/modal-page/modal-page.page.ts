@@ -42,7 +42,7 @@ export class ModalPagePage implements OnInit {
 
   ngOnInit() {
     this.request.getTheCurrentUserIdInStorage().then(res => {
-      this.datasRequest.getTheCurrentUser({userID: res}).subscribe(data => {
+      this.datasRequest.editUserInfo({userID: res}).subscribe(data => {
         this.update.newUser = data[0]
         console.log(this.update)
       })

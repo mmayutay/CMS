@@ -1,20 +1,138 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
+import { DataRequestsService } from '../../request-to-BE/data-requests.service';
+import { filter } from 'rxjs/operators';
+import { User } from '../../model/user.model';
+
+import { AfterViewInit, ViewChild } from '@angular/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+
+import { AlertController } from '@ionic/angular';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
 
 @Component({
   selector: 'app-ministries',
   templateUrl: './ministries.page.html',
   styleUrls: ['./ministries.page.scss'],
 })
-export class MinistriesPage implements OnInit {
-  public type = ''
+export class MinistriesPage implements AfterViewInit {
+  public foundNames = []
+  public ministryMembers = []
+  displayedColumns: string[] = ['Firstname', 'Lastname', 'Adddress', 'Email', 'Contact No.', 'Leader'];
+  dataSource = new MatTableDataSource<User>();
+
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
+  public type = '';
+  public storage: any;
+  content: string;
+  public list: any;
+  public details;
+  public addClicked = false;
+  isItemAvailable = false;
+  public role = "";
+
 
   constructor(
-    // private router: Router,
-    private activeRoute: ActivatedRoute
-    ) { }
 
-  ngOnInit() {
+    private activeRoute: ActivatedRoute,
+    private dataRequest: DataRequestsService,
+    private request: RequestsService,
+  ) { }
+
+  ngAfterViewInit() {
+
+    this.getUserRole();
+
     this.type = this.activeRoute.snapshot.paramMap.get('type')
+    console.log(this.type);
+    this.getAllMinistryMembers(this.type);
+    
+    // this.dataSource.paginator = this.paginator;
+    this.activeRoute.queryParams.pipe(
+      filter((params => params.content))
+    ).subscribe(params => {
+      console.log("Params:: ", params);
+
+      this.content = params.content;
+      console.log("Ministry: ", this.content);
+      this.getAllMinistryMembers(this.content);
+
+      this.dataRequest.displayMinistry({ ministries: this.content }).subscribe(data => {
+        this.storage = data;
+        this.dataSource = new MatTableDataSource<User>(this.storage);
+        console.log("Ministry: ", this.storage);
+      });
+    });
+
+    this.dataRequest.ministryList().subscribe(lists => {
+      this.list = lists;
+      // for (let index = 0; index < this.list.length; index++) {
+      //   this.ministryMembers.push({ name: this.list[index].firstname + "-" + this.list[index].lastname, id: this.list[index].id })
+      // }
+      this.list.forEach((element, index) => {
+        if (element.ministries == this.content) {
+          this.list.splice(index, 1);
+          console.log(this.list);
+        }
+        this.ministryMembers.push({ name: this.list[index].firstname + "-" + this.list[index].lastname, id: this.list[index].id })
+        console.log(this.ministryMembers);
+        console.log("Ministry List: ", this.list);
+      })
+    });
+
+    
+
+    // if (this.list[index].ministries === this.content) {
+    //   this.list.splice(this.list[index]);
+    //   console.log(this.list[index]);
+    // }
+  }
+
+  getAllMinistryMembers(ministry) {
+    console.log(ministry)
+    this.dataRequest.displayMinistry({ministries: ministry}).subscribe(data => {
+      console.log(data)
+      this.storage = data
+    })
+  }
+
+  iconAdd() {
+    this.addClicked = true;
+    console.log(this.addClicked);
+
+  }
+
+  addMember(member) {
+    this.dataRequest.getTheCurrentUser({ userID: member.id }).subscribe(data => {
+      console.log(data);
+      this.storage.push(data[0])
+    })
+    this.addClicked = false;
+  }
+
+  updateList(event: any) {
+    this.list = []
+    this.foundNames.length = 0
+    var val = event.target.value.toLowerCase();
+    for (let index = 0; index < this.ministryMembers.length; index++) {
+      if (this.ministryMembers[index].name.toLowerCase().includes(val)) {
+        this.foundNames.push(this.ministryMembers[index])
+      }
+    }
+    this.foundNames.forEach(element => {
+      this.list.push({ id: element.id, firstname: element.name.split("-")[0], lastname: element.name.split("-")[1] })
+    });
+  }
+
+  getUserRole(){
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      this.dataRequest.getNetworkWhereIBelong(res).subscribe(data => {
+        console.log(data[0].roles)
+        this.role = data[0].roles
+      })
+    })
   }
 }

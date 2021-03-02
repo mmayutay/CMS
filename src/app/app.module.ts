@@ -19,6 +19,11 @@ import { ModalPagePage } from './pages/modal-page/modal-page.page';
 
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatTableModule} from '@angular/material/table';
+// import {MatPaginatorModule} from '@angular/material/paginator';
+// import {MatTableDataSource} from '@angular/material/table';
 
 
 @NgModule({
@@ -27,12 +32,16 @@ import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    MatTableModule,
+    // MatPaginatorModule,
+    // MatTableDataSource,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }),
-    NgxQRCodeModule
+    NgxQRCodeModule,
+    BrowserAnimationsModule
   ],
   declarations: [AppComponent],
   providers: [
