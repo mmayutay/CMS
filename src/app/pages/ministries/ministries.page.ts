@@ -7,7 +7,7 @@ import { filter } from 'rxjs/operators';
 import { User } from '../../model/user.model';
 
 import { AfterViewInit, ViewChild } from '@angular/core';
-import { MatPaginatorModule } from '@angular/material/paginator';
+// import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { AlertController } from '@ionic/angular';
