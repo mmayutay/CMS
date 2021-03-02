@@ -45,7 +45,7 @@ export class AccountPage implements AfterViewInit {
     // this.menuController.enable(true);
     this.getUserRole();
     this.userData.storage.get(this.request.storageUserRole).then(res => {
-      this.role = res
+      this.role = res      
     })
     
     this.request.getTheCurrentUserIdInStorage().then(res => {
@@ -53,6 +53,7 @@ export class AccountPage implements AfterViewInit {
         this.holder = data[0];
         console.log(data[0].auxilliary);
         this.auxiliary = data[0].auxilliary
+        this.ministries = data[0].ministries
         
       })
     })
@@ -123,10 +124,13 @@ export class AccountPage implements AfterViewInit {
     this.router.navigate(['auxiliary/' + this.auxiliary])
   }
 
+  optMinistryMember(event){
+    this.router.navigate(['ministries/' + this.ministries])
+  }
 
   optMinistry(value) {
     console.log(value);
-    this.router.navigate(['ministries/:type'], { queryParams: {content: value} })
+    this.router.navigate(['ministries/:type'], { queryParams: {content: value.target.value} })
     console.log("Selected ministry: ", value);
 
   }

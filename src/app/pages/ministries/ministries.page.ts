@@ -11,6 +11,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { AlertController } from '@ionic/angular';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
 
 @Component({
   selector: 'app-ministries',
@@ -31,15 +32,24 @@ export class MinistriesPage implements AfterViewInit {
   public details;
   public addClicked = false;
   isItemAvailable = false;
+  public role = "";
 
 
   constructor(
 
     private activeRoute: ActivatedRoute,
     private dataRequest: DataRequestsService,
+    private request: RequestsService,
   ) { }
 
   ngAfterViewInit() {
+
+    this.getUserRole();
+
+    this.type = this.activeRoute.snapshot.paramMap.get('type')
+    console.log(this.type);
+    this.getAllMinistryMembers(this.type);
+    
     // this.dataSource.paginator = this.paginator;
     this.activeRoute.queryParams.pipe(
       filter((params => params.content))
@@ -48,6 +58,7 @@ export class MinistriesPage implements AfterViewInit {
 
       this.content = params.content;
       console.log("Ministry: ", this.content);
+      this.getAllMinistryMembers(this.content);
 
       this.dataRequest.displayMinistry({ ministries: this.content }).subscribe(data => {
         this.storage = data;
@@ -72,12 +83,21 @@ export class MinistriesPage implements AfterViewInit {
       })
     });
 
+    
+
     // if (this.list[index].ministries === this.content) {
     //   this.list.splice(this.list[index]);
     //   console.log(this.list[index]);
     // }
   }
 
+  getAllMinistryMembers(ministry) {
+    console.log(ministry)
+    this.dataRequest.displayMinistry({ministries: ministry}).subscribe(data => {
+      console.log(data)
+      this.storage = data
+    })
+  }
 
   iconAdd() {
     this.addClicked = true;
@@ -105,5 +125,14 @@ export class MinistriesPage implements AfterViewInit {
     this.foundNames.forEach(element => {
       this.list.push({ id: element.id, firstname: element.name.split("-")[0], lastname: element.name.split("-")[1] })
     });
+  }
+
+  getUserRole(){
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      this.dataRequest.getNetworkWhereIBelong(res).subscribe(data => {
+        console.log(data[0].roles)
+        this.role = data[0].roles
+      })
+    })
   }
 }
