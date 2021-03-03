@@ -26,18 +26,21 @@ export class DataRequestsService {
   }
 
   displayAuxiliary(auxiliaryValue) {
-    console.log(auxiliaryValue);
     return this.request.post(this.url + "profile/auxiliary" , auxiliaryValue);
   }
 
   displayMinistry(ministryValue) {
-    console.log(ministryValue);
     return this.request.post( this.url + "profile/ministries" , ministryValue);
   }
 
   ministryList() {
     return this.request.get( this.url + 'ministries/list');
   }
+
+  addMinistryMember(id, ministry) {
+    return this.request.post( this.url + "ministries/add/"+id.id, {ministries: ministry});
+  }
+
   getMyCellgroup(leaderId){
     return this.request.post(this.url + 'leader', leaderId)
   }

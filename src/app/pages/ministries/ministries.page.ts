@@ -9,9 +9,9 @@ import { User } from '../../model/user.model';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
 
 import { AlertController } from '@ionic/angular';
-import { RequestsService } from '../../logInAndSignupService/requests.service';
 
 @Component({
   selector: 'app-ministries',
@@ -29,6 +29,7 @@ export class MinistriesPage implements AfterViewInit {
   public storage: any;
   content: string;
   public list: any;
+  public holder: any;
   public details;
   public addClicked = false;
   isItemAvailable = false;
@@ -49,12 +50,11 @@ export class MinistriesPage implements AfterViewInit {
     this.type = this.activeRoute.snapshot.paramMap.get('type')
     console.log(this.type);
     this.getAllMinistryMembers(this.type);
-    
+
     // this.dataSource.paginator = this.paginator;
     this.activeRoute.queryParams.pipe(
       filter((params => params.content))
     ).subscribe(params => {
-      console.log("Params:: ", params);
 
       this.content = params.content;
       console.log("Ministry: ", this.content);
@@ -73,17 +73,15 @@ export class MinistriesPage implements AfterViewInit {
       //   this.ministryMembers.push({ name: this.list[index].firstname + "-" + this.list[index].lastname, id: this.list[index].id })
       // }
       this.list.forEach((element, index) => {
+        console.log(this.list[index]);
         if (element.ministries == this.content) {
           this.list.splice(index, 1);
-          console.log(this.list);
         }
         this.ministryMembers.push({ name: this.list[index].firstname + "-" + this.list[index].lastname, id: this.list[index].id })
-        console.log(this.ministryMembers);
-        console.log("Ministry List: ", this.list);
       })
     });
 
-    
+
 
     // if (this.list[index].ministries === this.content) {
     //   this.list.splice(this.list[index]);
@@ -93,7 +91,7 @@ export class MinistriesPage implements AfterViewInit {
 
   getAllMinistryMembers(ministry) {
     console.log(ministry)
-    this.dataRequest.displayMinistry({ministries: ministry}).subscribe(data => {
+    this.dataRequest.displayMinistry({ ministries: ministry }).subscribe(data => {
       console.log(data)
       this.storage = data
     })
@@ -105,11 +103,17 @@ export class MinistriesPage implements AfterViewInit {
 
   }
 
-  addMember(member) {
-    this.dataRequest.getTheCurrentUser({ userID: member.id }).subscribe(data => {
-      console.log(data);
+  addMember(memberId) {
+    this.dataRequest.getTheCurrentUser({ userID: memberId.id }).subscribe(data => {
       this.storage.push(data[0])
     })
+
+    this.dataRequest.addMinistryMember(memberId, this.content).subscribe(data => {
+      this.holder = data;
+      console.log("Add Member: ", this.holder);
+    });
+
+
     this.addClicked = false;
   }
 
@@ -127,7 +131,7 @@ export class MinistriesPage implements AfterViewInit {
     });
   }
 
-  getUserRole(){
+  getUserRole() {
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.dataRequest.getNetworkWhereIBelong(res).subscribe(data => {
         console.log(data[0].roles)
