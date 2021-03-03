@@ -80,4 +80,17 @@ export class DataRequestsService {
     return this.request.post(this.url + 'viewAttendancesOfSCandEvents', {currentUserId: currentUserId})
   }
 
+  //This function was used to get all the ID of all the only member users inside the collection
+  getAllUsersId() {
+    return this.request.get(this.url + 'allMemberUsers')
+  }
+
+  //This function will add the user to inactive where his/her attendance for sunday celebration is less than 4
+  addMemberToInactive(user) {
+    return this.request.post(this.url + 'addInactiveUser', {memberId: user.id, active: user.boolean})
+  }
+
 }
+
+
+//allMemberUsers
