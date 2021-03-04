@@ -39,8 +39,8 @@
             <th>Vip Members</th>
             <th>Regular Members</th>
           </tr>
-          <tr>
-            <td>Lebron James</td>
+          <tr *ngFor="let in of counter(vipMembers.length); let i = index">
+            <td>{{ vipMembers[i] }}</td>
             <td>Dwayne Wade</td>
           </tr>
         </table>
@@ -50,16 +50,16 @@
 
     <ion-slide>
       <!-- This is for the view of the members -->
-      <!-- Vip and Regular members -->
+      <!-- Active and Inactive members -->
       <div class="tableMembers">
         <table>
           <tr>
             <th>Active Members</th>
             <th>Inactive Members</th>
           </tr>
-          <tr>
-            <td>Lebron James</td>
-            <td>Dwayne Wade</td>
+          <tr *ngFor="let in of counter(active.length); let i = index">
+            <td>{{ active[i] }}</td>
+            <td>{{ inactive[i] }} </td>
           </tr>
         </table>
       </div>

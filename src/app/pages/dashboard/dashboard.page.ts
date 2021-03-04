@@ -8,12 +8,16 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service'
   styleUrls: ["./dashboard.page.scss"],
 })
 export class DashboardPage implements OnInit {
+  public rowCount = 0
   public currentTime = new Date();
   //Attendance of all the member users
   public allMembersAttendance = []
   //This will list all active and inactive members
   public active = []
   public inactive = []
+  //This will list all the VIP and Regular members
+  public vipMembers = [];
+  public regularMembers;
 
   @ViewChild("barCanvas", { static: true }) barCanvas: ElementRef;
   @ViewChild("lineCanvas", { static: true }) lineCanvas: ElementRef;
@@ -28,6 +32,7 @@ export class DashboardPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getTheVipAndRegularMembers();
     this.userIsActiveOrNot();
     var slides = document.querySelector("ion-slides");
     slides.options = {
@@ -87,7 +92,6 @@ export class DashboardPage implements OnInit {
       partialDataHandler = data
       partialDataHandler.forEach(element => {
         this.dataRequest.getEventAndSCAttendance(element).subscribe(data => {
-          this.allMembersAttendance.push({user: element, data: data[0].currentUserAttendance})
           this.getDefaultOffDays2(element, data[0].currentUserAttendance);
         })
       })
@@ -132,15 +136,29 @@ export class DashboardPage implements OnInit {
     if(counter >= 4) {
       this.dataRequest.addMemberToInactive({id: owner, boolean: true}).subscribe(result => {
         this.dataRequest.getTheCurrentUser({userID: result[0].userId}).subscribe(data => {
-          this.active.push(data[0])
+          this.active.push(data[0].firstname + " " + data[0].lastname)
         })
       })
     }else {
       this.dataRequest.addMemberToInactive({id: owner, boolean: false}).subscribe(result => {
         this.dataRequest.getTheCurrentUser({userID: result[0].userId}).subscribe(data => {
-          this.inactive.push(data[0])
+          this.inactive.push(data[0].firstname + " " + data[0].lastname)
         })
       })
     }
+  }
+
+  counter(i:number) {
+    return new Array(i);
+  }
+
+  getTheVipAndRegularMembers() {
+    var partialDataHandler
+    this.dataRequest.allVipUsers().subscribe(data => {
+      partialDataHandler = data
+      partialDataHandler.forEach(element => {
+        this.vipMembers.push(element.firstname + " " + element.lastname)
+      });
+    })
   }
 }
