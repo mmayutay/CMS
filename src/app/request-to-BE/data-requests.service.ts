@@ -90,4 +90,9 @@ export class DataRequestsService {
     return this.request.post(this.url + 'addInactiveUser', {memberId: user.id, active: user.boolean})
   }
 
+  //This function will fetch all member users from the database except to the VIP members
+  getRegularMembers() {
+    return this.request.get(this.url + 'regular-members')
+  } 
+
 }

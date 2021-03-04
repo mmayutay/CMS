@@ -17,7 +17,7 @@ export class DashboardPage implements OnInit {
   public inactive = []
   //This will list all the VIP and Regular members
   public vipMembers = [];
-  public regularMembers;
+  public regularMembers = [];
 
   @ViewChild("barCanvas", { static: true }) barCanvas: ElementRef;
   @ViewChild("lineCanvas", { static: true }) lineCanvas: ElementRef;
@@ -153,11 +153,18 @@ export class DashboardPage implements OnInit {
   }
 
   getTheVipAndRegularMembers() {
-    var partialDataHandler
+    var partialDataHandler;
+    var regularMembers;
     this.dataRequest.allVipUsers().subscribe(data => {
       partialDataHandler = data
       partialDataHandler.forEach(element => {
         this.vipMembers.push(element.firstname + " " + element.lastname)
+      })
+    })
+    this.dataRequest.getRegularMembers().subscribe(result => {
+      regularMembers = result
+      regularMembers.forEach(element => {
+        this.regularMembers.push(element.firstname + ' ' + element.lastname)
       });
     })
   }
