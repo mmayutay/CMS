@@ -35,9 +35,6 @@ export class LoginPage {
     this.userType = this.activatedRoute.snapshot.paramMap.get('usertype');
 
     this.menu.enable(false)
-
-    
-    
   }
 
   onLogin() {
