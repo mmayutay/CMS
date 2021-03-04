@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Chart } from "chart.js";
-import { DataRequestsService } from '../../request-to-BE/data-requests.service'
+import { DataRequestsService } from '../../request-to-BE/data-requests.service';
+import { RequestsService } from '../../logInAndSignupService/requests.service'
 
 @Component({
   selector: "app-dashboard",
@@ -28,12 +29,14 @@ export class DashboardPage implements OnInit {
   private barChart: Chart;
 
   constructor(
-    private dataRequest: DataRequestsService
+    private dataRequest: DataRequestsService,
+    private request: RequestsService
   ) {}
 
   ngOnInit() {
     this.getTheVipAndRegularMembers();
     this.userIsActiveOrNot();
+    this.percentageOfMembersAttendance();
     var slides = document.querySelector("ion-slides");
     slides.options = {
       initialSlide: 1,
@@ -86,19 +89,20 @@ export class DashboardPage implements OnInit {
     });
   }
 
+  //This is to know if the leader's member is Active or Inactive
   userIsActiveOrNot() {
     var partialDataHandler;
     this.dataRequest.getAllUsersId().subscribe(data => {
       partialDataHandler = data
       partialDataHandler.forEach(element => {
         this.dataRequest.getEventAndSCAttendance(element).subscribe(data => {
-          this.getDefaultOffDays2(element, data[0].currentUserAttendance);
+          this.classifyActiveAndInactive(element, data[0].currentUserAttendance);
         })
       })
     })
   }
 
-  getDefaultOffDays2(owner, users) {
+  classifyActiveAndInactive(owner, users) {
     var counter = 0
     var dateToApproved = [];
     var toJudgeDate;
@@ -152,6 +156,7 @@ export class DashboardPage implements OnInit {
     return new Array(i);
   }
 
+  //This function will clarify if the leader's member is VIP or Regular Members
   getTheVipAndRegularMembers() {
     var partialDataHandler;
     var regularMembers;
@@ -166,6 +171,14 @@ export class DashboardPage implements OnInit {
       regularMembers.forEach(element => {
         this.regularMembers.push(element.firstname + ' ' + element.lastname)
       });
+    })
+  }
+
+  percentageOfMembersAttendance() {
+    this.request.getTheCurrentUserIdInStorage().then(id => {
+      this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe(data => {
+        console.log(data)
+      })
     })
   }
 }

@@ -95,4 +95,9 @@ export class DataRequestsService {
     return this.request.get(this.url + 'regular-members')
   } 
 
+  //This will let the leader to fetch all the attendance of his/her member
+  getMemberSCAndEventsAttendance(currentUserId) {
+    return this.request.post(this.url + 'leader-sc-cg', {currentUserId: currentUserId})
+  }
+
 }
