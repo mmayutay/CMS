@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides pager="true" [options]="slideOpts">
+  <ion-slides pager="true" #slideWithNav [options]="slideOpts">
     <ion-slide>
       <!-- This is for the Statistics  -->
       <ion-card>
@@ -31,39 +31,41 @@
     </ion-slide>
 
     <ion-slide>
-      <!-- This is for the view of the members -->
-      <!-- Vip and Regular members -->
-      <div class="tableMembers">
-        <table>
-          <tr>
-            <th>Vip Members</th>
-            <th>Regular Members</th>
-          </tr>
-          <tr>
-            <td>Lebron James</td>
-            <td>Dwayne Wade</td>
-          </tr>
-        </table>
-      </div>
-
+      <ion-card>
+        <!-- This is for the view of the members -->
+        <!-- Vip and Regular members -->
+        <div class="tableMembers">
+          <table>
+            <tr>
+              <th>Vip Members</th>
+              <th>Regular Members</th>
+            </tr>
+            <tr>
+              <td>Lebron James</td>
+              <td>Dwayne Wade</td>
+            </tr>
+          </table>
+        </div>
+      </ion-card>
     </ion-slide>
 
     <ion-slide>
-      <!-- This is for the view of the members -->
-      <!-- Vip and Regular members -->
-      <div class="tableMembers">
-        <table>
-          <tr>
-            <th>Active Members</th>
-            <th>Inactive Members</th>
-          </tr>
-          <tr>
-            <td>Lebron James</td>
-            <td>Dwayne Wade</td>
-          </tr>
-        </table>
-      </div>
-
+      <ion-card>
+        <!-- This is for the view of the members -->
+        <!-- Vip and Regular members -->
+        <div class="tableMembers">
+          <table>
+            <tr>
+              <th>Active Members</th>
+              <th>Inactive Members</th>
+            </tr>
+            <tr>
+              <td>Lebron James</td>
+              <td>Dwayne Wade</td>
+            </tr>
+          </table>
+        </div>
+      </ion-card>
     </ion-slide>
 
   </ion-slides>

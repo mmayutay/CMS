@@ -25,6 +25,13 @@ export class DashboardPage implements OnInit {
     slides.options = {
       initialSlide: 1,
       speed: 400,
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
     };
     this.graphCreated(this.barCanvas, this.arrayOfCellgroup);
     this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb);

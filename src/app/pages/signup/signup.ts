@@ -26,7 +26,7 @@ export class SignupPage {
       Firstname: '',
       Birthday: '',
       Age: null,
-      // Gender: '',
+      Gender: '',
       Address: '',
       Marital_status: '',
       Email: '',
