@@ -1,43 +1,52 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-icon name="arrow-back" [routerLink]="['/account']"></ion-icon>
-        <ion-title>{{ type }}</ion-title>
+    <ion-toolbar *ngIf="!addClicked">
+        <ion-icon slot="end" color="primary" name="add" (click)="iconAdd()"></ion-icon>
+        <ion-icon slot="start" name="arrow-back" [routerLink]="['/account']"></ion-icon>
+        <ion-title>{{ content }}</ion-title>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="addClicked">
+        <ion-searchbar type="text" debounce="500" [(ngModel)]="queryText" (ionChange)="updateList($event)" value="search"
+            name="search" placeholder="Search"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card style="overflow-x:auto;">
+    <ion-card *ngIf="addClicked">
+        <table>
+            <tr *ngFor="let lists of list; index as i">
+                <td>{{lists.firstname}}</td>
+                <td>{{lists.lastname}}</td>
+                <td>
+                    <ion-button size="small" color="primary" (click)="addMember(lists)">Add</ion-button>
+                </td>
+            </tr>
+        </table>
+    </ion-card>
+    <ion-card *ngIf="!addClicked" style="overflow-x:auto;">
         <table class="table">
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Age</th>
                 <th>Address</th>
                 <th>Email</th>
                 <th>Contact No.</th>
                 <th>Leader</th>
             </tr>
-            <tr>
-                <td>Jill</td>
-                <td>Smith</td>
-                <td>50</td>
-                <td>Australia</td>
-                <td>smith@gmail.com</td>
-                <td>09227039012</td>
-                <td>Marichu</td>
-            </tr>
-            <tr>
-                <td>Geneva</td>
-                <td>Rivas</td>
-                <td>21</td>
-                <td>Catolohan</td>
-                <td>geneva@gmail.com</td>
-                <td>09482850377</td>
-                <td>Marichu</td>
+            <tr *ngFor="let info of storage; index as i">
+                <!-- <ion-col>{{ i + 1 }}</ion-col> -->
+                <td>{{info.firstname}}</td>
+                <td>{{info.lastname}}</td>
+                <td>{{info.address}}</td>
+                <td>{{info.email}}</td>
+                <td>{{info.contact_number}}</td>
+                <td>{{info.leader}}</td>
             </tr>
         </table>
     </ion-card>
-    <a class="float" (click)="presentPrompt()">
-        <b><ion-icon color="primary" class="my-float" name="add"></ion-icon></b>
-    </a>
+    <!-- <a class="float" (click)="presentPrompt()">
+        <b>
+            <ion-icon color="primary" class="my-float" name="add"></ion-icon>
+        </b>
+    </a> -->
 </ion-content>
+

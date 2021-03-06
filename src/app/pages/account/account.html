@@ -24,7 +24,7 @@
                         <ion-tab-button *ngIf="role === 'Member'">
                             <ion-icon color="primary" name="person"></ion-icon>
                             <ion-label>AUXILIARY</ion-label>
-                            <ion-label>{{auxliary}}</ion-label>
+                            <ion-label>{{auxiliary}}</ion-label>
                         </ion-tab-button>
                         <ion-tab-button>
                             <ion-icon color="primary" name="person"></ion-icon>
@@ -44,8 +44,8 @@
                         <ion-tab-button>
                             <ion-icon color="primary" name="person"></ion-icon>
                             <ion-label>MINISTRIES</ion-label>
-                            <ion-select [(ngModel)]="ministries" (ionChange)="optMinistry()" placeholder="View Ministry">
-                                <ion-select-option value="Praise And Worship">Praise & Worship</ion-select-option>
+                            <ion-select [(ngModel)]="ministries" (ionChange)="optMinistry(ministries)" placeholder="View Ministry">
+                                <ion-select-option value="PraiseAndWorship">Praise & Worship</ion-select-option>
                                 <ion-select-option value="Multimedia">Multimedia</ion-select-option>
                                 <ion-select-option value="Hospitality">Hospitality</ion-select-option>
                                 <ion-select-option value="Blessed Kids">Blessed Kidz</ion-select-option>

@@ -1,111 +1,111 @@
-    img {
-        max-width: 140px;
-        border-radius: 50%;
-    }
+img {
+    max-width: 140px;
+    border-radius: 50%;
+}
 
-    ion-header {
-        background-color: #68ED9A;
+ion-header {
+    background-color: #68ED9A;
+}
+
+.card {
+    background-color: #68ED9A;
+    // border: 1px solid black;
+}
+
+ion-select:hover {
+    color: white;
+    background-color: #68ED9A;
+}
+
+ion-button.btnLogin {
+    background-color: #23c962;
+    border-radius: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+// .ionCard {
+//     border: -5px solid black;
+// }
+.ion-padding-bottom {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+button {
+    padding: 14px 40px;
+    background-color: #36B92A;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-left: 14%;
+    margin-bottom: 10%;
+    // border:black;
+}
+
+h1 {
+    margin-left: 3%;
+    font-size: 20px;
+    font-style: bold;
+}
+
+hr.solid {
+    border-top: 1px solid black;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.container {
+    margin-left: 10%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+ion-tab-button {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #E9FDD8;
+}
+
+.auxiCard {
+    height: 80%;
+}
+
+.miniCard {
+    height: 80%;
+}
+
+.addUserCard {
+    height: 80%;
+}
+
+@media only screen and (min-width: 600px) {
+    .column {
+        float: left;
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        height: 50%;
     }
-    
-    .card {
-        background-color: #68ED9A;
-        // border: 1px solid black;
+    li {
+        float: left;
+        text-align: center;
     }
-    
-    ion-select:hover {
-        color: white;
-        background-color: #68ED9A;
+    li a {
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
     }
-    
+    ion-label {
+        font-size: 100%;
+    }
     ion-button.btnLogin {
         background-color: #23c962;
         border-radius: 100%;
         margin-left: 10%;
         margin-right: 10%;
     }
-    
-    // .ionCard {
-    //     border: -5px solid black;
-    // }
-    .ion-padding-bottom {
-        margin-top: 20px;
-        margin-bottom: 50px;
-    }
-    
-    button {
-        padding: 14px 40px;
-        background-color: #36B92A;
-        border-radius: 10px;
-        border: 1px solid black;
-        margin-left: 14%;
-        margin-bottom: 10%;
-        // border:black;
-    }
-    
-    h1 {
-        margin-left: 3%;
-        font-size: 20px;
-        font-style: bold;
-    }
-   
-    hr.solid {
-        border-top: 1px solid black;
-        margin-left: 2%;
-        margin-right: 2%;
-    }
-    
-    .container {
-        margin-left: 10%;
-        margin-left: 5%;
-        margin-right: 5%;
-    }
-    
-    ion-tab-button {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #E9FDD8;
-    }
-    
-    .auxiCard {
-        height: 80%;
-    }
-    
-    .miniCard {
-        height: 80%;
-    }
-    
-    .addUserCard {
-        height: 80%;
-    }
-    
-    @media only screen and (min-width: 600px) {
-        .column {
-            float: left;
-            width: 100%;
-            height: auto;
-            padding: 10px;
-            height: 50%;
-        }
-        li {
-            float: left;
-            text-align: center;
-        }
-        li a {
-            display: block;
-            color: black;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-        ion-label {
-            font-size: 100%;
-        }
-        ion-button.btnLogin {
-            background-color: #23c962;
-            border-radius: 100%;
-            margin-left: 10%;
-            margin-right: 10%;
-        }
-    }
+}

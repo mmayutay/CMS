@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
+import { DataRequestsService } from '../../request-to-BE/data-requests.service';
+import { filter } from 'rxjs/operators';
+
+import { AfterViewInit, ViewChild } from '@angular/core';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
+
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -7,50 +15,93 @@ import { AlertController } from '@ionic/angular';
   templateUrl: './ministries.page.html',
   styleUrls: ['./ministries.page.scss'],
 })
-export class MinistriesPage implements OnInit {
-  public type = ''
+export class MinistriesPage implements AfterViewInit {
+  public foundNames = []
+  public ministryMembers = []
+
+
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
+  public type = '';
+  public storage: any;
+  content: string;
+  public list: any;
+  public holder:any;
+  public details;
+  public addClicked = false;
+  isItemAvailable = false;
+
 
   constructor(
-    // private router: Router,
-    private activeRoute: ActivatedRoute,
-    private alertCtrl: AlertController,
-    ) { }
 
-  ngOnInit() {
-    this.type = this.activeRoute.snapshot.paramMap.get('type')
+    private activeRoute: ActivatedRoute,
+    private dataRequest: DataRequestsService,
+    public request: RequestsService,
+  ) { }
+
+  ngAfterViewInit() {
+    this.activeRoute.queryParams.pipe(
+      filter((params => params.content))
+    ).subscribe(params => {
+
+      this.content = params.content;
+
+      this.dataRequest.displayMinistry({ ministries: this.content }).subscribe(data => {
+        this.storage = data;
+        console.log("Ministry: ", this.storage);
+      });
+    });
+
+    this.dataRequest.ministryList().subscribe(lists => {
+      this.list = lists;
+      // for (let index = 0; index < this.list.length; index++) {
+      //   this.ministryMembers.push({ name: this.list[index].firstname + "-" + this.list[index].lastname, id: this.list[index].id })
+      // }
+      this.list.forEach((element, index) => {
+        if (element.ministries == this.content) {
+          this.list.splice(index, 1);
+          // console.log(this.list);
+        }
+        this.ministryMembers.push({ name: this.list[index].firstname + "-" + this.list[index].lastname, id: this.list[index].id })
+      })
+    });
+    // if (this.list[index].ministries === this.content) {
+    //   this.list.splice(this.list[index]);
+    //   console.log(this.list[index]);
+    // }
   }
 
-  async presentPrompt() {
-    const alert = await this.alertCtrl.create({
-      header: 'Add Member:',
-      message: `<ion-icon name="search"></ion-icon> Search User`,
-      inputs: [
-        { 
-          name: 'addedMember',
-          placeholder: 'Search here...',
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Add',
-          handler: data => {
-            // if (User.isValid(data.username, data.password)) {
-            //   // logged in!
-            // } else {
-            //   // invalid login
-            //   return false;
-            // }
-          }
-        }
-      ]
+
+  iconAdd() {
+    this.addClicked = true;
+    console.log(this.addClicked);
+
+  }
+
+  addMember(memberId) {
+    this.dataRequest.getTheCurrentUser({ userID: memberId.id }).subscribe(data => {
+      this.storage.push(data[0])
+    })
+
+    this.dataRequest.addMinistryMember(memberId, this.content).subscribe(data => {
+      this.holder = data;
+      console.log("Add Member: ", this.holder);
     });
-    await alert.present();
+  
+
+    this.addClicked = false;
+  }
+
+  updateList(event: any) {
+    this.list = []
+    this.foundNames.length = 0
+    var val = event.target.value.toLowerCase();
+    for (let index = 0; index < this.ministryMembers.length; index++) {
+      if (this.ministryMembers[index].name.toLowerCase().includes(val)) {
+        this.foundNames.push(this.ministryMembers[index])
+      }
+    }
+    this.foundNames.forEach(element => {
+      this.list.push({ id: element.id, firstname: element.name.split("-")[0], lastname: element.name.split("-")[1] })
+    });
   }
 }
