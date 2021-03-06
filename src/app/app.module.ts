@@ -16,6 +16,8 @@ import { MinistriesPage } from './pages/ministries/ministries.page';
 import {AccountPage} from './pages/account/account';
 import { AuxiliaryPage } from './pages/auxiliary/auxiliary.page';
 import { ModalPagePage } from './pages/modal-page/modal-page.page';
+import { DashboardPopoverPage } from './pages/dashboard-popover/dashboard-popover.page';
+
 
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
@@ -43,7 +45,7 @@ import {MatTableModule} from '@angular/material/table';
     NgxQRCodeModule,
     BrowserAnimationsModule
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, DashboardPopoverPage],
   providers: [
     InAppBrowser, SplashScreen, StatusBar, 
     MinistriesPage,
@@ -52,6 +54,7 @@ import {MatTableModule} from '@angular/material/table';
     ModalPagePage,
     QRScanner
   ],
+  entryComponents: [DashboardPopoverPage],
   
   bootstrap: [AppComponent]
 })

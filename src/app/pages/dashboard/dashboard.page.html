@@ -4,6 +4,11 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="presentPopover($event)">
+        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -27,7 +32,7 @@
         <ion-card-content>
           <canvas #lineCanvas></canvas>
         </ion-card-content>
-      </ion-card>
+      </ion-card><br><br>
     </ion-slide>
 
     <ion-slide>
@@ -40,7 +45,7 @@
               <th>Vip Members </th>
               <ion-badge slot="start">{{ lengthVIP }}</ion-badge>
               <th>Regular Members</th>
-              <ion-badge slot="end">{{ length }}</ion-badge>
+              <ion-badge slot="end">{{ lengthReg }}</ion-badge>
             </tr>
             <tr *ngFor="let in of counter(vipMembers.length); let i = index">
               <td>{{ vipMembers[i] }}</td>

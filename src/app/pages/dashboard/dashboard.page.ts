@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Chart } from "chart.js";
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
-import { RequestsService } from '../../logInAndSignupService/requests.service'
+import { RequestsService } from '../../logInAndSignupService/requests.service';
+
+import { PopoverController } from '@ionic/angular';
+import { DashboardPopoverPage } from '../dashboard-popover/dashboard-popover.page';
 
 @Component({
   selector: "app-dashboard",
@@ -33,7 +36,8 @@ export class DashboardPage implements OnInit {
 
   constructor(
     private dataRequest: DataRequestsService,
-    private request: RequestsService
+    private request: RequestsService,
+    public popoverCtrl: PopoverController,
   ) {}
 
   ngOnInit() {
@@ -54,6 +58,14 @@ export class DashboardPage implements OnInit {
     };
     this.graphCreated(this.barCanvas, this.arrayOfCellgroup);
     this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb);
+  }
+
+  async presentPopover(event: Event) {
+    const popover = await this.popoverCtrl.create({
+      component: DashboardPopoverPage,
+      event
+    });
+    await popover.present();
   }
 
   graphCreated(params, arrayForData) {

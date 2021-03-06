@@ -59,7 +59,11 @@ const routes: Routes = [
   {
     path: 'reportings',
     loadChildren: () => import('./pages/reportings/reportings.module').then( m => m.ReportingsPageModule)
+  },  {
+    path: 'dashboard-popover',
+    loadChildren: () => import('./pages/dashboard-popover/dashboard-popover.module').then( m => m.DashboardPopoverPageModule)
   }
+
 
 ];
 
