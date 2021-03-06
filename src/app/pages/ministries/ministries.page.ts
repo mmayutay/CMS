@@ -8,6 +8,7 @@ import { filter } from 'rxjs/operators';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-ministries',

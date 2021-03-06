@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
+import { MenuController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-landingpage',
@@ -15,10 +17,12 @@ export class LandingpagePage implements OnInit {
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private dataRequest: DataRequestsService
+    private dataRequest: DataRequestsService,
+    private menuCtrl: MenuController
   ) { }
 
   ngOnInit() {
+    this.menuCtrl.enable(false);
     this.type = this.activeRoute.snapshot.paramMap.get('type')
   }
 
