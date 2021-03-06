@@ -34,6 +34,7 @@ export class SignupPage {
       Instagram: '',
       Twitter: '',
       Category: '',
+      Gender: 'Male',
       Description:'A new member added!'
     }, groupBelong: {
       Leader: ''
@@ -80,7 +81,9 @@ export class SignupPage {
     if(this.role == 'Leader'){
       this.signup.role.code = 'Member'
     }
+    console.log(this.signup)
     this.request.signUp(this.signup).subscribe(res => {
+      console.log(res)
       this.router.navigate(['/account'])
     })
   }
