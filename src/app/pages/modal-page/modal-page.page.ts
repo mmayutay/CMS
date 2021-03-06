@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { userModel } from '../../interfaces/user-options';
-// import { userInfo } from 'os';
-// import { ValueAccessor } from '@ionic/angular/directives/control-value-accessors/value-accessor';
 
 @Component({
   selector: 'app-modal-page',
