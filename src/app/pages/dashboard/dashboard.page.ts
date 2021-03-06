@@ -40,6 +40,9 @@ export class DashboardPage implements OnInit {
   public vipMembers = [];
   public regularMembers = [];
 
+  public lengthVIP;
+  public lengthReg;
+
   @ViewChild("barCanvas", { static: true }) barCanvas: ElementRef;
   @ViewChild("lineCanvas", { static: true }) lineCanvas: ElementRef;
 
@@ -63,6 +66,13 @@ export class DashboardPage implements OnInit {
     slides.options = {
       initialSlide: 1,
       speed: 400,
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
     };
     this.graphCreated(this.barCanvas, this.arrayOfCellgroup);
     this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb);
@@ -186,12 +196,19 @@ export class DashboardPage implements OnInit {
       partialDataHandler = data
       partialDataHandler.forEach(element => {
         this.vipMembers.push(element.firstname + " " + element.lastname)
+
+        this.lengthVIP = this.vipMembers.length;
+        console.log(this.lengthVIP);
+        
       })
     })
     this.dataRequest.getRegularMembers().subscribe(result => {
       regularMembers = result
       regularMembers.forEach(element => {
         this.regularMembers.push(element.firstname + ' ' + element.lastname)
+
+        this.lengthReg = this.regularMembers.length;
+        console.log(this.lengthReg);
       });
     })
   }
