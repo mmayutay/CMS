@@ -92,4 +92,24 @@ export class DataRequestsService {
     return this.request.post(this.url + 'viewAttendancesOfSCandEvents', {currentUserId: currentUserId})
   }
 
+  //This function was used to get all the ID of all the only member users inside the collection
+  getAllUsersId() {
+    return this.request.get(this.url + 'allMemberUsers')
+  }
+
+  //This function will add the user to inactive where his/her attendance for sunday celebration is less than 4
+  addMemberToInactive(user) {
+    return this.request.post(this.url + 'addInactiveUser', {memberId: user.id, active: user.boolean})
+  }
+
+  //This function will fetch all member users from the database except to the VIP members
+  getRegularMembers() {
+    return this.request.get(this.url + 'regular-members')
+  } 
+
+  //This will let the leader to fetch all the attendance of his/her member
+  getMemberSCAndEventsAttendance(currentUserId) {
+    return this.request.post(this.url + 'leader-sc-cg', {currentUserId: currentUserId})
+  }
+
 }
