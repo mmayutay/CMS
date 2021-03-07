@@ -16,6 +16,10 @@ export class DataRequestsService {
     private userData: UserData
   ) {  }
 
+  //This will get all the users of a certain group
+  getAllMembersOfAGroup(leaderID) {
+    return this.request.post(this.url + "return-members-group", {leaderID: leaderID})
+  }
 
   //This will store the data if the current user already had his/her attendance
   storeIfCurrentUserAlreadyAttended(boolean) {

@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core';
-import { DataRequestsService } from '../request-to-BE/data-requests.service';
-import { RequestsService } from '../logInAndSignupService/requests.service';
+import { Injectable } from "@angular/core";
+import { DataRequestsService } from "../request-to-BE/data-requests.service";
+import { RequestsService } from "../logInAndSignupService/requests.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
-
 export class calendar {
-  public attendanceCounter = 0
+  public membersOfAGroup;
+  public statsAttendance = [];
 
   constructor(
     private dataRequest: DataRequestsService,
     private request: RequestsService
   ) {
-
+    this.calculateStats();
   }
 
   convertMonth(monthInput) {
@@ -30,7 +30,7 @@ export class calendar {
     month[9] = "Oct";
     month[10] = "Nov";
     month[11] = "Dec";
-    return (month[monthInput]);
+    return month[monthInput];
   }
 
   returnAllMonthsChoices() {
@@ -47,14 +47,14 @@ export class calendar {
     month[9] = "Oct";
     month[10] = "Nov";
     month[11] = "Dec";
-    return (month);
+    return month;
   }
 
   returnTheMonthlyAttendanceForCellgroup() {
-    return [20, 30, 70, 50] 
+    return [20, 30, 70, 50];
   }
   returnTheMonthlyAttendanceForSC() {
-    return [40, 70, 10, 90]
+    return [40, 70, 10, 90];
   }
 
   returnAllDays() {
@@ -66,15 +66,15 @@ export class calendar {
     days[4] = "Thu";
     days[5] = "Fri";
     days[6] = "Sat";
-    return (days);
+    return days;
   }
 
   returnAllWeeklyAttendance() {
-    return [75, 0, 0, 0, 0, 0, 0]
+    return [75, 0, 0, 0, 0, 0, 0];
   }
 
   returnStatisticsForAYear() {
-    return [20, 30, 70, 10, 70, 50, 10, 0, 10, 90, 90, 100]
+    return [20, 30, 70, 10, 70, 50, 10, 0, 10, 90, 90, 100];
   }
 
   returnYearsFrom2005ToCurrentYear() {
@@ -89,40 +89,38 @@ export class calendar {
   }
 
   returnTypeOfMember() {
-    return ["VIP Member", "Regular Member", "Active Member", "Inactive Member"]
+    return ["VIP Member", "Regular Member", "Active Member", "Inactive Member"];
   }
 
-
-  calculateStats(data) {
-    var statsData = []
-    this.request.getTheCurrentUserIdInStorage().then(id => {
-      this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe(data => {
-        data[0].currentUserAttendance.forEach(element => {
-          this.weekOfAMonth(element.date)
-        });
-        statsData.push(this.attendanceCounter)
-        this.attendanceCounter = 0
-      })
-    })
-    console.log(statsData)
-    return statsData;
+  calculateStats() {
+    this.request.getTheCurrentUserIdInStorage().then((id) => {
+      this.dataRequest.getAllMembersOfAGroup(id).subscribe((response) => {
+        this.membersOfAGroup = response;
+      });
+    });
   }
-  
+
   weekOfAMonth(date) {
-    var arrayOfDates = []
-    var time = new Date()
+    var attendanceCounter = 0;
+    var arrayOfDates = [];
+    var weeklyAttendance = [];
+    var time = new Date();
     for (let index = 0; index < 7; index++) {
-      arrayOfDates.push(new Date(time.getFullYear(), time.getMonth(), index + 7).getDate())
+      arrayOfDates.push(
+        new Date(time.getFullYear(), time.getMonth(), index + 7).getDate()
+      );
     }
-    for (let index = 0; index < arrayOfDates.length; index++) {
-      // if(this.attendanceCounter != 0) {
-        if(arrayOfDates[index] == new Date(date).getDate()) {
-          this.attendanceCounter += 1
+    for (let j = 0; j < arrayOfDates.length; j++) {
+      for (let index = 0; index < date.length; index++) {
+        if (new Date(date[index].date).getDate() == arrayOfDates[j]) {
+          attendanceCounter += 1;
         }
-      // }else {
-      //   this.attendanceCounter = 0
-      // }
+      }
+      weeklyAttendance.push(
+        Math.floor((attendanceCounter / this.membersOfAGroup.length) * 100)
+      );
+      attendanceCounter = 0;
     }
+    return weeklyAttendance;
   }
-
 }

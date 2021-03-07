@@ -53,6 +53,9 @@ export class DashboardPage implements OnInit {
 
   private barChart: Chart;
 
+  //This is the data to use for the stats
+  public weeklyStats;
+
   constructor(
     private dataRequest: DataRequestsService,
     private request: RequestsService,
@@ -60,7 +63,11 @@ export class DashboardPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.calendar.calculateStats("03-11-2021"))
+    this.request.getTheCurrentUserIdInStorage().then((id) => {
+      this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
+        this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
+      });
+    });
     this.userIsActiveOrNot();
     var slides = document.querySelector("ion-slides");
     slides.options = {
@@ -213,14 +220,6 @@ export class DashboardPage implements OnInit {
     return arrayRegularMembers;
   }
 
-  // percentageOfMembersAttendance() {
-  //   this.request.getTheCurrentUserIdInStorage().then(id => {
-  //     this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe(data => {
-        // console.log(data) 
-  //     })
-  //   })
-  // }
-
   //This function is used to select type of quarterly view (ex. "January to April")
   monthsToView(value) {
     this.monthChosen.length = 0
@@ -232,8 +231,8 @@ export class DashboardPage implements OnInit {
       this.arrayOfSundayCeleb = this.calendar.returnTheMonthlyAttendanceForSC();
     }else if(this.typeOfViewChosed == 'Weekly') {
       this.monthChosen = this.calendar.returnAllDays();
-      this.arrayOfCellgroup = this.calendar.returnAllWeeklyAttendance();
-      this.arrayOfSundayCeleb = this.calendar.returnAllWeeklyAttendance();
+      this.arrayOfCellgroup = this.weeklyStats;
+      this.arrayOfSundayCeleb = this.weeklyStats;
     }else {
       this.monthChosen = this.calendar.returnAllMonthsChoices();
       this.arrayOfCellgroup = this.calendar.returnStatisticsForAYear();
