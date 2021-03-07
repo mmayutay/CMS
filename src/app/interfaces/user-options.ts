@@ -1,10 +1,20 @@
 import { Injectable } from '@angular/core';
+import { DataRequestsService } from '../request-to-BE/data-requests.service';
+import { RequestsService } from '../logInAndSignupService/requests.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class calendar {
+  public attendanceCounter = 0
+
+  constructor(
+    private dataRequest: DataRequestsService,
+    private request: RequestsService
+  ) {
+
+  }
 
   convertMonth(monthInput) {
     var month = new Array();
@@ -65,6 +75,54 @@ export class calendar {
 
   returnStatisticsForAYear() {
     return [20, 30, 70, 10, 70, 50, 10, 0, 10, 90, 90, 100]
+  }
+
+  returnYearsFrom2005ToCurrentYear() {
+    var startYear = 2019 - 10;
+    var currentYear = new Date().getFullYear();
+    var years = [];
+    startYear = startYear || 1980;
+    while (startYear <= currentYear) {
+      years.push(startYear++);
+    }
+    return years;
+  }
+
+  returnTypeOfMember() {
+    return ["VIP Member", "Regular Member", "Active Member", "Inactive Member"]
+  }
+
+
+  calculateStats(data) {
+    var statsData = []
+    this.request.getTheCurrentUserIdInStorage().then(id => {
+      this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe(data => {
+        data[0].currentUserAttendance.forEach(element => {
+          this.weekOfAMonth(element.date)
+        });
+        statsData.push(this.attendanceCounter)
+        this.attendanceCounter = 0
+      })
+    })
+    console.log(statsData)
+    return statsData;
+  }
+  
+  weekOfAMonth(date) {
+    var arrayOfDates = []
+    var time = new Date()
+    for (let index = 0; index < 7; index++) {
+      arrayOfDates.push(new Date(time.getFullYear(), time.getMonth(), index + 7).getDate())
+    }
+    for (let index = 0; index < arrayOfDates.length; index++) {
+      // if(this.attendanceCounter != 0) {
+        if(arrayOfDates[index] == new Date(date).getDate()) {
+          this.attendanceCounter += 1
+        }
+      // }else {
+      //   this.attendanceCounter = 0
+      // }
+    }
   }
 
 }

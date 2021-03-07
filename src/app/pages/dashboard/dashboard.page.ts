@@ -10,6 +10,9 @@ import { calendar } from '../../interfaces/user-options'
   styleUrls: ["./dashboard.page.scss"],
 })
 export class DashboardPage implements OnInit {
+  public typeOfView = "VIP Member"
+  public listAllTheMembers = []
+
   public typeOfViewChoices  = ["Monthly", "Weekly", "Quarterly", "Yearly"];
   public typeOfViewChosed = ''
   //These are the variables for quarterly view
@@ -27,7 +30,7 @@ export class DashboardPage implements OnInit {
   public weeklyView = ['1st', '2nd', '3rd', '4th'];
   //These are the variables for yearly view
   public yearlyBool = false
-  public yearlyView = [];
+  public yearlyView = this.calendar.returnYearsFrom2005ToCurrentYear();
 
   //This is the default value
   public monthChosen = ["Jan", "Feb", "Mar", "Apr"];
@@ -36,12 +39,11 @@ export class DashboardPage implements OnInit {
   //This will list all active and inactive members
   public active = []
   public inactive = []
-  //This will list all the VIP and Regular members
-  public vipMembers = [];
-  public regularMembers = [];
+
+  //This will list the type of members
+  public typeOfViewMember = this.calendar.returnTypeOfMember()
 
   public lengthVIP;
-  public lengthReg;
 
   @ViewChild("barCanvas", { static: true }) barCanvas: ElementRef;
   @ViewChild("lineCanvas", { static: true }) lineCanvas: ElementRef;
@@ -58,10 +60,8 @@ export class DashboardPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.listOfYears();
-    this.getTheVipAndRegularMembers();
+    console.log(this.calendar.calculateStats("03-11-2021"))
     this.userIsActiveOrNot();
-    this.percentageOfMembersAttendance();
     var slides = document.querySelector("ion-slides");
     slides.options = {
       initialSlide: 1,
@@ -188,38 +188,38 @@ export class DashboardPage implements OnInit {
     return new Array(i);
   }
 
-  //This function will clarify if the leader's member is VIP or Regular Members
-  getTheVipAndRegularMembers() {
+  //This function will return all VIP Members
+  getTheVipMembers() {
+    var arrayVipMembers = []
     var partialDataHandler;
-    var regularMembers;
     this.dataRequest.allVipUsers().subscribe(data => { 
       partialDataHandler = data
       partialDataHandler.forEach(element => {
-        this.vipMembers.push(element.firstname + " " + element.lastname)
-
-        this.lengthVIP = this.vipMembers.length;
-        console.log(this.lengthVIP);
-        
+        arrayVipMembers.push(element.firstname + " " + element.lastname)        
       })
     })
+    return arrayVipMembers;
+  }
+  //This function will return all Regular Members 
+  getTheRegularMembers() {
+    var arrayRegularMembers = []
+    var regularMembers;
     this.dataRequest.getRegularMembers().subscribe(result => {
       regularMembers = result
       regularMembers.forEach(element => {
-        this.regularMembers.push(element.firstname + ' ' + element.lastname)
-
-        this.lengthReg = this.regularMembers.length;
-        console.log(this.lengthReg);
+        arrayRegularMembers.push(element.firstname + ' ' + element.lastname)
       });
     })
+    return arrayRegularMembers;
   }
 
-  percentageOfMembersAttendance() {
-    this.request.getTheCurrentUserIdInStorage().then(id => {
-      this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe(data => {
+  // percentageOfMembersAttendance() {
+  //   this.request.getTheCurrentUserIdInStorage().then(id => {
+  //     this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe(data => {
         // console.log(data) 
-      })
-    })
-  }
+  //     })
+  //   })
+  // }
 
   //This function is used to select type of quarterly view (ex. "January to April")
   monthsToView(value) {
@@ -261,14 +261,17 @@ export class DashboardPage implements OnInit {
     }
   }
 
-  listOfYears() {
-    var startYear = 2019 - 10;
-    var currentYear = new Date().getFullYear();
-    var years = [];
-    startYear = startYear || 1980;
-    while (startYear <= currentYear) {
-      years.push(startYear++);
+  //This is to select the type of member (ex. VIP Member, Regular, Inactive, Active)
+  selectMember(value) {
+    this.typeOfView = value.target.value
+    if(value.target.value == "VIP Member") {
+      this.listAllTheMembers = this.getTheVipMembers()
+    }else if(value.target.value == "Regular Member") {
+      this.listAllTheMembers = this.getTheRegularMembers()
+    }else if(value.target.value  == "Inactive Member") {
+      this.listAllTheMembers = this.inactive
+    }else {
+      this.listAllTheMembers = this.active
     }
-    this.yearlyView = years;
   }
 }

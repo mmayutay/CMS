@@ -35,7 +35,6 @@ export class SignupPage {
       Instagram: '',
       Twitter: '',
       Category: '',
-      Gender: 'Male',
       Description:'A new member added!'
     }, groupBelong: {
       Leader: ''
@@ -80,22 +79,20 @@ export class SignupPage {
 
   onSignup(form: NgForm) {
     if(this.role == 'Leader'){
-      this.signup.role.code = 'Member'
+      this.signup.role.code = '4'
     }
-    console.log(this.signup)
     this.request.signUp(this.signup).subscribe(res => {
-      console.log(res)
       this.router.navigate(['/account'])
     })
   }
 
   declaringTheCurrentRole() {
     this.request.getTheUserRoleFromTheStorage().then(res => {
-      if (res == "Leader") {
+      if (res == "3") {
         this.theNewUserRole = "Member"
-      } else if (res == "Admin") {
+      } else if (res == "1") {
         this.theNewUserRole = "Pastor"
-      } else if (res == "Pastor") {
+      } else if (res == "2") {
         this.theNewUserRole = "Leader"
       }
     })
@@ -106,5 +103,17 @@ export class SignupPage {
         this.role = data[0].roles
       })
     })
+  }
+
+  getValueOfGender(variable, value) {
+    if(variable == 'Marital_status') {
+      this.signup.newUser.Marital_status = value.target.value
+    }else if(variable == "Gender") {
+      this.signup.newUser.Gender = value.target.value
+    }else {
+      this.signup.role.code = value.target.value
+    }
+    variable = value
+    // this.signup.newUser.Gender = value.target.value
   }
 }

@@ -4,13 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/landing',
+    redirectTo: '/login',
     pathMatch: 'full'
-  },
-  
-  {
-    path: 'landing',
-    loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule)
   },
   {
     path: 'account',
@@ -21,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/support/support.module').then(m => m.SupportModule)
   },
   {
-    path: 'login/:usertype',
+    path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
   },
   {

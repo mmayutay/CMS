@@ -376,17 +376,23 @@ export class ReportingsPage implements OnInit {
       });
     });
   }
+
   //This function is for the user for his/her attendance
   addAttendance() {
-    this.datarequest
-      .addAttendance(this.dataAttendanceToPass)
-      .subscribe((data) => {
-        if (data != false) {
-          this.sundayCelebAttended();
-        } else {
-          this.unableToAttend();
-        }
-      });
+    this.datarequest.getTheIfCurrentUserIsAttended().then(result => {
+      if(result == false) {
+        this.datarequest.addAttendance(this.dataAttendanceToPass).subscribe((data) => {
+          if (data != false) {
+            this.datarequest.storeIfCurrentUserAlreadyAttended(true)
+            this.sundayCelebAttended();
+          } else {
+            this.unableToAttend();
+          }
+        })
+      }else {
+        this.alreadyAttended()
+      }
+    })
   }
 
   async sundayCelebAttended() {
@@ -394,6 +400,17 @@ export class ReportingsPage implements OnInit {
       cssClass: "my-custom-class",
       header: "Attendance Added!",
       message: "You now attended the Sunday Celebration!",
+      buttons: ["OK"],
+    });
+
+    await alert.present();
+  }
+
+  async alreadyAttended() {
+    const alert = await this.alertControl.create({
+      cssClass: "my-custom-class",
+      header: "Oopss Sorry!",
+      message: "You already have your attendance!",
       buttons: ["OK"],
     });
 
@@ -418,7 +435,7 @@ export class ReportingsPage implements OnInit {
         this.dataAttendanceToPass.newUser.member = data[0].id;
         this.dataAttendanceToPass.newUser.leader = data[0].leader;
         this.dataAttendanceToPass.newUser.type = this.currentUserData[0].id;
-        this.dataAttendanceToPass.newUser.type = this.currentTime.toString();
+        this.dataAttendanceToPass.newUser.date = this.currentTime.toString();
       });
     });
   }
