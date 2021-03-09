@@ -54,7 +54,12 @@ const routes: Routes = [
   {
     path: 'reportings',
     loadChildren: () => import('./pages/reportings/reportings.module').then( m => m.ReportingsPageModule)
+  },
+  {
+    path: 'add-event',
+    loadChildren: () => import('./pages/add-event/add-event.module').then( m => m.AddEventPageModule)
   }
+
 
 ];
 
