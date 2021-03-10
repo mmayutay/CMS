@@ -33,3 +33,35 @@ ion-card.new-msgs {
       }
     }
   }
+
+  ion-action-sheet {
+    ion-icon {
+      width: 3rem;
+      height: 3rem;
+    }
+  
+    .ion-ios-trash-solid,
+    .ion-md-trash-solid {
+      content: url(../../../assets/img/vip-card.png);
+    }
+  
+    .ion-ios-share-alt-square-solid,
+    .ion-md-share-alt-square-solid {
+      content: url(../../../assets/img/customer.png);
+    }
+  
+    .ion-ios-play-solid,
+    .ion-md-play-solid {
+      content: url(../../../assets/img/demonstration.png);
+    }
+  
+    .ion-ios-heart-regular,
+    .ion-md-heart-regular {
+      content: url(../../../assets/img/demonstration.png);
+    }
+  
+    // .ion-ios-times-solid,
+    // .ion-md-times-solid {
+    //   content: url(../assets/icon/times-solid.svg);
+    // }
+  }

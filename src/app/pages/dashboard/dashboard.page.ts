@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Chart } from "chart.js";
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
+import { ActionSheetController } from '@ionic/angular';
 
 import { PopoverController } from '@ionic/angular';
-import { DashboardPopoverPage } from '../dashboard-popover/dashboard-popover.page';
+// import { DashboardPopoverPage } from '../dashboard-popover/dashboard-popover.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-dashboard",
@@ -37,7 +39,9 @@ export class DashboardPage implements OnInit {
   constructor(
     private dataRequest: DataRequestsService,
     private request: RequestsService,
-    public popoverCtrl: PopoverController,
+    private actionSheetCtrl: ActionSheetController,
+    private router: Router,
+
   ) {}
 
   ngOnInit() {
@@ -61,11 +65,44 @@ export class DashboardPage implements OnInit {
   }
 
   async presentPopover(event: Event) {
-    const popover = await this.popoverCtrl.create({
-      component: DashboardPopoverPage,
-      event
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Albums',
+      cssClass: 'action-sheets-basic-page',
+      buttons: [{
+        text: 'VIP Members ' + this.lengthVIP,
+        role: 'destructive',
+        // icon: 'trash',
+        handler: () => {
+          this.router.navigateByUrl('dashboard-popover');
+        }
+      }, {
+        text: 'Regular Members',
+        // icon: 'share',
+        handler: () => {
+          console.log('Share clicked');
+        }
+      }, {
+        text: 'Active Members',
+        // icon: 'caret-forward-circle',
+        handler: () => {
+          console.log('Play clicked');
+        }
+      }, {
+        text: 'Inactive Members',
+        // icon: 'heart',
+        handler: () => {
+          console.log('Favorite clicked');
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
     });
-    await popover.present();
+    await actionSheet.present();
   }
 
   graphCreated(params, arrayForData) {

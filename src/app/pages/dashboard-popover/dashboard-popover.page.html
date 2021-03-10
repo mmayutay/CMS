@@ -8,15 +8,19 @@
   <ion-list>
     <ion-item button>
       <ion-label>VIP Members</ion-label>
+      <ion-badge slot="end">{{ lengthVIP }}</ion-badge>
     </ion-item>
     <ion-item button>
       <ion-label>Regular Members</ion-label>
+      <ion-badge slot="end">{{ lengthReg }}</ion-badge>
     </ion-item>
     <ion-item button>
       <ion-label>Active Members</ion-label>
+      <ion-badge slot="end">{{ lengthVIP }}</ion-badge>
     </ion-item>
     <ion-item button>
       <ion-label>Inactive Members</ion-label>
+      <ion-badge slot="end">{{ lengthVIP }}</ion-badge>
     </ion-item>
   </ion-list>
 </ion-content>
