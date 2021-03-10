@@ -57,7 +57,7 @@
                             <ion-icon class="iconLogin" name="calendar"></ion-icon>
                             <ion-item>
                                 <ion-label position="floating">Start Time</ion-label>
-                                <ion-datetime [(ngModel)]="addEvents.newEvents.Start_time" name="start" displayFormat="h:mm a">
+                                <ion-datetime [(ngModel)]="addEvents.newEvents.Start_time" (ionChange)="showDate('start_time')" name="start" displayFormat="h:mm a">
                                 </ion-datetime>
                             </ion-item>
                             <!-- <input [(ngModel)]="addEvents.newEvents.Start_time" class="input" placeholder="Start Time"
@@ -74,7 +74,7 @@
                             <ion-icon class="iconLogin" name="calendar"></ion-icon>
                             <ion-item>
                                 <ion-label position="floating">End Date</ion-label>
-                                <ion-datetime [(ngModel)]="addEvents.newEvents.End_date" displayFormat="MM/DD/YYYY" name="end_date" min="1994-03-14" max="2021-12-09"></ion-datetime>
+                                <ion-datetime [(ngModel)]="addEvents.newEvents.End_date" (ionChange)="showDate('end_date')" displayFormat="MM/DD/YYYY" name="end_date" min="1994-03-14" max="2021-12-09"></ion-datetime>
                               </ion-item>
                             <!-- <input [(ngModel)]="addEvents.newEvents.End_date" class="input" placeholder="End Date"
                                 name="End_date" type="text" #end_date="ngModel" required /> -->
@@ -90,7 +90,7 @@
                             <ion-icon class="iconLogin" name="calendar"></ion-icon>
                             <ion-item>
                                 <ion-label position="floating">End Time</ion-label>
-                                <ion-datetime [(ngModel)]="addEvents.newEvents.End_time" name="end" displayFormat="h:mm a">
+                                <ion-datetime [(ngModel)]="addEvents.newEvents.End_time" (ionChange)="showDate('end_time')" name="end" displayFormat="h:mm a">
                                 </ion-datetime>
                             </ion-item>
                             <!-- <input [(ngModel)]="addEvents.newEvents.End_time" class="input" placeholder="End Time"

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-event',
@@ -6,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-event.page.scss'],
 })
 export class AddEventPage implements OnInit {
-  addEvents = {
+  public start_time = ''
+  public end_time = ''
+  public addEvents = {
     newEvents: {
       Title: '',
       Description: '',
@@ -18,18 +22,38 @@ export class AddEventPage implements OnInit {
     }
   }
 
-  constructor() { }
+  constructor(
+    private eventRequest: EventTraningServiceService,
+    private alertController: AlertController
+  ) { }
 
   ngOnInit() {
   }
 
   onaddEvents(data) {
-    console.log(this.addEvents)
-
+    this.eventRequest.addEventsAndAnnouncements(this.addEvents).subscribe(response => {
+      this.successFullyAdded()
+    })
   }
 
   showDate(type) {
-    console.log(this.addEvents)
+    if(type == 'start_time'){
+      this.start_time = new Date(this.addEvents.newEvents.Start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+    }else if(type == 'end_time') {
+      this.end_time = new Date(this.addEvents.newEvents.End_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+    }
+  }
+
+
+  async successFullyAdded() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Yeyy!',
+      message: 'An Event' + this.addEvents.newEvents.Title + ' successfully added!',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 }
