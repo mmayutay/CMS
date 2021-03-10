@@ -23,12 +23,12 @@ export class AppComponent implements OnInit {
   public sample = ''
   appPages = [
     {
-      title: 'Schedule',
+      title: 'Events/Announcement',
       url: '/app/tabs/schedule',
       icon: 'calendar'
     },
     {
-      title: 'Speakers',
+      title: 'Trainings',
       url: '/app/tabs/speakers',
       icon: 'people'
     },
