@@ -1,0 +1,124 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-icon name="arrow-back" [routerLink]="['/app/tabs/schedule']"></ion-icon>
+        <ion-title>Add Events and Announcements</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card class="card">
+        <ion-card-content>
+            <form #addEventsForm="ngForm" novalidate>
+                <ion-list lines="none">
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Lastname</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="person"></ion-icon>
+                            <input [(ngModel)]="addEvents.newEvents.Title" class="input" placeholder="Title"
+                                name="Title" type="text" #title="ngModel" required />
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!title.valid && title.touched && title.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Title</ion-text>
+                    </ion-label><br>
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="person"></ion-icon>
+                            <input [(ngModel)]="addEvents.newEvents.Description" class="input" #nameCtrl="ngModel"
+                                placeholder="Description" name="Description" type="text" #description="ngModel"
+                                required />
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!description.valid && description.touched && description.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Description is required</ion-text>
+                    </ion-label><br>
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Age</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="calendar"></ion-icon>
+                            <ion-item>
+                                <ion-label position="floating">Start Date</ion-label>
+                                <ion-datetime [(ngModel)]="addEvents.newEvents.Start_date" (ionChange)="showDate('start_date')" displayFormat="MM/DD/YYYY" name="start_date" min="1994-03-14" max="2021-12-09"></ion-datetime>
+                              </ion-item>
+                            <!-- <input [(ngModel)]="addEvents.newEvents.Start_date" class="input" placeholder="Start Date"
+                                name="Start_date" type="text" #start_date="ngModel" required /> -->
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <!-- <ion-label *ngIf="!start_date.valid && start_date.touched && start_date.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Start Date is required</ion-text>
+                    </ion-label><br> -->
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Age</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="calendar"></ion-icon>
+                            <ion-item>
+                                <ion-label position="floating">Start Time</ion-label>
+                                <ion-datetime [(ngModel)]="addEvents.newEvents.Start_time" (ionChange)="showDate('start_time')" name="start" displayFormat="h:mm a">
+                                </ion-datetime>
+                            </ion-item>
+                            <!-- <input [(ngModel)]="addEvents.newEvents.Start_time" class="input" placeholder="Start Time"
+                              name="Start_time" type="time" #start_time="ngModel" required /> -->
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <!-- <ion-label *ngIf="!start_time.valid && start_time.touched && start_time.errors?.required">
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <ion-text color="danger">Start Time is required</ion-text>
+                  </ion-label><br> -->
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Email</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="calendar"></ion-icon>
+                            <ion-item>
+                                <ion-label position="floating">End Date</ion-label>
+                                <ion-datetime [(ngModel)]="addEvents.newEvents.End_date" (ionChange)="showDate('end_date')" displayFormat="MM/DD/YYYY" name="end_date" min="1994-03-14" max="2021-12-09"></ion-datetime>
+                              </ion-item>
+                            <!-- <input [(ngModel)]="addEvents.newEvents.End_date" class="input" placeholder="End Date"
+                                name="End_date" type="text" #end_date="ngModel" required /> -->
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <!-- <ion-label *ngIf="!end_date.valid && end_date.touched && end_date.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">End Date is required</ion-text>
+                    </ion-label><br> -->
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Contact Number</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="calendar"></ion-icon>
+                            <ion-item>
+                                <ion-label position="floating">End Time</ion-label>
+                                <ion-datetime [(ngModel)]="addEvents.newEvents.End_time" (ionChange)="showDate('end_time')" name="end" displayFormat="h:mm a">
+                                </ion-datetime>
+                            </ion-item>
+                            <!-- <input [(ngModel)]="addEvents.newEvents.End_time" class="input" placeholder="End Time"
+                              name="End_time" type="time" #end_time="ngModel" required /> -->
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <!-- <ion-label *ngIf="!end_time.valid && end_time.touched && end_time.errors?.required">
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <ion-text color="danger">End Time is required</ion-text>
+                  </ion-label><br> -->
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Contact Number</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="call-sharp"></ion-icon>
+                            <input [(ngModel)]="addEvents.newEvents.Location" class="input" placeholder="Location"
+                                name="Location" type="text" #location="ngModel" required />
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!location.valid && location.touched && location.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Location is required</ion-text>
+                    </ion-label><br>
+                </ion-list>
+                <div class="ion-padding">
+                    <!-- [disabled]="addEventsForm.invalid" -->
+                    <ion-button (click)="onaddEvents(addEventsForm)" type="submit" expand="block">Add</ion-button>
+                </div>
+            </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

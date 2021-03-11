@@ -25,25 +25,36 @@ export class MinistriesPage implements AfterViewInit {
   public storage: any;
   content: string;
   public list: any;
-  public holder:any;
+  public holder: any;
   public details;
   public addClicked = false;
   isItemAvailable = false;
+  public role = "";
 
 
   constructor(
 
     private activeRoute: ActivatedRoute,
     private dataRequest: DataRequestsService,
-    public request: RequestsService,
+    private request: RequestsService,
   ) { }
 
   ngAfterViewInit() {
+
+    this.getUserRole();
+
+    this.type = this.activeRoute.snapshot.paramMap.get('type')
+    console.log(this.type);
+    this.getAllMinistryMembers(this.type);
+
+    // this.dataSource.paginator = this.paginator;
     this.activeRoute.queryParams.pipe(
       filter((params => params.content))
     ).subscribe(params => {
 
       this.content = params.content;
+      console.log("Ministry: ", this.content);
+      this.getAllMinistryMembers(this.content);
 
       this.dataRequest.displayMinistry({ ministries: this.content }).subscribe(data => {
         this.storage = data;
@@ -57,19 +68,29 @@ export class MinistriesPage implements AfterViewInit {
       //   this.ministryMembers.push({ name: this.list[index].firstname + "-" + this.list[index].lastname, id: this.list[index].id })
       // }
       this.list.forEach((element, index) => {
+        console.log(this.list[index]);
         if (element.ministries == this.content) {
           this.list.splice(index, 1);
-          // console.log(this.list);
         }
         this.ministryMembers.push({ name: this.list[index].firstname + "-" + this.list[index].lastname, id: this.list[index].id })
       })
     });
+
+
+
     // if (this.list[index].ministries === this.content) {
     //   this.list.splice(this.list[index]);
     //   console.log(this.list[index]);
     // }
   }
 
+  getAllMinistryMembers(ministry) {
+    console.log(ministry)
+    this.dataRequest.displayMinistry({ ministries: ministry }).subscribe(data => {
+      console.log(data)
+      this.storage = data
+    })
+  }
 
   iconAdd() {
     this.addClicked = true;
@@ -86,7 +107,7 @@ export class MinistriesPage implements AfterViewInit {
       this.holder = data;
       console.log("Add Member: ", this.holder);
     });
-  
+
 
     this.addClicked = false;
   }
@@ -103,5 +124,14 @@ export class MinistriesPage implements AfterViewInit {
     this.foundNames.forEach(element => {
       this.list.push({ id: element.id, firstname: element.name.split("-")[0], lastname: element.name.split("-")[1] })
     });
+  }
+
+  getUserRole() {
+    this.request.getTheUserRoleFromTheStorage().then(res => {
+      this.dataRequest.getNetworkWhereIBelong(res).subscribe(data => {
+        console.log(data[0].roles)
+        this.role = data[0].roles
+      })
+    })
   }
 }

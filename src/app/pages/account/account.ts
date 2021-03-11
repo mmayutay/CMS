@@ -29,6 +29,7 @@ export class AccountPage implements AfterViewInit {
   public isMember:boolean = true;
 
 
+
   constructor(
     public alertCtrl: AlertController,
     public modalController: ModalController,
@@ -44,15 +45,18 @@ export class AccountPage implements AfterViewInit {
     // this.menuController.enable(true);
     this.getUserRole();
     this.userData.storage.get(this.request.storageUserRole).then(res => {
-      this.role = res
+      this.role = res      
     })
     
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.datasRequest.getTheCurrentUser({ userID: res }).subscribe(data => {
         this.holder = data[0];
+        console.log(data[0].auxilliary);
+        this.auxiliary = data[0].auxilliary
+        this.ministries = data[0].ministries
+        
       })
     })
-
   }
 
 
@@ -116,10 +120,17 @@ export class AccountPage implements AfterViewInit {
     // });
   }
 
+  optAuxiliaryMember(event){
+    this.router.navigate(['auxiliary/' + this.auxiliary])
+  }
+
+  optMinistryMember(event){
+    this.router.navigate(['ministries/' + this.ministries])
+  }
 
   optMinistry(value) {
     console.log(value);
-    this.router.navigate(['ministries/:type'], { queryParams: {content: value} })
+    this.router.navigate(['ministries/:type'], { queryParams: {content: value.target.value} })
     console.log("Selected ministry: ", value);
 
   }

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Chart } from "chart.js";
-import { DataRequestsService } from '../../request-to-BE/data-requests.service'
+import { DataRequestsService } from '../../request-to-BE/data-requests.service';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
+import { calendar } from '../../interfaces/user-options'
 
 @Component({
   selector: "app-dashboard",
@@ -8,16 +10,40 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service'
   styleUrls: ["./dashboard.page.scss"],
 })
 export class DashboardPage implements OnInit {
-  public rowCount = 0
+  public typeOfView = "VIP Member"
+  public listAllTheMembers = []
+
+  public typeOfViewChoices  = ["Monthly", "Weekly", "Quarterly", "Yearly"];
+  public typeOfViewChosed = ''
+  //These are the variables for quarterly view
+  public quarterBool = false;
+  public quarterMonths = [
+    {months: ["Jan", "Feb", "Mar", "Apr"], choices: "1st (Jan-Apr)"},
+    { months: ["May", "Jun", "Jul", "Aug"], choices: "2nd (May-Aug)" },
+    { months: ["Sep", "Oct", "Nov", "Dec"], choices: "3rd (Sep-Dec)" }
+  ]
+  //These are the variables for monthly view
+  public monthlyBool = false
+  public monthlyView = this.calendar.returnAllMonthsChoices();
+  //These are the variables for weekly view
+  public weeklyBool = false
+  public weeklyView = ['1st', '2nd', '3rd', '4th'];
+  //These are the variables for yearly view
+  public yearlyBool = false
+  public yearlyView = this.calendar.returnYearsFrom2005ToCurrentYear();
+
+  //This is the default value
+  public monthChosen = ["Jan", "Feb", "Mar", "Apr"];
+
   public currentTime = new Date();
-  //Attendance of all the member users
-  public allMembersAttendance = []
   //This will list all active and inactive members
   public active = []
   public inactive = []
-  //This will list all the VIP and Regular members
-  public vipMembers = [];
-  public regularMembers;
+
+  //This will list the type of members
+  public typeOfViewMember = this.calendar.returnTypeOfMember()
+
+  public lengthVIP;
 
   @ViewChild("barCanvas", { static: true }) barCanvas: ElementRef;
   @ViewChild("lineCanvas", { static: true }) lineCanvas: ElementRef;
@@ -27,17 +53,33 @@ export class DashboardPage implements OnInit {
 
   private barChart: Chart;
 
+  //This is the data to use for the stats
+  public weeklyStats;
+
   constructor(
-    private dataRequest: DataRequestsService
+    private dataRequest: DataRequestsService,
+    private request: RequestsService,
+    private calendar: calendar
   ) {}
 
   ngOnInit() {
-    this.getTheVipAndRegularMembers();
+    this.request.getTheCurrentUserIdInStorage().then((id) => {
+      this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
+        this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
+      });
+    });
     this.userIsActiveOrNot();
     var slides = document.querySelector("ion-slides");
     slides.options = {
       initialSlide: 1,
       speed: 400,
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
     };
     this.graphCreated(this.barCanvas, this.arrayOfCellgroup);
     this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb);
@@ -47,7 +89,7 @@ export class DashboardPage implements OnInit {
     this.barChart = new Chart(params.nativeElement, {
       type: "line",
       data: {
-        labels: ["Jan", "Feb", "Mar", "Apr"],
+        labels: this.monthChosen,
         datasets: [
           {
             label: "# of Votes",
@@ -86,19 +128,20 @@ export class DashboardPage implements OnInit {
     });
   }
 
+  //This is to know if the leader's member is Active or Inactive
   userIsActiveOrNot() {
     var partialDataHandler;
     this.dataRequest.getAllUsersId().subscribe(data => {
       partialDataHandler = data
       partialDataHandler.forEach(element => {
         this.dataRequest.getEventAndSCAttendance(element).subscribe(data => {
-          this.getDefaultOffDays2(element, data[0].currentUserAttendance);
+          this.classifyActiveAndInactive(element, data[0].currentUserAttendance);
         })
       })
     })
   }
 
-  getDefaultOffDays2(owner, users) {
+  classifyActiveAndInactive(owner, users) {
     var counter = 0
     var dateToApproved = [];
     var toJudgeDate;
@@ -152,13 +195,82 @@ export class DashboardPage implements OnInit {
     return new Array(i);
   }
 
-  getTheVipAndRegularMembers() {
-    var partialDataHandler
-    this.dataRequest.allVipUsers().subscribe(data => {
+  //This function will return all VIP Members
+  getTheVipMembers() {
+    var arrayVipMembers = []
+    var partialDataHandler;
+    this.dataRequest.allVipUsers().subscribe(data => { 
       partialDataHandler = data
       partialDataHandler.forEach(element => {
-        this.vipMembers.push(element.firstname + " " + element.lastname)
+        arrayVipMembers.push(element.firstname + " " + element.lastname)        
+      })
+    })
+    return arrayVipMembers;
+  }
+  //This function will return all Regular Members 
+  getTheRegularMembers() {
+    var arrayRegularMembers = []
+    var regularMembers;
+    this.dataRequest.getRegularMembers().subscribe(result => {
+      regularMembers = result
+      regularMembers.forEach(element => {
+        arrayRegularMembers.push(element.firstname + ' ' + element.lastname)
       });
     })
+    return arrayRegularMembers;
+  }
+
+  //This function is used to select type of quarterly view (ex. "January to April")
+  monthsToView(value) {
+    this.monthChosen.length = 0
+    if(this.typeOfViewChosed == 'Quarterly') {
+      this.monthChosen = value.target.value.months
+    }else if(this.typeOfViewChosed == 'Monthly') {
+      this.monthChosen = ['1st', '2nd', '3rd', '4th']
+      this.arrayOfCellgroup = this.calendar.returnTheMonthlyAttendanceForCellgroup();
+      this.arrayOfSundayCeleb = this.calendar.returnTheMonthlyAttendanceForSC();
+    }else if(this.typeOfViewChosed == 'Weekly') {
+      this.monthChosen = this.calendar.returnAllDays();
+      this.arrayOfCellgroup = this.weeklyStats;
+      this.arrayOfSundayCeleb = this.weeklyStats;
+    }else {
+      this.monthChosen = this.calendar.returnAllMonthsChoices();
+      this.arrayOfCellgroup = this.calendar.returnStatisticsForAYear();
+      this.arrayOfSundayCeleb = this.calendar.returnStatisticsForAYear()
+    }
+    this.graphCreated(this.barCanvas, this.arrayOfCellgroup);
+    this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb);
+  }
+
+
+  //["Monthly", "Weekly", "Quarterly", "Yearly"]
+  getTheUserView(value) {
+    this.typeOfViewChosed = value.target.value
+    this.quarterBool  = false
+    this.monthlyBool = false
+    this.weeklyBool = false
+    if(value.target.value == 'Quarterly') {
+      this.quarterBool = true
+    }else if(value.target.value == 'Monthly') {
+      this.monthlyBool = true
+    }else if(value.target.value == 'Weekly') {
+      this.weeklyBool = true
+    }else {
+      this.yearlyBool = true
+    }
+  }
+
+  //This is to select the type of member (ex. VIP Member, Regular, Inactive, Active)
+  selectMember(value) {
+    this.typeOfView = value.target.value
+    if(value.target.value == "VIP Member") {
+      this.listAllTheMembers = this.getTheVipMembers()
+    }else if(value.target.value == "Regular Member") {
+      this.listAllTheMembers = this.getTheRegularMembers()
+    }else if(value.target.value  == "Inactive Member") {
+      this.listAllTheMembers = this.inactive
+    }else {
+      this.listAllTheMembers = this.active
+    }
   }
 }

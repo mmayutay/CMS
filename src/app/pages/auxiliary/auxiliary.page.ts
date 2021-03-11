@@ -20,7 +20,7 @@ export class AuxiliaryPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    public datasRequest: DataRequestsService,
+    public dataRequest: DataRequestsService,
     private alertCtrl: AlertController,
 
     // public menuController: MenuController
@@ -28,6 +28,9 @@ export class AuxiliaryPage implements OnInit {
 
   ngOnInit() {
     // this.menuController.enable(false);
+    this.type = this.activatedRoute.snapshot.paramMap.get('type')
+    console.log(this.type)
+    this.getAllAuxiliaryMembers(this.type);
 
     this.activatedRoute.queryParams.pipe(
       filter((params => params.content))
@@ -37,12 +40,20 @@ export class AuxiliaryPage implements OnInit {
       this.content = params.content;
       console.log("Auxiliary: ", this.content);
 
-      this.datasRequest.displayAuxiliary({auxi: this.content}).subscribe(data => {
+      this.dataRequest.displayAuxiliary({auxi: this.content}).subscribe(data => {
           this.storage = data;
           console.log(data);
           console.log("Sample data: ", this.storage);
         });
     });
+  }
+
+  getAllAuxiliaryMembers(aux) {
+    console.log(aux)
+    this.dataRequest.displayAuxiliary({auxi: aux}).subscribe(data => {
+      console.log(data)
+      this.storage = data
+    })
   }
 
 }

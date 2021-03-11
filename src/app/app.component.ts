@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   public sample = ''
   appPages = [
     {
-      title: 'Events/Announcement',
+      title: 'Events And Announcements',
       url: '/app/tabs/schedule',
       icon: 'calendar'
     },
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
       url: '/app/tabs/about',
       icon: 'information-circle'
     }
-  ];
+  ]
   loggedIn = false;
   dark = false;
 
