@@ -5,9 +5,6 @@
                 <img src="assets/img/BHCFLogo.png" alt="Ionic logo">
                 <p>Blessed Hope of Christian Fellowship</p>
             </div>
-            <div>
-                <p class="p2">Login as: {{ userType }}</p>
-            </div>
             <form #loginForm="ngForm" novalidate>
                 <ion-list>
                     <ion-item>
@@ -30,8 +27,7 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <ion-text color="danger">Password is required</ion-text>
                     </ion-label>
-                    <p class="p3" style="width: 100%; text-align: center;" routerLink="/landing">Change the user to logged!</p>
-                </ion-list>
+                </ion-list><br>
 
                 <ion-row>
                     <ion-col>

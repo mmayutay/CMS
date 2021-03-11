@@ -4,11 +4,8 @@ import Swal from 'sweetalert2'
 import 'sweetalert2/src/sweetalert2.scss'
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { filter } from 'rxjs/operators';
-import { User } from '../../model/user.model';
 
 import { AfterViewInit, ViewChild } from '@angular/core';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 
 import { AlertController } from '@ionic/angular';
@@ -21,8 +18,7 @@ import { AlertController } from '@ionic/angular';
 export class MinistriesPage implements AfterViewInit {
   public foundNames = []
   public ministryMembers = []
-  displayedColumns: string[] = ['Firstname', 'Lastname', 'Adddress', 'Email', 'Contact No.', 'Leader'];
-  dataSource = new MatTableDataSource<User>();
+
 
   // @ViewChild(MatPaginator) paginator: MatPaginator;
   public type = '';
@@ -62,7 +58,6 @@ export class MinistriesPage implements AfterViewInit {
 
       this.dataRequest.displayMinistry({ ministries: this.content }).subscribe(data => {
         this.storage = data;
-        this.dataSource = new MatTableDataSource<User>(this.storage);
         console.log("Ministry: ", this.storage);
       });
     });

@@ -5,7 +5,6 @@ import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingContr
 import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
 import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
-import { RequestsService } from '../../logInAndSignupService/requests.service';
 
 @Component({
   selector: 'page-schedule',
@@ -75,6 +74,7 @@ export class SchedulePage implements OnInit {
   }
 
   async addFavorite(slidingItem: HTMLIonItemSlidingElement, sessionData: any) {
+    console.log(sessionData)
     if (this.user.hasFavorite(sessionData.name)) {
       // Prompt to remove favorite
       this.removeFavorite(slidingItem, sessionData, 'Favorite already added');
@@ -129,15 +129,5 @@ export class SchedulePage implements OnInit {
     });
     // now present the alert on top of all other content
     await alert.present();
-  }
-
-  async openSocial(network: string, fab: HTMLIonFabElement) {
-    const loading = await this.loadingCtrl.create({
-      message: `Posting to ${network}`,
-      duration: (Math.random() * 1000) + 500
-    });
-    await loading.present();
-    await loading.onWillDismiss();
-    fab.close();
   }
 }

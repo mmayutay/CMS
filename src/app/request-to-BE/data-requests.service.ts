@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UserData } from '../providers/user-data'
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,23 @@ export class DataRequestsService {
   public roleToLogged = ""
 
   constructor(
-    private request: HttpClient
+    private request: HttpClient,
+    private userData: UserData
   ) {  }
+
+  //This will get all the users of a certain group
+  getAllMembersOfAGroup(leaderID) {
+    return this.request.post(this.url + "return-members-group", {leaderID: leaderID})
+  }
+
+  //This will store the data if the current user already had his/her attendance
+  storeIfCurrentUserAlreadyAttended(boolean) {
+    this.userData.storage.set('alreadyAttend', boolean)
+  }
+  //This will get the data if the current user isn't had his/her attendance yet
+  getTheIfCurrentUserIsAttended() {
+    return this.userData.storage.get('alreadyAttend')
+  }
 
   getTheCurrentUser(userId) {
     return this.request.post(this.url + "info", userId);

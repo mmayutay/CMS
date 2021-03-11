@@ -17,6 +17,40 @@
     <ion-slide>
       <!-- This is for the Statistics  -->
       <ion-card>
+        <ion-input (ionChange)="getTheUserView($event)" name="code" ngModel class="input">
+          <ion-select placeholder="Choose Type">
+            <ion-select-option *ngFor="let value of typeOfViewChoices" [value]="value">{{ value }}</ion-select-option>
+          </ion-select>
+        </ion-input>
+
+        <!-- This will show if the type of choice is quarterly -->
+        <ion-input *ngIf="quarterBool"  (ionChange)="monthsToView($event)" name="code" ngModel class="input">
+          <ion-select placeholder="Choose Type">
+            <ion-select-option *ngFor="let value of quarterMonths" [value]="value">{{ value.choices }}</ion-select-option>
+          </ion-select>
+        </ion-input>
+
+        <!-- This will show if the type of choice is monthly -->
+        <ion-input *ngIf="monthlyBool"  (ionChange)="monthsToView($event)" name="code" ngModel class="input">
+          <ion-select placeholder="Choose Type">
+            <ion-select-option *ngFor="let value of monthlyView" [value]="value">{{ value }}</ion-select-option>
+          </ion-select>
+        </ion-input>
+
+        <!-- This will show if the type of choice is weekly -->
+        <ion-input *ngIf="weeklyBool"  (ionChange)="monthsToView($event)" name="code" ngModel class="input">
+          <ion-select placeholder="Choose Type">
+            <ion-select-option *ngFor="let value of weeklyView" [value]="value">{{ value }}</ion-select-option>
+          </ion-select>
+        </ion-input>
+
+        <!-- This will show if the type of choice is yearly -->
+        <ion-input *ngIf="yearlyBool"  (ionChange)="monthsToView($event)" name="code" ngModel class="input">
+          <ion-select placeholder="Choose Type">
+            <ion-select-option *ngFor="let value of yearlyView" [value]="value">{{ value }}</ion-select-option>
+          </ion-select>
+        </ion-input>
+
         <!-- For all the cellgroup's attendance Statistics  -->
         <ion-card-header>
           <h1>CellGroup Attendance</h1>
@@ -37,38 +71,20 @@
 
     <ion-slide>
       <ion-card>
+        <ion-input (ionChange)="selectMember($event)" name="code" ngModel class="input">
+          <ion-select placeholder="Choose Type">
+            <ion-select-option *ngFor="let value of typeOfViewMember" [value]="value">{{ value }}</ion-select-option>
+          </ion-select>
+        </ion-input>
         <!-- This is for the view of the members -->
         <!-- Vip and Regular members -->
         <div class="tableMembers">
           <table>
             <tr>
-              <th>Vip Members </th>
-              <ion-badge slot="start">{{ lengthVIP }}</ion-badge>
-              <th>Regular Members</th>
-              <ion-badge slot="end">{{ lengthReg }}</ion-badge>
+              <th>{{ typeOfView }}</th>
             </tr>
-            <tr *ngFor="let in of counter(vipMembers.length); let i = index">
-              <td>{{ vipMembers[i] }}</td>
-              <td>{{ regularMembers[i] }}</td>
-            </tr>
-          </table>
-        </div>
-      </ion-card>
-    </ion-slide>
-
-    <ion-slide>
-      <ion-card>
-        <!-- This is for the view of the members -->
-        <!-- Active and Inactive members -->
-        <div class="tableMembers">
-          <table>
-            <tr>
-              <th>Active Members</th>
-              <th>Inactive Members</th>
-            </tr>
-            <tr *ngFor="let in of counter(active.length); let i = index">
-              <td>{{ active[i] }}</td>
-              <td>{{ inactive[i] }} </td>
+            <tr *ngFor="let value of listAllTheMembers">
+              <td> {{ value }} </td>
             </tr>
           </table>
         </div>

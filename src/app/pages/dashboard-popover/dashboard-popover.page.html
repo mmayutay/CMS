@@ -5,22 +5,20 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item button>
-      <ion-label>VIP Members</ion-label>
+  <!-- <ion-select placeholder="View Auxiliary" #newSelect [(ngModel)]="member" (click)="optMember($event)">
+    <ion-select-option value="VIP">VIP Members
       <ion-badge slot="end">{{ lengthVIP }}</ion-badge>
-    </ion-item>
-    <ion-item button>
-      <ion-label>Regular Members</ion-label>
-      <ion-badge slot="end">{{ lengthReg }}</ion-badge>
-    </ion-item>
-    <ion-item button>
-      <ion-label>Active Members</ion-label>
-      <ion-badge slot="end">{{ lengthVIP }}</ion-badge>
-    </ion-item>
-    <ion-item button>
-      <ion-label>Inactive Members</ion-label>
-      <ion-badge slot="end">{{ lengthVIP }}</ion-badge>
-    </ion-item>
-  </ion-list>
+    </ion-select-option>
+    <ion-select-option value="Regular">Regular Members</ion-select-option>
+    <ion-select-option value="Active">BActive Members</ion-select-option>
+    <ion-select-option value="Inactive">Inactive Members</ion-select-option>
+  </ion-select> -->
+  <form #signupForm="ngForm" novalidate>
+    <ion-list  *ngFor="let value of typeOfViewMember">
+      <ion-item button (click)="optMember(value)">
+        <ion-label>{{ value }}</ion-label>
+        <ion-badge slot="end">{{ length }}</ion-badge>
+      </ion-item>
+    </ion-list>
+  </form>
 </ion-content>
