@@ -14,4 +14,9 @@ export class EventTraningServiceService {
   addEventsAndAnnouncements(event) {
     return this.http.post(this.url + 'add-event-announcement', event);
   }
+ 
+  //This function is to show all the events that a certain user added
+  retrieveAllAnnouncement() {
+    return this.http.get(this.url + 'add-event-announcement/display')
+  }
 }
