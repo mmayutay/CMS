@@ -6,7 +6,7 @@
     </ion-buttons>
 
     <ion-title>
-      Filter Sessions
+      Your Events Posted
     </ion-title>
 
     <ion-buttons slot="end">
@@ -19,10 +19,11 @@
   <ion-list [lines]="ios ? 'inset' : 'full'">
     <ion-list-header>Tracks</ion-list-header>
 
-    <ion-item *ngFor="let track of tracks" [attr.track]="track.name | lowercase">
-      <ion-icon *ngIf="ios" slot="start" [name]="track.icon" color="medium"></ion-icon>
-      <ion-label>{{track.name}}</ion-label>
-      <ion-checkbox [(ngModel)]="track.isChecked"></ion-checkbox>
+    <ion-item *ngFor="let track of usersEvents">
+      <ion-icon *ngIf="ios" slot="start" color="medium"></ion-icon>
+      <ion-label>{{track.title}}</ion-label>
+      <ion-button color="tertiary" (click)="updateAnEvent(track)"><ion-icon name="create"></ion-icon></ion-button>
+      <ion-button color="danger" (click)="deleteAnEvent(track)"><ion-icon name="trash"></ion-icon></ion-button>
     </ion-item>
 
   </ion-list>
