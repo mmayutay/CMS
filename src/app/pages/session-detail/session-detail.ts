@@ -4,6 +4,8 @@ import { ConferenceData } from '../../providers/conference-data';
 import { ActivatedRoute } from '@angular/router';
 import { UserData } from '../../providers/user-data';
 
+import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service'
+
 @Component({
   selector: 'page-session-detail',
   styleUrls: ['./session-detail.scss'],
@@ -17,7 +19,8 @@ export class SessionDetailPage {
   constructor(
     private dataProvider: ConferenceData,
     private userProvider: UserData,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private eventRequest: EventTraningServiceService
   ) { }
 
   ionViewWillEnter() {
@@ -40,7 +43,7 @@ export class SessionDetailPage {
           }
         }
       }
-    });
+    })
   }
 
   ionViewDidEnter() {
@@ -64,4 +67,6 @@ export class SessionDetailPage {
   shareSession() {
     console.log('Clicked share session');
   }
+
+  
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
+import { RequestsService } from '../../logInAndSignupService/requests.service'
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-add-event',
@@ -19,20 +21,28 @@ export class AddEventPage implements OnInit {
       End_date: '',
       End_time: '',
       Location: ''
+    }, 
+    currentUser: {
+      userID: ''
     }
   }
 
   constructor(
     private eventRequest: EventTraningServiceService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private router: Router,
+    private request: RequestsService
   ) { }
 
   ngOnInit() {
+    this.getTheCurrentUser();
   }
 
   onaddEvents(data) {
     this.eventRequest.addEventsAndAnnouncements(this.addEvents).subscribe(response => {
-      this.successFullyAdded()
+      if(response != undefined) {
+        this.successFullyAdded()
+      }
     })
   }
 
@@ -52,8 +62,15 @@ export class AddEventPage implements OnInit {
       message: 'An Event' + this.addEvents.newEvents.Title + ' successfully added!',
       buttons: ['OK']
     });
+    this.router.navigate(['/app/tabs/schedule'])
 
     await alert.present();
+  }
+
+  getTheCurrentUser() {
+    this.request.getTheCurrentUserIdInStorage().then(id => { 
+      this.addEvents.currentUser.userID = id
+    })
   }
 
 }
