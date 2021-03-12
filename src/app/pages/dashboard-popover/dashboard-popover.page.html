@@ -8,8 +8,8 @@
   <form #signupForm="ngForm" novalidate>
     <ion-list  *ngFor="let value of typeOfViewMember">
       <ion-item button (click)="optMember(value)">
-        <ion-label>{{ value }}</ion-label>
-        <ion-badge slot="end">{{ length }}</ion-badge>
+        <ion-label>{{ value.type }}</ion-label>
+        <ion-badge slot="end">{{ value.length }}</ion-badge>
       </ion-item>
     </ion-list>
   </form>

@@ -62,18 +62,9 @@ export class DashboardPopoverPage implements OnInit {
     })
   }
 
-  lengthMembers(value) {
-    this.typeOfViewMember.forEach(element => {
-      console.log(element);
-      if (element == value) {
-        this.getTheVipMembers()
-      }
-    });
-  }
-
   optMember(value) {
     console.log(value);
-    this.router.navigate(['display-members/:type'], { queryParams: { content: value } })
-    console.log("Selected Member: ", value);
+    this.router.navigate(['display-members/:type'], { queryParams: { content: value.type } })
+    console.log("Selected Member: ", value.type);
   }
 }

@@ -18,12 +18,12 @@ export class DashboardPage implements OnInit {
   public typeOfView = "VIP Member"
   public listAllTheMembers = []
 
-  public typeOfViewChoices  = ["Monthly", "Weekly", "Quarterly", "Yearly"];
+  public typeOfViewChoices = ["Monthly", "Weekly", "Quarterly", "Yearly"];
   public typeOfViewChosed = ''
   //These are the variables for quarterly view
   public quarterBool = false;
   public quarterMonths = [
-    {months: ["Jan", "Feb", "Mar", "Apr"], choices: "1st (Jan-Apr)"},
+    { months: ["Jan", "Feb", "Mar", "Apr"], choices: "1st (Jan-Apr)" },
     { months: ["May", "Jun", "Jul", "Aug"], choices: "2nd (May-Aug)" },
     { months: ["Sep", "Oct", "Nov", "Dec"], choices: "3rd (Sep-Dec)" }
   ]
@@ -68,7 +68,7 @@ export class DashboardPage implements OnInit {
     private router: Router,
 
     private calendar: calendar
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.request.getTheCurrentUserIdInStorage().then((id) => {
@@ -150,12 +150,18 @@ export class DashboardPage implements OnInit {
   userIsActiveOrNot() {
     var partialDataHandler;
     this.dataRequest.getAllUsersId().subscribe(data => {
+      console.log(data)
       partialDataHandler = data
-      partialDataHandler.forEach(element => {
-        this.dataRequest.getEventAndSCAttendance(element).subscribe(data => {
-          this.classifyActiveAndInactive(element, data[0].currentUserAttendance);
+      if (partialDataHandler.length == 0) {
+        this.calendar.activeMember = [];
+        this.calendar.inactiveMember = [];
+      } else {
+        partialDataHandler.forEach(element => {
+          this.dataRequest.getEventAndSCAttendance(element).subscribe(data => {
+            this.classifyActiveAndInactive(element, data[0].currentUserAttendance);
+          })
         })
-      })
+      }
     })
   }
 
@@ -167,49 +173,51 @@ export class DashboardPage implements OnInit {
     toJudgeDate = new Date(2021, this.currentTime.getMonth(), 0)
     for (let index = 0; index < 30; index++) {
       newDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth() - 1, index + 1)
-      if(newDate.getDay() == 0) {
+      if (newDate.getDay() == 0) {
         dateToApproved.push(newDate)
       }
     }
     users.forEach(i => {
       dateToApproved.forEach(j => {
-        if(new Date(i.date).getDate() == j.getDate()) {
+        if (new Date(i.date).getDate() == j.getDate()) {
           counter += 1
         }
       })
     })
-    if(counter < 4 && counter > 0) {
+    if (counter < 4 && counter > 0) {
       dateToApproved.length = 0
       for (let index = 0; index < this.currentTime.getDate(); index++) {
         newDate = new Date(this.currentTime.getFullYear(), this.currentTime.getMonth(), index + 1)
-        if(newDate.getDay() == 0) {
+        if (newDate.getDay() == 0) {
           dateToApproved.push(newDate)
         }
       }
       users.forEach(i => {
         dateToApproved.forEach(j => {
-          if(new Date(i.date).getDate() == j.getDate()) {
+          if (new Date(i.date).getDate() == j.getDate()) {
             counter += 1
           }
         })
       })
     }
-    if(counter >= 4) {
-      this.dataRequest.addMemberToInactive({id: owner, boolean: true}).subscribe(result => {
-        this.dataRequest.getTheCurrentUser({userID: result[0].userId}).subscribe(data => {
+    if (counter >= 4) {
+      this.dataRequest.addMemberToInactive({ id: owner, boolean: true }).subscribe(result => {
+        this.dataRequest.getTheCurrentUser({ userID: result[0].userId }).subscribe(data => {
           this.active.push(data[0].firstname + " " + data[0].lastname)
         })
       })
-    }else {
-      this.dataRequest.addMemberToInactive({id: owner, boolean: false}).subscribe(result => {
-        this.dataRequest.getTheCurrentUser({userID: result[0].userId}).subscribe(data => {
+    } else {
+      this.dataRequest.addMemberToInactive({ id: owner, boolean: false }).subscribe(result => {
+        this.dataRequest.getTheCurrentUser({ userID: result[0].userId }).subscribe(data => {
           this.inactive.push(data[0].firstname + " " + data[0].lastname)
         })
       })
     }
+    console.log("Active and Inactive:: ", this.active, this.inactive);
+
   }
 
-  counter(i:number) {
+  counter(i: number) {
     return new Array(i);
   }
 
@@ -217,10 +225,10 @@ export class DashboardPage implements OnInit {
   getTheVipMembers() {
     var arrayVipMembers = []
     var partialDataHandler;
-    this.dataRequest.allVipUsers().subscribe(data => { 
+    this.dataRequest.allVipUsers().subscribe(data => {
       partialDataHandler = data
       partialDataHandler.forEach(element => {
-        arrayVipMembers.push(element.firstname + " " + element.lastname)        
+        arrayVipMembers.push(element.firstname + " " + element.lastname)
       })
     })
     return arrayVipMembers;
@@ -241,17 +249,17 @@ export class DashboardPage implements OnInit {
   //This function is used to select type of quarterly view (ex. "January to April")
   monthsToView(value) {
     this.monthChosen.length = 0
-    if(this.typeOfViewChosed == 'Quarterly') {
+    if (this.typeOfViewChosed == 'Quarterly') {
       this.monthChosen = value.target.value.months
-    }else if(this.typeOfViewChosed == 'Monthly') {
+    } else if (this.typeOfViewChosed == 'Monthly') {
       this.monthChosen = ['1st', '2nd', '3rd', '4th']
       this.arrayOfCellgroup = this.calendar.returnTheMonthlyAttendanceForCellgroup();
       this.arrayOfSundayCeleb = this.calendar.returnTheMonthlyAttendanceForSC();
-    }else if(this.typeOfViewChosed == 'Weekly') {
+    } else if (this.typeOfViewChosed == 'Weekly') {
       this.monthChosen = this.calendar.returnAllDays();
       this.arrayOfCellgroup = this.weeklyStats;
       this.arrayOfSundayCeleb = this.weeklyStats;
-    }else {
+    } else {
       this.monthChosen = this.calendar.returnAllMonthsChoices();
       this.arrayOfCellgroup = this.calendar.returnStatisticsForAYear();
       this.arrayOfSundayCeleb = this.calendar.returnStatisticsForAYear()
@@ -264,16 +272,16 @@ export class DashboardPage implements OnInit {
   //["Monthly", "Weekly", "Quarterly", "Yearly"]
   getTheUserView(value) {
     this.typeOfViewChosed = value.target.value
-    this.quarterBool  = false
+    this.quarterBool = false
     this.monthlyBool = false
     this.weeklyBool = false
-    if(value.target.value == 'Quarterly') {
+    if (value.target.value == 'Quarterly') {
       this.quarterBool = true
-    }else if(value.target.value == 'Monthly') {
+    } else if (value.target.value == 'Monthly') {
       this.monthlyBool = true
-    }else if(value.target.value == 'Weekly') {
+    } else if (value.target.value == 'Weekly') {
       this.weeklyBool = true
-    }else {
+    } else {
       this.yearlyBool = true
     }
   }
@@ -281,13 +289,13 @@ export class DashboardPage implements OnInit {
   //This is to select the type of member (ex. VIP Member, Regular, Inactive, Active)
   selectMember(value) {
     this.typeOfView = value.target.value
-    if(value.target.value == "VIP Member") {
+    if (value.target.value == "VIP Member") {
       this.listAllTheMembers = this.getTheVipMembers()
-    }else if(value.target.value == "Regular Member") {
+    } else if (value.target.value == "Regular Member") {
       this.listAllTheMembers = this.getTheRegularMembers()
-    }else if(value.target.value  == "Inactive Member") {
+    } else if (value.target.value == "Inactive Member") {
       this.listAllTheMembers = this.inactive
-    }else {
+    } else {
       this.listAllTheMembers = this.active
     }
   }

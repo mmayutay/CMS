@@ -29,12 +29,12 @@ export class DisplayMembersPage implements OnInit {
       this.content = params.content;
       console.log("Member Content:: ", this.content);
 
-      if (this.content == "VIP Member") {
+      if (this.content == "VIP Members") {
         this.listAllTheMembers = this.getTheVipMembers()
         console.log(this.listAllTheMembers)
-      } else if (this.content == "Regular Member") {
+      } else if (this.content == "Regular Members") {
         this.listAllTheMembers = this.getTheRegularMembers()
-      } else if (this.content == "Inactive Member") {
+      } else if (this.content == "Inactive Members") {
         this.listAllTheMembers = this.inactive
       }
       else {
