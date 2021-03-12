@@ -13,7 +13,7 @@
       </ion-segment-button>
     </ion-segment>
     <ion-title *ngIf="!ios && !showSearchbar">Events/Announcements</ion-title>
-    <ion-searchbar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="queryText" (ionChange)="getAllTheEventsAndDisplay($event)" (ionCancel)="showSearchbar = false" placeholder="Search"></ion-searchbar>
+    <ion-searchbar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="queryText" (ionChange)="searchEvent($event)" (ionCancel)="showSearchbar = false" placeholder="Search"></ion-searchbar>
     <ion-buttons slot="end">
       <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
         <ion-icon slot="icon-only" name="search"></ion-icon>
@@ -45,7 +45,7 @@
       <ion-title size="large">Events/Announcements</ion-title>
     </ion-toolbar>
     <ion-toolbar>
-      <ion-searchbar [(ngModel)]="queryText" (ionChange)="getAllTheEventsAndDisplay($event)" placeholder="Search"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="queryText" (ionChange)="searchEvent($event)" placeholder="Search"></ion-searchbar>
     </ion-toolbar>
   </ion-header>
 

@@ -6,7 +6,7 @@ import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
 import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
-import { calendar } from '../../interfaces/user-options'
+import { calendar } from '../../interfaces/user-options';
 
 @Component({
   selector: 'page-schedule',
@@ -14,6 +14,7 @@ import { calendar } from '../../interfaces/user-options'
   styleUrls: ['./schedule.scss'],
 })
 export class SchedulePage implements OnInit {
+  public partialArray = []
   // Gets a reference to the list element
   @ViewChild('scheduleList', { static: true }) scheduleList: IonList;
 
@@ -124,7 +125,7 @@ export class SchedulePage implements OnInit {
           handler: () => {
             // they want to remove this session from their favorites
             this.user.removeFavorite(sessionData);
-            this.getAllTheEventsAndDisplay({target: {value: 'all'}});
+            this.getAllTheEventsAndDisplay({target: {value: 'favorites'}});
 
             // close the sliding item and hide the option buttons
             slidingItem.close();
@@ -136,6 +137,18 @@ export class SchedulePage implements OnInit {
     await alert.present();
   }
 
+  searchEvent(value) {
+    this.groups.forEach(element => {
+      if(element.title.toLowerCase().includes(value.target.value)) {
+        if(!this.partialArray.includes(element)) {
+          this.partialArray.push(element)
+        }
+      }
+    })
+    if(this.partialArray.length != 0) {
+      this.groups = this.partialArray
+    }
+  }
 
   getAllTheEventsAndDisplay(value) {
     var dataToDisplay = []

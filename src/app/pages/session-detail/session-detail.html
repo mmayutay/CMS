@@ -17,11 +17,12 @@
 
 <ion-content>
   <div *ngIf="session" class="ion-padding">
-    <h1>{{session.name}}</h1>
+    <h1>{{session.title}}</h1>
     <span *ngFor="let track of session?.tracks" [class]="'session-track-'+track.toLowerCase()">{{track}}</span>
     <p>{{session.description}}</p>
     <ion-text color="medium">
-      {{session.timeStart}} &ndash; {{session.timeEnd}}
+      {{session.start_time}} &ndash; {{session.end_time}} <br>
+      {{session.start_date}} &ndash; {{session.end_date}}
       <br /> {{session.location}}
     </ion-text>
   </div>
