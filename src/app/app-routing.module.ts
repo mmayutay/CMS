@@ -58,7 +58,12 @@ const routes: Routes = [
   {
     path: 'add-event',
     loadChildren: () => import('./pages/add-event/add-event.module').then( m => m.AddEventPageModule)
+  },
+  {
+    path: 'update-my-events-posted/:id',
+    loadChildren: () => import('./pages/update-my-events-posted/update-my-events-posted.module').then( m => m.UpdateMyEventsPostedPageModule)
   }
+
 
 
 ];
