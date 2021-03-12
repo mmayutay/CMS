@@ -5,6 +5,8 @@ import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingContr
 import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
 import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
+import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
+import { calendar } from '../../interfaces/user-options'
 
 @Component({
   selector: 'page-schedule',
@@ -35,27 +37,30 @@ export class SchedulePage implements OnInit {
     public routerOutlet: IonRouterOutlet,
     public toastCtrl: ToastController,
     public user: UserData,
-    public config: Config
+    public config: Config,
+    private eventRequest: EventTraningServiceService,
+    private calendar: calendar
   ) { }
 
   ngOnInit() {
     this.menu.enable(true)
-    this.updateSchedule();
+    // this.updateSchedule();
+    this.getAllTheEventsAndDisplay({target: {value: 'all'}});
 
     this.ios = this.config.get('mode') === 'ios';
   }
 
-  updateSchedule() {
-    // Close any open sliding items when the schedule updates
-    if (this.scheduleList) {
-      this.scheduleList.closeSlidingItems();
-    }
+  // updateSchedule() {
+  //   // Close any open sliding items when the schedule updates
+  //   if (this.scheduleList) {
+  //     this.scheduleList.closeSlidingItems();
+  //   }
 
-    this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
-      this.shownSessions = data.shownSessions;
-      this.groups = data.groups;
-    });
-  }
+  //   this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
+  //     this.shownSessions = data.shownSessions;
+  //     this.groups = data.groups;
+  //   });
+  // }
 
   async presentFilter() {
     const modal = await this.modalCtrl.create({
@@ -69,25 +74,25 @@ export class SchedulePage implements OnInit {
     const { data } = await modal.onWillDismiss();
     if (data) {
       this.excludeTracks = data;
-      this.updateSchedule();
+      // this.updateSchedule();
+      this.getAllTheEventsAndDisplay({target: {value: 'all'}})
     }
   }
 
   async addFavorite(slidingItem: HTMLIonItemSlidingElement, sessionData: any) {
-    console.log(sessionData)
-    if (this.user.hasFavorite(sessionData.name)) {
+    if (this.user.hasFavorite(sessionData)) {
       // Prompt to remove favorite
       this.removeFavorite(slidingItem, sessionData, 'Favorite already added');
     } else {
       // Add as a favorite
-      this.user.addFavorite(sessionData.name);
+      this.user.addFavorite(sessionData);
 
       // Close the open item
       slidingItem.close();
 
       // Create a toast
       const toast = await this.toastCtrl.create({
-        header: `${sessionData.name} was successfully added as a favorite.`,
+        header: `${sessionData.title} was successfully added as a favorite.`,
         duration: 3000,
         buttons: [{
           text: 'Close',
@@ -118,8 +123,8 @@ export class SchedulePage implements OnInit {
           text: 'Remove',
           handler: () => {
             // they want to remove this session from their favorites
-            this.user.removeFavorite(sessionData.name);
-            this.updateSchedule();
+            this.user.removeFavorite(sessionData);
+            this.getAllTheEventsAndDisplay({target: {value: 'all'}});
 
             // close the sliding item and hide the option buttons
             slidingItem.close();
@@ -129,5 +134,28 @@ export class SchedulePage implements OnInit {
     });
     // now present the alert on top of all other content
     await alert.present();
+  }
+
+
+  getAllTheEventsAndDisplay(value) {
+    var dataToDisplay = []
+    var partialDataHandler;
+    if(value.target.value == "all") {
+      this.eventRequest.retrieveAllAnnouncement().subscribe(response => {
+        partialDataHandler = response
+        partialDataHandler.forEach(element => {
+          element.start_time = new Date(element.start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+          element.end_time = new Date(element.end_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+          element.start_date = this.calendar.convertMonth(new Date(element.start_date).getMonth()) + '/' + new Date(element.start_date).getDate() + '/' + new Date(element.start_date).getFullYear()
+          element.end_date = this.calendar.convertMonth(new Date(element.end_date).getMonth()) + '/' + new Date(element.end_date).getDate() + '/' + new Date(element.end_date).getFullYear()
+          dataToDisplay.push(element)
+        });
+        this.shownSessions = dataToDisplay
+        this.groups = dataToDisplay
+      })
+    }else {
+      this.shownSessions = this.user.favorites
+      this.groups = this.user.favorites
+    }
   }
 }

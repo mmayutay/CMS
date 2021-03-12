@@ -66,7 +66,12 @@ const routes: Routes = [
   {
     path: 'display-members/:type',
     loadChildren: () => import('./pages/display-members/display-members.module').then( m => m.DisplayMembersPageModule)
+  },
+  {
+    path: 'update-my-events-posted/:id',
+    loadChildren: () => import('./pages/update-my-events-posted/update-my-events-posted.module').then( m => m.UpdateMyEventsPostedPageModule)
   }
+
 
 
 ];
