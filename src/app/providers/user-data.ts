@@ -18,6 +18,14 @@ export class UserData {
     return (this.favorites.indexOf(sessionName) > -1);
   }
 
+  removeChosenFavorite(id) {
+    this.favorites.forEach((element: any) => {
+      if(element.id == id) {
+        this.favorites.splice(this.favorites.indexOf(element), 1)
+      }
+    });
+  }
+
   addFavorite(sessionName: string): void {
     this.favorites.push(sessionName);
   }
