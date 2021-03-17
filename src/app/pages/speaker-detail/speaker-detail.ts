@@ -11,6 +11,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 })
 export class SpeakerDetailPage {
   speaker: any;
+  segmentModel = "Trainings";
 
   constructor(
     private dataProvider: ConferenceData,
