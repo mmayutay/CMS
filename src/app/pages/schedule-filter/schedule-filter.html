@@ -9,8 +9,9 @@
       Your Events Posted
     </ion-title>
 
-    <ion-buttons slot="end">
-      <ion-button (click)="applyFilters()" strong>Exit</ion-button>
+    <ion-buttons slot="start">
+        <ion-icon class="icon" name="arrow-back" (click)="applyFilters()"></ion-icon>
+      <!-- <ion-button (click)="applyFilters()" strong>Exit</ion-button> -->
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -18,11 +19,11 @@
 <ion-content>
   <ion-list [lines]="ios ? 'inset' : 'full'">
     <ion-list-header>Tracks</ion-list-header>
-
+<hr>
     <ion-item *ngFor="let track of usersEvents">
       <ion-icon *ngIf="ios" slot="start" color="medium"></ion-icon>
       <ion-label>{{track.title}}</ion-label>
-      <ion-button color="tertiary" (click)="updateAnEvent(track)"><ion-icon name="create"></ion-icon></ion-button>
+      <ion-button color="success" (click)="updateAnEvent(track)"><ion-icon name="create"></ion-icon></ion-button>
       <ion-button color="danger" (click)="deleteAnEvent(track)"><ion-icon name="trash"></ion-icon></ion-button>
     </ion-item>
 

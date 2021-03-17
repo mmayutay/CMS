@@ -8,6 +8,7 @@ import { ConferenceData } from '../../providers/conference-data';
 })
 export class SpeakerListPage {
   speakers: any[] = [];
+  segmentModel="trainings"
 
   constructor(public confData: ConferenceData) {}
 
