@@ -72,8 +72,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/update-my-events-posted/update-my-events-posted.module').then( m => m.UpdateMyEventsPostedPageModule)
   },  {
     path: 'add-training',
-    loadChildren: () => import('./add-training/add-training.module').then( m => m.AddTrainingPageModule)
+    loadChildren: () => import('./pages/add-training/add-training.module').then( m => m.AddTrainingPageModule)
   }
+
 
 
 
