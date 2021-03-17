@@ -35,7 +35,6 @@ export class MinistriesPage implements AfterViewInit {
 
 
   constructor(
-
     private activeRoute: ActivatedRoute,
     private dataRequest: DataRequestsService,
     private request: RequestsService,

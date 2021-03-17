@@ -7,11 +7,13 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicModule } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
 
+// import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MinistriesPage } from './pages/ministries/ministries.page';
 import {AccountPage} from './pages/account/account';
 import { AuxiliaryPage } from './pages/auxiliary/auxiliary.page';
@@ -34,9 +36,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     // MatTableModule,
     // MatPaginatorModule,
     // MatTableDataSource,
+    // MDBBootstrapModule.forRoot(),
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
