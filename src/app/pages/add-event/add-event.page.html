@@ -26,9 +26,9 @@
                         <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
                         <div class="input-container">
                             <ion-icon class="iconLogin" name="person"></ion-icon>
-                            <input [(ngModel)]="addEvents.newEvents.Description" class="input" #nameCtrl="ngModel"
+                            <textarea [(ngModel)]="addEvents.newEvents.Description" class="input" #nameCtrl="ngModel"
                                 placeholder="Description" name="Description" type="text" #description="ngModel"
-                                required />
+                                required></textarea> 
                         </div>&nbsp;&nbsp;
                     </ion-item>
                     <ion-label *ngIf="!description.valid && description.touched && description.errors?.required">
