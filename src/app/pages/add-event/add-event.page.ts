@@ -21,7 +21,7 @@ export class AddEventPage implements OnInit {
       End_date: '',
       End_time: '',
       Location: ''
-    },
+    }, 
     currentUser: {
       userID: ''
     }
