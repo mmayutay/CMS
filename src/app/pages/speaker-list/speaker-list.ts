@@ -22,4 +22,5 @@ export class SpeakerListPage {
     this.segmentModel = value.target.value;
     console.log(value.target.value)
   }
+  
 }

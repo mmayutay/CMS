@@ -70,10 +70,20 @@ const routes: Routes = [
   {
     path: 'update-my-events-posted/:id',
     loadChildren: () => import('./pages/update-my-events-posted/update-my-events-posted.module').then( m => m.UpdateMyEventsPostedPageModule)
-  },  {
+  },
+  {
     path: 'add-training',
     loadChildren: () => import('./pages/add-training/add-training.module').then( m => m.AddTrainingPageModule)
+  },
+  {
+    path: 'classes-details',
+    loadChildren: () => import('./pages/classes-details/classes-details.module').then( m => m.ClassesDetailsPageModule)
+  },
+  {
+    path: 'add-classes',
+    loadChildren: () => import('./pages/add-classes/add-classes.module').then( m => m.AddClassesPageModule)
   }
+
 
 
 

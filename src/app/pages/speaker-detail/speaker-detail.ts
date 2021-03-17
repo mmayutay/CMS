@@ -41,7 +41,7 @@ export class SpeakerDetailPage {
       '_blank'
     );
   }
-
+  
   async openSpeakerShare(speaker: any) {
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Share ' + speaker.name,
@@ -103,5 +103,10 @@ export class SpeakerDetailPage {
     });
 
     await actionSheet.present();
+  }
+  
+  segmentModels(value) {
+    this.segmentModel = value.target.value;
+    console.log(value.target.value)
   }
 }
