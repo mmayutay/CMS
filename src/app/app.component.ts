@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
       icon: 'calendar'
     },
     {
-      title: 'Trainings',
+      title: 'Trainings And Classes',
       url: '/app/tabs/speakers',
       icon: 'people'
     },
