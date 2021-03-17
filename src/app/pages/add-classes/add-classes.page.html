@@ -14,10 +14,10 @@
                         <!-- <ion-label position="stacked" color="primary">Lastname</ion-label> -->
                         <div class="input-container">
                             <ion-icon class="iconLogin" name="person"></ion-icon>
-                            <input [(ngModel)]="addClasses.newClasses.Name" class="input" placeholder="Name" name="Name" type="text" #title="ngModel" required />
+                            <input [(ngModel)]="addClasses.newClasses.Name" class="input" placeholder="Name" name="Name" type="text" #Name="ngModel" required />
                         </div>&nbsp;&nbsp;
                     </ion-item>
-                    <ion-label *ngIf="!name.valid && name.touched && name.errors?.required">
+                    <ion-label *ngIf="!Name.valid && Name.touched && Name.errors?.required">
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <ion-text color="danger">Name is required</ion-text>
                     </ion-label><br>
@@ -25,10 +25,10 @@
                         <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
                         <div class="input-container">
                             <ion-icon class="iconLogin" name="person"></ion-icon>
-                            <textarea [(ngModel)]="addClasses.newClasses.Lesson" class="input" #nameCtrl="ngModel" placeholder="Lesson" name="Lesson" type="text" #description="ngModel" required></textarea>
+                            <textarea [(ngModel)]="addClasses.newClasses.Lesson" class="input" #nameCtrl="ngModel" placeholder="Lesson" name="Lesson" type="text" #Lesson="ngModel" required></textarea>
                         </div>&nbsp;&nbsp;
                     </ion-item>
-                    <ion-label *ngIf="!lesson.valid && lesson.touched && lesson.errors?.required">
+                    <ion-label *ngIf="!Lesson.valid && Lesson.touched && Lesson.errors?.required">
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <ion-text color="danger">Lesson is required</ion-text>
                     </ion-label><br>
@@ -36,10 +36,10 @@
                         <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
                         <div class="input-container">
                             <ion-icon class="iconLogin" name="person"></ion-icon>
-                            <textarea [(ngModel)]="addClasses.newClasses.Title" class="input" #nameCtrl="ngModel" placeholder="Title" name="Title" type="text" #description="ngModel" required></textarea>
+                            <textarea [(ngModel)]="addClasses.newClasses.Title" class="input" #nameCtrl="ngModel" placeholder="Title" name="Title" type="text" #Title="ngModel" required></textarea>
                         </div>&nbsp;&nbsp;
                     </ion-item>
-                    <ion-label *ngIf="!title.valid && title.touched && title.errors?.required">
+                    <ion-label *ngIf="!Title.valid && Title.touched && Title.errors?.required">
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <ion-text color="danger">Title is required</ion-text>
                     </ion-label><br>
@@ -47,10 +47,10 @@
                         <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
                         <div class="input-container">
                             <ion-icon class="iconLogin" name="person"></ion-icon>
-                            <textarea [(ngModel)]="addClasses.newClasses.Description" class="input" #nameCtrl="ngModel" placeholder="Description" name="Description" type="text" #description="ngModel" required></textarea>
+                            <textarea [(ngModel)]="addClasses.newClasses.Description" class="input" #nameCtrl="ngModel" placeholder="Description" name="Description" type="text" #Description="ngModel" required></textarea>
                         </div>&nbsp;&nbsp;
                     </ion-item>
-                    <ion-label *ngIf="!description.valid && description.touched && description.errors?.required">
+                    <ion-label *ngIf="!Description.valid && Description.touched && Description.errors?.required">
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <ion-text color="danger">Description is required</ion-text>
                     </ion-label><br>
@@ -58,10 +58,10 @@
                         <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
                         <div class="input-container">
                             <ion-icon class="iconLogin" name="person"></ion-icon>
-                            <textarea [(ngModel)]="addClasses.newClasses.Instructor" class="input" #nameCtrl="ngModel" placeholder="Instructor" name="Instructor" type="text" #description="ngModel" required></textarea>
+                            <textarea [(ngModel)]="addClasses.newClasses.Instructor" class="input" #nameCtrl="ngModel" placeholder="Instructor" name="Instructor" type="text" #Instructor="ngModel" required></textarea>
                         </div>&nbsp;&nbsp;
                     </ion-item>
-                    <ion-label *ngIf="!instructor.valid && instructor.touched && instructor.errors?.required">
+                    <ion-label *ngIf="!Instructor.valid && Instructor.touched && Instructor.errors?.required">
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <ion-text color="danger">Instructor is required</ion-text>
                     </ion-label><br>
