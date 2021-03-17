@@ -61,22 +61,18 @@
                     <ion-item>
                         <div class="input-container">
                             <ion-icon class="iconLogin" name="person"></ion-icon>
-                            <ion-input [(ngModel)]="signup.newUser.Gender" name="gender" #genderControl="ngModel" class="input">
+                            <ion-input (ionChange)="getValueOfGender('Gender', $event)" name="Gender" class="input">
                                 <ion-select placeholder="Gender">
                                     <ion-select-option value="Male">Male</ion-select-option>
                                     <ion-select-option value="Female">Female</ion-select-option>
                                 </ion-select>
                             </ion-input>
                         </div>&nbsp;&nbsp;
-                    </ion-item>
-                    <ion-label *ngIf="!genderControl.valid && genderControl.touched && genderControl.errors?.required">
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <ion-text color="danger">Gender is required</ion-text>
-                    </ion-label><br>
+                    </ion-item><br>
                     <ion-item>
                         <div class="input-container">
                             <ion-icon class="iconLogin" name="settings"></ion-icon>
-                            <ion-input [(ngModel)]="signup.role.code" name="code" #codeControl="ngModel" class="input">
+                            <ion-input (ionChange)="getValueOfGender('code', $event)" name="code" class="input">
                                 <ion-select placeholder="Role" *ngIf="role === 'Admin'">
                                     <ion-select-option value="Pastor">Pastor</ion-select-option>
                                     <ion-select-option value="Leader">Leader</ion-select-option>
@@ -92,11 +88,7 @@
                             </ion-input>
                         </div>&nbsp;&nbsp;
                     </ion-item><br>
-                    <ion-item>
-                        <ion-label *ngIf="!codeControl.valid && codeControl.touched && codeControl.errors?.required">
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <ion-text color="danger">Role is required</ion-text>
-                        </ion-label><br>
+                    <ion-item><br>
 
                         <!-- <ion-label position="stacked" color="primary">Address</ion-label> -->
                         <div class="input-container">
@@ -113,19 +105,15 @@
                         <!-- <ion-label position="stacked" color="primary">Marital Status</ion-label> -->
                         <div class="input-container">
                             <ion-icon class="iconLogin" name="male-female-sharp"></ion-icon>
-                            <ion-input [(ngModel)]="signup.newUser.Marital_status" class="input"
-                                name="Marital_status" type="text" #maritalstatus="ngModel" required>
+                            <ion-input (ionChange)="getValueOfGender('Marital_status', $event)" class="input"
+                                name="Marital_status" type="text" required>
                                 <ion-select placeholder="Marital Status">
                                     <ion-select-option value="Single">Single</ion-select-option>
                                     <ion-select-option value="Married">Married</ion-select-option>
                                 </ion-select>
                             </ion-input>
                         </div>&nbsp;&nbsp;
-                    </ion-item>
-                    <ion-label *ngIf="!maritalstatus.valid && maritalstatus.touched && maritalstatus.errors?.required">
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <ion-text color="danger">Marital Status is required</ion-text>
-                    </ion-label><br>
+                    </ion-item><br>
                     <ion-item>
                         <!-- <ion-label position="stacked" color="primary">Email</ion-label> -->
                         <div class="input-container">

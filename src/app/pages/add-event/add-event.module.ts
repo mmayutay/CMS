@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LandingPageRoutingModule } from './landing-routing.module';
+import { AddEventPageRoutingModule } from './add-event-routing.module';
 
-import { LandingPage } from './landing.page';
+import { AddEventPage } from './add-event.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LandingPageRoutingModule
+    AddEventPageRoutingModule
   ],
-  declarations: [LandingPage]
+  declarations: [AddEventPage]
 })
-export class LandingPageModule {}
+export class AddEventPageModule {}

@@ -4,13 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/landing',
+    redirectTo: '/login',
     pathMatch: 'full'
-  },
-  
-  {
-    path: 'landing',
-    loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule)
   },
   {
     path: 'account',
@@ -21,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/support/support.module').then(m => m.SupportModule)
   },
   {
-    path: 'login/:usertype',
+    path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
   },
   {
@@ -59,7 +54,17 @@ const routes: Routes = [
   {
     path: 'reportings',
     loadChildren: () => import('./pages/reportings/reportings.module').then( m => m.ReportingsPageModule)
+  },
+  {
+    path: 'add-event',
+    loadChildren: () => import('./pages/add-event/add-event.module').then( m => m.AddEventPageModule)
+  },
+  {
+    path: 'update-my-events-posted/:id',
+    loadChildren: () => import('./pages/update-my-events-posted/update-my-events-posted.module').then( m => m.UpdateMyEventsPostedPageModule)
   }
+
+
 
 ];
 

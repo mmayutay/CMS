@@ -11,24 +11,62 @@
 <ion-content>
 
   <!-- Navigation bar top -->
-  <ion-tabs *ngIf="!userVip">
-    <ion-tab-bar slot="top">
-      <ion-tab-button (click)="typeOfViewController('Calendar')">
+  <ion-segment *ngIf="!userVip">
+    <ion-segment-button (click)="typeOfViewController('Calendar')">
         <ion-icon name="calendar"></ion-icon>
         <ion-label>Calendar View</ion-label>
-      </ion-tab-button>
+      </ion-segment-button>
 
-      <ion-tab-button (click)="typeOfViewController('Table')">
+      <ion-segment-button (click)="typeOfViewController('Table')">
+        <ion-icon name="grid"></ion-icon>
+        <ion-label>Table View</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+  <!-- <ion-tabs *ngIf="!userVip">
+    <ion-tab-bar slot="top">
+      <ion-segment-button (click)="typeOfViewController('Calendar')">
+        <ion-icon name="calendar"></ion-icon>
+        <ion-label>Calendar View</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button (click)="typeOfViewController('Table')">
         <ion-icon name="eye"></ion-icon>
         <ion-label>Table View</ion-label>
-      </ion-tab-button>
+      </ion-segment-button>
     </ion-tab-bar>
-  </ion-tabs><br><br>
+  </ion-tabs><br><br> -->
 
   <!-- Calendar View Card -->
   <ion-card *ngIf="!typeOfView">
+    <p>Display Dates: </p>
+      <ion-grid>
+          <ion-row>
+            <ion-col>
+                <!-- <ion-input (ionChange)="typeOfDisplay($event)" name="code" ngModel class="input"> -->
+                    <ion-select (ionChange)="typeOfDisplay($event)" name="code" ngModel class="input" placeholder="Type">
+                      <ion-select-option *ngFor="let type of typeOfDisplays" [value]="type">{{ type }}</ion-select-option>
+                    </ion-select>
+                  <!-- </ion-input> -->
+            </ion-col>
+            <ion-col>
+                <!-- <ion-input (ionChange)="monthChose($event)" name="code" ngModel class="input"> -->
+                    <ion-select (ionChange)="monthChose($event)" name="code" ngModel class="input" class="monthDisplay" placeholder="Month">
+                      <ion-select-option *ngFor="let month of monthChoices" [value]="month">{{ month }}</ion-select-option>
+                    </ion-select>
+                  <!-- </ion-input> -->
+            </ion-col>
+            <ion-col>
+                <!-- <ion-input (ionChange)="yearChose($event)" name="code" ngModel class="input"> -->
+                    <ion-select (ionChange)="yearChose($event)" name="code" ngModel class="input" placeholder="Year">
+                      <ion-select-option *ngFor="let year of yearChoices" [value]="year">{{ year }}</ion-select-option>
+                    </ion-select>
+                  <!-- </ion-input> -->
+            </ion-col>
+          </ion-row>
+        </ion-grid>
 
-    <ion-card>
+    <!-- <ion-card>
       <p>Display Dates: </p>
       <ion-input (ionChange)="typeOfDisplay($event)" name="code" ngModel class="input">
         <ion-select placeholder="Choose Type">
@@ -45,12 +83,12 @@
           <ion-select-option *ngFor="let year of yearChoices" [value]="year">{{ year }}</ion-select-option>
         </ion-select>
       </ion-input>
-    </ion-card>
+    </ion-card> -->
 
     <!-- Display by week -->
-    <ion-card *ngIf=" typeChoice == 'Weekly'">
-      <button (click)="indexCounter('back')">Back</button>
-      <button style="float: right;" (click)="indexCounter('next')">Next</button>
+    <div *ngIf=" typeChoice == 'Weekly'">
+      <ion-button (click)="indexCounter('back')" size="small">Back</ion-button>
+      <ion-button style="float: right;" (click)="indexCounter('next')" size="small">Next</ion-button>
       <h1> {{ month }} </h1>
       <table>
         <tr>
@@ -72,7 +110,7 @@
           <td [id]="arrayOfDatesForAmonth[rowCounter + 6].date">{{ arrayOfDatesForAmonth[rowCounter + 6].date }}</td>
         </tr>
       </table>
-    </ion-card>
+    </div>
 
     <!-- Display by month -->
     <ion-card *ngIf=" typeChoice == 'Monthly'">
@@ -110,7 +148,6 @@
         </tr>
       </table>
     </ion-card>
-
   </ion-card>
   <ion-card *ngIf="typeOfView">
     <ion-list>

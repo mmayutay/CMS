@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UserData } from '../providers/user-data'
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,23 @@ export class DataRequestsService {
   public roleToLogged = ""
 
   constructor(
-    private request: HttpClient
+    private request: HttpClient,
+    private userData: UserData
   ) {  }
+
+  //This will get all the users of a certain group
+  getAllMembersOfAGroup(leaderID) {
+    return this.request.post(this.url + "return-members-group", {leaderID: leaderID})
+  }
+
+  //This will store the data if the current user already had his/her attendance
+  storeIfCurrentUserAlreadyAttended(boolean) {
+    this.userData.storage.set('alreadyAttend', boolean)
+  }
+  //This will get the data if the current user isn't had his/her attendance yet
+  getTheIfCurrentUserIsAttended() {
+    return this.userData.storage.get('alreadyAttend')
+  }
 
   getTheCurrentUser(userId) {
     return this.request.post(this.url + "info", userId);
@@ -26,18 +43,21 @@ export class DataRequestsService {
   }
 
   displayAuxiliary(auxiliaryValue) {
-    console.log(auxiliaryValue);
     return this.request.post(this.url + "profile/auxiliary" , auxiliaryValue);
   }
 
   displayMinistry(ministryValue) {
-    console.log(ministryValue);
     return this.request.post( this.url + "profile/ministries" , ministryValue);
   }
 
   ministryList() {
     return this.request.get( this.url + 'ministries/list');
   }
+
+  addMinistryMember(id, ministry) {
+    return this.request.post( this.url + "ministries/add/"+id.id, {ministries: ministry});
+  }
+
   getMyCellgroup(leaderId){
     return this.request.post(this.url + 'leader', leaderId)
   }
@@ -87,6 +107,26 @@ export class DataRequestsService {
   //Function that get the current user's attendance in both event and sunday celebration
   getEventAndSCAttendance(currentUserId) {
     return this.request.post(this.url + 'viewAttendancesOfSCandEvents', {currentUserId: currentUserId})
+  }
+
+  //This function was used to get all the ID of all the only member users inside the collection
+  getAllUsersId() {
+    return this.request.get(this.url + 'allMemberUsers')
+  }
+
+  //This function will add the user to inactive where his/her attendance for sunday celebration is less than 4
+  addMemberToInactive(user) {
+    return this.request.post(this.url + 'addInactiveUser', {memberId: user.id, active: user.boolean})
+  }
+
+  //This function will fetch all member users from the database except to the VIP members
+  getRegularMembers() {
+    return this.request.get(this.url + 'regular-members')
+  } 
+
+  //This will let the leader to fetch all the attendance of his/her member
+  getMemberSCAndEventsAttendance(currentUserId) {
+    return this.request.post(this.url + 'leader-sc-cg', {currentUserId: currentUserId})
   }
 
 }

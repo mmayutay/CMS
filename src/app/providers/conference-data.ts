@@ -4,6 +4,8 @@ import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { UserData } from './user-data';
+import { RequestsService } from '../logInAndSignupService/requests.service'
+import { EventTraningServiceService } from '../events-and-trainings/event-traning-service.service'
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,12 @@ import { UserData } from './user-data';
 export class ConferenceData {
   data: any;
 
-  constructor(public http: HttpClient, public user: UserData) {}
+  constructor(
+    public http: HttpClient, 
+    public user: UserData,
+    public request: RequestsService,
+    public eventRequest: EventTraningServiceService
+    ) {}
 
   load(): any {
     if (this.data) {
@@ -149,6 +156,12 @@ export class ConferenceData {
         return data.tracks.sort();
       })
     );
+  }
+
+  getOwnPosts() {
+    // this.request.getTheCurrentUserIdInStorage().then(id => {
+    //   this.
+    // })
   }
 
   getMap() {

@@ -19,7 +19,6 @@ export class LoginPage {
   public submitted = false;
   public userAuthenticated = true
   public userLogin;
-  public userType = ''
 
   constructor(
     public menu: MenuController,
@@ -27,12 +26,11 @@ export class LoginPage {
     public router: Router,
     private request: RequestsService,
     private alertControl: AlertController,
-    private activatedRoute: ActivatedRoute,
     private dataRequest: DataRequestsService
   ) { }
 
   ngOnInit() {
-    this.userType = this.activatedRoute.snapshot.paramMap.get('usertype');
+    this.dataRequest.storeIfCurrentUserAlreadyAttended(false)
 
     this.menu.enable(false)
   }
@@ -58,7 +56,6 @@ export class LoginPage {
   }
   getTheUsersCurrentRole(roleID, currentuser) {
     this.dataRequest.getNetworkWhereIBelong(roleID).subscribe(res => {
-      if(res[0].roles == this.userType) {
         this.request.storeTheCurrentUserToStorage(currentuser[0].userid, currentuser[0].roles)
         this.dataRequest.getTheCurrentUser({userID: currentuser[0].userid}).subscribe(response => {
           if(response[0].isCGVIP == 1 && response[0].isSCVIP == 1) {
@@ -69,21 +66,6 @@ export class LoginPage {
             this.router.navigate(['/app/tabs/schedule'])
           }
         })
-      }else {
-        this.wantToLogged();
-      }
     })
-  }
-
-//This alert will show you when you logged for a certain role but not equal for user you logged
-  async wantToLogged() {
-    const alert = await this.alertControl.create({
-      cssClass: 'my-custom-class',
-      header: 'Error',
-      message: 'You want to logged as a/an '+this.userType + ' but the user you logged is not a/an ' + this.userType,
-      buttons: ['OK']
-    });
-
-    await alert.present();
   }
 }

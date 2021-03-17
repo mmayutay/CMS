@@ -4,6 +4,7 @@ export interface User {
         Firstname: '',
         Birthday: '',
         Age: null,
+        Gender: "",
         Address: '',
         Marital_status: '',
         Email: '',
