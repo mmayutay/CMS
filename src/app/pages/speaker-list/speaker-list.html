@@ -15,25 +15,27 @@
   </ion-header>
   <!-- *ngIf="ios" [(ngModel)]="segment" (ionChange)="getAllTheEventsAndDisplay($event)" -->
   <!-- [(ngModel)]="segmentModel" name="segmentModel" ngModel -->
-  <ion-segment (ionChange)="segmentModels($event)" value="Trainings" scrollable="true" >
-    <ion-segment-button value="Trainings">
-      Trainings
-    </ion-segment-button>
-    <ion-segment-button value="Classes">
-      Classes
-    </ion-segment-button>
-    <!-- <ion-segment-button value="records">
+  <ion-card>
+    <ion-segment (ionChange)="segmentModels($event)" value="Trainings" scrollable="true">
+      <ion-segment-button value="Trainings">
+        Trainings
+      </ion-segment-button>
+      <ion-segment-button value="Classes">
+        Classes
+      </ion-segment-button>
+      <!-- <ion-segment-button value="records">
             Records
         </ion-segment-button> -->
-    <ion-segment-button value="Records">
-      <ion-label>Records</ion-label>
-      <ion-select okText="Okay" cancelText="Dismiss">
-        <!-- <ion-select-option value="records">RECORDS</ion-select-option> -->
-        <ion-select-option value="trainings">TRAININGS</ion-select-option>
-        <ion-select-option value="classes">CLASSES</ion-select-option>
-      </ion-select>
-    </ion-segment-button>
-  </ion-segment>
+      <ion-segment-button value="Records">
+        <ion-select placeholder="Records" okText="Okay" cancelText="Dismiss" >
+          <!-- <ion-select-option value="records">RECORDS</ion-select-option> -->
+          <ion-select-option value="trainings">TRAININGS</ion-select-option>
+          <ion-select-option value="classes">CLASSES</ion-select-option>
+        </ion-select>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-card>
+
 
   <div *ngIf="segmentModel === 'Trainings'">
     <h1>Trainings</h1>
@@ -111,4 +113,9 @@
       </ion-row>
     </ion-grid>
   </div>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab *ngIf="segmentModel === 'Trainings'">
+    <ion-fab-button>
+      <ion-icon name="add" [routerLink]="['/add-training']"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
