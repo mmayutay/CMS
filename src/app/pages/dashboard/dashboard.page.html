@@ -4,6 +4,11 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Dashboard</ion-title>
+    <ion-buttons slot="end" class="action-sheets-basic-page">
+      <ion-button (click)="presentPopover($event)">
+        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -19,28 +24,28 @@
         </ion-input>
 
         <!-- This will show if the type of choice is quarterly -->
-        <ion-input *ngIf="quarterBool"  (ionChange)="monthsToView($event)" name="code" ngModel class="input">
+        <ion-input *ngIf="quarterBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
           <ion-select placeholder="Choose Type">
             <ion-select-option *ngFor="let value of quarterMonths" [value]="value">{{ value.choices }}</ion-select-option>
           </ion-select>
         </ion-input>
 
         <!-- This will show if the type of choice is monthly -->
-        <ion-input *ngIf="monthlyBool"  (ionChange)="monthsToView($event)" name="code" ngModel class="input">
+        <ion-input *ngIf="monthlyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
           <ion-select placeholder="Choose Type">
             <ion-select-option *ngFor="let value of monthlyView" [value]="value">{{ value }}</ion-select-option>
           </ion-select>
         </ion-input>
 
         <!-- This will show if the type of choice is weekly -->
-        <ion-input *ngIf="weeklyBool"  (ionChange)="monthsToView($event)" name="code" ngModel class="input">
+        <ion-input *ngIf="weeklyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
           <ion-select placeholder="Choose Type">
             <ion-select-option *ngFor="let value of weeklyView" [value]="value">{{ value }}</ion-select-option>
           </ion-select>
         </ion-input>
 
         <!-- This will show if the type of choice is yearly -->
-        <ion-input *ngIf="yearlyBool"  (ionChange)="monthsToView($event)" name="code" ngModel class="input">
+        <ion-input *ngIf="yearlyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
           <ion-select placeholder="Choose Type">
             <ion-select-option *ngFor="let value of yearlyView" [value]="value">{{ value }}</ion-select-option>
           </ion-select>
@@ -61,19 +66,19 @@
         <ion-card-content>
           <canvas #lineCanvas></canvas>
         </ion-card-content>
-      </ion-card>
+      </ion-card><br><br>
     </ion-slide>
 
-    <ion-slide>
+    <!-- <ion-slide>
       <ion-card>
         <ion-input (ionChange)="selectMember($event)" name="code" ngModel class="input">
           <ion-select placeholder="Choose Type">
             <ion-select-option *ngFor="let value of typeOfViewMember" [value]="value">{{ value }}</ion-select-option>
           </ion-select>
-        </ion-input>
-        <!-- This is for the view of the members -->
-        <!-- Vip and Regular members -->
-        <div class="tableMembers">
+        </ion-input> -->
+    <!-- This is for the view of the members -->
+    <!-- Vip and Regular members -->
+    <!-- <div class="tableMembers">
           <table>
             <tr>
               <th>{{ typeOfView }}</th>
@@ -84,7 +89,7 @@
           </table>
         </div>
       </ion-card>
-    </ion-slide>
+    </ion-slide> -->
 
   </ion-slides>
 </ion-content>

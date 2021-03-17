@@ -8,7 +8,7 @@ import { ConferenceData } from '../../providers/conference-data';
 })
 export class SpeakerListPage {
   speakers: any[] = [];
-  segmentModel="trainings"
+  segmentModel = "Trainings";
 
   constructor(public confData: ConferenceData) {}
 
@@ -16,5 +16,10 @@ export class SpeakerListPage {
     this.confData.getSpeakers().subscribe((speakers: any[]) => {
       this.speakers = speakers;
     });
+  }
+
+  segmentModels(value) {
+    this.segmentModel = value.target.value;
+    console.log(value.target.value)
   }
 }

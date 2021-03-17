@@ -60,9 +60,21 @@ const routes: Routes = [
     loadChildren: () => import('./pages/add-event/add-event.module').then( m => m.AddEventPageModule)
   },
   {
+    path: 'dashboard-popover',
+    loadChildren: () => import('./pages/dashboard-popover/dashboard-popover.module').then( m => m.DashboardPopoverPageModule)
+  },
+  {
+    path: 'display-members/:type',
+    loadChildren: () => import('./pages/display-members/display-members.module').then( m => m.DisplayMembersPageModule)
+  },
+  {
     path: 'update-my-events-posted/:id',
     loadChildren: () => import('./pages/update-my-events-posted/update-my-events-posted.module').then( m => m.UpdateMyEventsPostedPageModule)
+  },  {
+    path: 'add-training',
+    loadChildren: () => import('./add-training/add-training.module').then( m => m.AddTrainingPageModule)
   }
+
 
 
 

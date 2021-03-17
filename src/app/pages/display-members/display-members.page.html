@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ content }}</ion-title>
+    <ion-icon slot="start" name="arrow-back" [routerLink]="['/dashboard']"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="tableMembers">
+    <table>
+      <tr>
+        <th>{{ content }}</th>
+      </tr>
+      <tr *ngFor="let value of listAllTheMembers">
+        <td> {{ value }} </td>
+      </tr>
+    </table>
+  </div>
+</ion-content>

@@ -8,6 +8,9 @@ import { RequestsService } from "../logInAndSignupService/requests.service";
 export class calendar {
   public membersOfAGroup;
   public statsAttendance = [];
+  public activeMember = [];
+  public inactiveMember = [];
+
 
   constructor(
     private dataRequest: DataRequestsService,
@@ -89,7 +92,21 @@ export class calendar {
   }
 
   returnTypeOfMember() {
-    return ["VIP Member", "Regular Member", "Active Member", "Inactive Member"];
+    var members = [];
+    this.dataRequest.allVipUsers().subscribe((data:any) => {
+      members.push({type: "VIP Members", length:data.length});
+      console.log(members);
+    })
+
+    this.dataRequest.getRegularMembers().subscribe((data:any) => {
+      members.push({type: "Regular Members", length:data.length});
+      console.log(members);
+    })
+
+    members.push({type: "Active Members", length: this.activeMember.length });
+    members.push({type: "Inactive Members", length: this.inactiveMember.length });
+    
+    return members;
   }
 
   calculateStats() {

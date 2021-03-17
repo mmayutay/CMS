@@ -19,3 +19,50 @@ table, tr, td, th {
 th {
     width: 50%;
 }
+
+ion-card.new-msgs {
+    &.unread-msg {
+        ion-fab {
+        margin: 10px 0px;
+        background: var(--ion-color-primary);
+        border-radius: 50%;
+        padding: 2px 10px 5px 10px;
+        color: var(--ion-color-primary-contrast);
+        font-size: 11px;
+        line-height: 2;
+        right: calc(var(--ion-safe-area-right, 0px) - 10px);
+      }
+    }
+  }
+
+  ion-action-sheet {
+    ion-icon {
+      width: 3rem;
+      height: 3rem;
+    }
+  
+    .ion-ios-trash-solid,
+    .ion-md-trash-solid {
+      content: url(../../../assets/img/vip-card.png);
+    }
+  
+    .ion-ios-share-alt-square-solid,
+    .ion-md-share-alt-square-solid {
+      content: url(../../../assets/img/customer.png);
+    }
+  
+    .ion-ios-play-solid,
+    .ion-md-play-solid {
+      content: url(../../../assets/img/demonstration.png);
+    }
+  
+    .ion-ios-heart-regular,
+    .ion-md-heart-regular {
+      content: url(../../../assets/img/demonstration.png);
+    }
+  
+    // .ion-ios-times-solid,
+    // .ion-md-times-solid {
+    //   content: url(../assets/icon/times-solid.svg);
+    // }
+  }

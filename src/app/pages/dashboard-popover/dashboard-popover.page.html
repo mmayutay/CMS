@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Show Current Data</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #signupForm="ngForm" novalidate>
+    <ion-list  *ngFor="let value of typeOfViewMember">
+      <ion-item button (click)="optMember(value)">
+        <ion-label>{{ value.type }}</ion-label>
+        <ion-badge slot="end">{{ value.length }}</ion-badge>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

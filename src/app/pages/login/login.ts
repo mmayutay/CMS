@@ -37,6 +37,7 @@ export class LoginPage {
 
   onLogin() {
     this.request.loginService(this.login).subscribe(res => {
+      console.log(res)
       if(res != null) {
         this.getTheUsersCurrentRole(res[0].roles, res);
       }else{
