@@ -6,6 +6,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicModule } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
+import { SpeakerFilterPage } from './pages/speaker-filter/speaker-filter.page';
+
 
 // import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
@@ -49,7 +51,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgxQRCodeModule,
     BrowserAnimationsModule
   ],
-  declarations: [AppComponent, DashboardPopoverPage],
+  declarations: [AppComponent, DashboardPopoverPage, SpeakerFilterPage],
   providers: [
     InAppBrowser, SplashScreen, StatusBar, 
     MinistriesPage,
@@ -58,7 +60,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ModalPagePage,
     QRScanner
   ],
-  entryComponents: [DashboardPopoverPage],
+  entryComponents: [DashboardPopoverPage, SpeakerFilterPage],
   
   bootstrap: [AppComponent]
 })

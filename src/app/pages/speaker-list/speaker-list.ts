@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { ConferenceData } from '../../providers/conference-data';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
+import { SpeakerFilterPage } from '../speaker-filter/speaker-filter.page';
+import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
+
 
 
 @Component({
@@ -14,11 +17,17 @@ export class SpeakerListPage {
   public trainings;
   speakers: any[] = [];
   segmentModel = "Trainings";
+  excludeTracks: any = [];
 
   constructor(
     public confData: ConferenceData,
     private eventsService: EventTraningServiceService,
-    private request: RequestsService
+    private request: RequestsService,
+    public modalCtrl: ModalController,
+    public routerOutlet: IonRouterOutlet,
+    
+
+
     ) {}
 
   ionViewDidEnter() {   
@@ -41,6 +50,21 @@ export class SpeakerListPage {
       this.trainings = data.trainings
       this.classes = data.classes
     })
+  }
+
+  async presentFilter() {
+    const modal = await this.modalCtrl.create({
+      component: SpeakerFilterPage,
+      swipeToClose: true,
+      presentingElement: this.routerOutlet.nativeEl,
+      componentProps: { excludedTracks: this.excludeTracks }
+    });
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    // if (data) {
+    //   this.excludeTracks = data;
+    // }
   }
   
 }

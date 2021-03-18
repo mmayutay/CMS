@@ -82,12 +82,15 @@ const routes: Routes = [
   {
     path: 'add-classes',
     loadChildren: () => import('./pages/add-classes/add-classes.module').then( m => m.AddClassesPageModule)
+  },
+  {
+    path: 'update-class-or-trainings/:typeUpdate/:selectedItemID',
+    loadChildren: () => import('./pages/update-class-or-trainings/update-class-or-trainings.module').then( m => m.UpdateClassOrTrainingsPageModule)
+  },
+  {
+    path: 'speaker-filter',
+    loadChildren: () => import('./pages/speaker-filter/speaker-filter.module').then( m => m.SpeakerFilterPageModule)
   }
-
-
-
-
-
 
 ];
 
