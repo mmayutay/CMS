@@ -22,14 +22,33 @@
 </ion-header> -->
 <ion-content class="speaker-detail">
     <div class="speaker-background">
-        <img src="/assets/img/training.png" [alt]="speaker?.name">
+        <img src="/assets/img/train.png" [alt]="speaker?.name">
         <h2>{{detail.instructor}}</h2>
     </div>
     <ion-card>
-        <h1>Title: {{detail.title}}</h1>
-        <h3>Name: {{detail.name}}</h3>
+        <i>
+            <h3>{{detail.name}} :</h3>
+        </i>
+        <u>
+            <b>
+                <h2>Title: {{detail.title}}</h2>
+            </b>
+        </u>
         <p>{{detail.description}}</p>
-
+    </ion-card>
+    <ion-card>
+        <table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+            </tr>
+            <tr>
+                <td>Geneva</td>
+                <td>Rivas</td>
+                <td>21</td>
+            </tr>
+        </table>
     </ion-card>
 
     <!-- <div class="ion-padding speaker-detail">
