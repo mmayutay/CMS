@@ -30,10 +30,10 @@ export class SpeakerDetailPage {
       
       const selectedItem = this.eventRequest.getSelectedTrainingsOrClasses(this.segmentModel, speakerId);
       selectedItem.subscribe((data: any) => {
-        console.log(data)
+        console.log('The item selected', data)
         const allStudents = this.eventRequest.getStudent(this.segmentModel, data.id)
         allStudents.subscribe((response: any) => {
-          console.log(response)
+          console.log('The students of a selected item', response)
         })
       // })
       // if (data && data.speakers) {
