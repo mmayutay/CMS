@@ -3,13 +3,13 @@ import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
 
 @Component({
-  selector: 'app-add-training',
-  templateUrl: './add-training.page.html',
-  styleUrls: ['./add-training.page.scss'],
+  selector: 'app-add-classes',
+  templateUrl: './add-classes.page.html',
+  styleUrls: ['./add-classes.page.scss'],
 })
-export class AddTrainingPage implements OnInit {
-  public addTrainings = {
-    newTrainings: {
+export class AddClassesPage implements OnInit {
+  public addClasses = {
+    newClasses: {
       Name: '',
       Lesson: '',
       Title: '',
@@ -19,7 +19,7 @@ export class AddTrainingPage implements OnInit {
     currentUser: {
       userID: ''
     },
-    typeOfAdd: 'Trainings'
+    typeOfAdd: 'Classes'
   }
 
   constructor(
@@ -30,16 +30,17 @@ export class AddTrainingPage implements OnInit {
   ngOnInit() {
     const getCurrentUser = this.request.getTheCurrentUserIdInStorage()
     getCurrentUser.then((id) => {
-      this.addTrainings.currentUser.userID = id
-      this.addTrainings.newTrainings.Instructor = id
+      this.addClasses.currentUser.userID = id
+      this.addClasses.newClasses.Instructor = id
     })
   }
 
-  onaddEvents(data) {
-    const addClass = this.eventsService.addTrainingsOrClasses(this.addTrainings)
+  addClass(data) {
+    const addClass = this.eventsService.addTrainingsOrClasses(this.addClasses)
     addClass.subscribe((response) => {
       console.log(response)
     })
   }
+
 
 }

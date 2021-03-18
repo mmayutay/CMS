@@ -6,9 +6,9 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { filter } from 'rxjs/operators';
 
 import { AfterViewInit, ViewChild } from '@angular/core';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
 // import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { RequestsService } from '../../logInAndSignupService/requests.service';
 
 import { AlertController } from '@ionic/angular';
 

@@ -23,67 +23,28 @@
       </ion-segment-button>
     </ion-segment>
 
-  <!-- <ion-tabs *ngIf="!userVip">
-    <ion-tab-bar slot="top">
-      <ion-segment-button (click)="typeOfViewController('Calendar')">
-        <ion-icon name="calendar"></ion-icon>
-        <ion-label>Calendar View</ion-label>
-      </ion-segment-button>
-
-      <ion-segment-button (click)="typeOfViewController('Table')">
-        <ion-icon name="eye"></ion-icon>
-        <ion-label>Table View</ion-label>
-      </ion-segment-button>
-    </ion-tab-bar>
-  </ion-tabs><br><br> -->
-
   <!-- Calendar View Card -->
   <ion-card *ngIf="!typeOfView">
     <p>Display Dates: </p>
       <ion-grid>
           <ion-row>
             <ion-col>
-                <!-- <ion-input (ionChange)="typeOfDisplay($event)" name="code" ngModel class="input"> -->
                     <ion-select (ionChange)="typeOfDisplay($event)" name="code" ngModel class="input" placeholder="Type">
                       <ion-select-option *ngFor="let type of typeOfDisplays" [value]="type">{{ type }}</ion-select-option>
                     </ion-select>
-                  <!-- </ion-input> -->
             </ion-col>
             <ion-col>
-                <!-- <ion-input (ionChange)="monthChose($event)" name="code" ngModel class="input"> -->
                     <ion-select (ionChange)="monthChose($event)" name="code" ngModel class="input" class="monthDisplay" placeholder="Month">
                       <ion-select-option *ngFor="let month of monthChoices" [value]="month">{{ month }}</ion-select-option>
                     </ion-select>
-                  <!-- </ion-input> -->
             </ion-col>
             <ion-col>
-                <!-- <ion-input (ionChange)="yearChose($event)" name="code" ngModel class="input"> -->
                     <ion-select (ionChange)="yearChose($event)" name="code" ngModel class="input" placeholder="Year">
                       <ion-select-option *ngFor="let year of yearChoices" [value]="year">{{ year }}</ion-select-option>
                     </ion-select>
-                  <!-- </ion-input> -->
             </ion-col>
           </ion-row>
         </ion-grid>
-
-    <!-- <ion-card>
-      <p>Display Dates: </p>
-      <ion-input (ionChange)="typeOfDisplay($event)" name="code" ngModel class="input">
-        <ion-select placeholder="Choose Type">
-          <ion-select-option *ngFor="let type of typeOfDisplays" [value]="type">{{ type }}</ion-select-option>
-        </ion-select>
-      </ion-input>
-      <ion-input (ionChange)="monthChose($event)" name="code" ngModel class="input">
-        <ion-select class="monthDisplay" placeholder="Choose Month">
-          <ion-select-option *ngFor="let month of monthChoices" [value]="month">{{ month }}</ion-select-option>
-        </ion-select>
-      </ion-input>
-      <ion-input (ionChange)="yearChose($event)" name="code" ngModel class="input">
-        <ion-select placeholder="Choose Year">
-          <ion-select-option *ngFor="let year of yearChoices" [value]="year">{{ year }}</ion-select-option>
-        </ion-select>
-      </ion-input>
-    </ion-card> -->
 
     <!-- Display by week -->
     <div *ngIf=" typeChoice == 'Weekly'">
@@ -168,10 +129,10 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button style="width: 50px;height: 50px;"><p class="tag">Event</p>
+      <ion-fab-button><p class="tag">Event</p>
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button (click)="addAttendance()" style="width: 50px;height: 50px;"><p class="tag">S. C.</p>
+      <ion-fab-button (click)="addAttendance()"><p class="tag">S. C.</p>
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>

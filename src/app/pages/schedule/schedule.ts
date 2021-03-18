@@ -166,7 +166,7 @@ export class SchedulePage implements OnInit {
         this.shownSessions = dataToDisplay
         this.groups = dataToDisplay
       })
-    }else {
+    } else {
       this.shownSessions = this.user.favorites
       this.groups = this.user.favorites
     }
