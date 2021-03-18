@@ -35,7 +35,9 @@ export class SessionDetailPage {
 
   getAllDataOfCertainEvent() {
     const sessionId = this.route.snapshot.paramMap.get('sessionId');
-    this.eventRequest.returnTheSelectedEvent(sessionId).subscribe((data: any) => {
+    const returnEvent = this.eventRequest.returnTheSelectedEvent(sessionId);
+    
+    returnEvent.subscribe((data: any) => {
       data.start_time = new Date(data.start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
       data.end_time = new Date(data.end_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
       data.start_date = this.calender.convertMonth(new Date(data.start_date).getMonth()) + '/' + new Date(data.start_date).getDate() + '/' + new Date(data.start_date).getFullYear()

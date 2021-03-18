@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Chart } from "chart.js";
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController,  } from '@ionic/angular';
 
 import { PopoverController } from '@ionic/angular';
 import { DashboardPopoverPage } from '../dashboard-popover/dashboard-popover.page';

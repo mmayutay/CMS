@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { Router } from '@angular/router';
-import { calendar } from '../../interfaces/user-options'
+import { calendar } from '../../interfaces/user-options';
+import { PopoverController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-dashboard-popover',
@@ -26,6 +28,7 @@ export class DashboardPopoverPage implements OnInit {
     private dataRequest: DataRequestsService,
     private router: Router,
     private calendar: calendar,
+    private popController: PopoverController
   ) { }
 
   ngOnInit() {
@@ -57,14 +60,12 @@ export class DashboardPopoverPage implements OnInit {
         this.regularMembers.push(element.firstname + ' ' + element.lastname)
 
         this.length = this.regularMembers.length;
-        console.log(this.length);
       });
     })
   }
 
   optMember(value) {
-    console.log(value);
     this.router.navigate(['display-members/:type'], { queryParams: { content: value.type } })
-    console.log("Selected Member: ", value.type);
+    this.popController.dismiss()
   }
 }

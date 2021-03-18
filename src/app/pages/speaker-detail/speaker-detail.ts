@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ConferenceData } from '../../providers/conference-data';
 import { ActionSheetController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service'
 
 @Component({
   selector: 'page-speaker-detail',
@@ -19,19 +20,30 @@ export class SpeakerDetailPage {
     public actionSheetCtrl: ActionSheetController,
     public confData: ConferenceData,
     public inAppBrowser: InAppBrowser,
+    private eventRequest: EventTraningServiceService
   ) {}
 
   ionViewWillEnter() {
-    this.dataProvider.load().subscribe((data: any) => {
+    // this.dataProvider.load().subscribe((data: any) => {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
-      if (data && data.speakers) {
-        for (const speaker of data.speakers) {
-          if (speaker && speaker.id === speakerId) {
-            this.speaker = speaker;
-            break;
-          }
-        }
-      }
+      this.segmentModel = this.route.snapshot.paramMap.get('addType');
+      
+      const selectedItem = this.eventRequest.getSelectedTrainingsOrClasses(this.segmentModel, speakerId);
+      selectedItem.subscribe((data: any) => {
+        console.log('The item selected', data)
+        const allStudents = this.eventRequest.getStudent(this.segmentModel, data.id)
+        allStudents.subscribe((response: any) => {
+          console.log('The students of a selected item', response)
+        })
+      // })
+      // if (data && data.speakers) {
+      //   for (const speaker of data.speakers) {
+      //     if (speaker && speaker.id === speakerId) {
+      //       this.speaker = speaker;
+      //       break;
+      //     }
+      //   }
+      // }
     });
   }
 
