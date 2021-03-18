@@ -1,9 +1,114 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>addTraining</ion-title>
+    <ion-icon slot="start" name="arrow-back" [routerLink]="['/app/tabs/speakers']"></ion-icon>
+    <ion-title>Add New Training</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <!-- name
+    lesson
+    title
+    description
+    start and end date
+    start and end time
+    total
+    instructor -->
+  <ion-card class="card">
+    <ion-card-content>
+      <form #addEventsForm="ngForm" novalidate>
+        <ion-list lines="none">
+          <ion-item>
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="person"></ion-icon>
+              <input class="input" placeholder="Name" name="Name" type="text" required />
+            </div>&nbsp;&nbsp;
+          </ion-item>
+          <ion-item>
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="person"></ion-icon>
+              <input class="input" placeholder="Lesson" name="Lesson" type="text" required />
+            </div>&nbsp;&nbsp;
+          </ion-item>
+          <ion-item>
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="person"></ion-icon>
+              <input class="input" placeholder="Title" name="Title" type="text" required />
+            </div>&nbsp;&nbsp;
+          </ion-item>
+          <!-- <ion-label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Title</ion-text>
+                    </ion-label><br> -->
+          <ion-item>
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="person"></ion-icon>
+              <input class="input" placeholder="Description" name="Description" type="text" required />
+            </div>&nbsp;&nbsp;
+          </ion-item>
+          <!-- <ion-label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Description is required</ion-text>
+                    </ion-label><br> -->
+          <!-- <ion-item>
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="calendar"></ion-icon>
+              <ion-item>
+                <ion-label position="floating">Start Date</ion-label>
+                <ion-datetime displayFormat="MM/DD/YYYY" name="start_date" min="1994-03-14" max="2021-12-09"></ion-datetime>
+              </ion-item>
+            </div>&nbsp;&nbsp;
+          </ion-item>
+          <ion-item>
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="calendar"></ion-icon>
+              <ion-item>
+                <ion-label position="floating">Start Time</ion-label>
+                <ion-datetime name="start" displayFormat="h:mm a">
+                </ion-datetime>
+              </ion-item>
+            </div>&nbsp;&nbsp;
+          </ion-item>
+          <ion-item>
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="calendar"></ion-icon>
+              <ion-item>
+                <ion-label position="floating">End Date</ion-label>
+                <ion-datetime displayFormat="MM/DD/YYYY" name="end_date" min="1994-03-14" max="2021-12-09"></ion-datetime>
+              </ion-item>
+            </div>&nbsp;&nbsp;
+          </ion-item>
+          <ion-item>
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="calendar"></ion-icon>
+              <ion-item>
+                <ion-label position="floating">End Time</ion-label>
+                <ion-datetime name="end" displayFormat="h:mm a">
+                </ion-datetime>
+              </ion-item>
+            </div>&nbsp;&nbsp;
+          </ion-item> -->
+          <ion-item>
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="person"></ion-icon>
+              <input class="input" placeholder="Total" name="Total" type="text" required />
+            </div>&nbsp;&nbsp;
+          </ion-item>
+          <ion-item>
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="person"></ion-icon>
+              <input class="input" placeholder="Instructor" name="Location" type="text" required />
+            </div>&nbsp;&nbsp;
+          </ion-item>
+          <!-- <ion-label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Location is required</ion-text>
+                    </ion-label><br> -->
+        </ion-list>
+        <div class="ion-padding">
+          <ion-button type="submit" expand="block">Add</ion-button>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
