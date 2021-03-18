@@ -25,7 +25,7 @@
         <img src="/assets/img/train.png" [alt]="speaker?.name">
         <h2>{{detail.instructor}}</h2>
     </div>
-    <ion-card>
+    <ion-card class="detail">
         <i>
             <h3>{{detail.name}} :</h3>
         </i>
@@ -37,7 +37,8 @@
         <p>{{detail.description}}</p>
     </ion-card>
     <ion-card>
-        <table>
+        <h3>Attendees:</h3>
+        <table class="table">
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -46,6 +47,11 @@
             <tr>
                 <td>Geneva</td>
                 <td>Rivas</td>
+                <td>21</td>
+            </tr>
+            <tr>
+                <td>Marichu</td>
+                <td>Niere</td>
                 <td>21</td>
             </tr>
         </table>
@@ -72,7 +78,7 @@
     <!-- </div> -->
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
         <ion-fab-button>
-            <ion-icon name="add"></ion-icon>
+            <ion-icon name="add" (click)="navigateToAddStudent()"></ion-icon>
         </ion-fab-button>
     </ion-fab>
 </ion-content>
