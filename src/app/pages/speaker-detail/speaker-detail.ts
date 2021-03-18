@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ConferenceData } from '../../providers/conference-data';
 import { ActionSheetController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -13,10 +13,12 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 export class SpeakerDetailPage {
   speaker: any;
   segmentModel = "Trainings";
+  public selectedItemId = ''
 
   constructor(
     private dataProvider: ConferenceData,
     private route: ActivatedRoute,
+    private redirect: Router,
     public actionSheetCtrl: ActionSheetController,
     public confData: ConferenceData,
     public inAppBrowser: InAppBrowser,
@@ -26,6 +28,7 @@ export class SpeakerDetailPage {
   ionViewWillEnter() {
     // this.dataProvider.load().subscribe((data: any) => {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
+      this.selectedItemId = speakerId
       this.segmentModel = this.route.snapshot.paramMap.get('addType');
       
       const selectedItem = this.eventRequest.getSelectedTrainingsOrClasses(this.segmentModel, speakerId);
@@ -120,5 +123,9 @@ export class SpeakerDetailPage {
   segmentModels(value) {
     this.segmentModel = value.target.value;
     console.log(value.target.value)
+  }
+ 
+  navigateToAddStudent() {
+    this.redirect.navigate(['/add-student/' + this.segmentModel + '/' + this.selectedItemId])
   }
 }

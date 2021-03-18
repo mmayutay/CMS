@@ -82,7 +82,12 @@ const routes: Routes = [
   {
     path: 'add-classes',
     loadChildren: () => import('./pages/add-classes/add-classes.module').then( m => m.AddClassesPageModule)
+  },
+  {
+    path: 'add-student/:typeOfAdd/:selectedItemID',
+    loadChildren: () => import('./pages/add-student/add-student.module').then( m => m.AddStudentPageModule)
   }
+
 
 
 
