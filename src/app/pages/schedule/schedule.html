@@ -1,92 +1,91 @@
 <!-- IOS -->
 <ion-header translucent="true">
-  <ion-toolbar>
-    <ion-buttons *ngIf="!showSearchbar" slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-segment *ngIf="ios" [(ngModel)]="segment" (ionChange)="getAllTheEventsAndDisplay($event)">
-      <ion-segment-button value="all">
-        All
-      </ion-segment-button>
-      <ion-segment-button value="favorites">
-        Fav/Prio
-      </ion-segment-button>
-    </ion-segment>
-    <ion-title *ngIf="!ios && !showSearchbar">Events/Announcements</ion-title>
-    <ion-searchbar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="queryText" (ionChange)="searchEvent($event)" (ionCancel)="showSearchbar = false" placeholder="Search"></ion-searchbar>
-    <ion-buttons slot="end">
-      <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-      <ion-button *ngIf="!showSearchbar" (click)="presentFilter()">
-        <span *ngIf="ios">Filter</span>
-        <span *ngIf="!ios">
+    <ion-toolbar>
+        <ion-buttons *ngIf="!showSearchbar" slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-segment *ngIf="ios" [(ngModel)]="segment" (ionChange)="getAllTheEventsAndDisplay($event)">
+            <ion-segment-button value="all">
+                All
+            </ion-segment-button>
+            <ion-segment-button value="favorites">
+                Fav/Prio
+            </ion-segment-button>
+        </ion-segment>
+        <ion-title *ngIf="!ios && !showSearchbar">Events/Announcements</ion-title>
+        <ion-searchbar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="queryText" (ionChange)="searchEvent($event)" (ionCancel)="showSearchbar = false" placeholder="Search"></ion-searchbar>
+        <ion-buttons slot="end">
+            <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
+                <ion-icon slot="icon-only" name="search"></ion-icon>
+            </ion-button>
+            <ion-button *ngIf="!showSearchbar" (click)="presentFilter()">
+                <span *ngIf="ios">Filter</span>
+                <span *ngIf="!ios">
           <ion-icon slot="icon-only" name="options"></ion-icon>
         </span>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-  <ion-toolbar *ngIf="!ios">
-    <ion-segment [(ngModel)]="segment" (ionChange)="getAllTheEventsAndDisplay($event)">
-      <ion-segment-button value="all">
-        All
-      </ion-segment-button>
-      <ion-segment-button value="favorites">
-        Fav/Prio
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar *ngIf="!ios">
+        <ion-segment [(ngModel)]="segment" (ionChange)="getAllTheEventsAndDisplay($event)">
+            <ion-segment-button value="all">
+                All
+            </ion-segment-button>
+            <ion-segment-button value="favorites">
+                Fav/Prio
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
 <!-- ANDROID -->
 <ion-content fullscreen="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Events/Announcements</ion-title>
-    </ion-toolbar>
-    <ion-toolbar>
-      <ion-searchbar [(ngModel)]="queryText" (ionChange)="searchEvent($event)" placeholder="Search"></ion-searchbar>
-    </ion-toolbar>
-  </ion-header>
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title size="large">Events/Announcements</ion-title>
+        </ion-toolbar>
+        <ion-toolbar>
+            <ion-searchbar [(ngModel)]="queryText" (ionChange)="searchEvent($event)" placeholder="Search"></ion-searchbar>
+        </ion-toolbar>
+    </ion-header>
 
-  <ion-list #scheduleList [hidden]="shownSessions === 0">
-    <ion-item-group *ngFor="let group of groups" [hidden]="group.hide">
-      <ion-item-divider sticky>
-        <ion-label>
-          {{group.start_date}} - {{group.end_date}}
-        </ion-label>
-      </ion-item-divider>
+    <ion-list #scheduleList [hidden]="shownSessions === 0">
+        <ion-item-group *ngFor="let group of groups" [hidden]="group.hide">
+            <ion-item-divider sticky>
+                <ion-label>
+                    {{group.start_date}} - {{group.end_date}}
+                </ion-label>
+            </ion-item-divider>
 
-      <ion-item-sliding #slidingItem>
-        <ion-item routerLink="/app/tabs/schedule/session/{{group.id}}">
-          <ion-label>
-            <h3>{{group.title}}</h3>
-            <p>
-              {{group.start_time}} &mdash; {{group.end_time}} <br> {{group.location}}
-            </p>
-          </ion-label>
-        </ion-item>
-        <ion-item-options>
-          <ion-item-option color="favorite" (click)="addFavorite(slidingItem, group)" *ngIf="segment === 'all'">
-            Favorite
-          </ion-item-option>
-          <ion-item-option color="danger" (click)="removeFavorite(slidingItem, group, group.title)"
-            *ngIf="segment === 'favorites'">
-            Remove
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-item-group>
-  </ion-list>
+            <ion-item-sliding #slidingItem>
+                <ion-item routerLink="/app/tabs/schedule/session/{{group.id}}">
+                    <ion-label>
+                        <h3>{{group.title}}</h3>
+                        <p>
+                            {{group.start_time}} &mdash; {{group.end_time}} <br> {{group.location}}
+                        </p>
+                    </ion-label>
+                </ion-item>
+                <ion-item-options>
+                    <ion-item-option color="favorite" (click)="addFavorite(slidingItem, group)" *ngIf="segment === 'all'">
+                        Favorite
+                    </ion-item-option>
+                    <ion-item-option color="danger" (click)="removeFavorite(slidingItem, group, group.title)" *ngIf="segment === 'favorites'">
+                        Remove
+                    </ion-item-option>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-item-group>
+    </ion-list>
 
-  <ion-list-header [hidden]="shownSessions.length > 0">
-    No Sessions Found
-  </ion-list-header>
+    <ion-list-header [hidden]="shownSessions.length > 0">
+        No Sessions Found
+    </ion-list-header>
 
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
-    <ion-fab-button>
-      <ion-icon name="add" [routerLink]="['/add-event']"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
+        <ion-fab-button>
+            <ion-icon name="add" [routerLink]="['/add-event']"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
 </ion-content>
