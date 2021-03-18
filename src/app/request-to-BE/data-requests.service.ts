@@ -130,7 +130,7 @@ export class DataRequestsService {
   }
 
   addClassStudent(id, classes) {
-    return this.request.post( this.url + "classes/add/"+id.id, {classes: classes});
+    return this.request.post( this.url + "classes/add/"+ id.id, {classes: classes});
   }
 
 }

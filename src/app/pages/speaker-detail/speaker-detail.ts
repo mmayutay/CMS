@@ -14,6 +14,7 @@ export class SpeakerDetailPage {
   speaker: any;
   segmentModel = "Trainings";
   public selectedItemId = ''
+  public detail: any[] = [];
 
   constructor(
     private dataProvider: ConferenceData,
@@ -33,7 +34,8 @@ export class SpeakerDetailPage {
       
       const selectedItem = this.eventRequest.getSelectedTrainingsOrClasses(this.segmentModel, speakerId);
       selectedItem.subscribe((data: any) => {
-        console.log('The item selected', data)
+        this.detail = data;
+        console.log('The item selected detail:: ', this.detail)
         const allStudents = this.eventRequest.getStudent(this.segmentModel, data.id)
         allStudents.subscribe((response: any) => {
           console.log('The students of a selected item', response)
