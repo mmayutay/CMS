@@ -25,8 +25,10 @@ ion-toolbar ion-menu-button {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: calc(250px + var(--ion-safe-area-top));
-    background: center / cover url(/assets/img/speaker-background.png) no-repeat;
+    // height: calc(250px + var(--ion-safe-area-top));
+    height: 30%;
+    background:linear-gradient(to top right, #caf3dd 0%, #68ED9A 100%);
+    // background: center / cover url(/assets/img/speaker-background.png) no-repeat;
 }
 
 .background {
@@ -34,15 +36,18 @@ ion-toolbar ion-menu-button {
 }
 
 .speaker-background img {
-    width: 70px;
+    width: 80px;
     border-radius: 50%;
     margin-top: calc(-1 * var(--ion-safe-area-top));
+    background-color: white;
+    border: 2px solid white;
+    padding: 3px;
 }
 
 .speaker-background h2 {
     position: absolute;
     bottom: 10px;
-    color: white;
+    color: black;
 }
 
 .md .speaker-background {
@@ -52,7 +57,22 @@ ion-toolbar ion-menu-button {
 .ios .speaker-background {
     box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
 }
+ ion-card{
+     padding: 10px;
+     color: black;
+ }
+ion-card h2{
+    font-family: 'Georgia', serif;
+    text-align: center;
+    color: black;
+    text-shadow: 2px 2px 4px #68ED9A;
+    // text-shadow: 4px 4px 6px #000000;
+}
 
+ion-card h3 p{
+    font-family: 'Times New Roman', serif;
+    text-align: justify;
+}
 
 /*
  * Speaker Details

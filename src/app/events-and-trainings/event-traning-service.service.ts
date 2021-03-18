@@ -62,6 +62,11 @@ export class EventTraningServiceService {
     return this.http.post(this.url + 'trainings-by-instructor/get-student-of-a-class-training', {typeSelected: typeSelected, training: training });
   }
 
+  // A function that will add a student to a certain class or trainings
+  addStudentToClassOrTrainings(studentsData) {
+    return this.http.post(this.url + 'student-trainings-or-class/addToRecords', studentsData);
+  }
+
 
   // A function that update a value of a selected item in class or in trainings
   updateClassOrTrainings(itemID, updatedItem) {

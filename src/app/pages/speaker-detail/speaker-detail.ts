@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ConferenceData } from '../../providers/conference-data';
 import { ActionSheetController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service'
+import { calendar } from 'app/interfaces/user-options';
+import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
 
 @Component({
   selector: 'page-speaker-detail',
@@ -11,29 +13,40 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
   styleUrls: ['./speaker-detail.scss'],
 })
 export class SpeakerDetailPage {
+  public classOrTrainingStudents = []
   speaker: any;
   segmentModel = "Trainings";
+  public selectedItemId = ''
+  public detail: any[] = [];
 
   constructor(
     private dataProvider: ConferenceData,
     private route: ActivatedRoute,
+    private redirect: Router,
     public actionSheetCtrl: ActionSheetController,
     public confData: ConferenceData,
     public inAppBrowser: InAppBrowser,
-    private eventRequest: EventTraningServiceService
+    private eventRequest: EventTraningServiceService,
+    private datas: calendar,
+    private dataRequest: DataRequestsService
   ) {}
 
   ionViewWillEnter() {
     // this.dataProvider.load().subscribe((data: any) => {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
+      this.selectedItemId = speakerId
       this.segmentModel = this.route.snapshot.paramMap.get('addType');
       
       const selectedItem = this.eventRequest.getSelectedTrainingsOrClasses(this.segmentModel, speakerId);
       selectedItem.subscribe((data: any) => {
-        console.log('The item selected', data)
+        this.detail = data;
         const allStudents = this.eventRequest.getStudent(this.segmentModel, data.id)
         allStudents.subscribe((response: any) => {
-          console.log('The students of a selected item', response)
+          if(response.length != 0) {
+            this.getCertainUser(response)
+          }else {
+            this.datas.studentsNames.length = 0
+          }
         })
       // })
       // if (data && data.speakers) {
@@ -116,9 +129,28 @@ export class SpeakerDetailPage {
 
     await actionSheet.present();
   }
-  
+
+  // This function will add the user 
+  getCertainUser(student){
+    student.forEach(element => {
+    const getUser = this.dataRequest.getStudentsData(element.students_id)
+      getUser.subscribe((response) => {
+        console.log(response)
+        this.classOrTrainingStudents.push(response[0])
+      })
+    });
+  }
+   
   segmentModels(value) {
     this.segmentModel = value.target.value;
-    console.log(value.target.value)
+  }
+ 
+  navigateToAddStudent() {
+    this.redirect.navigateByUrl('/add-student/' + this.segmentModel + '/' + this.selectedItemId)
+  }
+
+  navigateBackToSpeakers() {
+    this.classOrTrainingStudents.length = 0
+    this.redirect.navigateByUrl('/app/tabs/speakers');
   }
 }

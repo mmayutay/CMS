@@ -1,0 +1,78 @@
+.table {
+    margin-top: 10%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid black;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid black;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+tr:nth-child(odd) {
+    background-color: #f2f2f2
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+th {
+    background-color: #68ED9A;
+}
+
+ion-icon {
+    font-size: 30px;
+    // color: white;
+}
+
+.float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #FFF;
+    // color:#68ED9A;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 2px 2px #999;
+}
+
+.my-float {
+    margin-top: 15px;
+    font-size: 35px;
+}
+
+ion-searchbar {
+    border-radius: 50px;
+    background-position: left 8px center;
+    height: auto;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #7f8490;
+    background-color: white;
+    -webkit-box-shadow: 0 8px 14px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.1) !important;
+}

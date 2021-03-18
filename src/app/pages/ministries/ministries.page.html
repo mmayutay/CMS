@@ -6,8 +6,7 @@
     </ion-toolbar>
     <ion-toolbar *ngIf="addClicked">
         <ion-icon slot="start" name="arrow-back" [routerLink]="['/account']"></ion-icon>
-        <ion-searchbar type="text" debounce="500" [(ngModel)]="queryText"
-            (ionChange)="updateList($event)" value="search" name="search" placeholder="Search"></ion-searchbar>
+        <ion-searchbar type="text" debounce="500" [(ngModel)]="queryText" (ionChange)="updateList($event)" value="search" name="search" placeholder="Search"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
@@ -50,4 +49,3 @@
         </b>
     </a> -->
 </ion-content>
-

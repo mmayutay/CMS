@@ -10,6 +10,7 @@ export class calendar {
   public statsAttendance = [];
   public activeMember = [];
   public inactiveMember = [];
+  public studentsNames = [];
 
 
   constructor(

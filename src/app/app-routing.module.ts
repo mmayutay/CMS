@@ -90,8 +90,11 @@ const routes: Routes = [
   {
     path: 'speaker-filter',
     loadChildren: () => import('./pages/speaker-filter/speaker-filter.module').then( m => m.SpeakerFilterPageModule)
+  },
+  {
+    path: 'add-student/:typeOfAdd/:selectedItemID',
+    loadChildren: () => import('./pages/add-student/add-student.module').then( m => m.AddStudentPageModule)
   }
-
 ];
 
 @NgModule({

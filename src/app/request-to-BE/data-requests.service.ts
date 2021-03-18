@@ -129,4 +129,13 @@ export class DataRequestsService {
     return this.request.post(this.url + 'leader-sc-cg', {currentUserId: currentUserId})
   }
 
+  addClassStudent(id, classes) {
+    return this.request.post( this.url + "classes/add/"+ id.id, {classes: classes});
+  }
+
+  // A function to get the students data
+  getStudentsData(id) {
+    return this.request.get( this.url + 'student-trainings-or-class/get-student/' + id );
+  }
+
 }

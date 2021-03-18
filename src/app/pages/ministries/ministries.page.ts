@@ -45,7 +45,7 @@ export class MinistriesPage implements AfterViewInit {
     this.getUserRole();
 
     this.type = this.activeRoute.snapshot.paramMap.get('type')
-    console.log(this.type);
+    // console.log(this.type);
     this.getAllMinistryMembers(this.type);
 
     // this.dataSource.paginator = this.paginator;
@@ -94,12 +94,13 @@ export class MinistriesPage implements AfterViewInit {
   }
 
   iconAdd() {
+    console.log("dfdfdfdfd");
+    
     this.addClicked = true;
     console.log(this.addClicked);
-
   }
 
-  addMember(memberId) {
+  addMember(memberId) {    
     this.dataRequest.getTheCurrentUser({ userID: memberId.id }).subscribe(data => {
       this.storage.push(data[0])
     })
@@ -108,8 +109,6 @@ export class MinistriesPage implements AfterViewInit {
       this.holder = data;
       console.log("Add Member: ", this.holder);
     });
-
-
     this.addClicked = false;
   }
 
