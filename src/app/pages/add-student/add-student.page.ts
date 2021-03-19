@@ -92,9 +92,10 @@ export class AddStudentPage implements OnInit {
         console.log(data)
       })
     }else {
-      this.studentToAdd.trainings =  this.selectedItemId
+      this.studentToAdd.classes =  this.selectedItemId
       this.studentToAdd.students = memberId.id
       this.studentToAdd.type = this.itemSelected.lesson
+      console.log(this.studentToAdd)
       addStudent.addStudentToClassOrTrainings(this.studentToAdd).subscribe((data: any) => {
         console.log(data)
       })
@@ -107,7 +108,6 @@ export class AddStudentPage implements OnInit {
     //   this.holder = data;
     //   console.log("Add Member: ", this.holder);
     // });
-
 
     this.addClicked = false;
   }

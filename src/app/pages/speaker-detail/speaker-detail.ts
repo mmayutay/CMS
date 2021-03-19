@@ -20,7 +20,6 @@ export class SpeakerDetailPage {
   public detail: any[] = [];
 
   constructor(
-    private dataProvider: ConferenceData,
     private route: ActivatedRoute,
     private redirect: Router,
     public actionSheetCtrl: ActionSheetController,
