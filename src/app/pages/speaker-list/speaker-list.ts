@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ConferenceData } from '../../providers/conference-data';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
@@ -30,10 +30,16 @@ export class SpeakerListPage {
 
 
     ) {}
+
+    ngOnInit() {
+      // an example array of 150 items to be paged
+      this.speakers = Array(10).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`}));
+      console.log(this.speakers)
+  }
     onChangePage(pageOfItems: Array<any>) {
       // update current page of items
-      this.speakers = pageOfItems;
-      console.log("DFDFD: ", this.speakers)
+      this.pageOfItems = pageOfItems;
+      console.log("DFDFD: ", this.pageOfItems)
     }
 
   ionViewDidEnter() {   
