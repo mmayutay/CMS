@@ -30,7 +30,11 @@ export class SpeakerListPage {
 
 
     ) {}
-
+    onChangePage(pageOfItems: Array<any>) {
+      // update current page of items
+      this.speakers = pageOfItems;
+      console.log("DFDFD: ", this.speakers)
+    }
 
   ionViewDidEnter() {   
     const getCurrentUser = this.request.getTheCurrentUserIdInStorage()
@@ -68,8 +72,5 @@ export class SpeakerListPage {
     //   this.excludeTracks = data;
     // }
   }
-  onChangePage(pageOfItems: Array<any>) {
-    // update current page of items
-    this.pageOfItems = pageOfItems;
-  }
+  
 }
