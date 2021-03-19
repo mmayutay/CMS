@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ClassesDetailsPageRoutingModule } from './classes-details-routing.module';
+import { SpeakerFilterPageRoutingModule } from './speaker-filter-routing.module';
 
-import { ClassesDetailsPage } from './classes-details.page';
+import { SpeakerFilterPage } from './speaker-filter.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ClassesDetailsPageRoutingModule
+    SpeakerFilterPageRoutingModule
   ],
-  declarations: [ClassesDetailsPage]
+  declarations: [SpeakerFilterPage]
 })
-export class ClassesDetailsPageModule {}
+export class SpeakerFilterPageModule {}

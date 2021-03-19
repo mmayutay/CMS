@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-icon slot="start" class="icon" name="arrow-back" [routerLink]="['/app/tabs/speakers']"></ion-icon>
+      <ion-title style="width: 100%;text-align: center;">Update {{updateTrainings.typeSelected}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="card">
+    <ion-card-content>
+      <form #addEventsForm="ngForm" novalidate>
+        <ion-list lines="none">
+          <ion-item>
+            <!-- <ion-label position="stacked" color="primary">Lastname</ion-label> -->
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="person"></ion-icon>
+              <input [(ngModel)]="updateTrainings.Name" class="input" placeholder="Name" name="Name" type="text"
+                #Name="ngModel" required />
+            </div>&nbsp;&nbsp;
+          </ion-item>
+          <ion-label *ngIf="!Name.valid && Name.touched && Name.errors?.required">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <ion-text color="danger">Name is required</ion-text>
+          </ion-label><br>
+          <ion-item>
+            <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="person"></ion-icon>
+              <textarea [(ngModel)]="updateTrainings.Lesson" #nameCtrl="ngModel" placeholder="Lesson"
+                name="Lesson" type="text" #Lesson="ngModel" required></textarea>
+            </div>&nbsp;&nbsp;
+          </ion-item>
+          <ion-label *ngIf="!Lesson.valid && Lesson.touched && Lesson.errors?.required">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <ion-text color="danger">Lesson is required</ion-text>
+          </ion-label><br>
+          <ion-item>
+            <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="person"></ion-icon>
+              <textarea [(ngModel)]="updateTrainings.Title" #nameCtrl="ngModel" placeholder="Title" name="Title"
+                type="text" #Title="ngModel" required></textarea>
+            </div>&nbsp;&nbsp;
+          </ion-item>
+          <ion-label *ngIf="!Title.valid && Title.touched && Title.errors?.required">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <ion-text color="danger">Title is required</ion-text>
+          </ion-label><br>
+          <ion-item>
+            <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="person"></ion-icon>
+              <textarea [(ngModel)]="updateTrainings.Description" #nameCtrl="ngModel" placeholder="Description"
+                name="Description" type="text" #Description="ngModel" required></textarea>
+            </div>&nbsp;&nbsp;
+          </ion-item>
+          <ion-label *ngIf="!Description.valid && Description.touched && Description.errors?.required">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <ion-text color="danger">Description is required</ion-text>
+          </ion-label><br>
+        </ion-list>
+        <div class="ion-padding">
+          <!-- [disabled]="addEventsForm.invalid" -->
+          <ion-button (click)="updateTrainingsOrClass(addEventsForm)" type="submit" expand="block">Add</ion-button>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

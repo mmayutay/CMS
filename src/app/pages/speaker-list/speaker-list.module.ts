@@ -4,12 +4,14 @@ import { IonicModule } from '@ionic/angular';
 
 import { SpeakerListPage } from './speaker-list';
 import { SpeakerListPageRoutingModule } from './speaker-list-routing.module';
+import { JwPaginationModule } from 'jw-angular-pagination';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
-    SpeakerListPageRoutingModule
+    SpeakerListPageRoutingModule,
+    JwPaginationModule
   ],
   declarations: [SpeakerListPage],
 })

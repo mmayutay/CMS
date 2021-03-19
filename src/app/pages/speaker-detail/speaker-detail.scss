@@ -18,38 +18,35 @@ ion-toolbar ion-menu-button {
     --color: black;
 }
 
-.speaker-background {
-    position: relative;
-    display: flex;
-    padding-top: var(--ion-safe-area-top);
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    // height: calc(250px + var(--ion-safe-area-top));
-    height: 30%;
-    background:linear-gradient(to top right, #caf3dd 0%, #68ED9A 100%);
-    // background: center / cover url(/assets/img/speaker-background.png) no-repeat;
-}
-
+// .speaker-background {
+//     position: relative;
+//     display: flex;
+//     padding-top: var(--ion-safe-area-top);
+//     align-items: center;
+//     justify-content: center;
+//     flex-direction: column;
+//     // height: calc(250px + var(--ion-safe-area-top));
+//     height: 30%;
+//     background:linear-gradient(to top right, #caf3dd 0%, #68ED9A 100%);
+//     // background: center / cover url(/assets/img/speaker-background.png) no-repeat;
+// }
 .background {
     margin-top: 15%;
 }
 
-.speaker-background img {
-    width: 80px;
-    border-radius: 50%;
-    margin-top: calc(-1 * var(--ion-safe-area-top));
-    background-color: white;
-    border: 2px solid white;
-    padding: 3px;
-}
-
-.speaker-background h2 {
-    position: absolute;
-    bottom: 10px;
-    color: black;
-}
-
+// .speaker-background img {
+//     width: 80px;
+//     border-radius: 50%;
+//     margin-top: calc(-1 * var(--ion-safe-area-top));
+//     background-color: white;
+//     border: 2px solid white;
+//     padding: 3px;
+// }
+// .speaker-background h2 {
+//     position: absolute;
+//     bottom: 10px;
+//     color: black;
+// }
 .md .speaker-background {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
 }
@@ -57,11 +54,14 @@ ion-toolbar ion-menu-button {
 .ios .speaker-background {
     box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
 }
- ion-card{
-     padding: 10px;
-     color: black;
- }
-ion-card h2{
+
+ion-card {
+    padding: 10px;
+    color: black;
+    margin-top: 5%;
+}
+
+ion-card h2 {
     font-family: 'Georgia', serif;
     text-align: center;
     color: black;
@@ -69,10 +69,11 @@ ion-card h2{
     // text-shadow: 4px 4px 6px #000000;
 }
 
-ion-card h3 p{
+ion-card h3 p {
     font-family: 'Times New Roman', serif;
     text-align: justify;
 }
+
 
 /*
  * Speaker Details
