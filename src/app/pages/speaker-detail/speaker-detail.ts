@@ -13,8 +13,8 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 export class SpeakerDetailPage {
   speaker: any;
   segmentModel = "Trainings";
-  public detail: any[] = [];
   public selectedItemId = ''
+  public detail: any[] = [];
 
   constructor(
     private dataProvider: ConferenceData,

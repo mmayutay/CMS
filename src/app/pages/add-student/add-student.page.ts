@@ -36,11 +36,13 @@ export class AddStudentPage implements OnInit {
     private dataRequest: DataRequestsService,
     private activatedRoute: ActivatedRoute,
     private eventRequest: EventTraningServiceService,
-    private request: RequestsService
-    ) { }
+    private request: RequestsService,
+    ) {
+      
+     }
 
   ngOnInit() {
-    console.log(this.getUserRole());
+    this.getUserRole();
      
 
     this.selectedItemId = this.activatedRoute.snapshot.paramMap.get('selectedItemID');
@@ -50,10 +52,11 @@ export class AddStudentPage implements OnInit {
 
 
   getUserRole() {    
-    this.request.getTheUserRoleFromTheStorage().then(res => {
-      this.dataRequest.getNetworkWhereIBelong(res).subscribe(data => {
-        console.log(data[0].roles)
-        this.role = data[0].roles
+    this.request.getTheCurrentUserIdInStorage().then(res => {
+      this.dataRequest.getMyCellgroup({leaderid: res}).subscribe(data => {
+        this.list = data
+        console.log(this.list)
+        // this.role = data[0].roles
       })
     })
   }

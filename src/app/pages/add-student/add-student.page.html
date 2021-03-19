@@ -1,17 +1,12 @@
 <ion-header>
-    <ion-toolbar *ngIf="!addClicked">
-        <ion-icon *ngIf="role != 'Member'" slot="end" color="primary" name="add" (click)="iconAdd()"></ion-icon>
-        <ion-icon slot="start" name="arrow-back" [routerLink]="['/app/tabs/speakers']"></ion-icon>
-        <ion-title>{{ content }}</ion-title>
-    </ion-toolbar>
-    <ion-toolbar *ngIf="addClicked">
-        <ion-icon slot="start" name="arrow-back" [routerLink]="['/app/tabs/speakers']"></ion-icon>
+    <ion-toolbar>
+        <ion-icon slot="start" name="arrow-back" [routerLink]="['/app/tabs/speakers/speaker-details/' + segmentModel + '/' + selectedItemId]"></ion-icon>
         <ion-searchbar type="text" debounce="500" [(ngModel)]="queryText" (ionChange)="updateList($event)" value="search" name="search" placeholder="Search"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card *ngIf="addClicked">
+    <ion-card>
         <table>
             <tr *ngFor="let lists of list; index as i">
                 <td>{{lists.firstname}}</td>
@@ -19,20 +14,6 @@
                 <td>
                     <ion-button size="small" color="primary" (click)="addMember(lists)">Add</ion-button>
                 </td>
-            </tr>
-        </table>
-    </ion-card>
-    <ion-card *ngIf="!addClicked" style="overflow-x:auto;">
-        <table class="table">
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Age</th>
-            </tr>
-            <tr *ngFor="let info of storage; index as i">
-                <td>{{info.firstname}}</td>
-                <td>{{info.lastname}}</td>
-                <td>{{info.age}}</td>
             </tr>
         </table>
     </ion-card>
