@@ -131,22 +131,23 @@
     </ion-fab>
 
     <!-- Display Records -->
-    <ion-card *ngIf="segmentModel == 'trainings'" style="overflow-x:auto;">
-        <p>Trainings</p>
-        <table class="table">
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Score</th>
-            </tr>
-            <tr *ngFor="let info of storage; index as i">
-                <!-- <ion-col>{{ i + 1 }}</ion-col> -->
-                <td>{{info.firstname}}</td>
-                <td>{{info.lastname}}</td>
-                <td>{{info.score}}</td>
-            </tr>
-        </table>
-    </ion-card>
+    <div *ngIf="segmentModel == 'trainings'" class="ion-margin">
+        <ion-grid>
+            <ion-row class="grid">
+                <ion-col size-xs="4">Firstname</ion-col>
+                <ion-col size-xs="4">Lastname</ion-col>
+                <ion-col size-xs="4">Score</ion-col>
+            </ion-row>
+            <ion-row *ngFor="let training of trainings">
+                <ion-col size-xs="4">{{training.lesson}}</ion-col>
+                <ion-col size-xs="4">
+                    {{training.name}}
+                </ion-col>
+                <ion-col size-xs="4">{{training.title}}</ion-col>
+            </ion-row>
+        </ion-grid>
+        <jw-pagination [items]="classes" (changePage)="onChangePage($event)" [pageSize]="10"></jw-pagination>
+    </div>
     <!-- <ion-card  style="overflow-x:auto;"> -->
     <div *ngIf="segmentModel == 'classes'" class="ion-margin">
         <ion-grid>
@@ -155,16 +156,19 @@
                 <ion-col size-xs="4">Lastname</ion-col>
                 <ion-col size-xs="4">Score</ion-col>
             </ion-row>
-            <ion-row *ngFor="let class of classes">
-                <ion-col size-xs="4">{{class.lesson}}</ion-col>
+            <ion-row *ngFor="let in of counter(5); let i = index">
+                <ion-col size-xs="4">{{classes[i + count].lesson}}</ion-col>
                 <ion-col size-xs="4">
-                    {{class.name}}
+                    {{classes[i + count].name}}
                 </ion-col>
-                <ion-col size-xs="4">{{class.title}}</ion-col>
+                <ion-col size-xs="4">{{classes[i + count].title}}</ion-col>
             </ion-row>
         </ion-grid>
-        <jw-pagination [items]="classes" (changePage)="onChangePage($event)" [pageSize]="10"></jw-pagination>
-
+        <div class="pagination">
+            <a (click)="onChangePage($event, 'deduct')">❮</a>
+            <a (click)="onChangePage($event, 'add')">❯</a>
+        </div>
+        <!-- <jw-pagination [items]="classes" (click)="onChangePage($event)" [pageSize]="10"></jw-pagination> -->
     </div>
     <!-- </ion-card> -->
 </ion-content>

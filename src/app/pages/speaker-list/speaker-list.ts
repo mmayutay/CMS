@@ -4,6 +4,7 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { SpeakerFilterPage } from '../speaker-filter/speaker-filter.page';
 import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
+import Swal from 'sweetalert2';
 
 
 
@@ -13,6 +14,8 @@ import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingContr
   styleUrls: ['./speaker-list.scss'],
 })
 export class SpeakerListPage {
+  public paginationCount = 5
+  public count = 0
   public classes;
   public trainings;
   speakers: any[] = [];
@@ -36,8 +39,23 @@ export class SpeakerListPage {
       this.speakers = Array(10).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`}));
       console.log(this.speakers)
   }
-    onChangePage(pageOfItems: Array<any>) {
+    onChangePage(pageOfItems: Array<any>, type) {
       // update current page of items
+      if(type == 'add') {
+        if(this.classes.length < (this.paginationCount + 5)) {
+          Swal.fire('Sorry', 'No Data to show!', 'error')
+        }else {
+          this.paginationCount += 5
+          this.count += 5
+        }
+      }else {
+        if((this.count - 5) < 0) {
+          Swal.fire('Sorry', 'No Data to show!', 'error')
+        }else {
+          this.paginationCount -= 5
+          this.count -= 5
+        }
+      }
       this.pageOfItems = pageOfItems;
       console.log("DFDFD: ", this.pageOfItems)
     }
@@ -53,6 +71,10 @@ export class SpeakerListPage {
     });
   }
 
+  counter(i: number) {
+    return new Array(i);
+  }
+
   segmentModels(value) {
     this.segmentModel = value.target.value;
   }
@@ -61,6 +83,7 @@ export class SpeakerListPage {
     events.subscribe((data: any) => {
       this.trainings = data.trainings
       this.classes = data.classes
+      console.log(this.classes)
     })
   }
 
