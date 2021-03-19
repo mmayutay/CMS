@@ -3,89 +3,75 @@
  */
 
 ion-toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    --background: transparent;
-    --color: black;
-    font-size: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  --background: transparent;
+  --color: black;
+  font-size: 30px;
 }
 
 ion-toolbar ion-button,
 ion-toolbar ion-back-button,
 ion-toolbar ion-menu-button {
-    --color: black;
+  --color: black;
 }
 
-// .speaker-background {
-//     position: relative;
-//     display: flex;
-//     padding-top: var(--ion-safe-area-top);
-//     align-items: center;
-//     justify-content: center;
-//     flex-direction: column;
-//     // height: calc(250px + var(--ion-safe-area-top));
-//     height: 30%;
-//     background:linear-gradient(to top right, #caf3dd 0%, #68ED9A 100%);
-//     // background: center / cover url(/assets/img/speaker-background.png) no-repeat;
-// }
 .background {
-    margin-top: 15%;
+  margin-top: 15%;
 }
 
-// .speaker-background img {
-//     width: 80px;
-//     border-radius: 50%;
-//     margin-top: calc(-1 * var(--ion-safe-area-top));
-//     background-color: white;
-//     border: 2px solid white;
-//     padding: 3px;
-// }
-// .speaker-background h2 {
-//     position: absolute;
-//     bottom: 10px;
-//     color: black;
-// }
 .md .speaker-background {
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px,
+    rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
 }
 
 .ios .speaker-background {
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
 }
 
 ion-card {
-    padding: 10px;
-    color: black;
-    margin-top: 5%;
+  padding: 10px;
+  color: black;
+  margin-top: 5%;
 }
 
 ion-card h2 {
-    font-family: 'Georgia', serif;
-    text-align: center;
-    color: black;
-    text-shadow: 2px 2px 4px #68ED9A;
-    // text-shadow: 4px 4px 6px #000000;
+  font-family: "Georgia", serif;
+  text-align: center;
+  color: black;
+  text-shadow: 2px 2px 4px #68ed9a;
+  // text-shadow: 4px 4px 6px #000000;
 }
 
 ion-card h3 p {
-    font-family: 'Times New Roman', serif;
-    text-align: justify;
+  font-family: "Times New Roman", serif;
+  text-align: justify;
 }
-
 
 /*
  * Speaker Details
  */
 
 .speaker-detail p {
-    margin-left: 6px;
-    margin-right: 6px;
+  margin-left: 6px;
+  margin-right: 6px;
 }
 
 .speaker-detail hr {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background: var(--ion-color-step-150, #d7d8da);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: var(--ion-color-step-150, #d7d8da);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }

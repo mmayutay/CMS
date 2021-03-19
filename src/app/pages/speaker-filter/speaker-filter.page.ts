@@ -56,6 +56,7 @@ export class SpeakerFilterPage implements OnInit {
     }else {
       const deleteItem = this.eventRequest.deleteClassOrTrainings(this.classes[this.classes.indexOf(item)].id, type);
       deleteItem.subscribe((response: any) => {
+        console.log(response)
         this.router.navigate(['/app/tabs/speakers'])
         this.modalCtrl.dismiss()
       })
