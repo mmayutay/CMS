@@ -44,8 +44,6 @@ export class AddStudentPage implements OnInit {
     isAttended: true
   }
 
-
-
   constructor(
     private dataRequest: DataRequestsService,
     private activatedRoute: ActivatedRoute,
@@ -57,7 +55,6 @@ export class AddStudentPage implements OnInit {
 
   ngOnInit() {
     this.getUserRole();
-     
 
     this.selectedItemId = this.activatedRoute.snapshot.paramMap.get('selectedItemID');
     this.segmentModel = this.activatedRoute.snapshot.paramMap.get('typeOfAdd');
@@ -70,7 +67,6 @@ export class AddStudentPage implements OnInit {
       this.dataRequest.getMyCellgroup({leaderid: res}).subscribe(data => {
         this.list = data
         console.log(this.list)
-        // this.role = data[0].roles
       })
     })
   }

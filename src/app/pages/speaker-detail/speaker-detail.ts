@@ -6,6 +6,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service'
 import { calendar } from 'app/interfaces/user-options';
 import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+import { DataDisplayProvider } from 'app/providers/data-editing';
 
 @Component({
   selector: 'page-speaker-detail',
@@ -29,7 +30,8 @@ export class SpeakerDetailPage {
     public inAppBrowser: InAppBrowser,
     private eventRequest: EventTraningServiceService,
     private datas: calendar,
-    private dataRequest: DataRequestsService
+    private dataRequest: DataRequestsService,
+    private dataDisplays: DataDisplayProvider
   ) {}
 
   ionViewWillEnter() {

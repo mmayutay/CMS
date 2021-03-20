@@ -4,8 +4,7 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { SpeakerFilterPage } from '../speaker-filter/speaker-filter.page';
 import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
-
-
+import { DataDisplayProvider } from 'app/providers/data-editing';
 
 @Component({
   selector: 'page-speaker-list',
@@ -25,10 +24,8 @@ export class SpeakerListPage {
     private eventsService: EventTraningServiceService,
     private request: RequestsService,
     public modalCtrl: ModalController,
-    public routerOutlet: IonRouterOutlet
-    
-
-
+    public routerOutlet: IonRouterOutlet,
+    private dataDisplays: DataDisplayProvider
     ) {}
 
 
@@ -38,9 +35,9 @@ export class SpeakerListPage {
       this.getClassAndTrainings(id)
     })
 
-    this.confData.getSpeakers().subscribe((speakers: any[]) => {
-      this.speakers = speakers;
-    });
+    // this.confData.getSpeakers().subscribe((speakers: any[]) => {
+    //   this.speakers = speakers;
+    // });
   }
 
   segmentModels(value) {
@@ -49,8 +46,9 @@ export class SpeakerListPage {
   getClassAndTrainings(id) {
     const events = this.eventsService.getTrainingsAndClasses(id)
     events.subscribe((data: any) => {
-      this.trainings = data.trainings
-      this.classes = data.classes
+      this.dataDisplays.distributeDatas(data)
+      this.trainings =  this.dataDisplays.trainings
+      this.classes = this.dataDisplays.classes
     })
   }
 

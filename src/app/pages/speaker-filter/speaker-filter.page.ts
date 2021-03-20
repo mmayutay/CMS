@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Config, ModalController, NavParams } from '@ionic/angular';
 import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
 import { RequestsService } from 'app/logInAndSignupService/requests.service';
+import { DataDisplayProvider } from 'app/providers/data-editing';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class SpeakerFilterPage implements OnInit {
     public modalCtrl: ModalController,
     private eventRequest: EventTraningServiceService,
     private request: RequestsService,
-    private router: Router
+    private router: Router,
+    private dataDisplays: DataDisplayProvider
   ) { }
 
   ngOnInit() {
