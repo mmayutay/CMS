@@ -26,9 +26,7 @@ export class AddStudentPage implements OnInit {
   content: string;
   public list: any;
   public holder: any;
-  public details;
   public addClicked = false;
-  isItemAvailable = false;
   public role = "";
 
   // This is for the new user

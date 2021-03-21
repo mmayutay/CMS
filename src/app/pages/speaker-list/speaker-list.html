@@ -20,7 +20,7 @@
     </ion-header>
     <!-- *ngIf="ios" [(ngModel)]="segment" (ionChange)="getAllTheEventsAndDisplay($event)" -->
     <!-- [(ngModel)]="segmentModel" name="segmentModel" ngModel -->
-    <ion-card>
+    <ion-card slot="fixed" style="width: 100%;margin: 0;">
         <ion-segment (ionChange)="segmentModels($event)" value="Trainings" scrollable="true">
             <ion-segment-button value="Trainings">
                 Trainings
@@ -39,7 +39,7 @@
             </ion-select>
             <!-- </ion-segment-button> -->
         </ion-segment>
-    </ion-card>
+    </ion-card><br><br>
 
     <div *ngIf="segmentModel === 'Trainings'">
         <ion-grid fixed>

@@ -53,6 +53,13 @@ export class DataDisplayProvider {
         })
     }
 
-
+    // This function is to allow a user to add a class or a trainings
+    addNewClassesOrTrainings(typeOfAdd, value) {
+        if(typeOfAdd == 'Trainings') {
+            this.trainings.push(value)
+        }else {
+            this.classes.push(value)
+        }
+    }
 
 }

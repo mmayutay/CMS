@@ -20,7 +20,11 @@ export class SpeakerDetailPage {
   speaker: any;
   segmentModel = "Trainings";
   public selectedItemId = ''
-  public detail: any[] = [];
+  public detail = {
+    name: '',
+    title: '',
+    description: ''
+  };
 
   constructor(
     private route: ActivatedRoute,

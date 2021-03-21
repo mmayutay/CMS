@@ -42,7 +42,7 @@ export class EventTraningServiceService {
 
 
 
-  // This function is to get the trainings and a classes that a certain leader made
+  // This function is to get all the trainings and classes
   getTrainingsAndClasses(instructorId) {
     return this.http.get(this.url + 'trainings-by-instructor/' + instructorId)
   }
@@ -81,5 +81,10 @@ export class EventTraningServiceService {
   // This function will delete the selected item in class or in trainings
   deleteClassOrTrainings(selectedItemId, typeSelected) {
     return this.http.post(this.url + 'trainings-by-instructor/delete-training-or-class/' + selectedItemId, { typeSelected: typeSelected })
+  }
+
+  // This function will retrieve all the class and trainings posted by the current user
+  returnClassAndTrainingsByUser(id) {
+    return this.http.get(this.url + 'trainings-by-instructor/return-by-current-user/' + id)
   }
 }

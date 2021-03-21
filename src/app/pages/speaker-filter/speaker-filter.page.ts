@@ -27,7 +27,7 @@ export class SpeakerFilterPage implements OnInit {
     const currentUser = this.request.getTheCurrentUserIdInStorage()
     const userTraAndCla = this.eventRequest
     currentUser.then(id => {
-      userTraAndCla.getTrainingsAndClasses(id).subscribe((data: any) => {
+      userTraAndCla.returnClassAndTrainingsByUser(id).subscribe((data: any) => {
         this.trainings = data.trainings
         this.classes = data.classes
       })

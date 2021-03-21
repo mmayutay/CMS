@@ -34,10 +34,6 @@ export class SpeakerListPage {
     getCurrentUser.then((id) => {
       this.getClassAndTrainings(id)
     })
-
-    // this.confData.getSpeakers().subscribe((speakers: any[]) => {
-    //   this.speakers = speakers;
-    // });
   }
 
   segmentModels(value) {

@@ -4,17 +4,18 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DashboardPopoverPageRoutingModule } from './dashboard-popover-routing.module';
+// import { DashboardPopoverPageRoutingModule } from './dashboard-popover-routing.module';
 
-import { DashboardPopoverPage } from './dashboard-popover.page';
+// import { DashboardPopoverPage } from './dashboard-popover.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DashboardPopoverPageRoutingModule
+    // DashboardPopoverPageRoutingModule
   ],
-  declarations: [DashboardPopoverPage]
+  // declarations: [DashboardPopoverPage]
+  declarations: []
 })
 export class DashboardPopoverPageModule {}
