@@ -73,6 +73,7 @@ export class SpeakerListPage {
   segmentModels(value) {
     this.segmentModel = value.target.value;
   }
+  
   getClassAndTrainings(id) {
     const events = this.eventsService.getTrainingsAndClasses(id)
     events.subscribe((data: any) => {
