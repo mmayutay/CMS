@@ -9,20 +9,26 @@
 </ion-header>
 
 <ion-content>
+  <!-- Navigation bar top -->
+  <ion-segment *ngIf="!userVip">
+    <ion-segment-button (click)="typeOfViewController('Calendar')">
+      <ion-icon name="calendar"></ion-icon>
+      <ion-label>Calendar View</ion-label>
+    </ion-segment-button>
 
-    <!-- Navigation bar top -->
-    <ion-segment *ngIf="!userVip">
-      <ion-segment-button (click)="typeOfViewController('Calendar')">
-        <ion-icon name="calendar"></ion-icon>
-        <ion-label>Calendar View</ion-label>
-      </ion-segment-button>
+    <ion-segment-button (click)="typeOfViewController('Table')">
+      <ion-icon name="grid"></ion-icon>
+      <ion-label>Table View</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
-      <ion-segment-button (click)="typeOfViewController('Table')">
-        <ion-icon name="grid"></ion-icon>
-        <ion-label>Table View</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-    <ion-card *ngIf="hideCalendar">
+  <ion-card>
+    Reporting Display
+    <ion-select (ionChange)="typeOfDisplay($event)" name="code" ngModel class="input" placeholder="Type">
+      <ion-select-option *ngFor="let type of typeOfDisplays" [value]="type">{{ type }}</ion-select-option>
+    </ion-select>  </ion-card>
+
+  <ion-card *ngIf="hideCalendar">
 
     <!-- Calendar View Card -->
     <ion-card *ngIf="!typeOfView">
