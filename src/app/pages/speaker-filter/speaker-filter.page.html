@@ -1,0 +1,37 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title style="width: 100%; text-align: center;">
+      Trainings and Classes Posted
+    </ion-title>
+
+    <ion-buttons slot="start">
+        <ion-icon class="icon" name="arrow-back" (click)="applyFilters()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list [lines]="ios ? 'inset' : 'full'">
+    <ion-list-header> <b>Trainings</b> </ion-list-header>
+    <ion-item *ngIf="trainings.length === 0">
+      <ion-label>No trainings to show</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let track of trainings">
+      <ion-label>{{track.title}}</ion-label>
+      <ion-button color="success" (click)="updateSelectedItem('Trainings', track)"><ion-icon name="create"></ion-icon></ion-button>
+      <ion-button color="danger" (click)="deleteSelectedItem('Trainings', track)"><ion-icon name="trash"></ion-icon></ion-button>
+    </ion-item>
+
+    <ion-list-header><b>Classes</b></ion-list-header>
+    <ion-item *ngIf="classes.length === 0">
+      <ion-label>No trainings to show</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let track of classes">
+      <ion-label>{{track.title}}</ion-label>
+      <ion-button color="success" (click)="updateSelectedItem('Class', track)"><ion-icon name="create"></ion-icon></ion-button>
+      <ion-button color="danger" (click)="deleteSelectedItem('Class', track)"><ion-icon name="trash"></ion-icon></ion-button>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

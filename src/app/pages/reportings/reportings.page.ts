@@ -11,6 +11,7 @@ import { MenuController } from "@ionic/angular";
   styleUrls: ["./reportings.page.scss"],
 })
 export class ReportingsPage implements OnInit {
+  public hideCalendar = false
   public yearToFilter = 2021;
   //This is an array for yearly display
   public yearChoices = [];

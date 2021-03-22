@@ -4,18 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-// import { DashboardPopoverPageRoutingModule } from './dashboard-popover-routing.module';
+// import { SpeakerFilterPageRoutingModule } from './speaker-filter-routing.module';
 
-// import { DashboardPopoverPage } from './dashboard-popover.page';
+// import { SpeakerFilterPage } from './speaker-filter.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    // DashboardPopoverPageRoutingModule
+    // SpeakerFilterPageRoutingModule
   ],
-  // declarations: [DashboardPopoverPage]
+  // declarations: [SpeakerFilterPage]
   declarations: []
+
 })
-export class DashboardPopoverPageModule {}
+export class SpeakerFilterPageModule {}

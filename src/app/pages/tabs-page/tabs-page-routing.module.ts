@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs-page';
 import { SchedulePage } from '../schedule/schedule';
-import { ClassesDetailsPageModule } from '../classes-details/classes-details.module';
 
 
 const routes: Routes = [
@@ -63,10 +62,6 @@ const routes: Routes = [
         path: '',
         redirectTo: '/app/tabs/schedule',
         pathMatch: 'full'
-      },
-      {
-        path: '/classes-details',
-        loadChildren: () => import('.././classes-details/classes-details.module').then( m => m.ClassesDetailsPageModule)
       },
     ]
   },

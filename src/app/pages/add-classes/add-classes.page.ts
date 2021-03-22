@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
+import { DataDisplayProvider } from 'app/providers/data-editing';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-classes',
@@ -24,7 +26,9 @@ export class AddClassesPage implements OnInit {
 
   constructor(
     private request: RequestsService,
-    private eventsService: EventTraningServiceService
+    private eventsService: EventTraningServiceService,
+    private dataDisplays: DataDisplayProvider,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -38,7 +42,8 @@ export class AddClassesPage implements OnInit {
   addClass(data) {
     const addClass = this.eventsService.addTrainingsOrClasses(this.addClasses)
     addClass.subscribe((response) => {
-      console.log(response)
+      this.dataDisplays.addNewClassesOrTrainings('Classes', response)
+      this.router.navigate(['/app/tabs/speakers'])
     })
   }
 

@@ -76,24 +76,21 @@ const routes: Routes = [
     loadChildren: () => import('./pages/add-training/add-training.module').then( m => m.AddTrainingPageModule)
   },
   {
-    path: 'classes-details',
-    loadChildren: () => import('./pages/classes-details/classes-details.module').then( m => m.ClassesDetailsPageModule)
-  },
-  {
     path: 'add-classes',
     loadChildren: () => import('./pages/add-classes/add-classes.module').then( m => m.AddClassesPageModule)
+  },
+  {
+    path: 'update-class-or-trainings/:typeUpdate/:selectedItemID',
+    loadChildren: () => import('./pages/update-class-or-trainings/update-class-or-trainings.module').then( m => m.UpdateClassOrTrainingsPageModule)
+  },
+  {
+    path: 'speaker-filter',
+    loadChildren: () => import('./pages/speaker-filter/speaker-filter.module').then( m => m.SpeakerFilterPageModule)
   },
   {
     path: 'add-student/:typeOfAdd/:selectedItemID',
     loadChildren: () => import('./pages/add-student/add-student.module').then( m => m.AddStudentPageModule)
   }
-
-
-
-
-
-
-
 ];
 
 @NgModule({
