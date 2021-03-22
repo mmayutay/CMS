@@ -22,9 +22,6 @@ import { AuxiliaryPage } from './pages/auxiliary/auxiliary.page';
 import { ModalPagePage } from './pages/modal-page/modal-page.page';
 import { DashboardPopoverPage } from './pages/dashboard-popover/dashboard-popover.page';
 
-
-import { NgxQRCodeModule } from 'ngx-qrcode2';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // import {MatTableModule} from '@angular/material/table';
@@ -48,7 +45,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }),
-    NgxQRCodeModule,
     BrowserAnimationsModule
   ],
   declarations: [AppComponent, DashboardPopoverPage, SpeakerFilterPage],
@@ -57,8 +53,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MinistriesPage,
     AuxiliaryPage,
     AccountPage,
-    ModalPagePage,
-    QRScanner
+    ModalPagePage
   ],
   entryComponents: [DashboardPopoverPage, SpeakerFilterPage],
   

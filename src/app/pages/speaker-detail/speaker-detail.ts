@@ -6,6 +6,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service'
 import { calendar } from 'app/interfaces/user-options';
 import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+import { DataDisplayProvider } from 'app/providers/data-editing';
 
 @Component({
   selector: 'page-speaker-detail',
@@ -13,11 +14,17 @@ import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
   styleUrls: ['./speaker-detail.scss'],
 })
 export class SpeakerDetailPage {
+  public deleteItems = []
+  public isToDelete = false
   public classOrTrainingStudents = []
   speaker: any;
   segmentModel = "Trainings";
   public selectedItemId = ''
-  public detail: any[] = [];
+  public detail = {
+    name: '',
+    title: '',
+    description: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -27,11 +34,11 @@ export class SpeakerDetailPage {
     public inAppBrowser: InAppBrowser,
     private eventRequest: EventTraningServiceService,
     private datas: calendar,
-    private dataRequest: DataRequestsService
+    private dataRequest: DataRequestsService,
+    private dataDisplays: DataDisplayProvider
   ) {}
 
   ionViewWillEnter() {
-    // this.dataProvider.load().subscribe((data: any) => {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
       this.selectedItemId = speakerId
       this.segmentModel = this.route.snapshot.paramMap.get('addType');
@@ -47,86 +54,7 @@ export class SpeakerDetailPage {
             this.datas.studentsNames.length = 0
           }
         })
-      // })
-      // if (data && data.speakers) {
-      //   for (const speaker of data.speakers) {
-      //     if (speaker && speaker.id === speakerId) {
-      //       this.speaker = speaker;
-      //       break;
-      //     }
-      //   }
-      // }
     });
-  }
-
-  openExternalUrl(url: string) {
-    this.inAppBrowser.create(
-      url,
-      '_blank'
-    );
-  }
-  
-  async openSpeakerShare(speaker: any) {
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Share ' + speaker.name,
-      buttons: [
-        {
-          text: 'Copy Link',
-          handler: () => {
-            console.log(
-              'Copy link clicked on https://twitter.com/' + speaker.twitter
-            );
-            if (
-              (window as any).cordova &&
-              (window as any).cordova.plugins.clipboard
-            ) {
-              (window as any).cordova.plugins.clipboard.copy(
-                'https://twitter.com/' + speaker.twitter
-              );
-            }
-          }
-        },
-        {
-          text: 'Share via ...'
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        }
-      ]
-    });
-
-    await actionSheet.present();
-  }
-
-  async openContact(speaker: any) {
-    const mode = 'ios'; // this.config.get('mode');
-
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Contact ' + speaker.name,
-      buttons: [
-        {
-          text: `Email ( ${speaker.email} )`,
-          icon: mode !== 'ios' ? 'mail' : null,
-          handler: () => {
-            window.open('mailto:' + speaker.email);
-          }
-        },
-        {
-          text: `Call ( ${speaker.phone} )`,
-          icon: mode !== 'ios' ? 'call' : null,
-          handler: () => {
-            window.open('tel:' + speaker.phone);
-          }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        }
-      ]
-    });
-
-    await actionSheet.present();
   }
 
   // This function will add the user 
@@ -134,14 +62,9 @@ export class SpeakerDetailPage {
     student.forEach(element => {
     const getUser = this.dataRequest.getStudentsData(element.students_id)
       getUser.subscribe((response) => {
-        console.log(response)
         this.classOrTrainingStudents.push(response[0])
       })
     });
-  }
-   
-  segmentModels(value) {
-    this.segmentModel = value.target.value;
   }
  
   navigateToAddStudent() {
@@ -151,5 +74,33 @@ export class SpeakerDetailPage {
   navigateBackToSpeakers() {
     this.classOrTrainingStudents.length = 0
     this.redirect.navigateByUrl('/app/tabs/speakers');
+  }
+
+  wantToDelete() {
+    if(this.isToDelete) {
+      this.isToDelete = false
+    }else {
+      this.isToDelete = true
+    }
+  }
+
+  getValue(value) {
+    if(!this.deleteItems.includes(value)) {
+      this.deleteItems.push(value)
+    }else {
+      this.deleteItems.splice(this.deleteItems.indexOf(value), 1)
+    }
+  }
+
+  deleteSelectedItems() {
+    var arrayOfId = []
+    this.deleteItems.forEach(element => {
+      arrayOfId.push(element.id)
+      this.classOrTrainingStudents.splice(this.classOrTrainingStudents.indexOf(element), 1)
+    })
+    const studentsID = this.eventRequest.deleteStudents(arrayOfId)
+    studentsID.subscribe((response) => {
+      console.log(response)
+    })
   }
 }

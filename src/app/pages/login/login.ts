@@ -19,6 +19,8 @@ export class LoginPage {
   public submitted = false;
   public userAuthenticated = true
   public userLogin;
+  public showPass = false;
+  public type = 'password';
 
   constructor(
     public menu: MenuController,
@@ -35,6 +37,15 @@ export class LoginPage {
     this.menu.enable(false)
   }
 
+  showPassword() {
+    this.showPass = !this.showPass;
+    if(this.showPass){
+      this.type = 'text';
+    } else {
+      this.type = 'password';
+    }
+ }
+ 
   onLogin() {
     this.request.loginService(this.login).subscribe(res => {
       console.log(res)

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
+import { DataDisplayProvider } from 'app/providers/data-editing';
 
 @Component({
   selector: 'app-update-class-or-trainings',
@@ -22,7 +23,8 @@ export class UpdateClassOrTrainingsPage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private eventRequest: EventTraningServiceService
+    private eventRequest: EventTraningServiceService,
+    private updatedData: DataDisplayProvider
   ) { }
 
   ngOnInit() {
@@ -43,7 +45,7 @@ export class UpdateClassOrTrainingsPage implements OnInit {
   updateTrainingsOrClass(data) {
     const updateSelectedItem = this.eventRequest.updateClassOrTrainings(this.selectedItemID, this.updateTrainings)
     updateSelectedItem.subscribe((data: any) => {
-      // data.reset();
+      this.updatedData.updatingCertainEventOrClass(this.updateTrainings, data)
       this.router.navigate(['/app/tabs/speakers'])
     })
   }

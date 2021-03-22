@@ -6,8 +6,8 @@
         <ion-title>Trainings/Classes</ion-title>
         <ion-button slot="end" (click)="presentFilter()">
             <span>
-        <ion-icon slot="icon-only" name="options"></ion-icon>
-      </span>
+                <ion-icon slot="icon-only" name="options"></ion-icon>
+            </span>
         </ion-button>
     </ion-toolbar>
 </ion-header>
@@ -19,141 +19,155 @@
         </ion-toolbar>
     </ion-header>
     <ion-card>
-        <ion-segment (ionChange)="segmentModels($event)" value="Trainings" scrollable="true">
-            <ion-segment-button value="Trainings">
-                Trainings
-            </ion-segment-button>
-            <ion-segment-button value="Classes">
-                Classes
-            </ion-segment-button>
-            <ion-select (ionChange)="segmentModels($event)" placeholder="RECORDS" okText="Okay" cancelText="Dismiss">
-                <ion-select-option value="trainings">TRAININGS</ion-select-option>
-                <ion-select-option value="classes">CLASSES</ion-select-option>
-            </ion-select>
-        </ion-segment>
+        <!-- *ngIf="ios" [(ngModel)]="segment" (ionChange)="getAllTheEventsAndDisplay($event)" -->
+        <!-- [(ngModel)]="segmentModel" name="segmentModel" ngModel -->
+        <ion-card slot="fixed" style="width: 100%;margin: 0;">
+            <ion-segment (ionChange)="segmentModels($event)" value="Trainings" scrollable="true">
+                <ion-segment-button value="Trainings">
+                    Trainings
+                </ion-segment-button>
+                <ion-segment-button value="Classes">
+                    Classes
+                </ion-segment-button>
+                <ion-select (ionChange)="segmentModels($event)" placeholder="RECORDS" okText="Okay" cancelText="Dismiss">
+                    <ion-select-option value="trainings">TRAININGS</ion-select-option>
+                    <ion-select-option value="classes">CLASSES</ion-select-option>
+                </ion-select>
+            </ion-segment>
+        </ion-card><br><br>
+
+        <div *ngIf="segmentModel === 'Trainings'">
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col size="12" size-md="6" *ngFor="let speaker of trainings">
+                        <ion-card class="speaker-card">
+                            <ion-card-header>
+                                <ion-item detail="false" lines="none" class="speaker-item" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                    <!-- <ion-avatar slot="start">
+                                    <img [src]="speaker.profilePic" [alt]="speaker.name + ' profile picture'">
+                                </ion-avatar> -->
+                                    <ion-label>
+                                        <h2>{{speaker.name}}</h2>
+                                        <p>{{speaker.title}}</p>
+                                    </ion-label>
+                                </ion-item>
+                            </ion-card-header>
+
+                            <ion-card-content>
+                                <ion-list lines="none">
+                                    <ion-item routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                        <ion-label>
+                                            <h3>{{speaker.lesson}}</h3>
+                                        </ion-label>
+                                    </ion-item>
+
+                                    <ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                        <ion-label>
+                                            <h3>About {{speaker.name}}</h3>
+                                        </ion-label>
+                                    </ion-item>
+                                </ion-list>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+
+        <div *ngIf="segmentModel === 'Classes'">
+            <ion-grid fixed>
+                <ion-row>
+                    <ion-col size="12" size-md="6" *ngFor="let speaker of classes">
+                        <ion-card class="speaker-card">
+                            <ion-card-header>
+                                <ion-item detail="false" lines="none" class="speaker-item" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                    <!-- "/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}" -->
+                                    <!-- <ion-avatar slot="start">
+                                    <img [src]="speaker.profilePic" [alt]="speaker.name + ' profile picture'">
+                                </ion-avatar> -->
+                                    <ion-label>
+                                        <h2>{{speaker.name}}</h2>
+                                        <p>{{speaker.title}}</p>
+                                    </ion-label>
+                                </ion-item>
+                            </ion-card-header>
+
+                            <ion-card-content>
+                                <ion-list lines="none">
+                                    <ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                        <!-- "/app/tabs/speakers/session/{{speaker.id}}" -->
+                                        <ion-label>
+                                            <h3>{{speaker.lesson}}</h3>
+                                        </ion-label>
+                                    </ion-item>
+
+                                    <ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                        <ion-label>
+                                            <h3>About {{speaker.name}}</h3>
+                                        </ion-label>
+                                    </ion-item>
+                                </ion-list>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+
+        <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab *ngIf="segmentModel === 'Trainings'">
+            <ion-fab-button>
+                <ion-icon name="add" [routerLink]="['/add-training']"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+
+        <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab *ngIf="segmentModel === 'Classes'">
+            <ion-fab-button>
+                <ion-icon name="add" [routerLink]="['/add-classes']"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+
+        <!-- Display Records -->
+        <div *ngIf="segmentModel == 'trainings'" class="ion-margin">
+            <ion-grid>
+                <ion-row class="grid">
+                    <ion-col size-xs="4">Firstname</ion-col>
+                    <ion-col size-xs="4">Lastname</ion-col>
+                    <ion-col size-xs="4">Score</ion-col>
+                </ion-row>
+                <ion-row *ngFor="let training of trainings">
+                    <ion-col size-xs="4">{{training.lesson}}</ion-col>
+                    <ion-col size-xs="4">
+                        {{training.name}}
+                    </ion-col>
+                    <ion-col size-xs="4">{{training.title}}</ion-col>
+                </ion-row>
+            </ion-grid>
+            <div class="pagination">
+                <a (click)="onChangePage($event, 'deduct')">❮</a>
+                <a (click)="onChangePage($event, 'add')">❯</a>
+            </div>
+        </div>
+        <div *ngIf="segmentModel == 'classes'" class="ion-margin">
+            <ion-grid>
+                <ion-row class="grid">
+                    <ion-col size-xs="4">Firstname</ion-col>
+                    <ion-col size-xs="4">Lastname</ion-col>
+                    <ion-col size-xs="4">Score</ion-col>
+                </ion-row>
+                <ion-row *ngFor="let in of counter(5); let i = index">
+                    <ion-col size-xs="4">{{classes[i + count].lesson}}</ion-col>
+                    <ion-col size-xs="4">
+                        {{classes[i + count].name}}
+                    </ion-col>
+                    <ion-col size-xs="4">{{classes[i + count].title}}</ion-col>
+                </ion-row>
+            </ion-grid>
+            <div class="pagination">
+                <a (click)="onChangePage($event, 'deduct')">❮</a>
+                <a (click)="onChangePage($event, 'add')">❯</a>
+            </div>
+            <!-- <a>❮</a>
+            <a style="float: right;">❯</a> -->
+        </div>
     </ion-card>
-
-    <div *ngIf="segmentModel === 'Trainings'">
-        <ion-grid fixed>
-            <ion-row>
-                <ion-col size="12" size-md="6" *ngFor="let speaker of trainings">
-                    <ion-card class="speaker-card">
-                        <ion-card-header>
-                            <ion-item detail="false" lines="none" class="speaker-item" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
-                                <ion-label>
-                                    <h2>{{speaker.name}}</h2>
-                                    <p>{{speaker.title}}</p>
-                                </ion-label>
-                            </ion-item>
-                        </ion-card-header>
-
-                        <ion-card-content>
-                            <ion-list lines="none">
-                                <ion-item routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
-                                    <ion-label>
-                                        <h3>{{speaker.lesson}}</h3>
-                                    </ion-label>
-                                </ion-item>
-
-                                <ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
-                                    <ion-label>
-                                        <h3>About {{speaker.name}}</h3>
-                                    </ion-label>
-                                </ion-item>
-                            </ion-list>
-                        </ion-card-content>
-                    </ion-card>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </div>
-    
-    <div *ngIf="segmentModel === 'Classes'">
-        <ion-grid fixed>
-            <ion-row>
-                <ion-col size="12" size-md="6" *ngFor="let speaker of classes">
-                    <ion-card class="speaker-card">
-                        <ion-card-header>
-                            <ion-item detail="false" lines="none" class="speaker-item" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
-                                <ion-label>
-                                    <h2>{{speaker.name}}</h2>
-                                    <p>{{speaker.title}}</p>
-                                </ion-label>
-                            </ion-item>
-                        </ion-card-header>
-
-                        <ion-card-content>
-                            <ion-list lines="none">
-                                <ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
-                                    <ion-label>
-                                        <h3>{{speaker.lesson}}</h3>
-                                    </ion-label>
-                                </ion-item>
-
-                                <ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
-                                    <ion-label>
-                                        <h3>About {{speaker.name}}</h3>
-                                    </ion-label>
-                                </ion-item>
-                            </ion-list>
-                        </ion-card-content>
-                    </ion-card>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </div>
-
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab *ngIf="segmentModel === 'Trainings'">
-        <ion-fab-button>
-            <ion-icon name="add" [routerLink]="['/add-training']"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
-
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab *ngIf="segmentModel === 'Classes'">
-        <ion-fab-button>
-            <ion-icon name="add" [routerLink]="['/add-classes']"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
-
-    <!-- Display Records -->
-    <div *ngIf="segmentModel == 'trainings'" class="ion-margin">
-        <ion-grid>
-            <ion-row class="grid">
-                <ion-col size-xs="4">Firstname</ion-col>
-                <ion-col size-xs="4">Lastname</ion-col>
-                <ion-col size-xs="4">Score</ion-col>
-            </ion-row>
-            <ion-row *ngFor="let training of trainings">
-                <ion-col size-xs="4">{{training.lesson}}</ion-col>
-                <ion-col size-xs="4">
-                    {{training.name}}
-                </ion-col>
-                <ion-col size-xs="4">{{training.title}}</ion-col>
-            </ion-row>
-        </ion-grid>
-        <div class="pagination">
-            <a (click)="onChangePage($event, 'deduct')">❮</a>
-            <a (click)="onChangePage($event, 'add')">❯</a>
-        </div>
-    </div>
-    <div *ngIf="segmentModel == 'classes'" class="ion-margin">
-        <ion-grid>
-            <ion-row class="grid">
-                <ion-col size-xs="4">Firstname</ion-col>
-                <ion-col size-xs="4">Lastname</ion-col>
-                <ion-col size-xs="4">Score</ion-col>
-            </ion-row>
-            <ion-row *ngFor="let in of counter(5); let i = index">
-                <ion-col size-xs="4">{{classes[i + count].lesson}}</ion-col>
-                <ion-col size-xs="4">
-                    {{classes[i + count].name}}
-                </ion-col>
-                <ion-col size-xs="4">{{classes[i + count].title}}</ion-col>
-            </ion-row>
-        </ion-grid>
-        <div class="pagination">
-            <a (click)="onChangePage($event, 'deduct')">❮</a>
-            <a (click)="onChangePage($event, 'add')">❯</a>
-        </div>
-    </div>
 </ion-content>

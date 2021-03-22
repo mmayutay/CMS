@@ -7,6 +7,7 @@ import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingContr
 import Swal from 'sweetalert2';
 
 
+import { DataDisplayProvider } from 'app/providers/data-editing';
 
 @Component({
   selector: 'page-speaker-list',
@@ -28,10 +29,8 @@ export class SpeakerListPage {
     private eventsService: EventTraningServiceService,
     private request: RequestsService,
     public modalCtrl: ModalController,
-    public routerOutlet: IonRouterOutlet
-    
-
-
+    public routerOutlet: IonRouterOutlet,
+    private dataDisplays: DataDisplayProvider
     ) {}
 
     onChangePage(pageOfItems: Array<any>, type) {
@@ -60,10 +59,6 @@ export class SpeakerListPage {
     getCurrentUser.then((id) => {
       this.getClassAndTrainings(id)
     })
-
-    this.confData.getSpeakers().subscribe((speakers: any[]) => {
-      this.speakers = speakers;
-    });
   }
 
   counter(i: number) {
@@ -80,6 +75,9 @@ export class SpeakerListPage {
       this.trainings = data.trainings
       this.classes = data.classes
       console.log(this.classes)
+      this.dataDisplays.distributeDatas(data)
+      this.trainings =  this.dataDisplays.trainings
+      this.classes = this.dataDisplays.classes
     })
   }
 

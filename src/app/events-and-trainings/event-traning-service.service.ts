@@ -42,10 +42,10 @@ export class EventTraningServiceService {
 
 
 
-  // This function is to get the trainings and a classes that a certain leader made
+  // This function is to get all the trainings and classes
   getTrainingsAndClasses(instructorId) {
     return this.http.get(this.url + 'trainings-by-instructor/' + instructorId)
-  } 
+  }
 
   // This function will add a training or a class with the user who inputed the trainings
   addTrainingsOrClasses(classOrTraining) {
@@ -54,12 +54,17 @@ export class EventTraningServiceService {
 
   // This function will get the specific item that the user selected
   getSelectedTrainingsOrClasses(typeSelected, idSelectedItem) {
-    return this.http.post(this.url + 'trainings-by-instructor/get-selected-class',  {typeSelected: typeSelected, idSelectedItem: idSelectedItem})
+    return this.http.post(this.url + 'trainings-by-instructor/get-selected-class', { typeSelected: typeSelected, idSelectedItem: idSelectedItem })
   }
 
   // A function that get all the students of a certain trainings or event that is being selected
   getStudent(typeSelected, training) {
-    return this.http.post(this.url + 'trainings-by-instructor/get-student-of-a-class-training', {typeSelected: typeSelected, training: training });
+    return this.http.post(this.url + 'trainings-by-instructor/get-student-of-a-class-training', { typeSelected: typeSelected, training: training });
+  }
+
+  // This function is to delete multiple students
+  deleteStudents(arrayOfStudentsID) {
+    return this.http.post(this.url + 'student-trainings-or-class/delete-multiple-students', { studentsId: arrayOfStudentsID });
   }
 
   // A function that will add a student to a certain class or trainings
@@ -75,6 +80,11 @@ export class EventTraningServiceService {
 
   // This function will delete the selected item in class or in trainings
   deleteClassOrTrainings(selectedItemId, typeSelected) {
-    return this.http.post(this.url + 'trainings-by-instructor/delete-training-or-class/' + selectedItemId, {typeSelected: typeSelected})
+    return this.http.post(this.url + 'trainings-by-instructor/delete-training-or-class/' + selectedItemId, { typeSelected: typeSelected })
+  }
+
+  // This function will retrieve all the class and trainings posted by the current user
+  returnClassAndTrainingsByUser(id) {
+    return this.http.get(this.url + 'trainings-by-instructor/return-by-current-user/' + id)
   }
 }
