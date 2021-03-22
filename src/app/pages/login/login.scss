@@ -9,6 +9,10 @@ ion-button.btnLogin {
     text-align: center;
 }
 
+.btnEye {
+    background-color: transparent;
+}
+
 .login-logo img {
     max-width: 150px;
 }
@@ -16,10 +20,11 @@ ion-button.btnLogin {
 .list {
     margin-bottom: 0;
 }
-.icon{
-  background-color: rgba(23, 240, 95, 0.1);
-  padding: 5px;
-  font: 30px;
+
+.icon {
+    background-color: rgba(23, 240, 95, 0.1);
+    padding: 5px;
+    font: 30px;
 }
 
 .p2 {

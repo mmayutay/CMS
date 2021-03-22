@@ -4,6 +4,9 @@ import { RequestsService } from "../../logInAndSignupService/requests.service";
 import { AlertController } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
+import Swal from 'sweetalert2';
+import { CheckTutorial } from "app/providers/check-tutorial.service";
+
 
 @Component({
   selector: "app-reportings",
@@ -11,7 +14,6 @@ import { MenuController } from "@ionic/angular";
   styleUrls: ["./reportings.page.scss"],
 })
 export class ReportingsPage implements OnInit {
-  public hideCalendar = false
   public yearToFilter = 2021;
   //This is an array for yearly display
   public yearChoices = [];
@@ -68,13 +70,18 @@ export class ReportingsPage implements OnInit {
   public currentMonth = 0;
   //for the users attendance dates
   public attendanceDates = [];
+  public paginationCount = 5
+  public count = 0
+  public classes;
+  pageOfItems: Array<any>;
 
   constructor(
     private datarequest: DataRequestsService,
     private request: RequestsService,
     public alertControl: AlertController,
     private router: Router,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private leaders: CheckTutorial
   ) {}
 
   ngOnInit() {
@@ -89,6 +96,39 @@ export class ReportingsPage implements OnInit {
     this.showMembersBelongToThisGroup();
     this.getTheCurrentUser();
   }
+
+  getData(members) {
+    this.leaders.getMembersOfCertainLeader(members.target.value.id)
+  }
+
+  onChangePage(pageOfItems: Array<any>, type) {
+    // update current page of items
+    if(type == 'add') {
+      if(this.classes.length < (this.paginationCount + 5)) {
+        Swal.fire('Sorry', 'No Data to show!', 'error')
+      }else {
+        this.paginationCount += 5
+        this.count += 5
+      }
+    }else {
+      if((this.count - 5) < 0) {
+        Swal.fire('Sorry', 'No Data to show!', 'error')
+      }else {
+        this.paginationCount -= 5
+        this.count -= 5
+      }
+    }
+    this.pageOfItems = pageOfItems;
+    console.log("DFDFD: ", this.pageOfItems)
+  }
+
+
+
+
+
+
+
+  
   convertMonth(monthInput) {
     this.selectedMonth = monthInput;
     var month = new Array();
