@@ -9,6 +9,7 @@ import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
   providedIn: 'root'
 })
 export class CheckTutorial implements CanLoad {
+  public certainLeadersID = ""
   public leaders = []
   public members = []
   public chosenDate = ""
@@ -42,32 +43,35 @@ export class CheckTutorial implements CanLoad {
     })
   }
 
+  // This function will be triggered only if their is already a selected leader
+  dateRender(value) {
+    if(this.certainLeadersID != "") {
+      this.getMembersOfCertainLeader(this.certainLeadersID)
+    }
+  }
+
   // This function is to get all the members of a certain leader
   getMembersOfCertainLeader(id) {
-    const members = this.dataRequest.getMyCellgroup({leaderid: id})
+    this.members.length = 0
+    this.certainLeadersID = id
+    const members = this.dataRequest.getMyCellgroup({ leaderid: id })
     members.subscribe((data: any) => {
       const attendance = this.dataRequest.getMemberSCAndEventsAttendance(id)
       attendance.subscribe((response: any) => {
-        console.log(response[0])
-        if(response[0].currentEventsAttendance.length == 0 && response[0].currentUserAttendance.length == 0) {
+        if (response[0].currentEventsAttendance.length == 0 && response[0].currentUserAttendance.length == 0) {
           data.forEach(element => {
-            this.members.push({user: element, attendance: 0, event: 0})
+            this.members.push({ user: element, attendance: 0, event: 0 })
           })
-        }else {
-          for (let i = 0; i < data.length; i++) {
-            for (let j = 0; j < response[0].currentUserAttendance.length; j++) {
-              for (let index = 0; index < response[0].currentEventsAttendance.length; index++) {
-                if(this.members[i].id == response[0].currentUserAttendance[j].member) {
-                  this.members.push({user: data[i], attendance: 1})
-                }else {
-                  this.members.push({user: data[i], attendance: 0})
-                }
-              }
+        } else {
+          for (let j = 0; j < response[0].currentUserAttendance.length; j++) {
+            if (new Date(response[0].currentUserAttendance[j].date).getDate() == new Date(this.chosenDate).getDate()) {
+                this.members.push({ user: data[j], attendance: 1 })
+            } else {
+                this.members.push({ user: data[j], attendance: 0 })
             }
           }
         }
         this.attendanceEventsAndSC = response[0]
-        console.log(this.attendanceEventsAndSC)
       })
     })
   }

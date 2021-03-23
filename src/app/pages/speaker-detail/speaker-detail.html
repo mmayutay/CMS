@@ -24,7 +24,8 @@
         </ion-item>
     </ion-list>
     <ion-card>
-        <table>
+        <h3>Attendees:</h3>
+        <table class="table">
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -36,6 +37,11 @@
                 <td>{{ name.lastname }}</td>
                 <td>{{ name.age }}</td>
                 <td *ngIf="isToDelete"> <input type="checkbox" (click)="getValue(name)"></td>
+            </tr>
+            <tr>
+                <td>Marichu</td>
+                <td>Niere</td>
+                <td>21</td>
             </tr>
         </table>
     </ion-card>

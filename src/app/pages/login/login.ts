@@ -15,12 +15,13 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
   styleUrls: ['./login.scss'],
 })
 export class LoginPage {
+
   public login = { username: '', password: '' };
   public submitted = false;
   public userAuthenticated = true
   public userLogin;
-  public showPass = false;
   public type = 'password';
+  public showPass = false;
 
   constructor(
     public menu: MenuController,
@@ -49,9 +50,9 @@ export class LoginPage {
   onLogin() {
     this.request.loginService(this.login).subscribe(res => {
       console.log(res)
-      if(res != null) {
+      if (res != null) {
         this.getTheUsersCurrentRole(res[0].roles, res);
-      }else{
+      } else {
         this.presentAlert();
       }
     })
@@ -66,18 +67,19 @@ export class LoginPage {
 
     await alert.present();
   }
+
   getTheUsersCurrentRole(roleID, currentuser) {
     this.dataRequest.getNetworkWhereIBelong(roleID).subscribe(res => {
-        this.request.storeTheCurrentUserToStorage(currentuser[0].userid, currentuser[0].roles)
-        this.dataRequest.getTheCurrentUser({userID: currentuser[0].userid}).subscribe(response => {
-          if(response[0].isCGVIP == 1 && response[0].isSCVIP == 1) {
-            this.request.userIsVipOrNot(true);
-            this.router.navigate(['/reportings'])
-          }else{
-            this.request.userIsVipOrNot(false);
-            this.router.navigate(['/app/tabs/schedule'])
-          }
-        })
+      this.request.storeTheCurrentUserToStorage(currentuser[0].userid, currentuser[0].roles)
+      this.dataRequest.getTheCurrentUser({ userID: currentuser[0].userid }).subscribe(response => {
+        if (response[0].isCGVIP == 1 && response[0].isSCVIP == 1) {
+          this.request.userIsVipOrNot(true);
+          this.router.navigate(['/reportings'])
+        } else {
+          this.request.userIsVipOrNot(false);
+          this.router.navigate(['/app/tabs/schedule'])
+        }
+      })
     })
   }
 }
