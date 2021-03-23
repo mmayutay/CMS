@@ -12,7 +12,29 @@
 </ion-header>
 
 <ion-content>
-    <table *ngIf="currentUserRole != 'Admin'">
+    <div class="ion-margin" *ngIf="currentUserRole != 'Admin'">
+        <ion-grid>
+            <ion-row class="grid">
+                <ion-col size-xs="4">Name</ion-col>
+                <ion-col size-xs="4">Role</ion-col>
+                <ion-col size-xs="4">Description</ion-col>
+            </ion-row>
+            <ion-row *ngFor="let member of members">
+                <ion-col size-xs="4">{{ member.lastname }}, {{ member.firstname }}</ion-col>
+                <ion-col size-xs="4">
+                    {{ member.roles }}
+                </ion-col>
+                <ion-col size-xs="4">{{ member.description }}</ion-col>
+            </ion-row>
+        </ion-grid>
+        <div class="pagination">
+            <a (click)="onChangePage($event, 'deduct')">❮</a>
+            <a style="float:right" (click)="onChangePage($event, 'add')">❯</a>
+        </div>
+        <!-- <a>❮</a>
+                <a style="float: right;">❯</a> -->
+    </div>
+    <!-- <table *ngIf="currentUserRole != 'Admin'">
         <tr class="title">
             <th>Name</th>
             <th>Role</th>
@@ -23,7 +45,7 @@
             <th>{{ member.roles }}</th>
             <th>{{ member.description }}</th>
         </tr>
-    </table>
+    </table> -->
     <div *ngIf="currentUserRole == 'Admin'">
 
         <!-- This will show the Notification Nav -->

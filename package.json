@@ -30,6 +30,7 @@
     "@angular/pwa": "^0.803.29",
     "@angular/router": "^8.2.14",
     "@angular/service-worker": "^8.2.14",
+    "@capacitor/android": "^2.4.6",
     "@capacitor/core": "2.4.6",
     "@fullcalendar/angular": "^5.5.0",
     "@fullcalendar/daygrid": "^5.5.0",

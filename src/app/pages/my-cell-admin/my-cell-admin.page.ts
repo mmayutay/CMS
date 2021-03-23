@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { AlertController } from '@ionic/angular';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -27,6 +29,10 @@ export class MyCellAdminPage implements OnInit {
   public currentUserRole = '';
   public notificationsContent;
   public members;
+  public paginationCount = 5
+  public count = 0
+  public classes;
+  pageOfItems: Array<any>;
 
   constructor(
     private request: RequestsService,
@@ -37,6 +43,27 @@ export class MyCellAdminPage implements OnInit {
   ngOnInit() {
     this.showMembersBelongToThisGroup();  
     this.getVIPMembers();
+  }
+
+  onChangePage(pageOfItems: Array<any>, type) {
+    // update current page of items
+    if(type == 'add') {
+      if(this.classes.length < (this.paginationCount + 5)) {
+        Swal.fire('Sorry', 'No Data to show!', 'error')
+      }else {
+        this.paginationCount += 5
+        this.count += 5
+      }
+    }else {
+      if((this.count - 5) < 0) {
+        Swal.fire('Sorry', 'No Data to show!', 'error')
+      }else {
+        this.paginationCount -= 5
+        this.count -= 5
+      }
+    }
+    this.pageOfItems = pageOfItems;
+    console.log("DFDFD: ", this.pageOfItems)
   }
 
   showMembersBelongToThisGroup() {

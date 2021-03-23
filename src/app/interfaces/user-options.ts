@@ -58,6 +58,7 @@ export class calendar {
     return [20, 30, 70, 50];
   }
   returnTheMonthlyAttendanceForSC() {
+    // return this.calculateStats;
     return [40, 70, 10, 90];
   }
 
