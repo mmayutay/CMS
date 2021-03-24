@@ -60,6 +60,7 @@ export class DashboardPage implements OnInit {
 
   //This is the data to use for the stats
   public weeklyStats;
+  public monthlyStats;
 
   constructor(
     private dataRequest: DataRequestsService,
@@ -74,6 +75,7 @@ export class DashboardPage implements OnInit {
     this.request.getTheCurrentUserIdInStorage().then((id) => {
       this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
         this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
+        this.monthlyStats = this.calendar.monthlyData(data[0].currentUserAttendance)
       });
     });
     this.userIsActiveOrNot();
@@ -260,9 +262,12 @@ export class DashboardPage implements OnInit {
     if (this.typeOfViewChosed == 'Quarterly') {
       this.monthChosen = value.target.value.months
     } else if (this.typeOfViewChosed == 'Monthly') {
-      this.monthChosen = ['1st', '2nd', '3rd', '4th']
-      this.arrayOfCellgroup = this.calendar.returnTheMonthlyAttendanceForCellgroup();
-      this.arrayOfSundayCeleb = this.calendar.returnTheMonthlyAttendanceForSC();
+      this.monthChosen = this.calendar.returnAllWeeks();
+      this.arrayOfCellgroup = this.monthlyStats;
+      this.arrayOfSundayCeleb = this.monthlyStats;
+      // this.monthChosen = ['1st', '2nd', '3rd', '4th']
+      // this.arrayOfCellgroup = this.calendar.returnTheMonthlyAttendanceForCellgroup();
+      // this.arrayOfSundayCeleb = this.calendar.returnTheMonthlyAttendanceForSC();
     } else if (this.typeOfViewChosed == 'Weekly') {
       this.monthChosen = this.calendar.returnAllDays();
       this.arrayOfCellgroup = this.weeklyStats;

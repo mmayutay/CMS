@@ -71,9 +71,9 @@ export class SessionDetailPage {
     this.defaultHref = `/app/tabs/schedule`;
   }
 
-  sessionClick(item: string) {
-    console.log('Clicked', item);
-  }
+  // sessionClick(item: string) {
+  //   console.log('Clicked', item);
+  // }
 
   toggleFavorite() {
     if (this.isFavorite) {
