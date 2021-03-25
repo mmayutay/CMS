@@ -60,6 +60,7 @@ export class DashboardPage implements OnInit {
 
   //This is the data to use for the stats
   public weeklyStats;
+  public monthlyStats;
 
   constructor(
     private dataRequest: DataRequestsService,
@@ -73,7 +74,9 @@ export class DashboardPage implements OnInit {
   ngOnInit() {
     this.request.getTheCurrentUserIdInStorage().then((id) => {
       this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
+        console.log(data)
         this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
+        this.monthlyStats = this.calendar.weekOfAMonth(data[0].currentEventsAttendance)
       });
     });
     this.userIsActiveOrNot();
@@ -110,23 +113,31 @@ export class DashboardPage implements OnInit {
         labels: this.monthChosen,
         datasets: [
           {
-            label: "# of Votes",
+            label: "Attendance Statistics",
             data: arrayForData,
+            // backgroundColor: [
+            //   "rgba(255, 99, 132, 0.2)",
+            //   "rgba(54, 162, 235, 0.2)",
+            //   "rgba(255, 206, 86, 0.2)",
+            //   "rgba(75, 192, 192, 0.2)",
+            //   "rgba(153, 102, 255, 0.2)",
+            //   "rgba(255, 159, 64, 0.2)"
+            // ],
             backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)"
-            ],
+              "rgba(84, 216, 58, 0.4)",
+              // "rgba(84, 216, 58, 0.4)",
+              // "rgba(84, 216, 58, 0.4)",
+              // "rgba(84, 216, 58, 0.4)",
+              // "rgba(84, 216, 58, 0.4)",
+              // "rgba(84, 216, 58, 0.4)",
+                        ],
             borderColor: [
-              "rgba(255,99,132,1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)",
+              "rgba(84, 216, 58, 1)",
+              // "rgba(84, 216, 58, 1)",
+              // "rgba(84, 216, 58, 1)",
+              // "rgba(84, 216, 58, 1)",
+              // "rgba(84, 216, 58, 1)",
+              // "rgba(84, 216, 58, 1)",
             ],
             borderWidth: 0,
           },
@@ -257,7 +268,7 @@ export class DashboardPage implements OnInit {
       this.arrayOfSundayCeleb = this.calendar.returnTheMonthlyAttendanceForSC();
     } else if (this.typeOfViewChosed == 'Weekly') {
       this.monthChosen = this.calendar.returnAllDays();
-      this.arrayOfCellgroup = this.weeklyStats;
+      this.arrayOfCellgroup = this.monthlyStats;
       this.arrayOfSundayCeleb = this.weeklyStats;
     } else {
       this.monthChosen = this.calendar.returnAllMonthsChoices();

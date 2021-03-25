@@ -7,22 +7,72 @@
     </ion-toolbar>
 
 </ion-header>
-
 <ion-content>
-    <h3 *ngFor="let user of currentUser"> <b>Leader:</b> {{user.lastname}}, {{user.firstname}}</h3>
-    <table>
-        <tr class="title">
-            <th>Name</th>
-            <th *ngIf="currentUserRole != 'Admin'">Age</th>
-            <th *ngIf="currentUserRole == 'Admin'">Position</th>
-            <th>Attendance</th>
-        </tr>
-        <tr *ngFor="let member of groupMembers">
-            <th>{{member.lastname}}, {{member.firstname}} </th>
-            <th *ngIf="currentUserRole != 'Admin'"> {{member.age}} </th>
-            <th *ngIf="currentUserRole == 'Admin'"> {{ member.roles }} </th>
-            <th> <input type="radio"> </th>
-        </tr>
-    </table>
+    <ion-item>
+        <!-- <ion-label position="stacked" color="primary">Birthday</ion-label> -->
+        <div class="input-container">
+            <ion-icon class="iconLogin" name="calendar"></ion-icon>
+            <input class="input" placeholder="Birthday" name="Birthday" type="date" id="birth" required />
+        </div>&nbsp;&nbsp;
+    </ion-item>
+    <ion-label>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <ion-text color="danger">Birthday is required</ion-text>
+    </ion-label>
+    <ion-item>
+        <div class="input-container">
+            <ion-icon class="iconLogin" name="person"></ion-icon>
+            <!-- <ion-select placeholder="Leader"> -->
+            <input class="input" *ngFor="let user of currentUser" disabled placeholder="{{user.lastname}}, {{user.firstname}}" name="Leader" type="text" id="leader" required />
+            <!-- <ion-select-option value="f" *ngFor="let user of currentUser"><b>Leader:</b> {{user.lastname}}, {{user.firstname}}</ion-select-option>
+            </ion-select> -->
+        </div>
+    </ion-item>
+    <div class="ion-margin">
+        <ion-grid>
+            <ion-row class="grid">
+                <ion-col size-xs="4">Name</ion-col>
+                <ion-col size-xs="4">CG</ion-col>
+                <ion-col size-xs="4">SC</ion-col>
+            </ion-row>
+            <ion-row *ngFor="let member of groupMembers">
+                <ion-col size-xs="4">{{member.lastname}}, {{member.firstname}} </ion-col>
+                <ion-col size-xs="4">
+                    <ion-toggle color="success"></ion-toggle>
+                </ion-col>
+                <ion-col size-xs="4">
+                    <ion-toggle color="success"></ion-toggle>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <div class="pagination">
+            <a (click)="onChangePage($event, 'deduct')">❮</a>
+            <a style="float:right" (click)="onChangePage($event, 'add')">❯</a>
+        </div>
+        <!-- <a>❮</a>
+            <a style="float: right;">❯</a> -->
+    </div>
+    <ion-button class="saveBtn" color="success">Save</ion-button>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
+        <ion-fab-button>
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <!-- <ion-content>
+        <h3 *ngFor="let user of currentUser"> <b>Leader:</b> {{user.lastname}}, {{user.firstname}}</h3>
+        <table>
+            <tr class="title">
+                <th>Name</th>
+                <th *ngIf="currentUserRole != 'Admin'">Age</th>
+                <th *ngIf="currentUserRole == 'Admin'">Position</th>
+                <th>Attendance</th>
+            </tr>
+            <tr *ngFor="let member of groupMembers">
+                <th>{{member.lastname}}, {{member.firstname}} </th>
+                <th *ngIf="currentUserRole != 'Admin'"> {{member.age}} </th>
+                <th *ngIf="currentUserRole == 'Admin'"> {{ member.roles }} </th>
+                <th> <input type="radio"> </th>
+            </tr>
+        </table> -->
 
 </ion-content>

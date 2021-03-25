@@ -3,6 +3,8 @@ import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 
 import { AlertController, ToastController } from '@ionic/angular';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'page-support',
@@ -14,7 +16,11 @@ export class SupportPage {
   public currentUserRole = ''
   public currentUser = [];
   public members;
-  public groupMembers = []
+  public groupMembers = [];
+  public paginationCount = 5
+  public count = 0
+  public classes;
+  pageOfItems: Array<any>;
 
   submitted = false;
   supportMessage: string;
@@ -25,6 +31,27 @@ export class SupportPage {
     public request: RequestsService,
     private datarequest: DataRequestsService
   ) { }
+
+  onChangePage(pageOfItems: Array<any>, type) {
+    // update current page of items
+    if(type == 'add') {
+      if(this.classes.length < (this.paginationCount + 5)) {
+        Swal.fire('Sorry', 'No Data to show!', 'error')
+      }else {
+        this.paginationCount += 5
+        this.count += 5
+      }
+    }else {
+      if((this.count - 5) < 0) {
+        Swal.fire('Sorry', 'No Data to show!', 'error')
+      }else {
+        this.paginationCount -= 5
+        this.count -= 5
+      }
+    }
+    this.pageOfItems = pageOfItems;
+    console.log("DFDFD: ", this.pageOfItems)
+  }
 
   ionViewDidEnter() {
     this.getTheCurrentUserRole();
