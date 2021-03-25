@@ -19,27 +19,19 @@
                 <ion-select-option value="y">Yearly</ion-select-option>
             </ion-select>
         </div>
-    </ion-item>
-    <ion-label>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <ion-text color="danger">Firstname is required</ion-text>
-    </ion-label><br>
+    </ion-item><br>
     <ion-item>
         <!-- <ion-label position="stacked" color="primary">Birthday</ion-label> -->
         <div class="input-container">
             <ion-icon class="iconLogin" name="calendar"></ion-icon>
-            <input class="input" placeholder="Birthday" name="Birthday" type="date" id="birth" required />
+            <input class="input" [(ngModel)]="leaders.chosenDate" (ngModelChange)="leaders.dateRender($event)" placeholder="Birthday" name="Birthday" type="date" id="birth" required />
         </div>&nbsp;&nbsp;
     </ion-item>
-    <ion-label>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <ion-text color="danger">Birthday is required</ion-text>
-    </ion-label>
     <ion-item>
         <div class="input-container">
             <ion-icon class="iconLogin" name="person"></ion-icon>
-            <ion-select placeholder="Leader">
-                <ion-select-option value="f">Leader 1</ion-select-option>
+            <ion-select placeholder="Leader" *ngFor="let leader of leaders.leaders" (ionChange)="getData($event)">
+                <ion-select-option [value]="leader"> {{ leader.lastname }}, {{ leader.firstname }}</ion-select-option>
             </ion-select>
         </div>
     </ion-item>
@@ -50,12 +42,10 @@
                 <ion-col size-xs="4">CG</ion-col>
                 <ion-col size-xs="4">SC</ion-col>
             </ion-row>
-            <ion-row>
-                <ion-col size-xs="4">Juan</ion-col>
-                <ion-col size-xs="4">
-                    1/1
-                </ion-col>
+            <ion-row *ngFor="let member of leaders.members;let i = index">
+                <ion-col size-xs="4">{{ member.user.lastname }}, {{ member.user.firstname }}</ion-col>
                 <ion-col size-xs="4">1/1</ion-col>
+                <ion-col size-xs="4">{{ member.attendance }}/1</ion-col>
             </ion-row>
         </ion-grid>
         <div class="pagination">

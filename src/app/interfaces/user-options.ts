@@ -148,14 +148,34 @@ export class calendar {
       attendanceCounter = 0;
     }
     // console.log("weeklyAttendance:: " ,weeklyAttendance);
-
+    // console.log("Array of Dates: ", date)
     return weeklyAttendance;
+    
+  }
+
+  // get the week of the month
+  getWeekOfMonth() {
+    var arrayOfDates = [];
+    var time = new Date();
+    var day = time.getDay();
+    for (let index = 0; index < 7; index++) {
+      arrayOfDates.push(
+        new Date(time.getFullYear(), time.getMonth(), index + 7).getDate()
+        );
+
+        var weekOfMonth = Math.ceil((arrayOfDates[index] - 1 - day) / 7);
+    }
+      console.log("WEEK IN A MONTH: ", weekOfMonth)
+    
+    // console.log(arrayOfDates)
+    // console.log(weekOfMonth);
+    
   }
 
   monthlyData(date) {
     var attendanceCounter = 0;
     var arrayOfDates = [];
-    var weeklyAttendance = [];
+    var monthlyAttendance = [];
     var time = new Date();
     for (let index = 0; index < 31; index++) {
       arrayOfDates.push(
@@ -168,14 +188,15 @@ export class calendar {
           attendanceCounter += 1;
         }
       }
-      weeklyAttendance.push(
+      monthlyAttendance.push(
         Math.floor((attendanceCounter / this.membersOfAGroup.length) * 100)
       );
       attendanceCounter = 0;
     }
     // console.log("weeklyAttendance:: " ,weeklyAttendance);
+    console.log("dfdfd: ",monthlyAttendance);
+    return monthlyAttendance;
 
-    return weeklyAttendance;
   }
 
   

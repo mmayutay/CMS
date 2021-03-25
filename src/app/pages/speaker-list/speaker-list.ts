@@ -4,8 +4,7 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { SpeakerFilterPage } from '../speaker-filter/speaker-filter.page';
 import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
-import Swal from 'sweetalert2';
-
+import Swal from 'sweetalert2'
 
 import { DataDisplayProvider } from 'app/providers/data-editing';
 
@@ -30,7 +29,7 @@ export class SpeakerListPage {
     private request: RequestsService,
     public modalCtrl: ModalController,
     public routerOutlet: IonRouterOutlet,
-    private dataDisplays: DataDisplayProvider
+    private dataDisplays: DataDisplayProvider,
     ) {}
 
     onChangePage(pageOfItems: Array<any>, type) {

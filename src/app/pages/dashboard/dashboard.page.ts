@@ -56,11 +56,15 @@ export class DashboardPage implements OnInit {
   public arrayOfCellgroup = [20, 100, 20, 20];
   public arrayOfSundayCeleb = [20, 60, 100, 20];
 
+  public sample;
+
   private barChart: Chart;
 
   //This is the data to use for the stats
   public weeklyStats;
   public monthlyStats;
+
+  public weekinaday;
 
   constructor(
     private dataRequest: DataRequestsService,
@@ -73,9 +77,13 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.request.getTheCurrentUserIdInStorage().then((id) => {
+      console.log(id)
       this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
+        // console.log(data)
         this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
-        this.monthlyStats = this.calendar.monthlyData(data[0].currentUserAttendance)
+
+        this.weekinaday = this.calendar.getWeekOfMonth()
+        // this.monthlyStats = this.calendar.monthlyData(data[0].currentUserAttendance)
       });
     });
     this.userIsActiveOrNot();
@@ -272,6 +280,9 @@ export class DashboardPage implements OnInit {
       this.monthChosen = this.calendar.returnAllDays();
       this.arrayOfCellgroup = this.weeklyStats;
       this.arrayOfSundayCeleb = this.weeklyStats;
+      // console.log("SAmPLe:: ", this.sample)
+      
+      // console.log("SAMPLE:: " ,this.calendar.dayInAWeek());
     } else {
       this.monthChosen = this.calendar.returnAllMonthsChoices();
       this.arrayOfCellgroup = this.calendar.returnStatisticsForAYear();
@@ -279,6 +290,8 @@ export class DashboardPage implements OnInit {
     }
     this.graphCreated(this.barCanvas, this.arrayOfCellgroup);
     this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb);
+
+    
   }
 
 

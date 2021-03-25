@@ -5,6 +5,7 @@ import { AlertController } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
 import Swal from 'sweetalert2';
+import { CheckTutorial } from "app/providers/check-tutorial.service";
 
 
 @Component({
@@ -13,7 +14,6 @@ import Swal from 'sweetalert2';
   styleUrls: ["./reportings.page.scss"],
 })
 export class ReportingsPage implements OnInit {
-  public hideCalendar = false
   public yearToFilter = 2021;
   //This is an array for yearly display
   public yearChoices = [];
@@ -80,7 +80,8 @@ export class ReportingsPage implements OnInit {
     private request: RequestsService,
     public alertControl: AlertController,
     private router: Router,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private leaders: CheckTutorial
   ) {}
 
   ngOnInit() {
@@ -94,6 +95,10 @@ export class ReportingsPage implements OnInit {
     this.getAllDateFromUser();
     this.showMembersBelongToThisGroup();
     this.getTheCurrentUser();
+  }
+
+  getData(members) {
+    this.leaders.getMembersOfCertainLeader(members.target.value.id)
   }
 
   onChangePage(pageOfItems: Array<any>, type) {

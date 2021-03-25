@@ -18,23 +18,23 @@
             <ion-title size="large">Trainings/Classes</ion-title>
         </ion-toolbar>
     </ion-header>
+    <ion-card slot="fixed" style="width: 100%;margin: 0;">
+        <ion-segment (ionChange)="segmentModels($event)" value="Trainings" scrollable="true">
+            <ion-segment-button value="Trainings">
+                Trainings
+            </ion-segment-button>
+            <ion-segment-button value="Classes">
+                Classes
+            </ion-segment-button>
+            <ion-select (ionChange)="segmentModels($event)" placeholder="RECORDS" okText="Okay" cancelText="Dismiss">
+                <ion-select-option value="trainings">TRAININGS</ion-select-option>
+                <ion-select-option value="classes">CLASSES</ion-select-option>
+            </ion-select>
+        </ion-segment>
+    </ion-card>
     <ion-card>
         <!-- *ngIf="ios" [(ngModel)]="segment" (ionChange)="getAllTheEventsAndDisplay($event)" -->
-        <!-- [(ngModel)]="segmentModel" name="segmentModel" ngModel -->
-        <ion-card slot="fixed" style="width: 100%;margin: 0;">
-            <ion-segment (ionChange)="segmentModels($event)" value="Trainings" scrollable="true">
-                <ion-segment-button value="Trainings">
-                    Trainings
-                </ion-segment-button>
-                <ion-segment-button value="Classes">
-                    Classes
-                </ion-segment-button>
-                <ion-select (ionChange)="segmentModels($event)" placeholder="RECORDS" okText="Okay" cancelText="Dismiss">
-                    <ion-select-option value="trainings">TRAININGS</ion-select-option>
-                    <ion-select-option value="classes">CLASSES</ion-select-option>
-                </ion-select>
-            </ion-segment>
-        </ion-card><br><br>
+        <!-- [(ngModel)]="segmentModel" name="segmentModel" ngModel --><br><br>
 
         <div *ngIf="segmentModel === 'Trainings'">
             <ion-grid fixed>
@@ -144,7 +144,7 @@
             </ion-grid>
             <div class="pagination">
                 <a (click)="onChangePage($event, 'deduct')">❮</a>
-                <a (click)="onChangePage($event, 'add')">❯</a>
+                <a style="float:right" (click)="onChangePage($event, 'add')">❯</a>
             </div>
         </div>
         <div *ngIf="segmentModel == 'classes'" class="ion-margin">
@@ -164,10 +164,8 @@
             </ion-grid>
             <div class="pagination">
                 <a (click)="onChangePage($event, 'deduct')">❮</a>
-                <a (click)="onChangePage($event, 'add')">❯</a>
+                <a style="float:right" (click)="onChangePage($event, 'add')">❯</a>
             </div>
-            <!-- <a>❮</a>
-            <a style="float: right;">❯</a> -->
         </div>
     </ion-card>
 </ion-content>

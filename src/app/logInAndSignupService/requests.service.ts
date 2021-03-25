@@ -64,4 +64,9 @@ export class RequestsService {
   cellGroup(){
     return this.http.get(this.url + 'cellgroup')
   }
+
+  // This route is to get all the leaders 
+  getLeaders() {
+    return this.http.get(this.url + 'get-leaders')
+  }
 }
