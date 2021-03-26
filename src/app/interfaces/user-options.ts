@@ -154,21 +154,13 @@ export class calendar {
   }
 
   // get the week of the month
-  getWeekOfMonth() {
-    var arrayOfDates = [];
+  getWeekOfMonth(arrayOfDates) {
     var time = new Date();
     var day = time.getDay();
-    for (let index = 0; index < 7; index++) {
-      arrayOfDates.push(
-        new Date(time.getFullYear(), time.getMonth(), index + 7).getDate()
-        );
-
-        var weekOfMonth = Math.ceil((arrayOfDates[index] - 1 - day) / 7);
-    }
-      console.log("WEEK IN A MONTH: ", weekOfMonth)
-    
-    // console.log(arrayOfDates)
-    // console.log(weekOfMonth);
+    arrayOfDates.forEach(element => {
+      var weekOfMonth = Math.ceil((new Date(element.date).getDate() - 1 - day) / 7);
+      console.log(weekOfMonth + 1)
+    });
     
   }
 
