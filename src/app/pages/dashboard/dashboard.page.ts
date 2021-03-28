@@ -60,6 +60,7 @@ export class DashboardPage implements OnInit {
 
   //This is the data to use for the stats
   public weeklyStats;
+  public monthlyStats;
 
   constructor(
     private dataRequest: DataRequestsService,
@@ -73,7 +74,9 @@ export class DashboardPage implements OnInit {
   ngOnInit() {
     this.request.getTheCurrentUserIdInStorage().then((id) => {
       this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
+        console.log(data)
         this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
+        this.monthlyStats = this.calendar.weekOfAMonth(data[0].currentEventsAttendance)
       });
     });
     this.userIsActiveOrNot();
@@ -265,7 +268,7 @@ export class DashboardPage implements OnInit {
       this.arrayOfSundayCeleb = this.calendar.returnTheMonthlyAttendanceForSC();
     } else if (this.typeOfViewChosed == 'Weekly') {
       this.monthChosen = this.calendar.returnAllDays();
-      this.arrayOfCellgroup = this.weeklyStats;
+      this.arrayOfCellgroup = this.monthlyStats;
       this.arrayOfSundayCeleb = this.weeklyStats;
     } else {
       this.monthChosen = this.calendar.returnAllMonthsChoices();

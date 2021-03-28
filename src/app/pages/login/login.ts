@@ -73,13 +73,4 @@ export class LoginPage {
       })
     })
   }
-
-  showPassword() {
-    this.showPass = !this.showPass;
-    if (this.showPass) {
-      this.type = 'text';
-    } else {
-      this.type = 'password';
-    }
-  }
 }
