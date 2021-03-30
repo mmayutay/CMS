@@ -82,6 +82,8 @@ export class SupportPage {
   }
 
   getTheCurrentUserRole() {
+    this.groupMembers.length = 0
+    this.currentUser.length = 0
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
         if(data[0].roles == 'Member') {
@@ -123,9 +125,10 @@ export class SupportPage {
   getAllMembers() {
     this.datarequest.getMyCellgroup({leaderid: this.currentUser[0].id}).subscribe(data => {
       this.members = data
-      this.members.forEach(element => {
-        this.groupMembers.push(element)
-      });
+      this.groupMembers = this.members
+      // this.members.forEach(element => {
+      //   this.groupMembers.push(element)
+      // });
     })
   }
 }

@@ -114,17 +114,11 @@
             </ion-grid>
         </div>
 
-        <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab *ngIf="segmentModel === 'Trainings'">
-            <ion-fab-button>
-                <ion-icon name="add" [routerLink]="['/add-training']"></ion-icon>
-            </ion-fab-button>
-        </ion-fab>
-
-        <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab *ngIf="segmentModel === 'Classes'">
+        <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
             <ion-fab-button>
                 <ion-icon name="add" [routerLink]="['/add-classes']"></ion-icon>
             </ion-fab-button>
-        </ion-fab>
+        </ion-fab> -->
 
         <!-- Display Records -->
         <div *ngIf="segmentModel == 'trainings'" class="ion-margin">
@@ -168,4 +162,9 @@
             </div>
         </div>
     </ion-card>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
+        <ion-fab-button (click)="addEventOrClass()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
