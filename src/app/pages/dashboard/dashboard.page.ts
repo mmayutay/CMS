@@ -81,8 +81,8 @@ export class DashboardPage implements OnInit {
       this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
         console.log(data[0].currentUserAttendance)
         this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
-
         this.calendar.getWeekOfMonth(data[0].currentUserAttendance)
+  
         // this.monthlyStats = this.calendar.monthlyData(data[0].currentUserAttendance)
       });
     });

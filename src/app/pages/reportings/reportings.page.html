@@ -174,10 +174,10 @@
 </ion-content>
 <div *ngIf="currentUserRole == 'Member' || currentUserRole == 'Leader'">
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
-        <ion-fab-button>
+        <ion-fab-button routerLink="/support">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
-        <ion-fab-list side="top">
+        <!-- <ion-fab-list side="top">
             <ion-fab-button>
                 <p class="tag">Event</p>
                 <ion-icon name="add"></ion-icon>
@@ -186,6 +186,6 @@
                 <p class="tag">S. C.</p>
                 <ion-icon name="add"></ion-icon>
             </ion-fab-button>
-        </ion-fab-list>
+        </ion-fab-list> -->
     </ion-fab>
 </div>
