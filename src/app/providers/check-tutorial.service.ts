@@ -12,7 +12,7 @@ export class CheckTutorial implements CanLoad {
   public certainLeadersID = ""
   public leaders = []
   public members = []
-  public chosenDate = ""
+  public chosenDate = new Date().getMonth() + '/' + new Date().getDate() + '/' + new Date().getFullYear()
   public attendanceEventsAndSC = []
 
   constructor(
@@ -74,5 +74,11 @@ export class CheckTutorial implements CanLoad {
         this.attendanceEventsAndSC = response[0]
       })
     })
+    this.returnLeaderIDBoolean()
+  }
+
+  // This function is to return if there is no leader selected 
+  returnLeaderIDBoolean() {
+    return this.certainLeadersID != ''
   }
 }

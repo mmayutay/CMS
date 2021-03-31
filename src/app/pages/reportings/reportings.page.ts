@@ -82,7 +82,9 @@ export class ReportingsPage implements OnInit {
     private router: Router,
     private menuCtrl: MenuController,
     private leaders: CheckTutorial
-  ) {}
+  ) {
+    this.leaders.chosenDate
+  }
 
   ngOnInit() {
     this.chosenMonth = this.currentTime.getMonth();

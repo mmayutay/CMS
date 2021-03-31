@@ -4,6 +4,7 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 
 import { AlertController, ToastController } from '@ionic/angular';
 import Swal from 'sweetalert2';
+import { AttendanceAddingService } from 'app/request-to-BE/attendance-adding.service';
 
 
 @Component({
@@ -12,6 +13,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./support.scss'],
 })
 export class SupportPage {
+  public currentDate = new Date().getMonth() + '/' + new Date().getDate() + '/' + new Date().getFullYear();
+  public hasEvent = false
+
   public currentUserId = ''
   public currentUserRole = ''
   public currentUser = [];
@@ -29,8 +33,11 @@ export class SupportPage {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public request: RequestsService,
-    private datarequest: DataRequestsService
-  ) { }
+    private datarequest: DataRequestsService,
+    private attendance: AttendanceAddingService
+  ) { 
+    this.attendance.dataUse
+  }
 
   onChangePage(pageOfItems: Array<any>, type) {
     // update current page of items
@@ -61,6 +68,22 @@ export class SupportPage {
   cellGroupFunction(){
     this.request.cellGroup();
   }
+
+
+  // Ang pag add ni ug attendance if naa bay event karong adlawa
+  addEventsAttendance(member) {
+    if(!this.attendance.multipleMembersAttendanceCG.includes(member)) {
+      this.attendance.multipleMembersAttendanceCG.push(member)
+    }
+  }
+
+  // Ang pag add ni ug attendance sa sunday celebration 
+  addSundayCelebAttendance(member) {
+    if(!this.attendance.multipleMembersAttendanceSC.includes(member)) {
+      this.attendance.multipleMembersAttendanceSC.push(member)
+    }
+  }
+
 
   ifCurrentUserIsMember(){
     this.request.getTheUserRoleFromTheStorage().then(res => {

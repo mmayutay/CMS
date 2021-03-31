@@ -12,7 +12,7 @@
         <!-- <ion-label position="stacked" color="primary">Birthday</ion-label> -->
         <div class="input-container">
             <ion-icon class="iconLogin" name="calendar"></ion-icon>
-            <input class="input" placeholder="Birthday" name="Birthday" type="date" id="birth" required />
+            <input class="input" placeholder="Birthday" name="Birthday" type="text" id="birth" [value]="currentDate" disabled required />
         </div>&nbsp;&nbsp;
     </ion-item>
     <!-- <ion-label>
@@ -38,10 +38,11 @@
             <ion-row *ngFor="let member of groupMembers">
                 <ion-col size-xs="4">{{member.lastname}}, {{member.firstname}} </ion-col>
                 <ion-col size-xs="4">
-                    <ion-toggle color="success"></ion-toggle>
+                    <ion-checkbox (ionChange)="addEventsAttendance(member)"></ion-checkbox>
                 </ion-col>
                 <ion-col size-xs="4">
-                    <ion-toggle color="success"></ion-toggle>
+                    <ion-checkbox (ionChange)="addSundayCelebAttendance(member)"></ion-checkbox>
+                    <!-- <ion-toggle color="success"></ion-toggle> -->
                 </ion-col>
             </ion-row>
         </ion-grid>

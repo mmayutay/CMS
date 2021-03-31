@@ -14,6 +14,7 @@
         <div class="input-container">
             <ion-icon class="iconLogin" name="calendar"></ion-icon>
             <ion-select placeholder="Weekly">
+                <ion-select-option value="w">Weekly</ion-select-option>
                 <ion-select-option value="f">Monthly</ion-select-option>
                 <ion-select-option value="q">Quarterly</ion-select-option>
                 <ion-select-option value="y">Yearly</ion-select-option>
@@ -172,7 +173,7 @@
     </ion-card>
     </ion-card> -->
 </ion-content>
-<div *ngIf="currentUserRole == 'Member' || currentUserRole == 'Leader'">
+<div *ngIf="leaders.returnLeaderIDBoolean()">
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
         <ion-fab-button routerLink="/support">
             <ion-icon name="add"></ion-icon>
