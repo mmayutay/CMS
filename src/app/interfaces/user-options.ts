@@ -73,7 +73,14 @@ export class calendar {
     days[6] = "Sat";
     return days;
   }
-
+  returnAllWeeks() {
+    var weeks = new Array();
+    weeks[0] = "1st";
+    weeks[1] = "2nd";
+    weeks[2] = "3rd";
+    weeks[3] = "4th";
+    return weeks;
+  }
   returnAllWeeklyAttendance() {
     return [75, 0, 0, 0, 0, 0, 0];
   }
@@ -140,7 +147,48 @@ export class calendar {
       );
       attendanceCounter = 0;
     }
+    // console.log("weeklyAttendance:: " ,weeklyAttendance);
+    // console.log("Array of Dates: ", date)
     return weeklyAttendance;
+    
+  }
+
+  // get the week of the month
+  getWeekOfMonth(arrayOfDates) {
+    var time = new Date();
+    var day = time.getDay();
+    arrayOfDates.forEach(element => {
+      var weekOfMonth = Math.ceil((new Date(element.date).getDate() - 1 - day) / 7);
+      console.log(weekOfMonth + 1)
+    });
+    
+  }
+
+  monthlyData(date) {
+    var attendanceCounter = 0;
+    var arrayOfDates = [];
+    var monthlyAttendance = [];
+    var time = new Date();
+    for (let index = 0; index < 31; index++) {
+      arrayOfDates.push(
+        new Date(time.getFullYear(), time.getMonth(), index + 31).getDate()
+      );
+    }
+    for (let j = 0; j < arrayOfDates.length; j++) {
+      for (let index = 0; index < date.length; index++) {
+        if (new Date(date[index].date).getDate() == arrayOfDates[j]) {
+          attendanceCounter += 1;
+        }
+      }
+      monthlyAttendance.push(
+        Math.floor((attendanceCounter / this.membersOfAGroup.length) * 100)
+      );
+      attendanceCounter = 0;
+    }
+    // console.log("weeklyAttendance:: " ,weeklyAttendance);
+    console.log("dfdfd: ",monthlyAttendance);
+    return monthlyAttendance;
+
   }
 
   

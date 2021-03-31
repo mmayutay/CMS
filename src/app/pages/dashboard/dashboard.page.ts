@@ -56,11 +56,15 @@ export class DashboardPage implements OnInit {
   public arrayOfCellgroup = [20, 100, 20, 20];
   public arrayOfSundayCeleb = [20, 60, 100, 20];
 
+  public sample;
+
   private barChart: Chart;
 
   //This is the data to use for the stats
   public weeklyStats;
   public monthlyStats;
+
+  public weekinaday;
 
   constructor(
     private dataRequest: DataRequestsService,
@@ -73,10 +77,13 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.request.getTheCurrentUserIdInStorage().then((id) => {
+      console.log(id)
       this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
-        console.log(data)
+        console.log(data[0].currentUserAttendance)
         this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
-        this.monthlyStats = this.calendar.weekOfAMonth(data[0].currentEventsAttendance)
+        this.calendar.getWeekOfMonth(data[0].currentUserAttendance)
+  
+        // this.monthlyStats = this.calendar.monthlyData(data[0].currentUserAttendance)
       });
     });
     this.userIsActiveOrNot();
@@ -263,13 +270,19 @@ export class DashboardPage implements OnInit {
     if (this.typeOfViewChosed == 'Quarterly') {
       this.monthChosen = value.target.value.months
     } else if (this.typeOfViewChosed == 'Monthly') {
-      this.monthChosen = ['1st', '2nd', '3rd', '4th']
-      this.arrayOfCellgroup = this.calendar.returnTheMonthlyAttendanceForCellgroup();
-      this.arrayOfSundayCeleb = this.calendar.returnTheMonthlyAttendanceForSC();
+      this.monthChosen = this.calendar.returnAllWeeks();
+      this.arrayOfCellgroup = this.monthlyStats;
+      this.arrayOfSundayCeleb = this.monthlyStats;
+      // this.monthChosen = ['1st', '2nd', '3rd', '4th']
+      // this.arrayOfCellgroup = this.calendar.returnTheMonthlyAttendanceForCellgroup();
+      // this.arrayOfSundayCeleb = this.calendar.returnTheMonthlyAttendanceForSC();
     } else if (this.typeOfViewChosed == 'Weekly') {
       this.monthChosen = this.calendar.returnAllDays();
-      this.arrayOfCellgroup = this.monthlyStats;
+      this.arrayOfCellgroup = this.weeklyStats;
       this.arrayOfSundayCeleb = this.weeklyStats;
+      // console.log("SAmPLe:: ", this.sample)
+      
+      // console.log("SAMPLE:: " ,this.calendar.dayInAWeek());
     } else {
       this.monthChosen = this.calendar.returnAllMonthsChoices();
       this.arrayOfCellgroup = this.calendar.returnStatisticsForAYear();
@@ -277,6 +290,8 @@ export class DashboardPage implements OnInit {
     }
     this.graphCreated(this.barCanvas, this.arrayOfCellgroup);
     this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb);
+
+    
   }
 
 

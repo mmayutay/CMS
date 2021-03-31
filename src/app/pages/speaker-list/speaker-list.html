@@ -42,8 +42,7 @@
                     <ion-col size="12" size-md="6" *ngFor="let speaker of trainings">
                         <ion-card class="speaker-card">
                             <ion-card-header>
-                                <ion-item detail="false" lines="none" class="speaker-item"
-                                    routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                <ion-item detail="false" lines="none" class="speaker-item" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
                                     <!-- <ion-avatar slot="start">
                                     <img [src]="speaker.profilePic" [alt]="speaker.name + ' profile picture'">
                                 </ion-avatar> -->
@@ -56,15 +55,13 @@
 
                             <ion-card-content>
                                 <ion-list lines="none">
-                                    <ion-item
-                                        routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                    <ion-item routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
                                         <ion-label>
                                             <h3>{{speaker.lesson}}</h3>
                                         </ion-label>
                                     </ion-item>
 
-                                    <ion-item detail="false"
-                                        routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                    <ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
                                         <ion-label>
                                             <h3>About {{speaker.name}}</h3>
                                         </ion-label>
@@ -83,8 +80,7 @@
                     <ion-col size="12" size-md="6" *ngFor="let speaker of classes">
                         <ion-card class="speaker-card">
                             <ion-card-header>
-                                <ion-item detail="false" lines="none" class="speaker-item"
-                                    routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                <ion-item detail="false" lines="none" class="speaker-item" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
                                     <!-- "/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}" -->
                                     <!-- <ion-avatar slot="start">
                                     <img [src]="speaker.profilePic" [alt]="speaker.name + ' profile picture'">
@@ -98,16 +94,14 @@
 
                             <ion-card-content>
                                 <ion-list lines="none">
-                                    <ion-item detail="false"
-                                        routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                    <ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
                                         <!-- "/app/tabs/speakers/session/{{speaker.id}}" -->
                                         <ion-label>
                                             <h3>{{speaker.lesson}}</h3>
                                         </ion-label>
                                     </ion-item>
 
-                                    <ion-item detail="false"
-                                        routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                    <ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
                                         <ion-label>
                                             <h3>About {{speaker.name}}</h3>
                                         </ion-label>
@@ -120,17 +114,11 @@
             </ion-grid>
         </div>
 
-        <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab *ngIf="segmentModel === 'Trainings'">
-            <ion-fab-button>
-                <ion-icon name="add" [routerLink]="['/add-training']"></ion-icon>
-            </ion-fab-button>
-        </ion-fab>
-
-        <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab *ngIf="segmentModel === 'Classes'">
+        <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
             <ion-fab-button>
                 <ion-icon name="add" [routerLink]="['/add-classes']"></ion-icon>
             </ion-fab-button>
-        </ion-fab>
+        </ion-fab> -->
 
         <!-- Display Records -->
         <div *ngIf="segmentModel == 'trainings'" class="ion-margin">
@@ -150,7 +138,7 @@
             </ion-grid>
             <div class="pagination">
                 <a (click)="onChangePage($event, 'deduct')">❮</a>
-                <a (click)="onChangePage($event, 'add')">❯</a>
+                <a style="float:right" (click)="onChangePage($event, 'add')">❯</a>
             </div>
         </div>
         <div *ngIf="segmentModel == 'classes'" class="ion-margin">
@@ -170,10 +158,13 @@
             </ion-grid>
             <div class="pagination">
                 <a (click)="onChangePage($event, 'deduct')">❮</a>
-                <a (click)="onChangePage($event, 'add')">❯</a>
+                <a style="float:right" (click)="onChangePage($event, 'add')">❯</a>
             </div>
-            <!-- <a>❮</a>
-            <a style="float: right;">❯</a> -->
         </div>
     </ion-card>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
+        <ion-fab-button (click)="addEventOrClass()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

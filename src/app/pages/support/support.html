@@ -15,10 +15,10 @@
             <input class="input" placeholder="Birthday" name="Birthday" type="date" id="birth" required />
         </div>&nbsp;&nbsp;
     </ion-item>
-    <ion-label>
+    <!-- <ion-label>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <ion-text color="danger">Birthday is required</ion-text>
-    </ion-label>
+    </ion-label> -->
     <ion-item>
         <div class="input-container">
             <ion-icon class="iconLogin" name="person"></ion-icon>
@@ -46,32 +46,32 @@
             </ion-row>
         </ion-grid>
         <div class="pagination">
-            <a (click)="onChangePage($event, 'deduct')">❮</a>
-            <a style="float:right" (click)="onChangePage($event, 'add')">❯</a>
+            <a *ngIf="groupMembers.length != 0" (click)=" onChangePage($event, 'deduct') ">❮</a>
+            <a *ngIf="groupMembers.length != 0" style="float:right " (click)="onChangePage($event, 'add') ">❯</a>
         </div>
         <!-- <a>❮</a>
-            <a style="float: right;">❯</a> -->
+            <a style="float: right; ">❯</a> -->
     </div>
-    <ion-button class="saveBtn" color="success">Save</ion-button>
+    <ion-button class="saveBtn " color="success ">Save</ion-button>
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
-        <ion-fab-button>
+        <ion-fab-button routerLink="/create-new-user">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>
     <!-- <ion-content>
-        <h3 *ngFor="let user of currentUser"> <b>Leader:</b> {{user.lastname}}, {{user.firstname}}</h3>
+        <h3 *ngFor="let user of currentUser "> <b>Leader:</b> {{user.lastname}}, {{user.firstname}}</h3>
         <table>
-            <tr class="title">
+            <tr class="title ">
                 <th>Name</th>
-                <th *ngIf="currentUserRole != 'Admin'">Age</th>
-                <th *ngIf="currentUserRole == 'Admin'">Position</th>
+                <th *ngIf="currentUserRole !='Admin' ">Age</th>
+                <th *ngIf="currentUserRole=='Admin' ">Position</th>
                 <th>Attendance</th>
             </tr>
-            <tr *ngFor="let member of groupMembers">
+            <tr *ngFor="let member of groupMembers ">
                 <th>{{member.lastname}}, {{member.firstname}} </th>
-                <th *ngIf="currentUserRole != 'Admin'"> {{member.age}} </th>
-                <th *ngIf="currentUserRole == 'Admin'"> {{ member.roles }} </th>
-                <th> <input type="radio"> </th>
+                <th *ngIf="currentUserRole !='Admin' "> {{member.age}} </th>
+                <th *ngIf="currentUserRole=='Admin' "> {{ member.roles }} </th>
+                <th> <input type="radio "> </th>
             </tr>
         </table> -->
 

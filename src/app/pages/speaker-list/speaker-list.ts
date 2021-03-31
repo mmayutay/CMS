@@ -4,7 +4,8 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { SpeakerFilterPage } from '../speaker-filter/speaker-filter.page';
 import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 import { DataDisplayProvider } from 'app/providers/data-editing';
 
@@ -30,6 +31,7 @@ export class SpeakerListPage {
     public modalCtrl: ModalController,
     public routerOutlet: IonRouterOutlet,
     private dataDisplays: DataDisplayProvider,
+    private router: Router
     ) {}
 
     onChangePage(pageOfItems: Array<any>, type) {
@@ -67,13 +69,22 @@ export class SpeakerListPage {
   segmentModels(value) {
     this.segmentModel = value.target.value;
   }
+
+
+  // This function is for adding the a training or a classes 
+  addEventOrClass() {
+    if(this.segmentModel == 'Trainings') {
+      this.router.navigate(['/add-training'])
+    }else {
+      this.router.navigate(['/add-classes'])
+    }
+  }
   
   getClassAndTrainings(id) {
     const events = this.eventsService.getTrainingsAndClasses(id)
     events.subscribe((data: any) => {
       this.trainings = data.trainings
       this.classes = data.classes
-      console.log(this.classes)
       this.dataDisplays.distributeDatas(data)
       this.trainings =  this.dataDisplays.trainings
       this.classes = this.dataDisplays.classes
