@@ -7,6 +7,7 @@ import { UserData } from '../../providers/user-data';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
 import { calendar } from '../../interfaces/user-options';
 import { ToastController } from '@ionic/angular';
+import { AttendanceAddingService } from 'app/request-to-BE/attendance-adding.service';
 
 
 
@@ -26,7 +27,8 @@ export class SessionDetailPage {
     private route: ActivatedRoute,
     private eventRequest: EventTraningServiceService,
     private calender: calendar,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private attendance: AttendanceAddingService
   ) { }
 
   ngOnInit() {
@@ -35,6 +37,7 @@ export class SessionDetailPage {
 
   getAllDataOfCertainEvent() {
     const sessionId = this.route.snapshot.paramMap.get('sessionId');
+    this.attendance.selectedEventsID = sessionId
     const returnEvent = this.eventRequest.returnTheSelectedEvent(sessionId);
     
     returnEvent.subscribe((data: any) => {
@@ -45,26 +48,6 @@ export class SessionDetailPage {
       this.session = data
       this.checkIfSessionAlreadyAdded();
     })
-    // this.dataProvider.load().subscribe((data: any) => {
-    //   if (data && data.schedule && data.schedule[0] && data.schedule[0].groups) {
-    //     const sessionId = this.route.snapshot.paramMap.get('sessionId');
-    //     for (const group of data.schedule[0].groups) {
-    //       if (group && group.sessions) {
-    //         for (const session of group.sessions) {
-    //           if (session && session.id === sessionId) {
-    //             this.session = session;
-
-    //             this.isFavorite = this.userProvider.hasFavorite(
-    //               this.session.name
-    //             );
-
-    //             break;
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // })
   }
 
   ionViewDidEnter() {

@@ -5,6 +5,7 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { AlertController, ToastController } from '@ionic/angular';
 import Swal from 'sweetalert2';
 import { AttendanceAddingService } from 'app/request-to-BE/attendance-adding.service';
+import { element } from 'protractor';
 
 
 @Component({
@@ -152,6 +153,30 @@ export class SupportPage {
       // this.members.forEach(element => {
       //   this.groupMembers.push(element)
       // });
+    })
+  }
+
+
+  // Kini siya nga function kay ang pag add ug attendance sa cellgroup member for a certain event nga selected 
+  addAttendanceSelectedEvent(){
+    this.attendance.multipleMembersAttendanceCG.forEach(element => {
+      this.attendance.dateOfEvents.type = this.attendance.selectedEventsID
+      this.attendance.dateOfEvents.leader = this.currentUser[0].id
+      this.attendance.dateOfEvents.date = new Date().toString()
+      this.attendance.dateOfEvents.member = element.id
+      const addAttendance = this.attendance.addEventsAttendance(this.attendance.dateOfEvents)
+      addAttendance.subscribe((response: any) => {
+        console.log(response)
+      })
+    })
+    this.attendance.multipleMembersAttendanceSC.forEach(element => {
+      this.attendance.dateOfEvents.type = "Sunday"
+      const addSundayAttendance = this.attendance.http.post(this.attendance.url + 'attendance', this.attendance.dateOfEvents)
+      addSundayAttendance.subscribe((response: any) => {
+        if(response == false) {
+          this.attendance.SundayCelebrationError()
+        }
+      })
     })
   }
 }

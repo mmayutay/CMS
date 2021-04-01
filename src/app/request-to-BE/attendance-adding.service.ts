@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RequestsService } from 'app/logInAndSignupService/requests.service';
-import Swal from 'sweetalert2'
 import { AlertController } from '@ionic/angular';
 
 @Injectable({
@@ -9,6 +8,8 @@ import { AlertController } from '@ionic/angular';
 })
 
 export class AttendanceAddingService {
+    public selectedEventsID = ''
+    public eventOwner = ''
     public multipleMembersAttendanceCG = []
     public multipleMembersAttendanceSC = []
     public url = "http://localhost:8000/api/"
@@ -23,7 +24,7 @@ export class AttendanceAddingService {
     public dataUse = ''
 
     constructor(
-        private http: HttpClient,
+        public http: HttpClient,
         private request: RequestsService,
         private alertController: AlertController
     ) {
@@ -118,6 +119,10 @@ export class AttendanceAddingService {
         }
     }
 
+    // Kini siya nga function kay ang pag add ug attendance sa certain event 
+    addEventsAttendance(data: any) {
+        return this.http.post(this.url + 'add-attendance/today-has-event', data)
+    }
 
 
 }
