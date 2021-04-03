@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { EventAndSCAttendance } from 'app/events-and-trainings/event-and-sc-attendance';
 import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
 import { RequestsService } from 'app/logInAndSignupService/requests.service';
 import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +24,13 @@ export class CheckTutorial implements CanLoad {
     private router: Router,
     private request: RequestsService,
     private dataRequest: DataRequestsService,
-    private eventsRequest: EventTraningServiceService
+    private eventsRequest: EventTraningServiceService,
+    private eventAttendance: EventAndSCAttendance
   ) {
     this.getAllTheLeaders();
     const events = this.eventsRequest.retrieveAllAnnouncement()
     events.subscribe((response: any) => {
       this.eventsArray = response
-      console.log(this.eventsArray)
     })
   }
 
@@ -71,16 +73,11 @@ export class CheckTutorial implements CanLoad {
             this.members.push({ user: element, attendance: 0, event: 0 })
           })
         } else {
-          for (let j = 0; j < response[0].currentUserAttendance.length; j++) {
-            if (new Date(response[0].currentUserAttendance[j].date).getDate() == new Date(this.chosenDate).getDate()) {
-              this.members.push({ user: data[j], attendance: 1 })
-            } else {
-              this.members.push({ user: data[j], attendance: 0 })
-            }
-          }
+          data.forEach(element => {
+            this.getSundayAttendance(element)
+          })
         }
         this.attendanceEventsAndSC = response[0]
-        console.log(this.attendanceEventsAndSC)
       })
     })
     this.returnLeaderIDBoolean();
@@ -92,6 +89,50 @@ export class CheckTutorial implements CanLoad {
     return this.certainLeadersID != ''
   }
 
+  // Kini siya nga function kay kuhaon ang attendance sa usa ka member kung naa ba siyay attendance anang certain event or sunday celebration 
+  getSundayAttendance(memberId: any) {
+    let eventAttendanceCounter = 0
+    let SCAttendanceCounter = 0
+    const attendance = this.eventAttendance.getMemberAttendance(memberId.id)
+    attendance.subscribe((response: any) => {
+      // Kini siya diri nga part kay optional, kung ang member kay way attendance current event, musulod siya ari  
+      response[0].currentUserAttendance.forEach(sundayAttendance => {
+        if (response[0].currentEventsAttendance.length == 0) {
+          this.daysInAweek(new Date(this.chosenDate), 7).forEach((date: any) => {
+            if (new Date(date).getDay() == 0) {
+              if (new Date(date).getDate() == new Date(sundayAttendance.date).getDate()) {
+                SCAttendanceCounter += 1
+              }
+            }
+          })
+        }
+        // This area is for the attendance for an event 
+        response[0].currentEventsAttendance.forEach(date => {
+          this.eventsArray.forEach((event: any) => {
+            if ((new Date(event.start_date).getMonth() + '-' + new Date(event.start_date).getDate() + '-' + new Date(event.start_date).getFullYear()) ==
+              ((new Date(date).getMonth()) + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())) {
+              eventAttendanceCounter += 1
+            }
+          })
+        })
+        // This area is for the attendance in sunday 
+        response[0].currentEventsAttendance.forEach(eventsAttendance => {
+          this.daysInAweek(new Date(this.chosenDate), 7).forEach(date => {
+            if (new Date(date).getDay() == 0) {
+              if (new Date(date).getDate() == new Date(sundayAttendance.date).getDate()) {
+                SCAttendanceCounter += 1
+              }
+            }
+          })
+        })
+        this.members.push({ user: memberId, SCAttendance: SCAttendanceCounter, eventAttendance: eventAttendanceCounter })
+        // console.log(this.members)
+        eventAttendanceCounter = 0
+        SCAttendanceCounter = 0
+      })
+    })
+  }
+
   // Kini siya nga function kay ang display niya kay kung unsa nga petsa ang dominggo until sabado sa selected date
   daysInAweek(current: Date, range: Number) {
     var week = new Array();
@@ -99,7 +140,7 @@ export class CheckTutorial implements CanLoad {
     current.setDate((current.getDate() - current.getDay() + 1));
     for (var i = 0; i < range; i++) {
       week.push(
-        new Date(current).getMonth() + '-' +
+        (new Date(current).getMonth() + 1) + '-' +
         (new Date(current).getDate() - 1) + '-' +
         new Date(current).getFullYear()
       );
@@ -112,12 +153,11 @@ export class CheckTutorial implements CanLoad {
   typeChoice(choice: String, chosenDate: Date) {
     this.eventCounter = 0
     if (choice == 'Weekly') {
-      console.log(this.eventsArray)
       this.daysInAweek(new Date(this.chosenDate), 7).forEach(date => {
         this.eventsArray.forEach(element => {
-          if((new Date(element.start_date).getMonth()  + '-' + new Date(element.start_date).getDate() + '-' + new Date(element.start_date).getFullYear()) ==
-            ((new Date(date).getMonth() + 1)  + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())) {
-              this.eventCounter += 1
+          if ((new Date(element.start_date).getMonth() + '-' + new Date(element.start_date).getDate() + '-' + new Date(element.start_date).getFullYear()) ==
+            ((new Date(date).getMonth()) + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())) {
+            this.eventCounter += 1
           }
         });
       })

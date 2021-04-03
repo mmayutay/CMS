@@ -55,7 +55,7 @@ export class SpeakerListPage {
       console.log("DFDFD: ", this.pageOfItems)
     }
 
-  ionViewDidEnter() {   
+  ionViewDidEnter() {  
     const getCurrentUser = this.request.getTheCurrentUserIdInStorage()
     getCurrentUser.then((id) => {
       this.getClassAndTrainings(id)
@@ -83,8 +83,6 @@ export class SpeakerListPage {
   getClassAndTrainings(id) {
     const events = this.eventsService.getTrainingsAndClasses(id)
     events.subscribe((data: any) => {
-      this.trainings = data.trainings
-      this.classes = data.classes
       this.dataDisplays.distributeDatas(data)
       this.trainings =  this.dataDisplays.trainings
       this.classes = this.dataDisplays.classes

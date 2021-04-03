@@ -103,6 +103,8 @@ export class ReportingsPage implements OnInit {
     this.leaders.getMembersOfCertainLeader(members.target.value.id)
   }
 
+  
+
   onChangePage(pageOfItems: Array<any>, type) {
     // update current page of items
     if(type == 'add') {
@@ -128,7 +130,7 @@ export class ReportingsPage implements OnInit {
 
 
 
-
+// Kini diri dapita kay ayaw lang ni hilabti kay magamit ni possible for future! 
 
   
   convertMonth(monthInput) {

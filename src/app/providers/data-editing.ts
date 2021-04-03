@@ -53,6 +53,15 @@ export class DataDisplayProvider {
         })
     }
 
+    // Kini nga function kay ang pag delete ug usa ka item it's either sa class or sa trainings 
+    deleteTrainingOrClass(typeOfDelete: string, value: number) {
+        if (typeOfDelete == 'Trainings') {
+            this.trainings.splice(value)
+        }else {
+            this.classes.splice(value)
+        }
+    }
+
     // This function is to allow a user to add a class or a trainings
     addNewClassesOrTrainings(typeOfAdd, value) {
         if(typeOfAdd == 'Trainings') {

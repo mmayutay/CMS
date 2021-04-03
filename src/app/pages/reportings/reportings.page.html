@@ -45,8 +45,8 @@
             </ion-row>
             <ion-row *ngFor="let member of leaders.members;let i = index">
                 <ion-col size-xs="4">{{ member.user.lastname }}, {{ member.user.firstname }}</ion-col>
-                <ion-col size-xs="4">1/{{ leaders.eventCounter }}</ion-col>
-                <ion-col size-xs="4">{{ member.attendance }}/1</ion-col>
+                <ion-col size-xs="4"> {{ member.eventAttendance }}/{{ leaders.eventCounter }}</ion-col>
+                <ion-col size-xs="4">{{ member.SCAttendance }}/1</ion-col>
             </ion-row>
         </ion-grid>
         <div class="pagination">

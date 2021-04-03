@@ -50,12 +50,14 @@ export class SpeakerFilterPage implements OnInit {
 
   deleteSelectedItem(type, item) {
     if(type == 'Trainings') {
+      this.dataDisplays.deleteTrainingOrClass('Trainings', this.trainings.indexOf(item))
       const deleteItem = this.eventRequest.deleteClassOrTrainings(this.trainings[this.trainings.indexOf(item)].id, type);
       deleteItem.subscribe((response: any) => {
         this.router.navigate(['/app/tabs/speakers'])
         this.modalCtrl.dismiss()
       })
     }else {
+      this.dataDisplays.deleteTrainingOrClass('Classes', this.classes.indexOf(item))
       const deleteItem = this.eventRequest.deleteClassOrTrainings(this.classes[this.classes.indexOf(item)].id, type);
       deleteItem.subscribe((response: any) => {
         console.log(response)
