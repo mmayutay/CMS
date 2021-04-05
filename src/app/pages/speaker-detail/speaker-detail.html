@@ -27,21 +27,16 @@
         <h3>Attendees:</h3>
         <table class="table">
             <tr>
+                <th *ngIf="isToDelete"> Select</th>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Age</th>
-                <th *ngIf="isToDelete"> Select</th>
             </tr>
             <tr *ngFor="let name of classOrTrainingStudents">
+                <td *ngIf="isToDelete"> <input type="checkbox" (click)="getValue(name)"></td>
                 <td>{{ name.firstname }}</td>
                 <td>{{ name.lastname }}</td>
                 <td>{{ name.age }}</td>
-                <td *ngIf="isToDelete"> <input type="checkbox" (click)="getValue(name)"></td>
-            </tr>
-            <tr>
-                <td>Marichu</td>
-                <td>Niere</td>
-                <td>21</td>
             </tr>
         </table>
     </ion-card>

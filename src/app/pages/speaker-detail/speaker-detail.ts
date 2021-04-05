@@ -98,7 +98,7 @@ export class SpeakerDetailPage {
       arrayOfId.push(element.id)
       this.classOrTrainingStudents.splice(this.classOrTrainingStudents.indexOf(element), 1)
     })
-    const studentsID = this.eventRequest.deleteStudents(arrayOfId)
+    const studentsID = this.eventRequest.deleteStudents(this.selectedItemId, arrayOfId)
     studentsID.subscribe((response) => {
       console.log(response)
     })

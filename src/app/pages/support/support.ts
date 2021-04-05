@@ -5,7 +5,8 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { AlertController, ToastController } from '@ionic/angular';
 import Swal from 'sweetalert2';
 import { AttendanceAddingService } from 'app/request-to-BE/attendance-adding.service';
-import { element } from 'protractor';
+import { CheckTutorial } from 'app/providers/check-tutorial.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { element } from 'protractor';
   styleUrls: ['./support.scss'],
 })
 export class SupportPage {
-  public currentDate = new Date().getMonth() + '/' + new Date().getDate() + '/' + new Date().getFullYear();
+  public currentDate = (new Date(this.leader.chosenDate).getMonth() + 1) + '/' + new Date(this.leader.chosenDate).getDate() + '/' + new Date(this.leader.chosenDate).getFullYear();
   public hasEvent = false
 
   public currentUserId = ''
@@ -35,7 +36,10 @@ export class SupportPage {
     public toastCtrl: ToastController,
     public request: RequestsService,
     private datarequest: DataRequestsService,
-    private attendance: AttendanceAddingService
+    private attendance: AttendanceAddingService,
+    private leader: CheckTutorial,
+    public alertController: AlertController,
+    private router: Router
   ) { 
     this.attendance.dataUse
   }
@@ -70,6 +74,17 @@ export class SupportPage {
     this.request.cellGroup();
   }
 
+  async notSunday() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Not Sunday',
+      message: "You can't add a sunday attendance today!",
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
 
   // Ang pag add ni ug attendance if naa bay event karong adlawa
   addEventsAttendance(member) {
@@ -80,8 +95,12 @@ export class SupportPage {
 
   // Ang pag add ni ug attendance sa sunday celebration 
   addSundayCelebAttendance(member) {
-    if(!this.attendance.multipleMembersAttendanceSC.includes(member)) {
-      this.attendance.multipleMembersAttendanceSC.push(member)
+    if(new Date(this.currentDate).getDay() == 0) {
+      if(!this.attendance.multipleMembersAttendanceSC.includes(member)) {
+        this.attendance.multipleMembersAttendanceSC.push(member)
+      }
+    }else {
+      this.notSunday()
     }
   }
 
@@ -166,7 +185,8 @@ export class SupportPage {
       this.attendance.dateOfEvents.member = element.id
       const addAttendance = this.attendance.addEventsAttendance(this.attendance.dateOfEvents)
       addAttendance.subscribe((response: any) => {
-        console.log(response)
+        this.attendance.successfulAddedAttendance();
+        this.router.navigate(['/app/tabs/schedule']) 
       })
     })
     this.attendance.multipleMembersAttendanceSC.forEach(element => {

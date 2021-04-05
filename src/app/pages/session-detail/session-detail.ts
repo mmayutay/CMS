@@ -8,6 +8,7 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 import { calendar } from '../../interfaces/user-options';
 import { ToastController } from '@ionic/angular';
 import { AttendanceAddingService } from 'app/request-to-BE/attendance-adding.service';
+import { CheckTutorial } from 'app/providers/check-tutorial.service';
 
 
 
@@ -28,7 +29,8 @@ export class SessionDetailPage {
     private eventRequest: EventTraningServiceService,
     private calender: calendar,
     private toastCtrl: ToastController,
-    private attendance: AttendanceAddingService
+    private attendance: AttendanceAddingService,
+    private leader: CheckTutorial
   ) { }
 
   ngOnInit() {
@@ -41,6 +43,7 @@ export class SessionDetailPage {
     const returnEvent = this.eventRequest.returnTheSelectedEvent(sessionId);
     
     returnEvent.subscribe((data: any) => {
+      this.leader.chosenDate = data.start_date
       data.start_time = new Date(data.start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
       data.end_time = new Date(data.end_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
       data.start_date = this.calender.convertMonth(new Date(data.start_date).getMonth()) + '/' + new Date(data.start_date).getDate() + '/' + new Date(data.start_date).getFullYear()

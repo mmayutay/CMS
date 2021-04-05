@@ -25,25 +25,34 @@
             <br /> {{session.location}}
         </ion-text>
     </div>
-    <!-- 
-    <ion-list>
-        <ion-item (click)="sessionClick('watch')" button>
-      <ion-label color="primary">Watch</ion-label>
-    </ion-item>-->
-    <!-- <ion-item (click)="sessionClick('add to calendar')" button>
-            <ion-label color="primary">Add to Calendar</ion-label>
-        </ion-item> -->
-    <!-- <ion-item (click)="sessionClick('mark as unwatched')" button>
-      <ion-label color="primary">Mark as Unwatched</ion-label>
-    </ion-item>
-    <ion-item (click)="sessionClick('download video')" button>
-      <ion-label color="primary">Download Video</ion-label>
-      <ion-icon slot="end" color="primary" size="small" name="cloud-download"></ion-icon>
-    </ion-item>
-    <ion-item (click)="sessionClick('leave feedback')" button>
-      <ion-label color="primary">Leave Feedback</ion-label>
-    </ion-item>
-    </ion-list> -->
+    <div class="tableUsers">
+        <ion-grid>
+            <ion-row>
+                <ion-col size-md="5">
+                    <div>
+                        Your Members
+                    </div>
+                </ion-col>
+                <ion-col size-md="5">
+                    <div>
+                        Attendance
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size-md="3">
+                    <div>
+                        Raymond Jay C. Yorong
+                    </div>
+                </ion-col>
+                <ion-col size-md="3">
+                    <div>
+                        Attended
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
         <ion-fab-button routerLink="/support">
             <ion-icon name="add"></ion-icon>

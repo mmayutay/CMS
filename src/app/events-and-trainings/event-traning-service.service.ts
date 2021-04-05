@@ -63,8 +63,8 @@ export class EventTraningServiceService {
   }
 
   // This function is to delete multiple students
-  deleteStudents(arrayOfStudentsID) {
-    return this.http.post(this.url + 'student-trainings-or-class/delete-multiple-students', { studentsId: arrayOfStudentsID });
+  deleteStudents(trainingID, arrayOfStudentsID) {
+    return this.http.post(this.url + 'student-trainings-or-class/delete-multiple-students', { studentsId: arrayOfStudentsID, selectedTraining: trainingID });
   }
 
   // A function that will add a student to a certain class or trainings

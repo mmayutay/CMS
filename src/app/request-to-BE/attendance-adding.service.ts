@@ -99,6 +99,17 @@ export class AttendanceAddingService {
         await alert.present();
     }
 
+    async successfulAddedAttendance() {
+        const alert = await this.alertController.create({
+          cssClass: 'my-custom-class',
+          header: 'Yeheyy!',
+          message: "Member's attendance successfully added!",
+          buttons: ['OK']
+        });
+    
+        await alert.present();
+      }
+
 
     //   Kini siya nga function kay ang pag save sa mga members attendance sa database 
     saveMembersAttendance() {
