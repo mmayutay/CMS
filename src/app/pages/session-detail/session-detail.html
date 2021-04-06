@@ -26,32 +26,18 @@
         </ion-text>
     </div>
     <div class="tableUsers">
-        <ion-grid>
-            <ion-row>
-                <ion-col size-md="5">
-                    <div>
-                        Your Members
-                    </div>
-                </ion-col>
-                <ion-col size-md="5">
-                    <div>
-                        Attendance
-                    </div>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col size-md="3">
-                    <div>
-                        Raymond Jay C. Yorong
-                    </div>
-                </ion-col>
-                <ion-col size-md="3">
-                    <div>
-                        Attended
-                    </div>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+        <table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Attendance</th>
+            </tr>
+            <tr *ngFor="let member of members; let i = index">
+                <td> {{ member.firstname }} </td>
+                <td> {{ member.lastname }} </td>
+                <td> {{ membersAttendance[i] }} </td>
+            </tr>
+        </table>
     </div>
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
         <ion-fab-button routerLink="/support">

@@ -17,4 +17,13 @@ export class EventAndSCAttendance {
         return this.http.post(this.url + "viewAttendancesOfSCandEvents", {currentUserId: memberID})
     }
 
+    // Kini siya nga function kay ang pag kuha sa attendance sa certain user 
+    getCertainUserAttendance(userID) {
+        return this.http.post(this.url + "get-user-attendance", { currentUserId: userID})
+    }
+
+    // Kini siya nga function kay ang pag kuha sa details sa certain event 
+    getEventDetails(eventID) {
+        return this.http.get(this.url + 'add-attendance/get-event-details/' + eventID)
+    }
 }

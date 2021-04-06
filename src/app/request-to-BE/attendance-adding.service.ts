@@ -135,7 +135,6 @@ export class AttendanceAddingService {
         return this.http.post(this.url + 'add-attendance/today-has-event', data)
     }
 
-
 }
 // $table->id()->autoIncrement();
 // $table->string('leader');
