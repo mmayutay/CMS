@@ -13,11 +13,11 @@
         <!-- <ion-label position="stacked" color="primary">Firstname</ion-label> -->
         <div class="input-container">
             <ion-icon class="iconLogin" name="calendar"></ion-icon>
-            <ion-select placeholder="Weekly">
-                <ion-select-option value="w">Weekly</ion-select-option>
-                <ion-select-option value="f">Monthly</ion-select-option>
-                <ion-select-option value="q">Quarterly</ion-select-option>
-                <ion-select-option value="y">Yearly</ion-select-option>
+            <ion-select placeholder="Weekly" (ionChange)="leaders.typeChoice($event.target.value, 7)">
+                <ion-select-option value="Weekly">Weekly</ion-select-option>
+                <ion-select-option value="Monthly">Monthly</ion-select-option>
+                <ion-select-option value="Quarterly">Quarterly</ion-select-option>
+                <ion-select-option value="Yearly">Yearly</ion-select-option>
             </ion-select>
         </div>
     </ion-item><br>

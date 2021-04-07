@@ -3,6 +3,7 @@ import { CanLoad, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { EventAndSCAttendance } from 'app/events-and-trainings/event-and-sc-attendance';
 import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
+import { calendar } from 'app/interfaces/user-options';
 import { RequestsService } from 'app/logInAndSignupService/requests.service';
 import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
 
@@ -11,6 +12,7 @@ import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
   providedIn: 'root'
 })
 export class CheckTutorial implements CanLoad {
+  public choice = ""
   public eventCounter = 0
   public certainLeadersID = ""
   public leaders = []
@@ -25,7 +27,8 @@ export class CheckTutorial implements CanLoad {
     private request: RequestsService,
     private dataRequest: DataRequestsService,
     private eventsRequest: EventTraningServiceService,
-    private eventAttendance: EventAndSCAttendance
+    private eventAttendance: EventAndSCAttendance,
+    private calendar: calendar
   ) {
     this.getAllTheLeaders();
     const events = this.eventsRequest.retrieveAllAnnouncement()
@@ -81,7 +84,7 @@ export class CheckTutorial implements CanLoad {
       })
     })
     this.returnLeaderIDBoolean();
-    this.typeChoice('Weekly', new Date())
+    this.typeChoice(this.choice, new Date())
   }
 
   // This function is to return if there is no leader selected 
@@ -110,7 +113,8 @@ export class CheckTutorial implements CanLoad {
         response[0].currentEventsAttendance.forEach(date => {
           this.eventsArray.forEach((event: any) => {
             if ((new Date(event.start_date).getMonth() + '-' + new Date(event.start_date).getDate() + '-' + new Date(event.start_date).getFullYear()) ==
-              ((new Date(date).getMonth()) + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())) {
+              ((new Date(date.date).getMonth()) + '-' + new Date(date.date).getDate() + '-' + new Date(date.date).getFullYear())) {
+                console.log("Naay usa!")
               eventAttendanceCounter += 1
             }
           })
@@ -126,7 +130,6 @@ export class CheckTutorial implements CanLoad {
           })
         })
         this.members.push({ user: memberId, SCAttendance: SCAttendanceCounter, eventAttendance: eventAttendanceCounter })
-        // console.log(this.members)
         eventAttendanceCounter = 0
         SCAttendanceCounter = 0
       })
@@ -150,7 +153,8 @@ export class CheckTutorial implements CanLoad {
   }
 
   // Kini siya nga function kay like ang gi choose nga display sa reportings kay weekly, monthly or yearly 
-  typeChoice(choice: String, chosenDate: Date) {
+  typeChoice(choice, chosenDate: Date) {
+    this.choice = choice
     this.eventCounter = 0
     if (choice == 'Weekly') {
       this.daysInAweek(new Date(this.chosenDate), 7).forEach(date => {
@@ -159,8 +163,18 @@ export class CheckTutorial implements CanLoad {
             ((new Date(date).getMonth()) + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())) {
             this.eventCounter += 1
           }
-        });
+        })
       })
+    }else if (choice == 'Monthly') {
+      const dates = this.calendar.getDaysInMonth(new Date(this.chosenDate).getMonth(), new Date(this.chosenDate).getFullYear())
+      dates.forEach(date => {
+        this.eventsArray.forEach(element => {
+          if ((new Date(element.start_date).getMonth() + '-' + new Date(element.start_date).getDate() + '-' + new Date(element.start_date).getFullYear()) ==
+            ((new Date(date).getMonth()) + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())) {
+            this.eventCounter += 1
+          }
+        })
+      });
     }
   }
 }

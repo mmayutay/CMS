@@ -49,6 +49,7 @@ export class SpeakerDetailPage {
         const allStudents = this.eventRequest.getStudent(this.segmentModel, data.id)
         allStudents.subscribe((response: any) => {
           if(response.length != 0) {
+            this.dataDisplays.returnStudentsOfCertainTraining(response)
             this.getCertainUser(response)
           }else {
             this.datas.studentsNames.length = 0
@@ -62,7 +63,8 @@ export class SpeakerDetailPage {
     student.forEach(element => {
     const getUser = this.dataRequest.getStudentsData(element.students_id)
       getUser.subscribe((response) => {
-        this.classOrTrainingStudents.push(response[0])
+        // this.classOrTrainingStudents.push(response[0])
+        this.dataDisplays.studentsOfCertainTraining.push(response[0])
       })
     });
   }
@@ -72,7 +74,7 @@ export class SpeakerDetailPage {
   }
 
   navigateBackToSpeakers() {
-    this.classOrTrainingStudents.length = 0
+    this.dataDisplays.studentsOfCertainTraining.length = 0
     this.redirect.navigateByUrl('/app/tabs/speakers');
   }
 
@@ -96,7 +98,7 @@ export class SpeakerDetailPage {
     var arrayOfId = []
     this.deleteItems.forEach(element => {
       arrayOfId.push(element.id)
-      this.classOrTrainingStudents.splice(this.classOrTrainingStudents.indexOf(element), 1)
+      this.dataDisplays.studentsOfCertainTraining.splice(this.dataDisplays.studentsOfCertainTraining.indexOf(element), 1)
     })
     const studentsID = this.eventRequest.deleteStudents(this.selectedItemId, arrayOfId)
     studentsID.subscribe((response) => {

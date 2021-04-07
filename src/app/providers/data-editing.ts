@@ -7,6 +7,7 @@ import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
 })
 
 export class DataDisplayProvider {
+    public studentsOfCertainTraining = []
     public dataDisplays = []
     public newData;
     public classes = []
@@ -69,6 +70,13 @@ export class DataDisplayProvider {
         }else {
             this.classes.push(value)
         }
+    }
+
+    // Kini nga function kay ang pag retrieve sa mga students sa certain trainings or classes 
+    returnStudentsOfCertainTraining(trainingStudents) {
+        trainingStudents.forEach(element => {
+            console.log(element)
+        });
     }
 
 }

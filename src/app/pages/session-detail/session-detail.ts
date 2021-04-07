@@ -146,23 +146,15 @@ export class SessionDetailPage {
         result[0].currentEventsAttendance.forEach((attendance) => {
           const eventDetails = this.eventsAttendance.getEventDetails(attendance.type)
           eventDetails.subscribe((result: any) => {
-            if (
-              (new Date(result[0].start_date).getMonth() + "-" + new Date(result[0].start_date).getDate() + "-" + new Date(result[0].start_date).getFullYear()) ==
-              (new Date(this.session.start_date).getMonth() + "-" + new Date(this.session.start_date).getDate() + "-" + new Date(this.session.start_date).getFullYear())
-            ) {
-              if (this.session.title == result[0].title) {
-                if (!this.members.includes(member)) {
-                  this.members.push(member);
-                  this.membersAttendance.push('Attended')
-                }
-              } else {
-                this.members.push(member)
-                this.membersAttendance.push("Didn't Attend")
+            if (this.session.title == result[0].title) {
+              if (!this.members.includes(member)) {
+                this.members.push(member);
+                this.membersAttendance.push('Attended')
               }
             } else {
-              if (!this.members.includes(member)) {
+              if(!this.members.includes(member)) {
                 this.members.push(member)
-                this.membersAttendance.push("Didn't Attend")
+                this.membersAttendance.push("Didn't Attend") 
               }
             }
           })
