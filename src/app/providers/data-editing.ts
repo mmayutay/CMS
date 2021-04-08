@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { RequestsService } from 'app/logInAndSignupService/requests.service';
-import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+// import { RequestsService } from 'app/logInAndSignupService/requests.service';
+import { RequestsService } from '../logInAndSignupService/requests.service';
+// import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+import { DataRequestsService } from '../request-to-BE/data-requests.service';
 
 @Injectable({
     providedIn: 'root'

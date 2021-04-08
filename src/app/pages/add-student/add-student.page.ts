@@ -3,8 +3,10 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
-import { calendar } from 'app/interfaces/user-options';
-import { DataDisplayProvider } from 'app/providers/data-editing';
+// import { calendar } from 'app/interfaces/user-options';
+import { calendar } from '../../interfaces/user-options';
+// import { DataDisplayProvider } from 'app/providers/data-editing';
+import { DataDisplayProvider } from '../../providers/data-editing';
 
 
 @Component({

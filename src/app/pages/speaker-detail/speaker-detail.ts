@@ -4,9 +4,12 @@ import { ConferenceData } from '../../providers/conference-data';
 import { ActionSheetController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service'
-import { calendar } from 'app/interfaces/user-options';
-import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
-import { DataDisplayProvider } from 'app/providers/data-editing';
+// import { calendar } from 'app/interfaces/user-options';
+import { calendar } from '../../interfaces/user-options';
+// import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service';
+// import { DataDisplayProvider } from 'app/providers/data-editing';
+import { DataDisplayProvider } from '../../providers/data-editing';
 
 @Component({
   selector: 'page-speaker-detail',
@@ -35,7 +38,7 @@ export class SpeakerDetailPage {
     private eventRequest: EventTraningServiceService,
     private datas: calendar,
     private dataRequest: DataRequestsService,
-    private dataDisplays: DataDisplayProvider
+    public dataDisplays: DataDisplayProvider
   ) {}
 
   ionViewWillEnter() {

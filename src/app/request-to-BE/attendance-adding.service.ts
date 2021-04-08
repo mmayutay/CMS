@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RequestsService } from 'app/logInAndSignupService/requests.service';
+// import { RequestsService } from 'app/logInAndSignupService/requests.service';
+import { RequestsService } from '../logInAndSignupService/requests.service';
 import { AlertController } from '@ionic/angular';
 
 @Injectable({

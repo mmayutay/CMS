@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
-import { DataDisplayProvider } from 'app/providers/data-editing';
+// import { DataDisplayProvider } from 'app/providers/data-editing';
+import { DataDisplayProvider } from '../../providers/data-editing';
 import { Router } from '@angular/router';
 
 @Component({
