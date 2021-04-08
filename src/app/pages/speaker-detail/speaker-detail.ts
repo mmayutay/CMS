@@ -14,6 +14,7 @@ import { DataDisplayProvider } from 'app/providers/data-editing';
   styleUrls: ['./speaker-detail.scss'],
 })
 export class SpeakerDetailPage {
+  public lessons = []
   public deleteItems = []
   public isToDelete = false
   public classOrTrainingStudents = []
@@ -45,6 +46,7 @@ export class SpeakerDetailPage {
       
       const selectedItem = this.eventRequest.getSelectedTrainingsOrClasses(this.segmentModel, speakerId);
       selectedItem.subscribe((data: any) => {
+        this.getTrainingsOrClassLessons(data.id)
         this.detail = data;
         const allStudents = this.eventRequest.getStudent(this.segmentModel, data.id)
         allStudents.subscribe((response: any) => {
@@ -84,6 +86,15 @@ export class SpeakerDetailPage {
     }else {
       this.isToDelete = true
     }
+  }
+
+  // Kini siya nga function kay kuhaon ang tanan nga lessons sa selected trainings or class 
+  getTrainingsOrClassLessons(id) {
+    const getLessons = this.eventRequest.getLessons(id, this.segmentModel)
+    getLessons.subscribe((result: any) => {
+      this.lessons = result
+      console.log(result)
+    })
   }
 
   getValue(value) {

@@ -100,14 +100,14 @@ export class AddStudentPage implements OnInit {
     if(this.segmentModel == "Trainings") {
       this.studentToAdd.trainings =  this.selectedItemId
       this.studentToAdd.students = memberId.id
-      this.studentToAdd.type = this.itemSelected.lesson
+      this.studentToAdd.type = "Seminar"
       addStudent.addStudentToClassOrTrainings(this.studentToAdd).subscribe((data: any) => {
         this.router.navigate(['/app/tabs/speakers'])
       })
     }else {
       this.studentToAdd.classes =  this.selectedItemId
       this.studentToAdd.students = memberId.id
-      this.studentToAdd.type = this.itemSelected.lesson
+      this.studentToAdd.type = "Seminar"
       console.log(this.studentToAdd)
       addStudent.addStudentToClassOrTrainings(this.studentToAdd).subscribe((data: any) => {
         this.router.navigate(['/app/tabs/speakers'])

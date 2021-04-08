@@ -52,9 +52,19 @@ export class EventTraningServiceService {
     return this.http.post(this.url + 'trainings-by-instructor/add', classOrTraining);
   }
 
+  // Kini siya nga function kay ang pag add ug lessons 
+  addLessonOfATrainingOrClass(lessons) {
+    return this.http.post(this.url + 'trainings-by-instructor/add/lessons', lessons)
+  }
+
   // This function will get the specific item that the user selected
   getSelectedTrainingsOrClasses(typeSelected, idSelectedItem) {
     return this.http.post(this.url + 'trainings-by-instructor/get-selected-class', { typeSelected: typeSelected, idSelectedItem: idSelectedItem })
+  }
+
+  // Kini siya nga function kay kuhaon ang tanan nga lessons sa certain trainings or class 
+  getLessons(id, type) {
+    return this.http.get(this.url + 'trainings-by-instructor/get/lessons/' + id + '/' + type)
   }
 
   // A function that get all the students of a certain trainings or event that is being selected

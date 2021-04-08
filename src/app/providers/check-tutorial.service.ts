@@ -114,7 +114,7 @@ export class CheckTutorial implements CanLoad {
           this.eventsArray.forEach((event: any) => {
             if ((new Date(event.start_date).getMonth() + '-' + new Date(event.start_date).getDate() + '-' + new Date(event.start_date).getFullYear()) ==
               ((new Date(date.date).getMonth()) + '-' + new Date(date.date).getDate() + '-' + new Date(date.date).getFullYear())) {
-                console.log("Naay usa!")
+              console.log("Naay usa!")
               eventAttendanceCounter += 1
             }
           })
@@ -152,6 +152,13 @@ export class CheckTutorial implements CanLoad {
     return week;
   }
 
+  getDaysArray(start, end) {
+    for (var arr = [], dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
+      arr.push(new Date(dt));
+    }
+    return arr;
+  }
+
   // Kini siya nga function kay like ang gi choose nga display sa reportings kay weekly, monthly or yearly 
   typeChoice(choice, chosenDate: Date) {
     this.choice = choice
@@ -165,7 +172,7 @@ export class CheckTutorial implements CanLoad {
           }
         })
       })
-    }else if (choice == 'Monthly') {
+    } else if (choice == 'Monthly') {
       const dates = this.calendar.getDaysInMonth(new Date(this.chosenDate).getMonth(), new Date(this.chosenDate).getFullYear())
       dates.forEach(date => {
         this.eventsArray.forEach(element => {
@@ -174,7 +181,19 @@ export class CheckTutorial implements CanLoad {
             this.eventCounter += 1
           }
         })
-      });
+      })
+    } else if (choice == "Yearly") {
+      var daylist = this.getDaysArray(new Date(new Date(this.chosenDate).getFullYear(), 0, 1), new Date(new Date(this.chosenDate).getFullYear(), 11, 31));
+      daylist.map((v) => v.toISOString().slice(0, 10)).join("")
+      daylist.forEach(date => {
+        // console.log(new Date(date).getMonth() + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())
+        this.eventsArray.forEach(element => {
+          if ((new Date(element.start_date).getMonth() + '-' + new Date(element.start_date).getDate() + '-' + new Date(element.start_date).getFullYear()) ==
+            ((new Date(date).getMonth() + 1 ) + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())) {
+            this.eventCounter += 1
+          }
+        })
+      })
     }
   }
 }
