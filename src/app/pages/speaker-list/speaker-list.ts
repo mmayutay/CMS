@@ -7,7 +7,8 @@ import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingContr
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
-import { DataDisplayProvider } from 'app/providers/data-editing';
+// import { DataDisplayProvider } from 'app/providers/data-editing';
+import { DataDisplayProvider } from '../../providers/data-editing';
 
 @Component({
   selector: 'page-speaker-list',

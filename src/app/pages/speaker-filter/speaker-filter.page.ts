@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Config, ModalController, NavParams } from '@ionic/angular';
-import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
-import { RequestsService } from 'app/logInAndSignupService/requests.service';
-import { DataDisplayProvider } from 'app/providers/data-editing';
+// import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
+import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
+// import { RequestsService } from 'app/logInAndSignupService/requests.service';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
+// import { DataDisplayProvider } from 'app/providers/data-editing';
+import { DataDisplayProvider } from '../../providers/data-editing';
 
 
 @Component({

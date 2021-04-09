@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import { EventAndSCAttendance } from 'app/events-and-trainings/event-and-sc-attendance';
-import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
-import { calendar } from 'app/interfaces/user-options';
-import { RequestsService } from 'app/logInAndSignupService/requests.service';
-import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+// import { EventAndSCAttendance } from 'app/events-and-trainings/event-and-sc-attendance';
+import { EventAndSCAttendance } from '../events-and-trainings/event-and-sc-attendance';
+// import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
+import { EventTraningServiceService } from '../events-and-trainings/event-traning-service.service';
+// import { calendar } from 'app/interfaces/user-options';
+import { calendar } from '../interfaces/user-options';
+import { RequestsService } from '../logInAndSignupService/requests.service';
+// import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+import { DataRequestsService } from '../request-to-BE/data-requests.service';
+
 
 
 @Injectable({
@@ -160,7 +165,7 @@ export class CheckTutorial implements CanLoad {
   }
 
   // Kini siya nga function kay like ang gi choose nga display sa reportings kay weekly, monthly or yearly 
-  typeChoice(choice, chosenDate: Date) {
+  typeChoice(choice, chosenDate) {
     this.choice = choice
     this.eventCounter = 0
     if (choice == 'Weekly') {

@@ -4,8 +4,10 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 
 import { AlertController, ToastController } from '@ionic/angular';
 import Swal from 'sweetalert2';
-import { AttendanceAddingService } from 'app/request-to-BE/attendance-adding.service';
-import { CheckTutorial } from 'app/providers/check-tutorial.service';
+// import { AttendanceAddingService } from 'app/request-to-BE/attendance-adding.service';
+import { AttendanceAddingService } from '../../request-to-BE/attendance-adding.service';
+// import { CheckTutorial } from 'app/providers/check-tutorial.service';
+import { CheckTutorial } from '../../providers/check-tutorial.service';
 import { Router } from '@angular/router';
 
 

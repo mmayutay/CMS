@@ -5,7 +5,9 @@ import { AlertController } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
 import Swal from 'sweetalert2';
-import { CheckTutorial } from "app/providers/check-tutorial.service";
+// import { CheckTutorial } from "app/providers/check-tutorial.service";
+import { CheckTutorial } from "../../providers/check-tutorial.service";
+
 
 
 @Component({
@@ -81,7 +83,7 @@ export class ReportingsPage implements OnInit {
     public alertControl: AlertController,
     private router: Router,
     private menuCtrl: MenuController,
-    private leaders: CheckTutorial
+    public leaders: CheckTutorial
   ) {
     this.leaders.chosenDate
   }

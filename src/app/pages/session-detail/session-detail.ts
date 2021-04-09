@@ -7,11 +7,16 @@ import { UserData } from "../../providers/user-data";
 import { EventTraningServiceService } from "../../events-and-trainings/event-traning-service.service";
 import { calendar } from "../../interfaces/user-options";
 import { ToastController } from "@ionic/angular";
-import { AttendanceAddingService } from "app/request-to-BE/attendance-adding.service";
-import { CheckTutorial } from "app/providers/check-tutorial.service";
-import { DataRequestsService } from "app/request-to-BE/data-requests.service";
-import { RequestsService } from "app/logInAndSignupService/requests.service";
-import { EventAndSCAttendance } from "app/events-and-trainings/event-and-sc-attendance";
+// import { AttendanceAddingService } from "app/request-to-BE/attendance-adding.service";
+import { AttendanceAddingService } from "../../request-to-BE/attendance-adding.service";
+// import { CheckTutorial } from "app/providers/check-tutorial.service";
+import { CheckTutorial } from "../../providers/check-tutorial.service";
+// import { DataRequestsService } from "app/request-to-BE/data-requests.service";
+import { DataRequestsService } from "../../request-to-BE/data-requests.service";
+// import { RequestsService } from "app/logInAndSignupService/requests.service";
+import { RequestsService } from "../../logInAndSignupService/requests.service";
+import { EventAndSCAttendance } from "../../events-and-trainings/event-and-sc-attendance";
+
 
 @Component({
   selector: "page-session-detail",
