@@ -43,6 +43,11 @@
                         <ion-select-option *ngFor="let value of weeklyView" [value]="value">{{ value }}</ion-select-option>
                     </ion-select>
                 </ion-input>
+                <ion-input *ngIf="weeklyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
+                    <ion-select placeholder="Choose Type">
+                        <ion-select-option *ngFor="let value of monthlyView" [value]="value">{{ value }}</ion-select-option>
+                    </ion-select>
+                </ion-input>
 
                 <!-- This will show if the type of choice is yearly -->
                 <ion-input *ngIf="yearlyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">

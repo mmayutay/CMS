@@ -104,17 +104,16 @@ export class calendar {
     var members = [];
     this.dataRequest.allVipUsers().subscribe((data:any) => {
       members.push({type: "VIP Members", length:data.length});
-      console.log(members);
     })
 
     this.dataRequest.getRegularMembers().subscribe((data:any) => {
       members.push({type: "Regular Members", length:data.length});
-      console.log(members);
     })
 
     members.push({type: "Active Members", length: this.activeMember.length });
     members.push({type: "Inactive Members", length: this.inactiveMember.length });
     
+    console.log(members)
     return members;
   }
 
