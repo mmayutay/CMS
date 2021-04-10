@@ -85,6 +85,7 @@ export class SpeakerListPage {
     const events = this.eventsService.getTrainingsAndClasses(id)
     events.subscribe((data: any) => {
       this.dataDisplays.distributeDatas(data)
+      console.log(data)
       this.trainings =  this.dataDisplays.trainings
       this.classes = this.dataDisplays.classes
     })

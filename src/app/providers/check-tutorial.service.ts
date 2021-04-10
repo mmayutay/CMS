@@ -149,17 +149,15 @@ export class CheckTutorial implements CanLoad {
         // This area is for the attendance in sunday 
         response[0].currentEventsAttendance.forEach(eventsAttendance => {
           this.daysInAweek(new Date(this.chosenDate), this.range).forEach(date => {
-            console.log(new Date(eventsAttendance.date).getMonth() + "-" + new Date(eventsAttendance.date).getDate() + "-" + new Date(eventsAttendance.date).getFullYear())
-            console.log(new Date(date).getMonth() + "-" + new Date(date).getDate() + "-" + new Date().getFullYear())
             if (new Date(eventsAttendance.date).getMonth() + "-" + new Date(eventsAttendance.date).getDate() + "-" + new Date(eventsAttendance.date).getFullYear() ==
               new Date(date).getMonth() + "-" + new Date(date).getDate() + "-" + new Date().getFullYear()) {
               eventAttendanceCounter += 1
             }
-            if (new Date(date).getDay() == 0) {
-              if (new Date(date).getDate() == new Date(eventsAttendance.date).getDate()) {
-                SCAttendanceCounter += 1
-              }
-            }
+            // if (new Date(date).getDay() == 0) {
+            //   if (new Date(date).getDate() == new Date(eventsAttendance.date).getDate()) {
+            //     SCAttendanceCounter += 1
+            //   }
+            // }
           })
         })
       }
