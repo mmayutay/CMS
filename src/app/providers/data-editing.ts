@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
-import { RequestsService } from 'app/logInAndSignupService/requests.service';
-import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+// import { RequestsService } from 'app/logInAndSignupService/requests.service';
+import { RequestsService } from '../logInAndSignupService/requests.service';
+// import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+import { DataRequestsService } from '../request-to-BE/data-requests.service';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class DataDisplayProvider {
+    public studentsOfCertainTraining = []
     public dataDisplays = []
     public newData;
     public classes = []
@@ -53,6 +56,15 @@ export class DataDisplayProvider {
         })
     }
 
+    // Kini nga function kay ang pag delete ug usa ka item it's either sa class or sa trainings 
+    deleteTrainingOrClass(typeOfDelete: string, value: number) {
+        if (typeOfDelete == 'Trainings') {
+            this.trainings.splice(value)
+        }else {
+            this.classes.splice(value)
+        }
+    }
+
     // This function is to allow a user to add a class or a trainings
     addNewClassesOrTrainings(typeOfAdd, value) {
         if(typeOfAdd == 'Trainings') {
@@ -60,6 +72,13 @@ export class DataDisplayProvider {
         }else {
             this.classes.push(value)
         }
+    }
+
+    // Kini nga function kay ang pag retrieve sa mga students sa certain trainings or classes 
+    returnStudentsOfCertainTraining(trainingStudents) {
+        trainingStudents.forEach(element => {
+            console.log(element)
+        });
     }
 
 }

@@ -1,70 +1,85 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
-import { ConferenceData } from '../../providers/conference-data';
-import { ActivatedRoute } from '@angular/router';
-import { UserData } from '../../providers/user-data';
+import { ConferenceData } from "../../providers/conference-data";
+import { ActivatedRoute } from "@angular/router";
+import { UserData } from "../../providers/user-data";
 
-import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
-import { calendar } from '../../interfaces/user-options';
-import { ToastController } from '@ionic/angular';
-
+import { EventTraningServiceService } from "../../events-and-trainings/event-traning-service.service";
+import { calendar } from "../../interfaces/user-options";
+import { ToastController } from "@ionic/angular";
+// import { AttendanceAddingService } from "app/request-to-BE/attendance-adding.service";
+import { AttendanceAddingService } from "../../request-to-BE/attendance-adding.service";
+// import { CheckTutorial } from "app/providers/check-tutorial.service";
+import { CheckTutorial } from "../../providers/check-tutorial.service";
+// import { DataRequestsService } from "app/request-to-BE/data-requests.service";
+import { DataRequestsService } from "../../request-to-BE/data-requests.service";
+// import { RequestsService } from "app/logInAndSignupService/requests.service";
+import { RequestsService } from "../../logInAndSignupService/requests.service";
+import { EventAndSCAttendance } from "../../events-and-trainings/event-and-sc-attendance";
 
 
 @Component({
-  selector: 'page-session-detail',
-  styleUrls: ['./session-detail.scss'],
-  templateUrl: 'session-detail.html'
+  selector: "page-session-detail",
+  styleUrls: ["./session-detail.scss"],
+  templateUrl: "session-detail.html",
 })
 export class SessionDetailPage {
+  public members = [];
+  public membersAttendance = []
   session: any;
   isFavorite = false;
-  defaultHref = '';
+  defaultHref = "";
 
   constructor(
-    private dataProvider: ConferenceData,
+    private request: RequestsService,
     private userProvider: UserData,
     private route: ActivatedRoute,
     private eventRequest: EventTraningServiceService,
     private calender: calendar,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private attendance: AttendanceAddingService,
+    private leader: CheckTutorial,
+    private dataRequest: DataRequestsService,
+    private eventsAttendance: EventAndSCAttendance
   ) { }
 
   ngOnInit() {
     this.getAllDataOfCertainEvent();
+    this.getAllMembers();
   }
 
   getAllDataOfCertainEvent() {
-    const sessionId = this.route.snapshot.paramMap.get('sessionId');
+    const sessionId = this.route.snapshot.paramMap.get("sessionId");
+    this.attendance.selectedEventsID = sessionId;
     const returnEvent = this.eventRequest.returnTheSelectedEvent(sessionId);
-    
+
     returnEvent.subscribe((data: any) => {
-      data.start_time = new Date(data.start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-      data.end_time = new Date(data.end_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-      data.start_date = this.calender.convertMonth(new Date(data.start_date).getMonth()) + '/' + new Date(data.start_date).getDate() + '/' + new Date(data.start_date).getFullYear()
-      data.end_date = this.calender.convertMonth(new Date(data.end_date).getMonth()) + '/' + new Date(data.end_date).getDate() + '/' + new Date(data.end_date).getFullYear()
-      this.session = data
+      this.leader.chosenDate = data.start_date;
+      data.start_time = new Date(data.start_time).toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      });
+      data.end_time = new Date(data.end_time).toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+      });
+      data.start_date =
+        this.calender.convertMonth(new Date(data.start_date).getMonth()) +
+        "/" +
+        new Date(data.start_date).getDate() +
+        "/" +
+        new Date(data.start_date).getFullYear();
+      data.end_date =
+        this.calender.convertMonth(new Date(data.end_date).getMonth()) +
+        "/" +
+        new Date(data.end_date).getDate() +
+        "/" +
+        new Date(data.end_date).getFullYear();
+      this.session = data;
       this.checkIfSessionAlreadyAdded();
-    })
-    // this.dataProvider.load().subscribe((data: any) => {
-    //   if (data && data.schedule && data.schedule[0] && data.schedule[0].groups) {
-    //     const sessionId = this.route.snapshot.paramMap.get('sessionId');
-    //     for (const group of data.schedule[0].groups) {
-    //       if (group && group.sessions) {
-    //         for (const session of group.sessions) {
-    //           if (session && session.id === sessionId) {
-    //             this.session = session;
-
-    //             this.isFavorite = this.userProvider.hasFavorite(
-    //               this.session.name
-    //             );
-
-    //             break;
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // })
+    });
   }
 
   ionViewDidEnter() {
@@ -86,34 +101,70 @@ export class SessionDetailPage {
   }
 
   shareSession() {
-    console.log('Clicked share session');
+    console.log("Clicked share session");
   }
 
   checkIfSessionAlreadyAdded() {
     this.userProvider.favorites.forEach((element: any) => {
-      if(element.id == this.session.id) {
-        this.showToast(this.session.title)
-        this.isFavorite = true
-      }else{
-        this.isFavorite = false
+      if (element.id == this.session.id) {
+        this.showToast(this.session.title);
+        this.isFavorite = true;
+      } else {
+        this.isFavorite = false;
       }
-    })
+    });
   }
 
   async showToast(title) {
-      // Create a toast
-      const toast = await this.toastCtrl.create({
-        header: `${title} is added to prioritize!`,
-        duration: 3000,
-        buttons: [{
-          text: 'Close',
-          role: 'cancel'
-        }]
-      });
+    // Create a toast
+    const toast = await this.toastCtrl.create({
+      header: `${title} is added to prioritize!`,
+      duration: 3000,
+      buttons: [
+        {
+          text: "Close",
+          role: "cancel",
+        },
+      ],
+    });
 
-      // Present the toast at the bottom of the page
-      await toast.present();
+    // Present the toast at the bottom of the page
+    await toast.present();
   }
 
-  
+  // Kini siya nga function kay kuhaon niya ang tanan nga members sa usa ka group
+  getAllMembers() {
+    const currentUserID = this.request.getTheCurrentUserIdInStorage();
+    currentUserID.then((id: any) => {
+      const groupMembers = this.dataRequest.getAllMembersOfAGroup(id);
+      groupMembers.subscribe((response: any) => {
+        this.getMembersAttendance(response);
+      });
+    })
+  }
+
+  // Kini nga function kay ang pag kuha sa attendance sa certain member kung naka attend ba siya sa selected event
+  getMembersAttendance(arrayOfMembers) {
+    arrayOfMembers.forEach((member) => {
+      const attendance = this.eventsAttendance.getMemberAttendance(member.id);
+      attendance.subscribe((result: any) => {
+        result[0].currentEventsAttendance.forEach((attendance) => {
+          const eventDetails = this.eventsAttendance.getEventDetails(attendance.type)
+          eventDetails.subscribe((result: any) => {
+            if (this.session.title == result[0].title) {
+              if (!this.members.includes(member)) {
+                this.members.push(member);
+                this.membersAttendance.push('Attended')
+              }
+            } else {
+              if(!this.members.includes(member)) {
+                this.members.push(member)
+                this.membersAttendance.push("Didn't Attend") 
+              }
+            }
+          })
+        })
+      })
+    })
+  }
 }

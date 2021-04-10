@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
-import { DataDisplayProvider } from 'app/providers/data-editing';
+// import { DataDisplayProvider } from 'app/providers/data-editing';
+import { DataDisplayProvider } from '../../providers/data-editing';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,10 +11,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-classes.page.scss'],
 })
 export class AddClassesPage implements OnInit {
+  public lessonsToCreate = 1
   public addClasses = {
     newClasses: {
       Name: '',
-      Lesson: '',
+      Lesson: [],
       Title: '',
       Description: '',
       Instructor:''
@@ -40,12 +42,28 @@ export class AddClassesPage implements OnInit {
   }
 
   addClass(data) {
+    var dataPass = {
+      Lesson: [],
+      type: '',
+      trainingID: ''
+    }
     const addClass = this.eventsService.addTrainingsOrClasses(this.addClasses)
-    addClass.subscribe((response) => {
+    addClass.subscribe((response: any) => {
       this.dataDisplays.addNewClassesOrTrainings('Classes', response)
-      this.router.navigate(['/app/tabs/speakers'])
+      for (let index = 0; index < this.addClasses.newClasses.Lesson.length; index++) {
+        dataPass.Lesson = this.addClasses.newClasses.Lesson[index]
+        dataPass.trainingID = response.id 
+        dataPass.type = "Classess"
+        const addLessons = this.eventsService.addLessonOfATrainingOrClass(dataPass)
+        addLessons.subscribe((response: any) => {
+          this.router.navigate(['/app/tabs/speakers'])
+        })
+      }
     })
   }
 
+  counter(i: number) {
+    return new Array(i);
+  }
 
 }

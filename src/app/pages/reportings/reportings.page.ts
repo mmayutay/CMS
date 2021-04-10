@@ -5,7 +5,9 @@ import { AlertController } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
 import Swal from 'sweetalert2';
-import { CheckTutorial } from "app/providers/check-tutorial.service";
+// import { CheckTutorial } from "app/providers/check-tutorial.service";
+import { CheckTutorial } from "../../providers/check-tutorial.service";
+
 
 
 @Component({
@@ -81,8 +83,10 @@ export class ReportingsPage implements OnInit {
     public alertControl: AlertController,
     private router: Router,
     private menuCtrl: MenuController,
-    private leaders: CheckTutorial
-  ) {}
+    public leaders: CheckTutorial
+  ) {
+    this.leaders.chosenDate
+  }
 
   ngOnInit() {
     this.chosenMonth = this.currentTime.getMonth();
@@ -100,6 +104,8 @@ export class ReportingsPage implements OnInit {
   getData(members) {
     this.leaders.getMembersOfCertainLeader(members.target.value.id)
   }
+
+  
 
   onChangePage(pageOfItems: Array<any>, type) {
     // update current page of items
@@ -126,7 +132,7 @@ export class ReportingsPage implements OnInit {
 
 
 
-
+// Kini diri dapita kay ayaw lang ni hilabti kay magamit ni possible for future! 
 
   
   convertMonth(monthInput) {

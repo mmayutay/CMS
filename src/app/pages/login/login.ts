@@ -36,6 +36,12 @@ export class LoginPage {
     this.dataRequest.storeIfCurrentUserAlreadyAttended(false)
 
     this.menu.enable(false)
+
+    this.request.getTheCurrentUserIdInStorage().then((data: any) => {
+      if(data != null) {
+        this.router.navigate(['/app/tabs/schedule'])
+      }
+    })
   }
  
   showPassword() {

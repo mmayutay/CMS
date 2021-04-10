@@ -22,18 +22,26 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
             <ion-text color="danger">Name is required</ion-text>
           </ion-label><br>
+
           <ion-item>
-            <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
+            <!-- <ion-label position="stacked" color="primary">Lastname</ion-label> -->
             <div class="input-container">
               <ion-icon class="iconLogin" name="person"></ion-icon>
-              <textarea [(ngModel)]="addTrainings.newTrainings.Lesson" #nameCtrl="ngModel" placeholder="Lesson"
-                name="Lesson" type="text" #Lesson="ngModel" required></textarea>
+              <input class="input" [(ngModel)]="lessonsToCreate" placeholder="How many lessons" name="LessonsNumber" type="number" required />
             </div>&nbsp;&nbsp;
           </ion-item>
-          <ion-label *ngIf="!Lesson.valid && Lesson.touched && Lesson.errors?.required">
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <ion-text color="danger">Lesson is required</ion-text>
-          </ion-label><br>
+
+          <div *ngFor="let in of counter(lessonsToCreate); let i = index">
+            <ion-item>
+              <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
+              <div class="input-container">
+                <ion-icon class="iconLogin" name="person"></ion-icon>
+                <textarea [(ngModel)]="addTrainings.newTrainings.Lesson[i]" [placeholder]="'Lesson ' + (i+1)"
+                  name="Lesson" type="text" required></textarea>
+              </div>&nbsp;&nbsp;
+            </ion-item>
+          </div><br>
+
           <ion-item>
             <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
             <div class="input-container">
