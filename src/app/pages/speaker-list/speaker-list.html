@@ -128,7 +128,7 @@
                     <ion-col size-xs="4">Title</ion-col>
                     <!-- <ion-col size-xs="4">Score</ion-col> -->
                 </ion-row>
-                <ion-row *ngFor="let training of trainings">
+                <ion-row *ngFor="let training of trainings" (click)="navigateToAddingScore(training.id, 'trainings')">
                     <!-- <ion-col size-xs="4">{{training.lesson}}</ion-col> -->
                     <ion-col size-xs="4">{{training.name}}</ion-col>
                     <ion-col size-xs="4">{{training.title}}</ion-col>
@@ -146,7 +146,7 @@
                     <ion-col size-xs="4">Title</ion-col>
                     <!-- <ion-col size-xs="4">Score</ion-col> -->
                 </ion-row>
-                <ion-row *ngFor="let class of classes; let i = index">
+                <ion-row *ngFor="let class of classes; let i = index" (click)="navigateToAddingScore(class.id, 'classes')">
                     <!-- <ion-col size-xs="4">{{classes[i + count].lesson}}</ion-col> -->
                     <ion-col size-xs="4">{{class.name}}</ion-col>
                     <ion-col size-xs="4">{{class.title}}</ion-col>

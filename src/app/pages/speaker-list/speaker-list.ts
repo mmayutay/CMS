@@ -105,5 +105,10 @@ export class SpeakerListPage {
     //   this.excludeTracks = data;
     // }
   }
+
+
+  navigateToAddingScore(id, type) {
+    this.router.navigate(['/add-student-score/' + id + "/"+ type])
+  }
   
 }

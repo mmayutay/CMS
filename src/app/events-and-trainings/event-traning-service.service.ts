@@ -97,4 +97,9 @@ export class EventTraningServiceService {
   returnClassAndTrainingsByUser(id) {
     return this.http.get(this.url + 'trainings-by-instructor/return-by-current-user/' + id)
   }
+
+  // Kini nga function kay kuhaon niya ang tanan nga students sa certain class or training 
+  returnStudentsOfClassOrTrainings(id, type) {
+    return this.http.get(this.url + "student-trainings-or-class/get-students-trainings-classes/" + id + "/" + type);
+  }
 }

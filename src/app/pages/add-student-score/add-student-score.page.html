@@ -1,9 +1,43 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>add-student-score</ion-title>
+    <ion-icon slot="start" class="icon" name="arrow-back" [routerLink]="['/app/tabs/speakers']"></ion-icon>
+    <ion-title>Scores</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div>
+          First Name
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Last Name
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Score
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let value of studentsScore">
+      <ion-col>
+        <div>
+          {{ value.students.firstname }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{ value.students.lastname }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-input style="height: 20px;" type="number" [value]="value.records.score"></ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
