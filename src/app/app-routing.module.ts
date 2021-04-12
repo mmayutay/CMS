@@ -90,7 +90,12 @@ const routes: Routes = [
   {
     path: 'add-student/:typeOfAdd/:selectedItemID',
     loadChildren: () => import('./pages/add-student/add-student.module').then( m => m.AddStudentPageModule)
+  },
+  {
+    path: 'add-student-score/:id/:type',
+    loadChildren: () => import('./pages/add-student-score/add-student-score.module').then( m => m.AddStudentScorePageModule)
   }
+
 ];
 
 @NgModule({

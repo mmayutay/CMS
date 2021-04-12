@@ -147,20 +147,27 @@ export class calendar {
       );
       attendanceCounter = 0;
     }
-    // console.log("weeklyAttendance:: " ,weeklyAttendance);
-    // console.log("Array of Dates: ", date)
     return weeklyAttendance;
     
   }
 
   // get the week of the month
-  getWeekOfMonth(arrayOfDates) {
-    var time = new Date();
-    var day = time.getDay();
+  getWeekOfMonth(arrayOfDates: any, week: number, month: string) {
+    // console.log(this.dates(new Date(arrayOfDates[0])))
+    var arrayOfPercent = []
+    var counter = 0
+    var day = new Date().getDay();
+    var convertWhen;
     arrayOfDates.forEach(element => {
-      var weekOfMonth = Math.ceil((new Date(element.date).getDate() - 1 - day) / 7);
-      console.log(weekOfMonth + 1)
+      convertWhen = Math.ceil((new Date(element).getDate() - 1 - day) / 7)
+      if(convertWhen == week) {
+        if(this.convertMonth(new Date(element).getMonth()) == month) {
+          counter += 1
+        }
+      }
+      arrayOfPercent.push(counter/arrayOfDates.length)
     });
+    return arrayOfPercent;
     
   }
 
@@ -185,7 +192,6 @@ export class calendar {
       );
       attendanceCounter = 0;
     }
-    // console.log("weeklyAttendance:: " ,weeklyAttendance);
     console.log("dfdfd: ",monthlyAttendance);
     return monthlyAttendance;
 
@@ -200,5 +206,19 @@ export class calendar {
     }
     return days;
   }
+
+
+  dates(current) {
+    var week= new Array(); 
+    // Starting Monday not Sunday
+    current.setDate((current.getDate() - current.getDay() +1));
+    for (var i = 0; i < 7; i++) {
+        week.push(
+            new Date(current)
+        ); 
+        current.setDate(current.getDate() +1);
+    }
+    return week; 
+}
   
 }

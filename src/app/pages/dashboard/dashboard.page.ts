@@ -15,11 +15,12 @@ import { calendar } from '../../interfaces/user-options'
   styleUrls: ["./dashboard.page.scss"],
 })
 export class DashboardPage implements OnInit {
+  public chosenMonth = ""
   public typeOfView = "VIP Member"
   public listAllTheMembers = []
 
   public typeOfViewChoices = ["Monthly", "Weekly", "Quarterly", "Yearly"];
-  public typeOfViewChosed = ''
+  public typeOfViewChosed = 'Weekly'
   //These are the variables for quarterly view
   public quarterBool = false;
   public quarterMonths = [
@@ -31,8 +32,13 @@ export class DashboardPage implements OnInit {
   public monthlyBool = false
   public monthlyView = this.calendar.returnAllMonthsChoices();
   //These are the variables for weekly view
-  public weeklyBool = false
-  public weeklyView = ['1st', '2nd', '3rd', '4th'];
+  public weeklyBool = true
+  public weeklyView = [
+    {display: '1st', value: 1}, 
+    {display: '2nd', value: 2},
+    {display: '3rd', value: 3},
+    {display: '4th', value: 4}
+  ];
   //These are the variables for yearly view
   public yearlyBool = false
   public yearlyView = this.calendar.returnYearsFrom2005ToCurrentYear();
@@ -72,20 +78,16 @@ export class DashboardPage implements OnInit {
     private popoverCtrl: PopoverController,
     private router: Router,
 
-    private calendar: calendar
+    public calendar: calendar
   ) { }
 
   ngOnInit() {
     this.request.getTheCurrentUserIdInStorage().then((id) => {
-      console.log(id)
       this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
-        console.log(data[0].currentUserAttendance)
         this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
-        this.calendar.getWeekOfMonth(data[0].currentUserAttendance)
-  
-        // this.monthlyStats = this.calendar.monthlyData(data[0].currentUserAttendance)
       });
     });
+    
     this.userIsActiveOrNot();
     var slides = document.querySelector("ion-slides");
     slides.options = {
@@ -231,7 +233,6 @@ export class DashboardPage implements OnInit {
         })
       })
     }
-    console.log("Active and Inactive:: ", this.active, this.inactive);
 
   }
 
@@ -266,6 +267,7 @@ export class DashboardPage implements OnInit {
 
   //This function is used to select type of quarterly view (ex. "January to April")
   monthsToView(value) {
+    console.log(value.target.value)
     this.monthChosen.length = 0
     if (this.typeOfViewChosed == 'Quarterly') {
       this.monthChosen = value.target.value.months
@@ -273,25 +275,22 @@ export class DashboardPage implements OnInit {
       this.monthChosen = this.calendar.returnAllWeeks();
       this.arrayOfCellgroup = this.monthlyStats;
       this.arrayOfSundayCeleb = this.monthlyStats;
-      // this.monthChosen = ['1st', '2nd', '3rd', '4th']
-      // this.arrayOfCellgroup = this.calendar.returnTheMonthlyAttendanceForCellgroup();
-      // this.arrayOfSundayCeleb = this.calendar.returnTheMonthlyAttendanceForSC();
     } else if (this.typeOfViewChosed == 'Weekly') {
+      console.log(this.calendar.getWeekOfMonth(["03-11-2021"], value.target.value, this.chosenMonth))
       this.monthChosen = this.calendar.returnAllDays();
       this.arrayOfCellgroup = this.weeklyStats;
       this.arrayOfSundayCeleb = this.weeklyStats;
-      // console.log("SAmPLe:: ", this.sample)
-      
-      // console.log("SAMPLE:: " ,this.calendar.dayInAWeek());
     } else {
       this.monthChosen = this.calendar.returnAllMonthsChoices();
       this.arrayOfCellgroup = this.calendar.returnStatisticsForAYear();
       this.arrayOfSundayCeleb = this.calendar.returnStatisticsForAYear()
     }
     this.graphCreated(this.barCanvas, this.arrayOfCellgroup);
-    this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb);
+    this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb); 
+  }
 
-    
+  getMonth(value) {
+    this.chosenMonth = value.target.value
   }
 
 
