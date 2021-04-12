@@ -18,7 +18,7 @@
             <!-- This is for the Statistics  -->
             <ion-card>
                 <ion-input (ionChange)="getTheUserView($event)" name="code" ngModel class="input">
-                    <ion-select placeholder="Choose Type">
+                    <ion-select value="Weekly" placeholder="Choose Type">
                         <ion-select-option *ngFor="let value of typeOfViewChoices" [value]="value">{{ value }}</ion-select-option>
                     </ion-select>
                 </ion-input>
@@ -40,7 +40,10 @@
                 <!-- This will show if the type of choice is weekly -->
                 <ion-input *ngIf="weeklyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
                     <ion-select placeholder="Choose Type">
-                        <ion-select-option *ngFor="let value of weeklyView" [value]="value">{{ value }}</ion-select-option>
+                        <ion-select-option *ngFor="let value of weeklyView" [value]="value.value">{{ value.display }}</ion-select-option>
+                    </ion-select>
+                    <ion-select (ionChange)="getMonth($event)" placeholder="What Month?">
+                        <ion-select-option *ngFor="let value of calendar.returnAllMonthsChoices()" [value]="value">{{ value }}</ion-select-option>
                     </ion-select>
                 </ion-input>
 
@@ -68,28 +71,6 @@
                 </ion-card-content>
             </ion-card><br><br>
         </ion-slide>
-
-        <!-- <ion-slide>
-      <ion-card>
-        <ion-input (ionChange)="selectMember($event)" name="code" ngModel class="input">
-          <ion-select placeholder="Choose Type">
-            <ion-select-option *ngFor="let value of typeOfViewMember" [value]="value">{{ value }}</ion-select-option>
-          </ion-select>
-        </ion-input> -->
-        <!-- This is for the view of the members -->
-        <!-- Vip and Regular members -->
-        <!-- <div class="tableMembers">
-          <table>
-            <tr>
-              <th>{{ typeOfView }}</th>
-            </tr>
-            <tr *ngFor="let value of listAllTheMembers">
-              <td> {{ value }} </td>
-            </tr>
-          </table>
-        </div>
-      </ion-card>
-    </ion-slide> -->
 
     </ion-slides>
 </ion-content>
