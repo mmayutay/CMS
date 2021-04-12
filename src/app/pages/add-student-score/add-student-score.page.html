@@ -24,19 +24,23 @@
         </div>
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let value of studentsScore">
+    <ion-row *ngFor="let value of studentsScore; let i = index">
       <ion-col>
-        <div>
+        <div id="firstname">
           {{ value.students.firstname }}
         </div>
       </ion-col>
       <ion-col>
-        <div>
+        <div id="lastname">
           {{ value.students.lastname }}
         </div>
       </ion-col>
       <ion-col>
-        <ion-input style="height: 20px;" type="number" [value]="value.records.score"></ion-input>
+        <ion-item>
+          <ion-select [value]="value.records.score" (ionChange)="getTheUpdatedScore(value.students, $event)" okText="Okay">
+            <ion-select-option *ngFor="let in of counter(11); let i = index" [value]="i">{{i}}</ion-select-option>
+          </ion-select>
+        </ion-item>
       </ion-col>
     </ion-row>
   </ion-grid>

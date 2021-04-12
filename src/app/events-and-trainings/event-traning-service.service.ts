@@ -102,4 +102,9 @@ export class EventTraningServiceService {
   returnStudentsOfClassOrTrainings(id, type) {
     return this.http.get(this.url + "student-trainings-or-class/get-students-trainings-classes/" + id + "/" + type);
   }
+
+  // Kini siya nga function kay ang pag update sa score sa certain student sa class or trainings nga na belong siya
+  updateStudentScore(data) {
+    return this.http.post(this.url + "student-trainings-or-class/update-students-score", data)
+  }
 }
