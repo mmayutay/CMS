@@ -42,7 +42,7 @@
                     <ion-select placeholder="Choose Type">
                         <ion-select-option *ngFor="let value of weeklyView" [value]="value.value">{{ value.display }}</ion-select-option>
                     </ion-select>
-                    <ion-select (ionChange)="getMonth($event)" placeholder="What Month?">
+                    <ion-select [value]="chosenMonth" (ionChange)="getMonth($event)" placeholder="What Month?">
                         <ion-select-option *ngFor="let value of calendar.returnAllMonthsChoices()" [value]="value">{{ value }}</ion-select-option>
                     </ion-select>
                 </ion-input>

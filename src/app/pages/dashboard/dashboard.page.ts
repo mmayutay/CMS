@@ -15,7 +15,8 @@ import { calendar } from '../../interfaces/user-options'
   styleUrls: ["./dashboard.page.scss"],
 })
 export class DashboardPage implements OnInit {
-  public chosenMonth = ""
+  public whatWeek = 1
+  public chosenMonth = this.calendar.convertMonth(new Date().getMonth())
   public typeOfView = "VIP Member"
   public listAllTheMembers = []
 
@@ -267,7 +268,7 @@ export class DashboardPage implements OnInit {
 
   //This function is used to select type of quarterly view (ex. "January to April")
   monthsToView(value) {
-    console.log(value.target.value)
+    this.whatWeek = value.target.value
     this.monthChosen.length = 0
     if (this.typeOfViewChosed == 'Quarterly') {
       this.monthChosen = value.target.value.months
@@ -291,6 +292,7 @@ export class DashboardPage implements OnInit {
 
   getMonth(value) {
     this.chosenMonth = value.target.value
+    this.monthsToView({target: {value: this.whatWeek}})
   }
 
 
