@@ -6,6 +6,7 @@ import { RequestsService } from "../logInAndSignupService/requests.service";
   providedIn: "root",
 })
 export class calendar {
+  public membersAttendance;
   public membersOfAGroup;
   public statsAttendance = [];
   public activeMember = [];
@@ -81,6 +82,21 @@ export class calendar {
     weeks[3] = "4th";
     return weeks;
   }
+
+  // Kini siya nga function kay iyang i return ang array sa percentage nga basihan sa statistics 
+  getMonthlyStats(dataAttendance: any, month: string) {
+    var allAverage = 0
+    var arrayPercent = []
+    for (let count = 0; count < 4; count++) {
+        this.getWeekOfMonth(dataAttendance, count, month).forEach(data => {
+          allAverage += data
+        })
+        arrayPercent.push((allAverage / this.membersOfAGroup.length))
+        allAverage = 0
+    }
+    return arrayPercent;
+  }
+
   returnAllWeeklyAttendance() {
     return [75, 0, 0, 0, 0, 0, 0];
   }
@@ -151,33 +167,39 @@ export class calendar {
 
   }
 
+  // Kini siya nga function kay i return ang tanan nga attendance sa iyang mga members 
+  returnAttendance(data) {
+    this.membersAttendance = data[0]
+  }
+
   // get the week of the month
   getWeekOfMonth(arrayOfDates: any, week: number, month: string) {
+    var convertWhen;
+    var day = new Date().getDay();
     var givenMonthArray = []
     this.allDatesOfYear(new Date(), 365).forEach(element => {
-      if(new Date(element).toString().includes(month)) {
-        givenMonthArray.push(element)
+      convertWhen = Math.ceil((new Date(element).getDate() - 1 - day) / 7)
+      if (convertWhen == week) {
+        if (new Date(element).toString().includes(month)) {
+          givenMonthArray.push(element)
+        }
       }
     })
     var arrayOfPercent = []
-    var counter = 0
-    var day = new Date().getDay();
-    var convertWhen;
+    var eventCounter = 0
     givenMonthArray.forEach(event => {
       arrayOfDates.forEach(element => {
-        convertWhen = Math.ceil((new Date(event).getDate() - 1 - day) / 7)
-        if (convertWhen == week) {
-          if ( (new Date(event).getMonth() + '-' + new Date(event).getDate()) == (new Date(element).getMonth() + '-' + new Date(element).getDate())) {
-            counter += 1
-          }
-        arrayOfPercent.push(counter / arrayOfDates.length)
-        counter = 0
+        if ((new Date(event).getMonth() + '-' + new Date(event).getDate()) == (new Date(element.date).getMonth() + '-' + new Date(element.date).getDate())) {
+          eventCounter += 1
         }
       })
+      arrayOfPercent.push((eventCounter / this.membersOfAGroup.length) * 100)
+      eventCounter = 0
     })
-    return arrayOfPercent;      
 
-}
+    return arrayOfPercent;
+
+  }
 
   monthlyData(date) {
     var attendanceCounter = 0;

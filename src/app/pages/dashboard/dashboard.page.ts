@@ -2,11 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Chart } from "chart.js";
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
-import { ActionSheetController,  } from '@ionic/angular';
 
 import { PopoverController } from '@ionic/angular';
 import { DashboardPopoverPage } from '../dashboard-popover/dashboard-popover.page';
-import { Router } from '@angular/router';
 import { calendar } from '../../interfaces/user-options'
 
 @Component({
@@ -65,7 +63,7 @@ export class DashboardPage implements OnInit {
 
   public sample;
 
-  private barChart: Chart;
+  public barChart: Chart;
 
   //This is the data to use for the stats
   public weeklyStats;
@@ -77,7 +75,6 @@ export class DashboardPage implements OnInit {
     private dataRequest: DataRequestsService,
     private request: RequestsService,
     private popoverCtrl: PopoverController,
-    private router: Router,
 
     public calendar: calendar
   ) { }
@@ -85,6 +82,7 @@ export class DashboardPage implements OnInit {
   ngOnInit() {
     this.request.getTheCurrentUserIdInStorage().then((id) => {
       this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
+        this.calendar.returnAttendance(data)
         this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
       });
     });
@@ -274,13 +272,12 @@ export class DashboardPage implements OnInit {
       this.monthChosen = value.target.value.months
     } else if (this.typeOfViewChosed == 'Monthly') {
       this.monthChosen = this.calendar.returnAllWeeks();
-      this.arrayOfCellgroup = this.monthlyStats;
-      this.arrayOfSundayCeleb = this.monthlyStats;
+      this.arrayOfCellgroup = this.calendar.getMonthlyStats(this.calendar.membersAttendance.currentEventsAttendance, this.chosenMonth);
+      this.arrayOfSundayCeleb = this.calendar.getMonthlyStats(this.calendar.membersAttendance.currentUserAttendance, this.chosenMonth);
     } else if (this.typeOfViewChosed == 'Weekly') {
-      console.log(this.calendar.getWeekOfMonth(["03-11-2021"], value.target.value, this.chosenMonth))
       this.monthChosen = this.calendar.returnAllDays();
-      this.arrayOfCellgroup = this.weeklyStats;
-      this.arrayOfSundayCeleb = this.weeklyStats;
+      this.arrayOfCellgroup = this.calendar.getWeekOfMonth(this.calendar.membersAttendance.currentEventsAttendance, value.target.value, this.chosenMonth);
+      this.arrayOfSundayCeleb = this.calendar.getWeekOfMonth(this.calendar.membersAttendance.currentUserAttendance, value.target.value, this.chosenMonth);
     } else {
       this.monthChosen = this.calendar.returnAllMonthsChoices();
       this.arrayOfCellgroup = this.calendar.returnStatisticsForAYear();
