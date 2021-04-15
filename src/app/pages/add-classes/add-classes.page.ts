@@ -47,19 +47,6 @@ export class AddClassesPage implements OnInit {
       type: '',
       trainingID: ''
     }
-    const addClass = this.eventsService.addTrainingsOrClasses(this.addClasses)
-    addClass.subscribe((response: any) => {
-      this.dataDisplays.addNewClassesOrTrainings('Classes', response)
-      for (let index = 0; index < this.addClasses.newClasses.Lesson.length; index++) {
-        dataPass.Lesson = this.addClasses.newClasses.Lesson[index]
-        dataPass.trainingID = response.id 
-        dataPass.type = "Classess"
-        const addLessons = this.eventsService.addLessonOfATrainingOrClass(dataPass)
-        addLessons.subscribe((response: any) => {
-          this.router.navigate(['/app/tabs/speakers'])
-        })
-      }
-    })
   }
 
   counter(i: number) {

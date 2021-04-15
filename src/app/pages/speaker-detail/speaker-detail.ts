@@ -46,21 +46,6 @@ export class SpeakerDetailPage {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
       this.selectedItemId = speakerId
       this.segmentModel = this.route.snapshot.paramMap.get('addType');
-      
-      const selectedItem = this.eventRequest.getSelectedTrainingsOrClasses(this.segmentModel, speakerId);
-      selectedItem.subscribe((data: any) => {
-        this.getTrainingsOrClassLessons(data.id)
-        this.detail = data;
-        const allStudents = this.eventRequest.getStudent(this.segmentModel, data.id)
-        allStudents.subscribe((response: any) => {
-          if(response.length != 0) {
-            this.dataDisplays.returnStudentsOfCertainTraining(response)
-            this.getCertainUser(response)
-          }else {
-            this.datas.studentsNames.length = 0
-          }
-        })
-    });
   }
 
   // This function will add the user 
@@ -89,15 +74,6 @@ export class SpeakerDetailPage {
     }else {
       this.isToDelete = true
     }
-  }
-
-  // Kini siya nga function kay kuhaon ang tanan nga lessons sa selected trainings or class 
-  getTrainingsOrClassLessons(id) {
-    const getLessons = this.eventRequest.getLessons(id, this.segmentModel)
-    getLessons.subscribe((result: any) => {
-      this.lessons = result
-      console.log(result)
-    })
   }
 
   getValue(value) {
