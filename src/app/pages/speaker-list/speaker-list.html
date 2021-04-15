@@ -39,31 +39,36 @@
         <div *ngIf="segmentModel === 'Trainings'">
             <ion-grid fixed>
                 <ion-row>
-                    <ion-col size="12" size-md="6" *ngFor="let speaker of dataDisplays.trainings">
+                    <ion-item>
+                        <ion-select (ionChange)="getIDSelectedTraining($event)" okText="Okay" cancelText="Dismiss">
+                            <ion-select-option *ngFor="let speaker of dataDisplays.trainings" [value]="speaker.id">{{speaker.title}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-col size="12" size-md="6" *ngFor="let lesson of lessonsOfSelectedTraining">
                         <ion-card class="speaker-card">
                             <ion-card-header>
-                                <ion-item detail="false" lines="none" class="speaker-item" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
-                                    <!-- <ion-avatar slot="start">
-                                    <img [src]="speaker.profilePic" [alt]="speaker.name + ' profile picture'">
-                                </ion-avatar> -->
+                                <ion-item detail="false" lines="none" class="speaker-item"
+                                    routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{lesson.id}}">
                                     <ion-label>
-                                        <h2>{{speaker.name}}</h2>
-                                        <p>{{speaker.title}}</p>
+                                        <h2>{{lesson.name}}</h2>
+                                        <p>{{lesson.title}}</p>
                                     </ion-label>
                                 </ion-item>
                             </ion-card-header>
 
                             <ion-card-content>
                                 <ion-list lines="none">
-                                    <ion-item routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                    <ion-item
+                                        routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{lesson.id}}">
                                         <ion-label>
-                                            <h3>{{speaker.lesson}}</h3>
+                                            <h3>{{lesson.lesson}}</h3>
                                         </ion-label>
                                     </ion-item>
 
-                                    <ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                    <ion-item detail="false"
+                                        routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{lesson.id}}">
                                         <ion-label>
-                                            <h3>About {{speaker.name}}</h3>
+                                            <h3>About {{lesson.name}}</h3>
                                         </ion-label>
                                     </ion-item>
                                 </ion-list>
@@ -80,7 +85,8 @@
                     <ion-col size="12" size-md="6" *ngFor="let speaker of dataDisplays.classes">
                         <ion-card class="speaker-card">
                             <ion-card-header>
-                                <ion-item detail="false" lines="none" class="speaker-item" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                <ion-item detail="false" lines="none" class="speaker-item"
+                                    routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
                                     <!-- "/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}" -->
                                     <!-- <ion-avatar slot="start">
                                     <img [src]="speaker.profilePic" [alt]="speaker.name + ' profile picture'">
@@ -94,14 +100,16 @@
 
                             <ion-card-content>
                                 <ion-list lines="none">
-                                    <ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                    <ion-item detail="false"
+                                        routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
                                         <!-- "/app/tabs/speakers/session/{{speaker.id}}" -->
                                         <ion-label>
                                             <h3>{{speaker.lesson}}</h3>
                                         </ion-label>
                                     </ion-item>
 
-                                    <ion-item detail="false" routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
+                                    <ion-item detail="false"
+                                        routerLink="/app/tabs/speakers/speaker-details/{{segmentModel}}/{{speaker.id}}">
                                         <ion-label>
                                             <h3>About {{speaker.name}}</h3>
                                         </ion-label>
@@ -146,7 +154,8 @@
                     <ion-col size-xs="4">Title</ion-col>
                     <!-- <ion-col size-xs="4">Score</ion-col> -->
                 </ion-row>
-                <ion-row *ngFor="let class of classes; let i = index" (click)="navigateToAddingScore(class.id, 'classes')">
+                <ion-row *ngFor="let class of classes; let i = index"
+                    (click)="navigateToAddingScore(class.id, 'classes')">
                     <!-- <ion-col size-xs="4">{{classes[i + count].lesson}}</ion-col> -->
                     <ion-col size-xs="4">{{class.name}}</ion-col>
                     <ion-col size-xs="4">{{class.title}}</ion-col>
@@ -158,9 +167,23 @@
             </div>
         </div>
     </ion-card>
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
+    <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
         <ion-fab-button (click)="addEventOrClass()">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
-    </ion-fab>
+    </ion-fab> -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+          <ion-fab-button (click)="addEventOrClass()">
+            <ion-icon name="add-circle-outline"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-button (click)="navigateAddLesson()">
+            <ion-icon name="add-outline"></ion-icon>
+        </ion-fab-button>
+        </ion-fab-list>
+      </ion-fab>
+
 </ion-content>

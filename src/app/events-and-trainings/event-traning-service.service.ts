@@ -63,7 +63,22 @@ export class EventTraningServiceService {
 
 
   // Kini siya nga function kay ang pag add ug trainings with lessons sa 
-  addTrainingsWithLesson(data) {
+  addTrainings(data) {
     return this.http.post(this.url + 'trainings-and-classes/add-trainings-with-lessons', data)
+  }
+
+  // Kini siya nga function kay i return ang tanan nga mga trainings created by the current user 
+  getTrainings(id) {
+    return this.http.get(this.url + 'trainings-and-classes/get-all-trainings/' + id)
+  }
+
+  // Kini siya nga function kay mag add ug lesson sa certain trainings 
+  addLessonTraining(data) {
+    return this.http.post(this.url + 'trainings-and-classes/add-lesson-of-training', data);
+  }
+
+  // Kini siya nga function kay iyang i return ang tanan nga lesson sa selected training 
+  returnLessons(id) {
+    return this.http.get(this.url + 'trainings-and-classes/return-lesson-of-selected-training/' + id)
   }
 }

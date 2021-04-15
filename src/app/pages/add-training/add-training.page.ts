@@ -11,14 +11,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-training.page.scss'],
 })
 export class AddTrainingPage implements OnInit {
-  public lessonsToCreate = 1
+  public lessonsToCreate = ""
   public addTrainings = {
     newTrainings: {
-      Name: '',
-      Lesson: [],
-      Title: '',
-      Description: '',
-      Instructor: ''
+      code: '',
+      title: '',
+      description: '',
+      instructor: '',
+      level: ''
     },
     currentUser: {
       userID: ''
@@ -37,7 +37,7 @@ export class AddTrainingPage implements OnInit {
     const getCurrentUser = this.request.getTheCurrentUserIdInStorage()
     getCurrentUser.then((id) => {
       this.addTrainings.currentUser.userID = id
-      this.addTrainings.newTrainings.Instructor = id
+      this.addTrainings.newTrainings.instructor = id
     })
   }
 
@@ -46,7 +46,7 @@ export class AddTrainingPage implements OnInit {
   }
 
   onaddEvents(data) {
-    const trainings = this.eventsService.addTrainingsWithLesson(this.addTrainings.newTrainings)
+    const trainings = this.eventsService.addTrainings(this.addTrainings.newTrainings)
     trainings.subscribe((data: any) => {
       console.log(data)
     })
