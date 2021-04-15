@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-student-score',
@@ -15,10 +16,21 @@ export class AddStudentScorePage implements OnInit {
     newScore: ''
   }
   
+  page = 0;
+  resultsCount = 10;
+  totalPages = 10;
+  bulkEdit = false;
+  sortDirection = 0;
+
+  data = [];
+
   constructor(
     private activatedRoute: ActivatedRoute,
-    private eventRequest:  EventTraningServiceService
-  ) { }
+    private eventRequest:  EventTraningServiceService,
+    private http: HttpClient,
+  ) { 
+    this.loadData();
+  }
 
   ngOnInit() {
     let type = this.activatedRoute.snapshot.paramMap.get('type');
@@ -29,6 +41,17 @@ export class AddStudentScorePage implements OnInit {
     studentsOfClassOrTrainings.subscribe((response: any) => {
       this.studentsScore = response
     })
+  }
+
+  loadData(){
+    this.http.get(`https://randomuser.me/api/?page=${this.page}&results=${this.resultsCount}`).subscribe(res =>{
+      console.log("res_ ", res);
+      this.data = res['results'];
+    });
+  }
+
+  sortby(key){
+
   }
 
   getTheUpdatedScore(owner, updatedScore) {
