@@ -46,24 +46,15 @@ export class AddTrainingPage implements OnInit {
   }
 
   onaddEvents(data) {
-    var dataPass = {
-      Lesson: [],
-      type: '',
-      trainingID: ''
-    }
-    const addClass = this.eventsService.addTrainingsOrClasses(this.addTrainings)
-    addClass.subscribe((response: any) => {
-      this.dataDisplays.addNewClassesOrTrainings('Trainings', response)
-      for (let index = 0; index < this.addTrainings.newTrainings.Lesson.length; index++) {
-        dataPass.Lesson = this.addTrainings.newTrainings.Lesson[index]
-        dataPass.trainingID = response.id 
-        dataPass.type = "Trainings"
-        const addLessons = this.eventsService.addLessonOfATrainingOrClass(dataPass)
-        addLessons.subscribe((response: any) => {
-          this.router.navigate(['/app/tabs/speakers'])
-        })
-      }
+    const trainings = this.eventsService.addTrainingsWithLesson(this.addTrainings.newTrainings)
+    trainings.subscribe((data: any) => {
+      console.log(data)
     })
   }
 
 }
+
+// $table->string('code');
+// $table->string('title');
+// $table->string('description');
+// $table->string('level');
