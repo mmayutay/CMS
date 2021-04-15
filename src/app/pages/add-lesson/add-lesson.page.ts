@@ -8,12 +8,14 @@ import { EventTraningServiceService } from 'app/events-and-trainings/event-trani
   styleUrls: ['./add-lesson.page.scss'],
 })
 export class AddLessonPage implements OnInit {
+  public lessonsToAdd = 1
+  public arrayOfLessons = []
   public lessonsAdded = {
     trainingsID: "",
-    name: '',
-    lesson: '',
-    title: '',
-    description: ''
+    name: [],
+    lesson: [],
+    title: [],
+    description: []
   }
 
   constructor(
@@ -27,10 +29,22 @@ export class AddLessonPage implements OnInit {
 
   // Kini siya nga function kay ang pag add ug lesson sa certain trainings 
   addLessonOfTraining(data) {
-    const addLesson = this.eventRequest.addLessonTraining(this.lessonsAdded)
-    addLesson.subscribe((data: any) => {
-      console.log(data)
-    })
+    this.arrayOfLessons.push(data.form.value)
+    // const addLesson = this.eventRequest.addLessonTraining(this.lessonsAdded)
+    // addLesson.subscribe((data: any) => {
+    //   console.log(data)
+    // })
   }
 
+  counter(i: number) {
+    return new Array(i)
+  }
+
+  addMultipleLessons(value) {
+    this.lessonsToAdd = Number(value.target.value)
+  }
+
+  submitLessons() {
+    console.log(this.arrayOfLessons)
+  }
 }

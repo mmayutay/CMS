@@ -7,21 +7,28 @@
 
 
 <ion-content>
-  <ion-card class="card">
+  <div style="text-align: center; width: 100%; margin-left: 10%;">
+    <ion-input style="position: fixed;width: 75%;" (ionChange)="addMultipleLessons($event)"
+      placeholder="How many lessons you want to add?" type="text"></ion-input>
+  </div><br><br>
+
+
+
+  <ion-card class="card" *ngFor="let in of counter(lessonsToAdd); let i = index">
     <ion-card-content>
       <form #addEventsForm="ngForm" novalidate>
         <ion-list lines="none">
           <ion-item>
             <div class="input-container">
               <ion-icon class="iconLogin" name="locate-outline"></ion-icon>
-              <ion-input [(ngModel)]="lessonsAdded.name" placeholder="Lesson Name" name="name" type="text"
+              <ion-input [(ngModel)]="lessonsAdded.name[i]" placeholder="Lesson Name" name="name" type="text"
                 #Name="ngModel" required></ion-input>
             </div>&nbsp;&nbsp;
           </ion-item><br>
 
           <ion-item>
             <div class="input-container">
-              <ion-input [(ngModel)]="lessonsAdded.title" #nameCtrl="ngModel" placeholder="Title" name="Title"
+              <ion-input [(ngModel)]="lessonsAdded.title[i]" #nameCtrl="ngModel" placeholder="Title" name="Title"
                 type="text" #Title="ngModel" required></ion-input>
             </div>&nbsp;&nbsp;
           </ion-item>
@@ -32,7 +39,7 @@
 
           <ion-item>
             <div class="input-container">
-              <ion-input [(ngModel)]="lessonsAdded.description" #nameCtrl="ngModel" placeholder="Description"
+              <ion-input [(ngModel)]="lessonsAdded.description[i]" #nameCtrl="ngModel" placeholder="Description"
                 name="Description" type="text" #Description="ngModel" required></ion-input>
             </div>&nbsp;&nbsp;
           </ion-item>
@@ -44,7 +51,7 @@
           <ion-item>
             <div class="input-container">
               <ion-icon class="iconLogin" name="add-circle-outline"></ion-icon>
-              <ion-input [(ngModel)]="lessonsAdded.lesson" placeholder="Level" name="LessonsNumber" type="number"
+              <ion-input [(ngModel)]="lessonsAdded.lesson[i]" placeholder="Level" name="LessonsNumber" type="number"
                 required></ion-input>
             </div>&nbsp;&nbsp;
           </ion-item>
@@ -55,6 +62,9 @@
       </form>
 
     </ion-card-content>
-  </ion-card>
-
+  </ion-card><br><br>
 </ion-content>
+
+<div class="button-bottom">
+  <ion-button expand="full" (click)="submitLessons()">Submit {{ arrayOfLessons.length }} Added Lessons</ion-button>
+</div>
