@@ -9,7 +9,7 @@
 <ion-content>
   <div style="text-align: center; width: 100%; margin-left: 10%;">
     <ion-input style="position: fixed;width: 75%;" (ionChange)="addMultipleLessons($event)"
-      placeholder="How many lessons you want to add?" type="text"></ion-input>
+      placeholder="How many lessons you want to add?" type="number"></ion-input>
   </div><br><br>
 
 
@@ -28,7 +28,7 @@
 
           <ion-item>
             <div class="input-container">
-              <ion-input [(ngModel)]="lessonsAdded.title[i]" #nameCtrl="ngModel" placeholder="Title" name="Title"
+              <ion-input [(ngModel)]="lessonsAdded.title[i]" #nameCtrl="ngModel" placeholder="Title" name="title"
                 type="text" #Title="ngModel" required></ion-input>
             </div>&nbsp;&nbsp;
           </ion-item>
@@ -40,7 +40,7 @@
           <ion-item>
             <div class="input-container">
               <ion-input [(ngModel)]="lessonsAdded.description[i]" #nameCtrl="ngModel" placeholder="Description"
-                name="Description" type="text" #Description="ngModel" required></ion-input>
+                name="description" type="text" #Description="ngModel" required></ion-input>
             </div>&nbsp;&nbsp;
           </ion-item>
           <ion-label *ngIf="!Description.valid && Description.touched && Description.errors?.required">
@@ -51,7 +51,7 @@
           <ion-item>
             <div class="input-container">
               <ion-icon class="iconLogin" name="add-circle-outline"></ion-icon>
-              <ion-input [(ngModel)]="lessonsAdded.lesson[i]" placeholder="Level" name="LessonsNumber" type="number"
+              <ion-input [(ngModel)]="lessonsAdded.lesson[i]" placeholder="Level" name="lesson" type="number"
                 required></ion-input>
             </div>&nbsp;&nbsp;
           </ion-item>
