@@ -40,6 +40,7 @@
             <ion-grid fixed>
                 <ion-row>
                     <ion-item>
+                        <p class="train" style="background-color:primary;"><img src="../../../assets/img/training1.png"></p>Training</p>&nbsp;&nbsp;
                         <ion-select (ionChange)="getIDSelectedTraining($event)" okText="Okay" cancelText="Dismiss">
                             <ion-select-option *ngFor="let speaker of dataDisplays.trainings" [value]="speaker.id">{{speaker.title}}</ion-select-option>
                         </ion-select>
