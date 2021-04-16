@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
 
 @Component({
@@ -18,9 +18,14 @@ export class AddLessonPage implements OnInit {
     description: []
   }
 
+  public data = {
+
+  }
+
   constructor(
     private activatedRoute: ActivatedRoute,
-    private eventRequest: EventTraningServiceService
+    private eventRequest: EventTraningServiceService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -29,7 +34,8 @@ export class AddLessonPage implements OnInit {
 
   // Kini siya nga function kay ang pag add ug lesson sa certain trainings 
   addLessonOfTraining(data) {
-    this.arrayOfLessons.push(data.form.value)
+    this.data = data.form.value
+    this.arrayOfLessons.push(this.data)
     // const addLesson = this.eventRequest.addLessonTraining(this.lessonsAdded)
     // addLesson.subscribe((data: any) => {
     //   console.log(data)
@@ -45,6 +51,11 @@ export class AddLessonPage implements OnInit {
   }
 
   submitLessons() {
-    console.log(this.arrayOfLessons)
+    this.arrayOfLessons.forEach(element => {
+      const addLessons = this.eventRequest.addLessonTraining(element, this.lessonsAdded.trainingsID)
+      addLessons.subscribe((data: any) => {
+        this.router.navigate(['/app/tabs/speakers'])
+      })
+    }); 
   }
 }
