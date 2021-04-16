@@ -23,6 +23,7 @@ export class SpeakerListPage {
   public classes;
   public trainings;
   public lessonsOfSelectedTraining = []
+  public classesOfSelectedLesson = []
   speakers: any[] = [];
   segmentModel = "Trainings";
   excludeTracks: any = [];
@@ -85,9 +86,15 @@ export class SpeakerListPage {
     this.router.navigate(['/add-lesson/' + this.selectedTrainingID])
   }
 
+  // Kini siya nga function kay kuhaon niya ang ID sa selected training 
   getIDSelectedTraining(value) {
     this.selectedTrainingID = value.target.value
     this.returnAllLessons(value.target.value)
+  }
+
+  // Kini siya nga function kay kuhaon niya ang ID sa selected lesson 
+  getIDSelectedLesson(value) {
+    this.returnClassesOfLesson(value.target.value)
   }
 
   async presentFilter() {
@@ -110,11 +117,23 @@ export class SpeakerListPage {
     this.router.navigate(['/add-student-score/' + id + "/" + type])
   }
 
+  navigateAddClassOfLesson() {
+    this.router.navigate(['/add-classes'])
+  }
+
   // Kini siya nga function kay iyang i return ang tanan nga lessons sa selected trainings 
   returnAllLessons(trainingID) {
     const lessons = this.eventsService.returnLessons(trainingID)
     lessons.subscribe((data: any) => {
       this.lessonsOfSelectedTraining = data
+    })
+  }
+
+  // Kini siya nga function kay i return ang classes sa certain lessons sa selected trainings 
+  returnClassesOfLesson(lessonID) {
+    const classes = this.eventsService.returnClassesOfLesson(lessonID)
+    classes.subscribe((data: any) => {
+      this.classesOfSelectedLesson = data
     })
   }
 

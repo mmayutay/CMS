@@ -11,65 +11,55 @@
             <form #addEventsForm="ngForm" novalidate>
                 <ion-list lines="none">
                     <ion-item>
-                        <!-- <ion-label position="stacked" color="primary">Lastname</ion-label> -->
-                        <div class="input-container">
-                            <ion-icon class="iconLogin" name="person"></ion-icon>
-                            <input [(ngModel)]="addClasses.newClasses.Name" class="input" placeholder="Name" name="Name"
-                                type="text" #Name="ngModel" required />
-                        </div>&nbsp;&nbsp;
+                        <ion-select placeholder="Select Training" (ionChange)="getIDSelectedTraining($event)"
+                            okText="Okay" cancelText="Dismiss">
+                            <ion-select-option *ngFor="let speaker of dataDisplays.trainings" [value]="speaker.id">
+                                {{speaker.title}}</ion-select-option>
+                        </ion-select>
                     </ion-item>
-                    <ion-label *ngIf="!Name.valid && Name.touched && Name.errors?.required">
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <ion-text color="danger">Name is required</ion-text>
-                    </ion-label><br>
+                    <br>
 
                     <ion-item>
-                        <!-- <ion-label position="stacked" color="primary">Lastname</ion-label> -->
-                        <div class="input-container">
-                            <ion-icon class="iconLogin" name="person"></ion-icon>
-                            <input class="input" [(ngModel)]="lessonsToCreate" placeholder="How many lessons"
-                                name="LessonsNumber" type="number" required />
-                        </div>&nbsp;&nbsp;
-                    </ion-item>
+                        <!-- <div class="input-container"> -->
+                            <ion-label position="floating">Class Name</ion-label>
+                            <ion-input [(ngModel)]="addClasses.newClasses.Name"
+                                name="Lesson" type="text" required></ion-input>
+                        <!-- </div>&nbsp;&nbsp; -->
+                    </ion-item><br>
 
-                    <div *ngFor="let in of counter(lessonsToCreate); let i = index">
-                        <ion-item>
-                            <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
-                            <div class="input-container">
-                                <ion-icon class="iconLogin" name="person"></ion-icon>
-                                <textarea [(ngModel)]="addClasses.newClasses.Lesson[i]"
-                                    [placeholder]="'Lesson ' + (i+1)" name="Lesson" type="text" required></textarea>
-                            </div>&nbsp;&nbsp;
-                        </ion-item>
-                    </div><br>
-
-                    <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
-                    <div class="input-container">
-                        <ion-icon class="iconLogin" name="person"></ion-icon>
-                        <textarea [(ngModel)]="addClasses.newClasses.Title" #nameCtrl="ngModel" placeholder="Title"
-                            name="Title" type="text" #Title="ngModel" required></textarea>
-                    </div>&nbsp;&nbsp;
-                    <ion-label *ngIf="!Title.valid && Title.touched && Title.errors?.required">
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <ion-text color="danger">Title is required</ion-text>
-                    </ion-label><br>
                     <ion-item>
-                        <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
-                        <div class="input-container">
-                            <ion-icon class="iconLogin" name="person"></ion-icon>
-                            <textarea [(ngModel)]="addClasses.newClasses.Description" #nameCtrl="ngModel"
-                                placeholder="Description" name="Description" type="text" #Description="ngModel"
-                                required></textarea>
-                        </div>&nbsp;&nbsp;
+                        <!-- <div class="input-container"> -->
+                            <ion-label position="floating">Description</ion-label>
+                            <ion-input [(ngModel)]="addClasses.newClasses.Description" #nameCtrl="ngModel" name="Description" type="text" #Description="ngModel"
+                                required></ion-input>
+                        <!-- </div>&nbsp;&nbsp; -->
                     </ion-item>
                     <ion-label *ngIf="!Description.valid && Description.touched && Description.errors?.required">
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <ion-text color="danger">Description is required</ion-text>
                     </ion-label><br>
                 </ion-list>
+                <!-- This table is for the list of names  -->
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>Lastname</th>
+                        <th>Firstname</th>
+                        <th></th>
+                    </tr>
+                    <tr *ngFor="let val of allUsers;let i = index" [id]="val.id">
+                        <td><ion-icon name="happy-outline"></ion-icon></td>
+                        <td>{{ val.lastname }}</td>
+                        <td> {{ val.firstname }} </td>
+                        <td>
+                            <ion-icon (click)="addStudent(val.id)" name="add-circle-outline"></ion-icon>
+                        </td>
+                    </tr>
+                </table>
+
                 <div class="ion-padding">
-                    <!-- [disabled]="addEventsForm.invalid" -->
-                    <ion-button (click)="addClass(addEventsForm)" type="submit" expand="block">Add</ion-button>
+                    <ion-button (click)="addClass(addEventsForm)" type="submit" expand="block">
+                        <ion-icon name="document-text-outline"></ion-icon>Save</ion-button>
                 </div>
             </form>
         </ion-card-content>
