@@ -45,9 +45,9 @@ export class EventTraningServiceService {
     return this.http.post(this.url + 'student-trainings-or-class/delete-multiple-students', { studentsId: arrayOfStudentsID, selectedTraining: trainingID });
   }
 
-  // A function that will add a student to a certain class or trainings
-  addStudentToClassOrTrainings(studentsData) {
-    return this.http.post(this.url + 'student-trainings-or-class/addToRecords', studentsData);
+  // Kini siya nga function kay mag add ug records sa certain training
+  addStudentsRecord(studentsData) {
+    return this.http.post(this.url + 'class-records/add-student', studentsData);
   }
 
   // Kini nga function kay kuhaon niya ang tanan nga students sa certain class or training 
@@ -83,12 +83,22 @@ export class EventTraningServiceService {
   }
 
   // Kini siya nga function kay iyang i return ang tanan nga classes sa lesson under sa certain training 
-  returnClassesOfLesson(id) {
-    return this.http.get(this.url + 'trainings-and-classes/return-classes-of-selected-lesson/' + id);
+  returnClassesOfTraining(id) {
+    return this.http.get(this.url + 'trainings-and-classes/return-classes-of-selected-training/' + id);
   }
 
   // Kini siya nga function kay mag add siya ug class at the same time kay mga students sa created classes 
-  addClassAndStudents(className, classStudents) {
-    return this.http.post(this.url + 'trainings-and-classes/add-classes-with-students', {className: className, students: classStudents})
+  addClassAndStudents(className) {
+    return this.http.post(this.url + 'trainings-and-classes/add-classes-with-students', {className: className})
+  }
+
+  // Kini siya nga function kay i return ang selected class 
+  returnClassDetails(classesId) {
+    return this.http.get(this.url + 'trainings-and-classes/return-selected-class/' + classesId)
+  }
+
+  // Kini siya nga function kay i return niya ang selected training 
+  returnTrainingDetails(trainingID) {
+    return this.http.get(this.url + 'trainings-and-classes/return-selected-training/' + trainingID)
   }
 }

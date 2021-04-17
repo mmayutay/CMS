@@ -23,7 +23,7 @@ export class SpeakerListPage {
   public classes;
   public trainings;
   public lessonsOfSelectedTraining = []
-  public classesOfSelectedLesson = []
+  public classesOfSelectedTraining = []
   speakers: any[] = [];
   segmentModel = "Trainings";
   excludeTracks: any = [];
@@ -69,6 +69,8 @@ export class SpeakerListPage {
 
   segmentModels(value) {
     this.segmentModel = value.target.value;
+    this.classesOfSelectedTraining.length = 0
+    this.lessonsOfSelectedTraining.length = 0
   }
 
 
@@ -90,11 +92,6 @@ export class SpeakerListPage {
   getIDSelectedTraining(value) {
     this.selectedTrainingID = value.target.value
     this.returnAllLessons(value.target.value)
-  }
-
-  // Kini siya nga function kay kuhaon niya ang ID sa selected lesson 
-  getIDSelectedLesson(value) {
-    this.returnClassesOfLesson(value.target.value)
   }
 
   async presentFilter() {
@@ -123,6 +120,7 @@ export class SpeakerListPage {
 
   // Kini siya nga function kay iyang i return ang tanan nga lessons sa selected trainings 
   returnAllLessons(trainingID) {
+    this.returnClassesOfTraining(trainingID)
     const lessons = this.eventsService.returnLessons(trainingID)
     lessons.subscribe((data: any) => {
       this.lessonsOfSelectedTraining = data
@@ -130,10 +128,10 @@ export class SpeakerListPage {
   }
 
   // Kini siya nga function kay i return ang classes sa certain lessons sa selected trainings 
-  returnClassesOfLesson(lessonID) {
-    const classes = this.eventsService.returnClassesOfLesson(lessonID)
+  returnClassesOfTraining(trainingID) {
+    const classes = this.eventsService.returnClassesOfTraining(trainingID)
     classes.subscribe((data: any) => {
-      this.classesOfSelectedLesson = data
+      this.classesOfSelectedTraining = data
     })
   }
 

@@ -7,6 +7,7 @@ import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { calendar } from '../../interfaces/user-options';
 // import { DataDisplayProvider } from 'app/providers/data-editing';
 import { DataDisplayProvider } from '../../providers/data-editing';
+import { LoadingController, AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -34,15 +35,13 @@ export class AddStudentPage implements OnInit {
 
   // This is for the new user
   public studentToAdd = {
-    trainings: null,
-    classes: null,
-    students: '',
-    type: '',
+    lessons_id: '',
+    classes_id: '',
+    students_id: '',
+    type: 'Attendance',
     score: 0,
     over_all: 0,
-    remarks: 'Add a note!',
-    level: 'Senior Citizen',
-    isAttended: true
+    remarks: 'Add a note!'
   }
 
   constructor(
@@ -52,7 +51,9 @@ export class AddStudentPage implements OnInit {
     private request: RequestsService,
     private router: Router,
     private datas: calendar,
-    private dataDisplay: DataDisplayProvider
+    private dataDisplay: DataDisplayProvider,
+    private loadingController: LoadingController,
+    private alertController: AlertController
     ) { }
 
   ngOnInit() {
@@ -83,9 +84,7 @@ export class AddStudentPage implements OnInit {
             this.list.push(element)
           }
         })
-      });
-      // this.list = response
-      // console.log(response)
+      })
     })
   }
 
@@ -96,25 +95,14 @@ export class AddStudentPage implements OnInit {
   }
 
   addMember(memberId) {
-    this.datas.studentsNames.push(memberId)
-    const addStudent = this.eventRequest
-    if(this.segmentModel == "Trainings") {
-      this.studentToAdd.trainings =  this.selectedItemId
-      this.studentToAdd.students = memberId.id
-      this.studentToAdd.type = "Seminar"
-      addStudent.addStudentToClassOrTrainings(this.studentToAdd).subscribe((data: any) => {
-        this.router.navigate(['/app/tabs/speakers'])
-      })
-    }else {
-      this.studentToAdd.classes =  this.selectedItemId
-      this.studentToAdd.students = memberId.id
-      this.studentToAdd.type = "Seminar"
-      console.log(this.studentToAdd)
-      addStudent.addStudentToClassOrTrainings(this.studentToAdd).subscribe((data: any) => {
-        this.router.navigate(['/app/tabs/speakers'])
-      })
-    }
-    this.addClicked = false;
+    this.studentToAdd.lessons_id = this.selectedItemId
+    this.studentToAdd.classes_id = this.segmentModel
+    this.studentToAdd.students_id = memberId.id
+    this.loadingAdded(memberId)
+    const addStudentsRecord = this.eventRequest.addStudentsRecord(this.studentToAdd)
+    addStudentsRecord.subscribe((response: any) => {
+      console.log(response)
+    })
   }
 
   updateList(event: any) {
@@ -135,6 +123,33 @@ export class AddStudentPage implements OnInit {
   // Re-route back to the selected trainings or class
   backToTrainingOrClass() {
     this.router.navigateByUrl('/app/tabs/speakers/speaker-details/' + this.segmentModel + '/' + this.selectedItemId)
+  }
+
+  async loadingAdded(user) {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 3000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    this.successfullyAdded(user)
+  }
+
+  async successfullyAdded(name) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Successfully Added!',
+      subHeader: name.firstname + " " + name.lastname,
+      message: name.firstname + " " + name.lastname + " is successfully added!",
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 
 }

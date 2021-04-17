@@ -40,12 +40,15 @@ export class AddClassesPage implements OnInit {
     this.getAllMembers()
   }
 
+  // Kini siya nga function kay mag add ug class sa certain training 
   addClass(data) {
-    const addClasses = this.eventsService.addClassAndStudents(this.addClasses.newClasses, this.studentsAdded)
+    const addClasses = this.eventsService.addClassAndStudents(this.addClasses.newClasses)
     addClasses.subscribe((data: any) => {
       console.log(data)
     })
   }
+
+  // Kini siya nga function kay mag add ug students 
 
   counter(i: number) {
     return new Array(i);

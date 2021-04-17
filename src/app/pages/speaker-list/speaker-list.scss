@@ -182,3 +182,21 @@ ion-col:not(:last-of-type) .speaker-card {
     color: white;
     border: 1px solid #4caf50;
 }
+.ion-select {
+    margin-left: 10px;
+    width: 100%;
+}
+ion-item {
+    width: 100%;
+}
+
+table, td, th {
+    padding: 5px;
+    border: 1px solid rgba(150, 150, 150, 0.5);
+    border-radius: 10px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
