@@ -98,7 +98,12 @@ const routes: Routes = [
   {
     path: 'add-lesson/:id',
     loadChildren: () => import('./pages/add-lesson/add-lesson.module').then( m => m.AddLessonPageModule)
+  },
+  {
+    path: 'update-selected-training/:id',
+    loadChildren: () => import('./pages/update-selected-training/update-selected-training.module').then( m => m.UpdateSelectedTrainingPageModule)
   }
+
 
 
 ];

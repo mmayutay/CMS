@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon slot="start" class="icon" name="arrow-back" [routerLink]="['/app/tabs/speakers']"></ion-icon>
+    <ion-title style="width: 100%;text-align: center;">Update Training</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="card">
+    <ion-card-content>
+      <form #addEventsForm="ngForm" novalidate>
+        <ion-list lines="none">
+          <ion-item>
+            <div class="input-container">
+              <ion-icon class="iconLogin" name="locate-outline"></ion-icon>
+              <ion-input [(ngModel)]="trainingDetails.name" placeholder="Lesson Name" name="name" type="text" required></ion-input>
+            </div>&nbsp;&nbsp;
+          </ion-item><br>
+
+          <ion-item>
+            <div class="input-container">
+              <ion-input [(ngModel)]="trainingDetails.title" placeholder="Title" name="title" type="text" required></ion-input>
+            </div>&nbsp;&nbsp;
+          </ion-item><br>
+
+          <ion-item>
+            <div class="input-container">
+              <ion-input [(ngModel)]="trainingDetails.description" placeholder="Description" name="description" type="text" required></ion-input>
+            </div>&nbsp;&nbsp;
+          </ion-item><br> 
+          
+        </ion-list>
+        <div class="ion-padding">
+          <ion-button (click)="addLessonOfTraining(addEventsForm)" type="submit" expand="block">Add</ion-button>
+        </div>
+      </form>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

@@ -182,6 +182,24 @@ ion-col:not(:last-of-type) .speaker-card {
     color: white;
     border: 1px solid #4caf50;
 }
+.ion-select {
+    margin-left: 10px;
+    width: 100%;
+}
+ion-item {
+    width: 100%;
+}
+
+table, td, th {
+    padding: 5px;
+    border: 1px solid rgba(150, 150, 150, 0.5);
+    border-radius: 10px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
 
 // ion-button #btnEdit{
 //     width: 100%;
@@ -234,3 +252,22 @@ table, td, th {
     position: relative;
     right: 20%;
   }
+
+  .fabBtnClass{
+    padding: 8px;
+    border-radius: 60%;
+    text-align: center;
+    position: relative;
+    right: 20%;
+  }
+
+.train {
+    font: 50px;
+    color: white;
+    padding: 10px;
+    background: #23c962;
+    // color: white;
+    min-width: 10%;
+    height: auto;
+    text-align: center;
+}

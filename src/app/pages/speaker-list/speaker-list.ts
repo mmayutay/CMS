@@ -4,11 +4,14 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { SpeakerFilterPage } from '../speaker-filter/speaker-filter.page';
 import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+
+import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
 
 // import { DataDisplayProvider } from 'app/providers/data-editing';
 import { DataDisplayProvider } from '../../providers/data-editing';
+import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
 
 @Component({
   selector: 'page-speaker-list',
@@ -16,7 +19,10 @@ import { DataDisplayProvider } from '../../providers/data-editing';
   styleUrls: ['./speaker-list.scss'],
 })
 export class SpeakerListPage {
-  public selectedTrainingID = ""
+  public selectedTrainingID;
+  public selectedClass;
+  public selectedLesson;
+  public allStudentsOfSelectedClass = []
 
   public paginationCount = 5
   public count = 0
@@ -24,9 +30,7 @@ export class SpeakerListPage {
   public trainings;
   public lessonsOfSelectedTraining = []
   public classesOfSelectedTraining = []
-  speakers: any[] = [];
   segmentModel = "Trainings";
-  excludeTracks: any = [];
   pageOfItems: Array<any>;
 
   constructor(
@@ -36,17 +40,11 @@ export class SpeakerListPage {
     public modalCtrl: ModalController,
     public routerOutlet: IonRouterOutlet,
     private dataDisplays: DataDisplayProvider,
+    private dataRequest: DataRequestsService,
     private router: Router,
-    public toastController: ToastController,
+    private alertController: AlertController
   ) { }
 
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: 'Your settings have been saved.',
-      duration: 2000
-    });
-    toast.present();
-  }
 
   onChangePage(pageOfItems: Array<any>, type) {
     // update current page of items
@@ -80,6 +78,7 @@ export class SpeakerListPage {
     this.segmentModel = value.target.value;
     this.classesOfSelectedTraining.length = 0
     this.lessonsOfSelectedTraining.length = 0
+    this.allStudentsOfSelectedClass.length = 0
   }
 
 
@@ -108,7 +107,7 @@ export class SpeakerListPage {
       component: SpeakerFilterPage,
       swipeToClose: true,
       presentingElement: this.routerOutlet.nativeEl,
-      componentProps: { excludedTracks: this.excludeTracks }
+      // componentProps: { excludedTracks: this.excludeTracks }
     });
     await modal.present();
 
@@ -136,6 +135,17 @@ export class SpeakerListPage {
     })
   }
 
+  // Kini siya nga function kay i return ang selected lesson
+  returnSelectedLesson(lessonID) {
+    this.selectedLesson = lessonID.target.value
+  }
+
+  // Kini siya nga function kay iyang i return ang selected class 
+  returnSelectedClass(classID) {
+    this.selectedClass = classID.target.value
+    this.returnStudentsOfSelectedLessonAndClasses()
+  }
+
   // Kini siya nga function kay i return ang classes sa certain lessons sa selected trainings 
   returnClassesOfTraining(trainingID) {
     const classes = this.eventsService.returnClassesOfTraining(trainingID)
@@ -144,6 +154,59 @@ export class SpeakerListPage {
     })
   }
 
+  // Kini siya nga function kay ang pag add ug student sa certain training 
+  addStudent() {
+    if (this.selectedTrainingID == undefined || this.selectedClass == undefined) {
+      this.presentAlert()
+    } else {
+      this.router.navigate(['/add-student/' + this.selectedTrainingID + '/' + this.selectedClass])
+    }
+  }
+
+  // Kini siya nga function kay iyang i return ang mga student sa ana nga selected lesson 
+  returnStudentsOfSelectedLessonAndClasses() {
+    const allStudents = this.eventsService.returnStudentsOfClasses(this.selectedClass, this.selectedLesson)
+    allStudents.subscribe((data: any) => {
+      data.forEach(element => {
+        const user = this.dataRequest.getTheCurrentUser({ userID: element.students_id })
+        user.subscribe((response: any) => {
+          this.allStudentsOfSelectedClass.push(response[0])
+        })
+      });
+    })
+  }
+
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Unable to Add!',
+      message: 'No training and Class selected!',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  deleteLesson() {
+    Swal.fire({
+      title: 'Are you sure you want to delete this lesson?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+  }
 
 
 }
