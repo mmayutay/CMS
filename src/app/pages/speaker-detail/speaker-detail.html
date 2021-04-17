@@ -7,24 +7,17 @@
 <ion-content class="speaker-detail">
     <ion-card>
         <i>
-            <h3>{{detail.name}} :</h3>
+            <h3>{{detail.name}}</h3>
         </i>
         <u>
             <b>
-                <h2>Title: {{detail.title}}</h2>
+                <h2>Training: {{trainingDetails.title}}</h2>
             </b>
         </u>
-        <p>{{detail.description}}</p>
+        <p>{{trainingDetails.description}}</p>
     </ion-card>
-    <ion-list lines="full">
-        <ion-item>
-            <!-- <ion-label>Full Lines Item 1</ion-label> -->
-            <ion-icon name="trash" (click)="deleteSelectedItems()"></ion-icon>
-            <ion-label style="margin-left: 55%;" (click)="wantToDelete()">Select to Delete</ion-label>
-        </ion-item>
-    </ion-list>
     <ion-card>
-        <h3>Attendees:</h3>
+        <h3 style="text-align: center;">List of Enrolled Students</h3>
         <table class="table">
             <tr>
                 <th *ngIf="isToDelete"> Select</th>
@@ -40,9 +33,9 @@
             </tr>
         </table>
     </ion-card>
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
+    <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
         <ion-fab-button>
             <ion-icon name="add" (click)="navigateToAddStudent()"></ion-icon>
         </ion-fab-button>
-    </ion-fab>
+    </ion-fab> -->
 </ion-content>

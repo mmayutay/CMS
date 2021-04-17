@@ -23,6 +23,7 @@ export class SpeakerListPage {
   public classes;
   public trainings;
   public lessonsOfSelectedTraining = []
+  public classesOfSelectedTraining = []
   speakers: any[] = [];
   segmentModel = "Trainings";
   excludeTracks: any = [];
@@ -35,8 +36,17 @@ export class SpeakerListPage {
     public modalCtrl: ModalController,
     public routerOutlet: IonRouterOutlet,
     private dataDisplays: DataDisplayProvider,
-    private router: Router
+    private router: Router,
+    public toastController: ToastController,
   ) { }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Your settings have been saved.',
+      duration: 2000
+    });
+    toast.present();
+  }
 
   onChangePage(pageOfItems: Array<any>, type) {
     // update current page of items
@@ -68,6 +78,8 @@ export class SpeakerListPage {
 
   segmentModels(value) {
     this.segmentModel = value.target.value;
+    this.classesOfSelectedTraining.length = 0
+    this.lessonsOfSelectedTraining.length = 0
   }
 
 
@@ -85,6 +97,7 @@ export class SpeakerListPage {
     this.router.navigate(['/add-lesson/' + this.selectedTrainingID])
   }
 
+  // Kini siya nga function kay kuhaon niya ang ID sa selected training 
   getIDSelectedTraining(value) {
     this.selectedTrainingID = value.target.value
     this.returnAllLessons(value.target.value)
@@ -110,11 +123,24 @@ export class SpeakerListPage {
     this.router.navigate(['/add-student-score/' + id + "/" + type])
   }
 
+  navigateAddClassOfLesson() {
+    this.router.navigate(['/add-classes'])
+  }
+
   // Kini siya nga function kay iyang i return ang tanan nga lessons sa selected trainings 
   returnAllLessons(trainingID) {
+    this.returnClassesOfTraining(trainingID)
     const lessons = this.eventsService.returnLessons(trainingID)
     lessons.subscribe((data: any) => {
       this.lessonsOfSelectedTraining = data
+    })
+  }
+
+  // Kini siya nga function kay i return ang classes sa certain lessons sa selected trainings 
+  returnClassesOfTraining(trainingID) {
+    const classes = this.eventsService.returnClassesOfTraining(trainingID)
+    classes.subscribe((data: any) => {
+      this.classesOfSelectedTraining = data
     })
   }
 

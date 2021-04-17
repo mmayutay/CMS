@@ -3,12 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ConferenceData } from '../../providers/conference-data';
 import { ActionSheetController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service'
-// import { calendar } from 'app/interfaces/user-options';
+import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
 import { calendar } from '../../interfaces/user-options';
-// import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
-// import { DataDisplayProvider } from 'app/providers/data-editing';
 import { DataDisplayProvider } from '../../providers/data-editing';
 
 @Component({
@@ -29,6 +26,10 @@ export class SpeakerDetailPage {
     title: '',
     description: ''
   };
+  public trainingDetails = {
+    title: '',
+    description: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -46,6 +47,7 @@ export class SpeakerDetailPage {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
       this.selectedItemId = speakerId
       this.segmentModel = this.route.snapshot.paramMap.get('addType');
+      this.getClassDetails()
   }
 
   // This function will add the user 
@@ -93,6 +95,19 @@ export class SpeakerDetailPage {
     const studentsID = this.eventRequest.deleteStudents(this.selectedItemId, arrayOfId)
     studentsID.subscribe((response) => {
       console.log(response)
+    })
+  }
+
+
+  // Kini siya nga function kay kuhaon niya details sa selected classes sa trainings 
+  getClassDetails() {
+    const classDetails = this.eventRequest.returnClassDetails(this.selectedItemId)
+    classDetails.subscribe((data: any) => {
+      this.detail = data[0]
+      const trainingDetails = this.eventRequest.returnTrainingDetails(data[0].training_id)
+      trainingDetails.subscribe((response: any) => {
+        this.trainingDetails = response[0]
+      })
     })
   }
 }
