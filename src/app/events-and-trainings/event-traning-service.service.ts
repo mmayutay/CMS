@@ -101,4 +101,10 @@ export class EventTraningServiceService {
   returnTrainingDetails(trainingID) {
     return this.http.get(this.url + 'trainings-and-classes/return-selected-training/' + trainingID)
   }
+
+
+  // Kini siya nga function kay iyang i return ang mga student sa selected lesson at the same time the same classes 
+  returnStudentsOfClasses(lessonID, classID) {
+    return this.http.get(this.url + 'class-records/get-students/' + lessonID + '/' + classID);
+  }
 }

@@ -102,6 +102,7 @@ export class AddStudentPage implements OnInit {
     const addStudentsRecord = this.eventRequest.addStudentsRecord(this.studentToAdd)
     addStudentsRecord.subscribe((response: any) => {
       console.log(response)
+      this.router.navigate(['/app/tabs/speakers'])
     })
   }
 
@@ -122,7 +123,7 @@ export class AddStudentPage implements OnInit {
 
   // Re-route back to the selected trainings or class
   backToTrainingOrClass() {
-    this.router.navigateByUrl('/app/tabs/speakers/speaker-details/' + this.segmentModel + '/' + this.selectedItemId)
+    this.router.navigateByUrl('/app/tabs/speakers')
   }
 
   async loadingAdded(user) {

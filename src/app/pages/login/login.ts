@@ -43,16 +43,16 @@ export class LoginPage {
       }
     })
   }
-
-  showPassword() {
-    this.showPass = !this.showPass;
-    if(this.showPass){
-      this.type = 'text';
-    } else {
-      this.type = 'password';
-    }
- }
  
+  showPassword() {
+     this.showPass = !this.showPass;
+     if(this.showPass){
+       this.type = 'text';
+     } else {
+       this.type = 'password';
+     }
+  }
+  
   onLogin() {
     this.request.loginService(this.login).subscribe(res => {
       console.log(res)

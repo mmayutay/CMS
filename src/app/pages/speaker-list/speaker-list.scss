@@ -200,3 +200,24 @@ table, td, th {
     width: 100%;
     border-collapse: collapse;
   }
+
+// ion-button #btnEdit{
+//     width: 100%;
+// }
+// ion-button #btnDelete{
+//     width: 100%;
+// }
+.btnEditDelete{
+    width:100%;
+}
+
+.train {
+    font: 50px;
+    color: white;
+    padding: 10px;
+    background: #23c962;
+    // color: white;
+    min-width: 10%;
+    height: auto;
+    text-align: center;
+}

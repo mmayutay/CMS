@@ -9,31 +9,25 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <div>
           First Name
-        </div>
       </ion-col>
       <ion-col>
-        <div>
           Last Name
-        </div>
       </ion-col>
       <ion-col>
-        <div>
           Score
-        </div>
       </ion-col>
     </ion-row>
     <ion-row *ngFor="let value of studentsScore; let i = index">
       <ion-col>
-        <div id="firstname">
+        <!-- <div id="firstname"> -->
           {{ value.students.firstname }}
-        </div>
+        <!-- </div> -->
       </ion-col>
       <ion-col>
-        <div id="lastname">
+        <!-- <div id="lastname"> -->
           {{ value.students.lastname }}
-        </div>
+        <!-- </div> -->
       </ion-col>
       <ion-col>
         <ion-item>
@@ -44,4 +38,20 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <!-- <ion-row class="header-row">
+    <ion-col>
+      Firstname
+    </ion-col>
+    <ion-col>
+      Lastname
+    </ion-col>
+    <ion-col tappable (click)="sortBy('score')">
+      Score
+      <ion-icon name="arrow-down" *ngIf="sortDirection == 1"></ion-icon>
+      <ion-icon name="arrow-up" *ngIf="sortDirection == 2"></ion-icon>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+
+  </ion-row> -->
 </ion-content>
