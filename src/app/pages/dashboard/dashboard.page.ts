@@ -15,6 +15,7 @@ import { calendar } from '../../interfaces/user-options'
 export class DashboardPage implements OnInit {
   public whatWeek = 1
   public chosenMonth = this.calendar.convertMonth(new Date().getMonth())
+  public chosenYear = new Date().getFullYear()
   public typeOfView = "VIP Member"
   public listAllTheMembers = []
 
@@ -169,7 +170,6 @@ export class DashboardPage implements OnInit {
   userIsActiveOrNot() {
     var partialDataHandler;
     this.dataRequest.getAllUsersId().subscribe(data => {
-      console.log(data)
       partialDataHandler = data
       if (partialDataHandler.length == 0) {
         this.calendar.activeMember = [];
@@ -272,12 +272,12 @@ export class DashboardPage implements OnInit {
       this.monthChosen = value.target.value.months
     } else if (this.typeOfViewChosed == 'Monthly') {
       this.monthChosen = this.calendar.returnAllWeeks();
-      this.arrayOfCellgroup = this.calendar.getMonthlyStats(this.calendar.membersAttendance.currentEventsAttendance, this.chosenMonth);
-      this.arrayOfSundayCeleb = this.calendar.getMonthlyStats(this.calendar.membersAttendance.currentUserAttendance, this.chosenMonth);
+      this.arrayOfCellgroup = this.calendar.getMonthlyStats(this.calendar.membersAttendance.currentEventsAttendance, value.target.value, this.chosenYear);
+      this.arrayOfSundayCeleb = this.calendar.getMonthlyStats(this.calendar.membersAttendance.currentUserAttendance, value.target.value, this.chosenYear);
     } else if (this.typeOfViewChosed == 'Weekly') {
       this.monthChosen = this.calendar.returnAllDays();
-      this.arrayOfCellgroup = this.calendar.getWeekOfMonth(this.calendar.membersAttendance.currentEventsAttendance, value.target.value, this.chosenMonth);
-      this.arrayOfSundayCeleb = this.calendar.getWeekOfMonth(this.calendar.membersAttendance.currentUserAttendance, value.target.value, this.chosenMonth);
+      this.arrayOfSundayCeleb = this.calendar.getWeekOfMonth(this.calendar.membersAttendance.currentUserAttendance, this.whatWeek, this.chosenMonth + " " + this.chosenYear);
+      this.arrayOfCellgroup = this.calendar.getWeekOfMonth(this.calendar.membersAttendance.currentEventsAttendance, this.whatWeek, this.chosenMonth + " " + this.chosenYear);
     } else {
       this.monthChosen = this.calendar.returnAllMonthsChoices();
       this.arrayOfCellgroup = this.calendar.returnStatisticsForAYear();
@@ -289,6 +289,11 @@ export class DashboardPage implements OnInit {
 
   getMonth(value) {
     this.chosenMonth = value.target.value
+    this.monthsToView({target: {value: this.whatWeek}})
+  }
+
+  getChosenYear(value) {
+    this.chosenYear = value.target.value
     this.monthsToView({target: {value: this.whatWeek}})
   }
 

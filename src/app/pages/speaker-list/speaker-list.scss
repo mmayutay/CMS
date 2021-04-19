@@ -182,7 +182,7 @@ ion-col:not(:last-of-type) .speaker-card {
     color: white;
     border: 1px solid #4caf50;
 }
-.ion-select {
+ion-select {
     margin-left: 10px;
     width: 100%;
 }
@@ -200,13 +200,6 @@ table, td, th {
     width: 100%;
     border-collapse: collapse;
   }
-
-// ion-button #btnEdit{
-//     width: 100%;
-// }
-// ion-button #btnDelete{
-//     width: 100%;
-// }
 .btnEditDelete{
     width:100%;
 }

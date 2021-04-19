@@ -19,6 +19,7 @@ export class calendar {
     private request: RequestsService
   ) {
     this.calculateStats();
+    this.returnWeek("Apr 2021", 2)
   }
 
   convertMonth(monthInput) {
@@ -84,11 +85,12 @@ export class calendar {
   }
 
   // Kini siya nga function kay iyang i return ang array sa percentage nga basihan sa statistics 
-  getMonthlyStats(dataAttendance: any, month: string) {
+  getMonthlyStats(dataAttendance: any, month: string, year: number) {
     var allAverage = 0
     var arrayPercent = []
-    for (let count = 0; count < 4; count++) {
-        this.getWeekOfMonth(dataAttendance, count, month).forEach(data => {
+    arrayPercent.length = 0
+    for (let count = 0; count < 5; count++) {
+        this.getWeekOfMonth(dataAttendance, count, month + " " + year).forEach(data => {
           allAverage += data
         })
         arrayPercent.push((allAverage / this.membersOfAGroup.length))
@@ -120,12 +122,10 @@ export class calendar {
     var members = [];
     this.dataRequest.allVipUsers().subscribe((data: any) => {
       members.push({ type: "VIP Members", length: data.length });
-      console.log(members);
     })
 
     this.dataRequest.getRegularMembers().subscribe((data: any) => {
       members.push({ type: "Regular Members", length: data.length });
-      console.log(members);
     })
 
     members.push({ type: "Active Members", length: this.activeMember.length });
@@ -173,32 +173,33 @@ export class calendar {
   }
 
   // get the week of the month
-  getWeekOfMonth(arrayOfDates: any, week: number, month: string) {
-    var convertWhen;
-    var day = new Date().getDay();
-    var givenMonthArray = []
-    this.allDatesOfYear(new Date(), 365).forEach(element => {
-      convertWhen = Math.ceil((new Date(element).getDate() - 1 - day) / 7)
-      if (convertWhen == week) {
-        if (new Date(element).toString().includes(month)) {
-          givenMonthArray.push(element)
-        }
-      }
-    })
+  getWeekOfMonth(arrayOfDates: any, week: number, monthAndYear: string) {
     var arrayOfPercent = []
     var eventCounter = 0
-    givenMonthArray.forEach(event => {
+    this.returnWeek(monthAndYear, week).forEach(event => {
       arrayOfDates.forEach(element => {
-        if ((new Date(event).getMonth() + '-' + new Date(event).getDate()) == (new Date(element.date).getMonth() + '-' + new Date(element.date).getDate())) {
-          eventCounter += 1
+        if ((new Date(event).getMonth() + '-' + new Date(event).getDate() + '-' + new Date(event).getFullYear())
+          == 
+          (new Date(element.date).getMonth() + '-' + new Date(element.date).getDate() + '-' + new Date(element.date).getFullYear())) {
+            eventCounter += 1
         }
       })
       arrayOfPercent.push((eventCounter / this.membersOfAGroup.length) * 100)
       eventCounter = 0
     })
-
     return arrayOfPercent;
+  }
 
+  // Kini siya nga function kay iyang i return kung ika pila nga week sa month ang given nga date 
+  returnWeek(date, chosenWeek) {
+    var arrayOfSelectedMonth = []
+    var firstDate = new Date(new Date(date).getFullYear(), new Date(date).getMonth(), 1).getDay();
+    this.getDaysInMonth(new Date(date).getMonth(), new Date(date).getFullYear()).forEach(element => {
+      if(chosenWeek == Math.ceil((new Date(element).getDate() + firstDate) / 7)) {
+        arrayOfSelectedMonth.push(element)
+      }
+    })
+    return arrayOfSelectedMonth
   }
 
   monthlyData(date) {
