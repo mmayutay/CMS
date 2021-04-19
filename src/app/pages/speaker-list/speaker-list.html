@@ -226,10 +226,10 @@
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
         <ion-fab-list side="top" *ngIf="segmentModel == 'Classes'">
-            <ion-card class="fabBtnClass" (click)="navigateAddClassOfLesson()">
+            <ion-fab-button (click)="navigateAddClassOfLesson()">
                 <ion-icon color="primary" style="font-size: 25px;" name="add-outline"></ion-icon>
-                <ion-label>Class</ion-label>
-            </ion-card>
+                <!-- <ion-label>Class</ion-label> -->
+            </ion-fab-button>
         </ion-fab-list>
 
         <ion-fab-list side="top" *ngIf="segmentModel == 'Trainings'">

@@ -22,6 +22,7 @@ import { AuxiliaryPage } from './pages/auxiliary/auxiliary.page';
 import { ModalPagePage } from './pages/modal-page/modal-page.page';
 import { DashboardPopoverPage } from './pages/dashboard-popover/dashboard-popover.page';
 
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // import {MatTableModule} from '@angular/material/table';
@@ -53,7 +54,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MinistriesPage,
     AuxiliaryPage,
     AccountPage,
-    ModalPagePage
+    ModalPagePage,
   ],
   entryComponents: [DashboardPopoverPage, SpeakerFilterPage],
   
