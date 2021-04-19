@@ -28,6 +28,10 @@
                 <ion-select-option *ngFor="let value of quarterMonths" [value]="value">{{ value.choices }}
                 </ion-select-option>
             </ion-select>
+            <ion-select [value]="chosenYear" (ionChange)="getChosenYear($event)" placeholder="What Year?">
+                <ion-select-option *ngFor="let year of yearlyView" [value]="year">{{
+                    year }}</ion-select-option>
+            </ion-select>
         </ion-input>
 
         <!-- This will show if the type of choice is monthly -->

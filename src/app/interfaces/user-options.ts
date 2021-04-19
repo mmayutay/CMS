@@ -19,7 +19,7 @@ export class calendar {
     private request: RequestsService
   ) {
     this.calculateStats();
-    this.returnWeek("Apr 2021", 2)
+    this.getDateOfAWholeYear(2021)
   }
 
   convertMonth(monthInput) {
@@ -99,12 +99,45 @@ export class calendar {
     return arrayPercent;
   }
 
-  returnAllWeeklyAttendance() {
-    return [75, 0, 0, 0, 0, 0, 0];
+  // Kini siya nga function kay iyang i return ang array sa percentage sa quarterly 
+  getQuarterlyStats(dataAttendance: any, monthsOfQuarter: any, year: number) {
+    var arrayPercentPerMonth = []
+    var sumMonthsStats  = 0
+    monthsOfQuarter.forEach(element => {
+      this.getMonthlyStats(dataAttendance, element, year).forEach((response: any) => {
+        sumMonthsStats += response
+      })
+      arrayPercentPerMonth.push((sumMonthsStats / this.membersOfAGroup.length))
+      sumMonthsStats = 0
+    })
+    return arrayPercentPerMonth;
   }
 
-  returnStatisticsForAYear() {
+  // Kini siya nga function kay i return ang statistics sa whole year 
+  returnStatisticsForAYear(dataAttendance: any, year: number) {
+    var arrayOfStats = []
+    var counter = 0
+    dataAttendance.forEach(element => {
+      this.getDateOfAWholeYear(year).forEach(element => {
+      })
+    })
     return [20, 30, 70, 10, 70, 50, 10, 0, 10, 90, 90, 100];
+  }
+
+  // Kini siya nga function kay iyang i return ang date sa whole year
+  getDateOfAWholeYear(givenYear: any) {
+    let listDate = []
+    let startDate = givenYear +  "-01-01"
+    let endDate = givenYear + "-12-31"
+    let dateMove = new Date(startDate)
+    let strDate = startDate
+
+    while(strDate < endDate) {
+      strDate = dateMove.toISOString().slice(0, 10)
+      listDate.push(new Date(strDate))
+      dateMove.setDate(dateMove.getDate() + 1)
+    }
+    return listDate;
   }
 
   returnYearsFrom2005ToCurrentYear() {
