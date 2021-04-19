@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
-import { DataDisplayProvider } from 'app/providers/data-editing';
+// import { DataDisplayProvider } from 'app/providers/data-editing';
+import { DataDisplayProvider } from '../../providers/data-editing';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,14 +11,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-training.page.scss'],
 })
 export class AddTrainingPage implements OnInit {
+  public lessonsToCreate = ""
   public addTrainings = {
     newTrainings: {
-      Name: '',
-      Lesson: '',
-      Title: '',
-      Description: '',
-      Instructor:''
-    }, 
+      code: '',
+      title: '',
+      description: '',
+      instructor: '',
+      level: ''
+    },
     currentUser: {
       userID: ''
     },
@@ -35,16 +37,24 @@ export class AddTrainingPage implements OnInit {
     const getCurrentUser = this.request.getTheCurrentUserIdInStorage()
     getCurrentUser.then((id) => {
       this.addTrainings.currentUser.userID = id
-      this.addTrainings.newTrainings.Instructor = id
+      this.addTrainings.newTrainings.instructor = id
     })
   }
 
+  counter(i: number) {
+    return new Array(i);
+  }
+
   onaddEvents(data) {
-    const addClass = this.eventsService.addTrainingsOrClasses(this.addTrainings)
-    addClass.subscribe((response) => {
-      this.dataDisplays.addNewClassesOrTrainings('Trainings', response)
-      this.router.navigate(['/app/tabs/speakers'])
+    const trainings = this.eventsService.addTrainings(this.addTrainings.newTrainings)
+    trainings.subscribe((data: any) => {
+      console.log(data)
     })
   }
 
 }
+
+// $table->string('code');
+// $table->string('title');
+// $table->string('description');
+// $table->string('level');

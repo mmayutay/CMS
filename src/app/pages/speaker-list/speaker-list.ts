@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { ConferenceData } from '../../providers/conference-data';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
@@ -7,7 +7,8 @@ import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingContr
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
-import { DataDisplayProvider } from 'app/providers/data-editing';
+// import { DataDisplayProvider } from 'app/providers/data-editing';
+import { DataDisplayProvider } from '../../providers/data-editing';
 
 @Component({
   selector: 'page-speaker-list',
@@ -15,10 +16,13 @@ import { DataDisplayProvider } from 'app/providers/data-editing';
   styleUrls: ['./speaker-list.scss'],
 })
 export class SpeakerListPage {
+  public selectedTrainingID = ""
+
   public paginationCount = 5
   public count = 0
   public classes;
   public trainings;
+  public lessonsOfSelectedTraining = []
   speakers: any[] = [];
   segmentModel = "Trainings";
   excludeTracks: any = [];
@@ -32,34 +36,30 @@ export class SpeakerListPage {
     public routerOutlet: IonRouterOutlet,
     private dataDisplays: DataDisplayProvider,
     private router: Router
-    ) {}
+  ) { }
 
-    onChangePage(pageOfItems: Array<any>, type) {
-      // update current page of items
-      if(type == 'add') {
-        if(this.classes.length < (this.paginationCount + 5)) {
-          Swal.fire('Sorry', 'No Data to show!', 'error')
-        }else {
-          this.paginationCount += 5
-          this.count += 5
-        }
-      }else {
-        if((this.count - 5) < 0) {
-          Swal.fire('Sorry', 'No Data to show!', 'error')
-        }else {
-          this.paginationCount -= 5
-          this.count -= 5
-        }
+  onChangePage(pageOfItems: Array<any>, type) {
+    // update current page of items
+    if (type == 'add') {
+      if (this.classes.length < (this.paginationCount + 5)) {
+        Swal.fire('Sorry', 'No Data to show!', 'error')
+      } else {
+        this.paginationCount += 5
+        this.count += 5
       }
-      this.pageOfItems = pageOfItems;
-      console.log("DFDFD: ", this.pageOfItems)
+    } else {
+      if ((this.count - 5) < 0) {
+        Swal.fire('Sorry', 'No Data to show!', 'error')
+      } else {
+        this.paginationCount -= 5
+        this.count -= 5
+      }
     }
+    this.pageOfItems = pageOfItems;
+    console.log("DFDFD: ", this.pageOfItems)
+  }
 
-  ionViewDidEnter() {  
-    const getCurrentUser = this.request.getTheCurrentUserIdInStorage()
-    getCurrentUser.then((id) => {
-      this.getClassAndTrainings(id)
-    })
+  ionViewDidEnter() {
   }
 
   counter(i: number) {
@@ -73,20 +73,21 @@ export class SpeakerListPage {
 
   // This function is for adding the a training or a classes 
   addEventOrClass() {
-    if(this.segmentModel == 'Trainings') {
+    if (this.segmentModel == 'Trainings') {
       this.router.navigate(['/add-training'])
-    }else {
+    } else {
       this.router.navigate(['/add-classes'])
     }
   }
-  
-  getClassAndTrainings(id) {
-    const events = this.eventsService.getTrainingsAndClasses(id)
-    events.subscribe((data: any) => {
-      this.dataDisplays.distributeDatas(data)
-      this.trainings =  this.dataDisplays.trainings
-      this.classes = this.dataDisplays.classes
-    })
+
+  // Kini siya function kay ang pag add ug lesson sa certain trainings 
+  navigateAddLesson() {
+    this.router.navigate(['/add-lesson/' + this.selectedTrainingID])
+  }
+
+  getIDSelectedTraining(value) {
+    this.selectedTrainingID = value.target.value
+    this.returnAllLessons(value.target.value)
   }
 
   async presentFilter() {
@@ -103,5 +104,20 @@ export class SpeakerListPage {
     //   this.excludeTracks = data;
     // }
   }
-  
+
+
+  navigateToAddingScore(id, type) {
+    this.router.navigate(['/add-student-score/' + id + "/" + type])
+  }
+
+  // Kini siya nga function kay iyang i return ang tanan nga lessons sa selected trainings 
+  returnAllLessons(trainingID) {
+    const lessons = this.eventsService.returnLessons(trainingID)
+    lessons.subscribe((data: any) => {
+      this.lessonsOfSelectedTraining = data
+    })
+  }
+
+
+
 }

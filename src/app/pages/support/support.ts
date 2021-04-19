@@ -4,8 +4,10 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 
 import { AlertController, ToastController } from '@ionic/angular';
 import Swal from 'sweetalert2';
-import { AttendanceAddingService } from 'app/request-to-BE/attendance-adding.service';
-import { CheckTutorial } from 'app/providers/check-tutorial.service';
+// import { AttendanceAddingService } from 'app/request-to-BE/attendance-adding.service';
+import { AttendanceAddingService } from '../../request-to-BE/attendance-adding.service';
+// import { CheckTutorial } from 'app/providers/check-tutorial.service';
+import { CheckTutorial } from '../../providers/check-tutorial.service';
 import { Router } from '@angular/router';
 
 
@@ -108,7 +110,7 @@ export class SupportPage {
   ifCurrentUserIsMember(){
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
-        if(data[0].roles == 'Member'){
+        if(data[0].roles == '3'){
           this.currentUserRole = data[0].roles
           this.request.getTheCurrentUserIdInStorage().then(result => {
             this.currentUserId = result
@@ -129,14 +131,14 @@ export class SupportPage {
     this.currentUser.length = 0
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
-        if(data[0].roles == 'Member') {
+        if(data[0].roles == '3') {
           this.ifCurrentUserIsMember();
-        }else if(data[0].roles == "Admin"){
+        }else if(data[0].roles == "1"){
           this.currentUserRole = data[0].roles
           this.datarequest.getAllTheUserRoles().subscribe(result => {
             this.members = result
             this.members.forEach(element => {
-              if(element.roles == 'Admin'){
+              if(element.roles == '1'){
                 this.members.slice(this.members.indexOf(element), 1)
                 this.currentUser.push(element)
               }else{

@@ -86,10 +86,9 @@ textarea {
         width: 100%;
         height: 35px;
         padding: 20px;
-        // outline: orange;
+        outline: none;
     }
     input.input:hover {
-        border: 1px solid orange;
         // border-radius: 8px;
         padding: 10px;
         -moz-box-shadow: 0 0 8px #23c962;
@@ -101,7 +100,6 @@ textarea {
         // outline: orange;
     }
     ion-input.input:hover {
-        border: 1px solid orange;
         // border-radius: 2px;
         padding: 10px;
         -moz-box-shadow: 0 0 8px #23c962;

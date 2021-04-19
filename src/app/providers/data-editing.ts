@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { RequestsService } from 'app/logInAndSignupService/requests.service';
-import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
+// import { RequestsService } from 'app/logInAndSignupService/requests.service';
+import { RequestsService } from '../logInAndSignupService/requests.service';
+// import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+import { DataRequestsService } from '../request-to-BE/data-requests.service';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class DataDisplayProvider {
+    public studentsOfCertainTraining = []
     public dataDisplays = []
     public newData;
     public classes = []
@@ -15,9 +19,14 @@ export class DataDisplayProvider {
 
     constructor(
         private requet: RequestsService,
-        private dataRequest: DataRequestsService
+        private dataRequest: DataRequestsService,
+        private eventRequest: EventTraningServiceService
     ) {
         this.getAllTheStudents();
+        const getCurrentUser = this.requet.getTheCurrentUserIdInStorage()
+        getCurrentUser.then((id) => {
+          this.getTrainings(id)
+        })
      }
 
     // These functions are the responsible for displays and editing classes and trainings
@@ -69,6 +78,21 @@ export class DataDisplayProvider {
         }else {
             this.classes.push(value)
         }
+    }
+
+    // Kini siya nga function kay ang pag kuha sa tanan nga trainings created by the current user 
+    getTrainings(id) {
+        const trainings = this.eventRequest.getTrainings(id)
+        trainings.subscribe((data: any) => {
+            this.trainings = data
+        })
+    }
+
+    // Kini nga function kay ang pag retrieve sa mga students sa certain trainings or classes 
+    returnStudentsOfCertainTraining(trainingStudents) {
+        trainingStudents.forEach(element => {
+            console.log(element)
+        });
     }
 
 }

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon slot="start" class="icon" name="arrow-back" [routerLink]="['/app/tabs/speakers']"></ion-icon>
+    <ion-title>Scores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div>
+          First Name
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Last Name
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Score
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let value of studentsScore; let i = index">
+      <ion-col>
+        <div id="firstname">
+          {{ value.students.firstname }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div id="lastname">
+          {{ value.students.lastname }}
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-select [value]="value.records.score" (ionChange)="getTheUpdatedScore(value.students, $event)" okText="Okay">
+            <ion-select-option *ngFor="let in of counter(11); let i = index" [value]="i">{{i}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

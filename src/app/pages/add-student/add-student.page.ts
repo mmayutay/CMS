@@ -3,7 +3,10 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
-import { calendar } from 'app/interfaces/user-options';
+// import { calendar } from 'app/interfaces/user-options';
+import { calendar } from '../../interfaces/user-options';
+// import { DataDisplayProvider } from 'app/providers/data-editing';
+import { DataDisplayProvider } from '../../providers/data-editing';
 
 
 @Component({
@@ -24,7 +27,7 @@ export class AddStudentPage implements OnInit {
   public type = '';
   public storage: any;
   content: string;
-  public list: any;
+  public list = [];
   public holder: any;
   public addClicked = false;
   public role = "";
@@ -48,24 +51,41 @@ export class AddStudentPage implements OnInit {
     private eventRequest: EventTraningServiceService,
     private request: RequestsService,
     private router: Router,
-    private datas: calendar
+    private datas: calendar,
+    private dataDisplay: DataDisplayProvider
     ) { }
 
   ngOnInit() {
-    this.getUserRole();
+    this.returnAllUsers()
+    // this.getUserRole();
 
     this.selectedItemId = this.activatedRoute.snapshot.paramMap.get('selectedItemID');
     this.segmentModel = this.activatedRoute.snapshot.paramMap.get('typeOfAdd');
-    this.getTheCertainItemSelected();
   }
 
 
   getUserRole() {    
     this.request.getTheCurrentUserIdInStorage().then(res => {
-      this.dataRequest.getMyCellgroup({leaderid: res}).subscribe(data => {
+      this.dataRequest.getMyCellgroup({leaderid: res}).subscribe((data: any) => {
         this.list = data
         console.log(this.list)
       })
+    })
+  }
+
+  returnAllUsers() {
+    const allUsers = this.dataRequest.returnAllUser()
+    allUsers.subscribe((response: any) => {
+      response.forEach(element => {
+        const currentUser = this.request.getTheCurrentUserIdInStorage()
+        currentUser.then((id: any) => {
+          if(id != element.id) {
+            this.list.push(element)
+          }
+        })
+      });
+      // this.list = response
+      // console.log(response)
     })
   }
 
@@ -81,28 +101,19 @@ export class AddStudentPage implements OnInit {
     if(this.segmentModel == "Trainings") {
       this.studentToAdd.trainings =  this.selectedItemId
       this.studentToAdd.students = memberId.id
-      this.studentToAdd.type = this.itemSelected.lesson
+      this.studentToAdd.type = "Seminar"
       addStudent.addStudentToClassOrTrainings(this.studentToAdd).subscribe((data: any) => {
-        console.log(data)
+        this.router.navigate(['/app/tabs/speakers'])
       })
     }else {
       this.studentToAdd.classes =  this.selectedItemId
       this.studentToAdd.students = memberId.id
-      this.studentToAdd.type = this.itemSelected.lesson
+      this.studentToAdd.type = "Seminar"
       console.log(this.studentToAdd)
       addStudent.addStudentToClassOrTrainings(this.studentToAdd).subscribe((data: any) => {
-        console.log(data)
+        this.router.navigate(['/app/tabs/speakers'])
       })
     }
-    // this.dataRequest.getTheCurrentUser({ userID: memberId.id }).subscribe(data => {
-    //   this.storage.push(data[0])
-    // })
-
-    // this.dataRequest.addClassStudent(memberId, this.content).subscribe(data => {
-    //   this.holder = data;
-    //   console.log("Add Member: ", this.holder);
-    // });
-
     this.addClicked = false;
   }
 
@@ -120,16 +131,6 @@ export class AddStudentPage implements OnInit {
     });
   }
 
-
-  // This function is to get the value of a selected item in class or in trainings
-  getTheCertainItemSelected() {
-    console.log(this.selectedItemId + ' ' + this.segmentModel)
-    const selectedItem = this.eventRequest.getSelectedTrainingsOrClasses(this.segmentModel, this.selectedItemId)
-    selectedItem.subscribe((data: any) => {
-      this.itemSelected = data
-      console.log(data)
-    })
-  }
 
   // Re-route back to the selected trainings or class
   backToTrainingOrClass() {

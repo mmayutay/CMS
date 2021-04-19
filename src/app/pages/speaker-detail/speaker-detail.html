@@ -32,7 +32,7 @@
                 <th>Last Name</th>
                 <th>Age</th>
             </tr>
-            <tr *ngFor="let name of classOrTrainingStudents">
+            <tr *ngFor="let name of dataDisplays.studentsOfCertainTraining">
                 <td *ngIf="isToDelete"> <input type="checkbox" (click)="getValue(name)"></td>
                 <td>{{ name.firstname }}</td>
                 <td>{{ name.lastname }}</td>

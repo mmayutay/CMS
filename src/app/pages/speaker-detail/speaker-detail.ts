@@ -4,9 +4,12 @@ import { ConferenceData } from '../../providers/conference-data';
 import { ActionSheetController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service'
-import { calendar } from 'app/interfaces/user-options';
-import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
-import { DataDisplayProvider } from 'app/providers/data-editing';
+// import { calendar } from 'app/interfaces/user-options';
+import { calendar } from '../../interfaces/user-options';
+// import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service';
+// import { DataDisplayProvider } from 'app/providers/data-editing';
+import { DataDisplayProvider } from '../../providers/data-editing';
 
 @Component({
   selector: 'page-speaker-detail',
@@ -14,6 +17,7 @@ import { DataDisplayProvider } from 'app/providers/data-editing';
   styleUrls: ['./speaker-detail.scss'],
 })
 export class SpeakerDetailPage {
+  public lessons = []
   public deleteItems = []
   public isToDelete = false
   public classOrTrainingStudents = []
@@ -35,26 +39,13 @@ export class SpeakerDetailPage {
     private eventRequest: EventTraningServiceService,
     private datas: calendar,
     private dataRequest: DataRequestsService,
-    private dataDisplays: DataDisplayProvider
+    public dataDisplays: DataDisplayProvider
   ) {}
 
   ionViewWillEnter() {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
       this.selectedItemId = speakerId
       this.segmentModel = this.route.snapshot.paramMap.get('addType');
-      
-      const selectedItem = this.eventRequest.getSelectedTrainingsOrClasses(this.segmentModel, speakerId);
-      selectedItem.subscribe((data: any) => {
-        this.detail = data;
-        const allStudents = this.eventRequest.getStudent(this.segmentModel, data.id)
-        allStudents.subscribe((response: any) => {
-          if(response.length != 0) {
-            this.getCertainUser(response)
-          }else {
-            this.datas.studentsNames.length = 0
-          }
-        })
-    });
   }
 
   // This function will add the user 
@@ -62,7 +53,8 @@ export class SpeakerDetailPage {
     student.forEach(element => {
     const getUser = this.dataRequest.getStudentsData(element.students_id)
       getUser.subscribe((response) => {
-        this.classOrTrainingStudents.push(response[0])
+        // this.classOrTrainingStudents.push(response[0])
+        this.dataDisplays.studentsOfCertainTraining.push(response[0])
       })
     });
   }
@@ -72,7 +64,7 @@ export class SpeakerDetailPage {
   }
 
   navigateBackToSpeakers() {
-    this.classOrTrainingStudents.length = 0
+    this.dataDisplays.studentsOfCertainTraining.length = 0
     this.redirect.navigateByUrl('/app/tabs/speakers');
   }
 
@@ -96,7 +88,7 @@ export class SpeakerDetailPage {
     var arrayOfId = []
     this.deleteItems.forEach(element => {
       arrayOfId.push(element.id)
-      this.classOrTrainingStudents.splice(this.classOrTrainingStudents.indexOf(element), 1)
+      this.dataDisplays.studentsOfCertainTraining.splice(this.dataDisplays.studentsOfCertainTraining.indexOf(element), 1)
     })
     const studentsID = this.eventRequest.deleteStudents(this.selectedItemId, arrayOfId)
     studentsID.subscribe((response) => {

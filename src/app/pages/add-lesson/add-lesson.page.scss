@@ -1,0 +1,41 @@
+.icon {
+    font-size: 30px;
+}
+.card {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.05);
+}
+
+.input-container {
+    display: -ms-flexbox;
+    /* IE10 */
+    display: flex;
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.iconLogin {
+    //   background-color: rgb(179, 174, 174, .8);
+    //   padding: 5px; 
+    font: 50px;
+    color: white;
+    padding: 10px;
+    background: #23c962;
+    // color: white;
+    min-width: 10%;
+    height: auto;
+    text-align: center;
+}
+
+ion-input {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.button-bottom{
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    }

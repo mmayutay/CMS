@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Config, ModalController, NavParams } from '@ionic/angular';
-import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
-import { RequestsService } from 'app/logInAndSignupService/requests.service';
-import { DataDisplayProvider } from 'app/providers/data-editing';
+// import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
+import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
+// import { RequestsService } from 'app/logInAndSignupService/requests.service';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
+// import { DataDisplayProvider } from 'app/providers/data-editing';
+import { DataDisplayProvider } from '../../providers/data-editing';
 
 
 @Component({
@@ -27,10 +30,6 @@ export class SpeakerFilterPage implements OnInit {
     const currentUser = this.request.getTheCurrentUserIdInStorage()
     const userTraAndCla = this.eventRequest
     currentUser.then(id => {
-      userTraAndCla.returnClassAndTrainingsByUser(id).subscribe((data: any) => {
-        this.trainings = data.trainings
-        this.classes = data.classes
-      })
     })
   }
 
@@ -51,19 +50,8 @@ export class SpeakerFilterPage implements OnInit {
   deleteSelectedItem(type, item) {
     if(type == 'Trainings') {
       this.dataDisplays.deleteTrainingOrClass('Trainings', this.trainings.indexOf(item))
-      const deleteItem = this.eventRequest.deleteClassOrTrainings(this.trainings[this.trainings.indexOf(item)].id, type);
-      deleteItem.subscribe((response: any) => {
-        this.router.navigate(['/app/tabs/speakers'])
-        this.modalCtrl.dismiss()
-      })
     }else {
       this.dataDisplays.deleteTrainingOrClass('Classes', this.classes.indexOf(item))
-      const deleteItem = this.eventRequest.deleteClassOrTrainings(this.classes[this.classes.indexOf(item)].id, type);
-      deleteItem.subscribe((response: any) => {
-        console.log(response)
-        this.router.navigate(['/app/tabs/speakers'])
-        this.modalCtrl.dismiss()
-      })
     }
   }
 
