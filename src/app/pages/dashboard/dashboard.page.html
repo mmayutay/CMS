@@ -32,11 +32,11 @@
 
         <!-- This will show if the type of choice is monthly -->
         <ion-input *ngIf="monthlyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
-            <ion-select placeholder="Choose Month">
+            <ion-select [value]="chosenMonth" placeholder="Choose Month">
                 <ion-select-option *ngFor="let value of monthlyView" [value]="value">{{ value }}
                 </ion-select-option>
             </ion-select>
-            <ion-select (ionChange)="getChosenYear($event)" placeholder="What Year?">
+            <ion-select [value]="chosenYear" (ionChange)="getChosenYear($event)" placeholder="What Year?">
                 <ion-select-option *ngFor="let year of yearlyView" [value]="year">{{
                     year }}</ion-select-option>
             </ion-select>
