@@ -88,8 +88,15 @@
                 <p>Twitter: {{holder.twitter}}</p>
                 <p>Leader: {{holder.leader}}</p>
             </div>
-            <ion-button type="submit" class="btnLogin" [routerLink]="['/modal-page']">UPDATE INFORMATION
-            </ion-button><br><br>
+            <ion-row>
+                <ion-col></ion-col>
+                <ion-col>
+                    <ion-button type="submit" class="btnLogin" [routerLink]="['/modal-page']">UPDATE INFORMATION
+                    </ion-button>
+                </ion-col>
+                <ion-col></ion-col>
+            </ion-row><br>
         </div>
+
     </ion-card>
 </ion-content>

@@ -140,7 +140,7 @@ export class MinistriesPage implements AfterViewInit {
 
   async presentAlertPrompt(info) {
     const alert = await this.alertController.create({
-      // message: '<img src = "./assets/your_image.svg"> Your message',
+      message: 'Ministries',
       cssClass: 'my-custom-class',
       header: 'Details!',
       inputs: [
