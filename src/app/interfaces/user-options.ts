@@ -116,12 +116,15 @@ export class calendar {
   // Kini siya nga function kay i return ang statistics sa whole year 
   returnStatisticsForAYear(dataAttendance: any, year: number) {
     var arrayOfStats = []
-    var counter = 0
-    dataAttendance.forEach(element => {
-      this.getDateOfAWholeYear(year).forEach(element => {
+    for (let index = 0; index < 12; index++) {
+      var month = this.getMonthlyStats(dataAttendance, this.convertMonth(index), year)
+      var toBeAdded = month.reduce((a, b) => {
+        return a + b
       })
-    })
-    return [20, 30, 70, 10, 70, 50, 10, 0, 10, 90, 90, 100];
+      arrayOfStats.push(toBeAdded)
+    }
+    console.log(arrayOfStats)
+    return arrayOfStats;
   }
 
   // Kini siya nga function kay iyang i return ang date sa whole year

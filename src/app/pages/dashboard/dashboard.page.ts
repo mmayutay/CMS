@@ -265,8 +265,8 @@ export class DashboardPage implements OnInit {
       this.arrayOfCellgroup = this.calendar.getWeekOfMonth(this.calendar.membersAttendance.currentEventsAttendance, this.whatWeek, this.chosenMonth + " " + this.chosenYear);
     } else {
       this.monthChosen = this.calendar.returnAllMonthsChoices();
-      // this.arrayOfCellgroup = this.calendar.returnStatisticsForAYear();
-      // this.arrayOfSundayCeleb = this.calendar.returnStatisticsForAYear()
+      this.arrayOfCellgroup = this.calendar.returnStatisticsForAYear(this.calendar.membersAttendance.currentUserAttendance, this.chosenYear)
+      this.arrayOfSundayCeleb = this.calendar.returnStatisticsForAYear(this.calendar.membersAttendance.currentEventsAttendance, this.chosenYear)
     }
     this.graphCreated(this.barCanvas, this.arrayOfCellgroup);
     this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb); 
