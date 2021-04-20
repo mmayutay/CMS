@@ -14,6 +14,7 @@ import { calendar } from "../../interfaces/user-options";
   styleUrls: ["./reportings.page.scss"],
 })
 export class ReportingsPage implements OnInit {
+  public selectedLeader = 0
   public selectedTypeDate = {
     week: '',
     month: '',
@@ -21,10 +22,10 @@ export class ReportingsPage implements OnInit {
   }
   public monthlyView = this.calendar.returnAllMonthsChoices()
   public weeklyView = [
-    {display: '1st', value: 1}, 
-    {display: '2nd', value: 2},
-    {display: '3rd', value: 3},
-    {display: '4th', value: 4}
+    { display: '1st', value: 1 },
+    { display: '2nd', value: 2 },
+    { display: '3rd', value: 3 },
+    { display: '4th', value: 4 }
   ];
   public yearToFilter = 2021;
   //This is used for proceeding to another week selected for a month
@@ -70,24 +71,25 @@ export class ReportingsPage implements OnInit {
   }
 
   getData(members) {
+    this.selectedLeader = members.target.value.id
     this.leaders.getMembersOfCertainLeader(members.target.value.id)
   }
 
-  
+
 
   onChangePage(pageOfItems: Array<any>, type) {
     // update current page of items
-    if(type == 'add') {
-      if(this.classes.length < (this.paginationCount + 5)) {
+    if (type == 'add') {
+      if (this.classes.length < (this.paginationCount + 5)) {
         Swal.fire('Sorry', 'No Data to show!', 'error')
-      }else {
+      } else {
         this.paginationCount += 5
         this.count += 5
       }
-    }else {
-      if((this.count - 5) < 0) {
+    } else {
+      if ((this.count - 5) < 0) {
         Swal.fire('Sorry', 'No Data to show!', 'error')
-      }else {
+      } else {
         this.paginationCount -= 5
         this.count -= 5
       }
@@ -167,21 +169,56 @@ export class ReportingsPage implements OnInit {
   // Kini siya nga function kay kuhaon ang selected week
   getSelectedWeek(week: any) {
     this.selectedTypeDate.week = week.target.value
-  } 
+    // this.returnGroupsAttendance()
+  }
 
   // Kini siya nga function kay kuhaon ang selected Month 
   getSelectedMonth(month: any) {
     this.selectedTypeDate.month = month.target.value
-    console.log(month.target.value)
   }
 
   // Kini siya nga function kay kuhaon ang selected year 
   getSelectedYear(year: any) {
     this.selectedTypeDate.year = year.target.value
-    console.log(year.target.value)
+    const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
+    members.subscribe((response: any) => {
+      response.forEach(element => {
+        this.returnGroupsAttendance(element)
+      });
+    })
   }
 
-  
+  // Kini siya nga function kay display na ni siya sa mga students ug sa ilang mga attendance ana nga selected week or month 
+  returnGroupsAttendance(member) {
+    this.leaders.members.length = 0
+    var eventCounter = 0
+    var sundayCounter = 0
+    var arrayOfWeek = this.calendar.returnWeek(this.selectedTypeDate.month + ' ' + this.selectedTypeDate.year, this.selectedTypeDate.week)
 
-
+    const membersAttendance = this.datarequest.getEventAndSCAttendance(member.id)
+    membersAttendance.subscribe((attend: any) => {
+      attend[0].currentEventsAttendance.forEach(attendance => {
+        arrayOfWeek.forEach(day => {
+          if ((new Date(attendance.date).getMonth() + '-' + new Date(attendance.date).getDate() + '-' + new Date(attendance.date).getFullYear())
+            ==
+            (new Date(day).getMonth() + '-' + new Date(day).getDate() + '-' + new Date(day).getFullYear())
+          ) {
+            eventCounter += 1
+          }
+        })
+      })
+      attend[0].currentUserAttendance.forEach(attendance => {
+        arrayOfWeek.forEach(day => {
+          if ((new Date(attendance.date).getMonth() + '-' + new Date(attendance.date).getDate() + '-' + new Date(attendance.date).getFullYear())
+            ==
+            (new Date(day).getMonth() + '-' + new Date(day).getDate() + '-' + new Date(day).getFullYear())
+          ) {
+            sundayCounter += 1
+          }
+        })
+      })
+      this.leaders.members.push({user: member, eventAttendance: eventCounter, SCAttendance: sundayCounter})
+      // console.log({user: member.firstname + ' ' + member.lastname, cellgroup: eventCounter, sundayCeleb: sundayCounter})
+    })
+  }
 }
