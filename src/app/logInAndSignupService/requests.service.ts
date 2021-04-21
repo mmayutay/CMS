@@ -41,6 +41,7 @@ export class RequestsService {
   }
 
   updateInfo(userDetails){
+    console.log("User Details:: ",userDetails);
     return this.http.post(this.url + 'updateUser', userDetails)
   }
 

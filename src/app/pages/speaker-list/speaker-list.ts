@@ -4,8 +4,10 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { SpeakerFilterPage } from '../speaker-filter/speaker-filter.page';
 import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+
+import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
 
 // import { DataDisplayProvider } from 'app/providers/data-editing';
 import { DataDisplayProvider } from '../../providers/data-editing';
@@ -42,6 +44,7 @@ export class SpeakerListPage {
     private router: Router,
     private alertController: AlertController
   ) { }
+
 
   onChangePage(pageOfItems: Array<any>, type) {
     // update current page of items
@@ -153,9 +156,9 @@ export class SpeakerListPage {
 
   // Kini siya nga function kay ang pag add ug student sa certain training 
   addStudent() {
-    if(this.selectedTrainingID == undefined || this.selectedClass == undefined) {
+    if (this.selectedTrainingID == undefined || this.selectedClass == undefined) {
       this.presentAlert()
-    }else {
+    } else {
       this.router.navigate(['/add-student/' + this.selectedTrainingID + '/' + this.selectedClass])
     }
   }
@@ -165,13 +168,13 @@ export class SpeakerListPage {
     const allStudents = this.eventsService.returnStudentsOfClasses(this.selectedClass, this.selectedLesson)
     allStudents.subscribe((data: any) => {
       data.forEach(element => {
-        const user = this.dataRequest.getTheCurrentUser({userID: element.students_id})
+        const user = this.dataRequest.getTheCurrentUser({ userID: element.students_id })
         user.subscribe((response: any) => {
           this.allStudentsOfSelectedClass.push(response[0])
         })
       });
     })
-  } 
+  }
 
 
   async presentAlert() {
@@ -183,6 +186,26 @@ export class SpeakerListPage {
     });
 
     await alert.present();
+  }
+
+  deleteLesson() {
+    Swal.fire({
+      title: 'Are you sure you want to delete this lesson?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
   }
 
 

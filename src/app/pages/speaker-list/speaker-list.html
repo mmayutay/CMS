@@ -77,7 +77,7 @@
                                         </ion-button>
                                     </ion-col>
                                     <ion-col>
-                                        <ion-button class="btnEditDelete">
+                                        <ion-button class="btnEditDelete" (click)="deleteLesson()">
                                             <ion-icon name="trash-outline"></ion-icon>&nbsp;Delete
                                         </ion-button>
                                     </ion-col>
@@ -93,12 +93,18 @@
             <ion-grid fixed>
                 <ion-row>
                     <ion-item>
-                        <ion-select placeholder="Select Training" (ionChange)="getIDSelectedTraining($event)"
-                            okText="Okay" cancelText="Dismiss">
+                        <ion-select placeholder="Select Training" (ionChange)="getIDSelectedTraining($event)" okText="Okay"
+                            cancelText="Dismiss">
                             <ion-select-option *ngFor="let speaker of dataDisplays.trainings" [value]="speaker.id">
                                 {{speaker.title}}</ion-select-option>
                         </ion-select>
                     </ion-item>
+                    <ion-item>
+                            <ion-select placeholder="Select Lesson of the Choosen Training" okText="Okay"
+                                cancelText="Dismiss">
+                                <ion-select-option></ion-select-option>
+                            </ion-select>
+                        </ion-item>
 
                     <ion-col size="12" size-md="6" *ngFor="let lesson of classesOfSelectedTraining">
                         <ion-card class="speaker-card">
@@ -221,19 +227,20 @@
         </ion-fab-button>
         <ion-fab-list side="top" *ngIf="segmentModel == 'Classes'">
             <ion-fab-button (click)="navigateAddClassOfLesson()">
-                <ion-icon name="add-outline"></ion-icon>
+                <ion-icon color="primary" style="font-size: 25px;" name="add-outline"></ion-icon>
+                <!-- <ion-label>Class</ion-label> -->
             </ion-fab-button>
         </ion-fab-list>
 
         <ion-fab-list side="top" *ngIf="segmentModel == 'Trainings'">
-            <p>Add Training</p>
-            <ion-fab-button (click)="addEventOrClass()">
-                <ion-icon name="add-circle-outline"></ion-icon>
-            </ion-fab-button>
-            <p>Add Lesson</p>
-            <ion-fab-button (click)="navigateAddLesson()">
-                <ion-icon name="add-outline"></ion-icon>
-            </ion-fab-button>
+            <ion-card class="fabBtn" (click)="addEventOrClass()">
+                <ion-icon color="primary" style="font-size: 25px;" name="add-outline"></ion-icon>
+                <ion-label>Training</ion-label>
+            </ion-card>
+            <ion-card class="fabBtn" (click)="navigateAddLesson()">
+                <ion-icon color="primary" style="font-size: 25px;" name="add-outline"></ion-icon>
+                <ion-label>Lesson</ion-label>
+            </ion-card>
         </ion-fab-list>
     </ion-fab>
 
