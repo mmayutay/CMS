@@ -13,55 +13,77 @@
 </ion-header>
 
 <ion-content>
+    <!-- This is for the Statistics  -->
+    <ion-card class="cardTopNav">
+        <ion-input (ionChange)="getTheUserView($event)" name="code" ngModel class="input">
+            <ion-select value="Weekly" placeholder="Choose Type">
+                <ion-select-option *ngFor="let value of typeOfViewChoices" [value]="value">{{ value }}
+                </ion-select-option>
+            </ion-select>
+        </ion-input>
+
+        <!-- This will show if the type of choice is quarterly -->
+        <ion-input *ngIf="quarterBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
+            <ion-select placeholder="Choose Type">
+                <ion-select-option *ngFor="let value of quarterMonths" [value]="value">{{ value.choices }}
+                </ion-select-option>
+            </ion-select>
+            <ion-select [value]="chosenYear" (ionChange)="getChosenYear($event)" placeholder="What Year?">
+                <ion-select-option *ngFor="let year of yearlyView" [value]="year">{{
+                    year }}</ion-select-option>
+            </ion-select>
+        </ion-input>
+
+        <!-- This will show if the type of choice is monthly -->
+        <ion-input *ngIf="monthlyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
+            <ion-select [value]="chosenMonth" placeholder="Choose Month">
+                <ion-select-option *ngFor="let value of monthlyView" [value]="value">{{ value }}
+                </ion-select-option>
+            </ion-select>
+            <ion-select [value]="chosenYear" (ionChange)="getChosenYear($event)" placeholder="What Year?">
+                <ion-select-option *ngFor="let year of yearlyView" [value]="year">{{
+                    year }}</ion-select-option>
+            </ion-select>
+        </ion-input>
+
+        <!-- This will show if the type of choice is weekly -->
+        <ion-input *ngIf="weeklyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
+            <ion-select placeholder="What Week?">
+                <ion-select-option *ngFor="let value of weeklyView" [value]="value.value">{{ value.display }}
+                </ion-select-option>
+            </ion-select>
+            <ion-select (ionChange)="getMonth($event)" placeholder="What Month?">
+                <ion-select-option *ngFor="let value of calendar.returnAllMonthsChoices()" [value]="value">{{
+                    value }}</ion-select-option>
+            </ion-select>
+            <ion-select (ionChange)="getChosenYear($event)" placeholder="What Year?">
+                <ion-select-option *ngFor="let year of yearlyView" [value]="year">{{
+                    year }}</ion-select-option>
+            </ion-select>
+        </ion-input>
+
+        <!-- This will show if the type of choice is yearly -->
+        <ion-input *ngIf="yearlyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
+            <ion-select placeholder="What Year?">
+                <ion-select-option *ngFor="let value of yearlyView" [value]="value">{{ value }}
+                </ion-select-option>
+            </ion-select>
+        </ion-input>
+    </ion-card>
     <ion-slides pager="true" #slideWithNav>
         <ion-slide>
-            <!-- This is for the Statistics  -->
-            <ion-card>
-                <ion-input (ionChange)="getTheUserView($event)" name="code" ngModel class="input">
-                    <ion-select value="Weekly" placeholder="Choose Type">
-                        <ion-select-option *ngFor="let value of typeOfViewChoices" [value]="value">{{ value }}</ion-select-option>
-                    </ion-select>
-                </ion-input>
-
-                <!-- This will show if the type of choice is quarterly -->
-                <ion-input *ngIf="quarterBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
-                    <ion-select placeholder="Choose Type">
-                        <ion-select-option *ngFor="let value of quarterMonths" [value]="value">{{ value.choices }}</ion-select-option>
-                    </ion-select>
-                </ion-input>
-
-                <!-- This will show if the type of choice is monthly -->
-                <ion-input *ngIf="monthlyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
-                    <ion-select placeholder="Choose Type">
-                        <ion-select-option *ngFor="let value of monthlyView" [value]="value">{{ value }}</ion-select-option>
-                    </ion-select>
-                </ion-input>
-
-                <!-- This will show if the type of choice is weekly -->
-                <ion-input *ngIf="weeklyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
-                    <ion-select placeholder="Choose Type">
-                        <ion-select-option *ngFor="let value of weeklyView" [value]="value.value">{{ value.display }}</ion-select-option>
-                    </ion-select>
-                    <ion-select [value]="chosenMonth" (ionChange)="getMonth($event)" placeholder="What Month?">
-                        <ion-select-option *ngFor="let value of calendar.returnAllMonthsChoices()" [value]="value">{{ value }}</ion-select-option>
-                    </ion-select>
-                </ion-input>
-
-                <!-- This will show if the type of choice is yearly -->
-                <ion-input *ngIf="yearlyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
-                    <ion-select placeholder="Choose Type">
-                        <ion-select-option *ngFor="let value of yearlyView" [value]="value">{{ value }}</ion-select-option>
-                    </ion-select>
-                </ion-input>
-
+            <ion-card class="card">
                 <!-- For all the cellgroup's attendance Statistics  -->
                 <ion-card-header>
                     <h1>CellGroup Attendance</h1>
                 </ion-card-header>
                 <ion-card-content>
                     <canvas #barCanvas></canvas>
-                </ion-card-content><br>
-
+                </ion-card-content>
+            </ion-card>
+        </ion-slide>
+        <ion-slide>
+            <ion-card class="card">
                 <!-- Sunday Celebration attendance Statistics -->
                 <ion-card-header>
                     <h1>Sundays Attendance</h1>
@@ -69,7 +91,7 @@
                 <ion-card-content>
                     <canvas #lineCanvas></canvas>
                 </ion-card-content>
-            </ion-card><br><br>
+            </ion-card>
         </ion-slide>
 
     </ion-slides>

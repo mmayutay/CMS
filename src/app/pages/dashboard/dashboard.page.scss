@@ -66,3 +66,14 @@ ion-card.new-msgs {
     //   content: url(../assets/icon/times-solid.svg);
     // }
   }
+
+  .cardTopNav {
+    position: fixed;
+    z-index: 10;
+    width: 95%;
+  }
+
+  .card {
+    height: 60%;
+    width: 100%;
+  }

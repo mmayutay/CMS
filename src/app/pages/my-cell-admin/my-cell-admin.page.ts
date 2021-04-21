@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class MyCellAdminPage implements OnInit {
   segmentModel = "NewApprovedMembers";
+  public role = ""
 
   public date = new Date();
   public dataAttendanceToPass = {
@@ -69,7 +70,8 @@ export class MyCellAdminPage implements OnInit {
   showMembersBelongToThisGroup() {
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.dataRequest.getNetworkWhereIBelong(res).subscribe(data => {
-        this.dataRequest.getMyNetwork(data[0].roles).subscribe(result => {
+        this.dataRequest.getMyNetwork(data[0].id).subscribe(result => {
+          this.role = data[0].roles
           this.members = result
         })
       })

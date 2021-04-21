@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-// import { EventAndSCAttendance } from 'app/events-and-trainings/event-and-sc-attendance';
 import { EventAndSCAttendance } from '../events-and-trainings/event-and-sc-attendance';
-// import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
 import { EventTraningServiceService } from '../events-and-trainings/event-traning-service.service';
-// import { calendar } from 'app/interfaces/user-options';
 import { calendar } from '../interfaces/user-options';
 import { RequestsService } from '../logInAndSignupService/requests.service';
-// import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
 import { DataRequestsService } from '../request-to-BE/data-requests.service';
 
 
@@ -37,7 +33,7 @@ export class CheckTutorial implements CanLoad {
     private eventAttendance: EventAndSCAttendance,
     private calendar: calendar
   ) {
-    this.typeChoice(this.choice, new Date())
+    // this.typeChoice(this.choice, new Date())
     this.getAllTheLeaders();
     const events = this.eventsRequest.retrieveAllAnnouncement()
     events.subscribe((response: any) => {
@@ -153,11 +149,6 @@ export class CheckTutorial implements CanLoad {
               new Date(date).getMonth() + "-" + new Date(date).getDate() + "-" + new Date().getFullYear()) {
               eventAttendanceCounter += 1
             }
-            // if (new Date(date).getDay() == 0) {
-            //   if (new Date(date).getDate() == new Date(eventsAttendance.date).getDate()) {
-            //     SCAttendanceCounter += 1
-            //   }
-            // }
           })
         })
       }
@@ -191,7 +182,7 @@ export class CheckTutorial implements CanLoad {
 
 
 
-  
+
 
   getDaysArray(start, end) {
     for (var arr = [], dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
@@ -201,59 +192,80 @@ export class CheckTutorial implements CanLoad {
   }
 
 
-
-
+  // Kini siya nga function kay iyang i render ang attendance sa certain member sa anang selected nga month 
+  returnCertainStudentAttendance(monthAndYear: any) {
+    this.sundayCounter = 0
+    var array = this.calendar.getDaysInMonth(new Date(monthAndYear).getMonth(), new Date(monthAndYear).getFullYear())
+    array.forEach(element => {
+      if(new Date(element).getDay() == 0) {
+        this.sundayCounter += 1
+      }
+    })
+  }
 
 
 
   // Kini siya nga function kay like ang gi choose nga display sa reportings kay weekly, monthly or yearly 
-  typeChoice(choice, chosenDate) {
-    this.sundayCounter = 0
+  typeChoice(choice) {
     this.choice = choice
-    this.eventCounter = 0
     if (choice == 'Weekly') {
-      this.range = 7
-      this.daysInAweek(new Date(this.chosenDate), 7).forEach(date => {
-        if (new Date(date).getDay() == 0) {
-          this.sundayCounter += 1
-        }
-        this.eventsArray.forEach(element => {
-          if ((new Date(element.start_date).getMonth() + '-' + new Date(element.start_date).getDate() + '-' + new Date(element.start_date).getFullYear()) ==
-            ((new Date(date).getMonth()) + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())) {
-            this.eventCounter += 1
-          }
-        })
-      })
+      this.eventCounter = 1
     } else if (choice == 'Monthly') {
-      this.range = 31
-      const dates = this.calendar.getDaysInMonth(new Date(this.chosenDate).getMonth(), new Date(this.chosenDate).getFullYear())
-      dates.forEach(date => {
-        if (new Date(date).getDay() == 0) {
-          this.sundayCounter += 1
-        }
-        this.eventsArray.forEach(element => {
-          if ((new Date(element.start_date).getMonth() + '-' + new Date(element.start_date).getDate() + '-' + new Date(element.start_date).getFullYear()) ==
-            ((new Date(date).getMonth()) + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())) {
-            this.eventCounter += 1
-          }
-        })
-      })
-    } else if (choice == "Yearly") {
-      this.range = this.getDaysArray(new Date(new Date().getFullYear(), 0, 1), new Date(new Date().getFullYear(), 11, 31)).length
-      var daylist = this.getDaysArray(new Date(new Date(this.chosenDate).getFullYear(), 0, 1), new Date(new Date(this.chosenDate).getFullYear(), 11, 31));
-      daylist.map((v) => v.toISOString().slice(0, 10)).join("")
-      daylist.forEach(date => {
-        if (new Date(date).getDay() == 0) {
-          this.sundayCounter += 1
-        }
-        this.eventsArray.forEach(element => {
-          if ((new Date(element.start_date).getMonth() + '-' + new Date(element.start_date).getDate() + '-' + new Date(element.start_date).getFullYear()) ==
-            ((new Date(date).getMonth() + 1) + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())) {
-            this.eventCounter += 1
-          }
-        })
-      })
+      this.eventCounter = 4
+    } else if (choice == 'Quarterly') {
+      this.eventCounter = 12
+    } else {
+      this.eventCounter = 52
     }
-    this.dateRender()
   }
+
+  // typeChoice(choice, chosenDate) {
+  //   this.sundayCounter = 0
+  //   this.choice = choice
+  //   this.eventCounter = 0
+  //   if (choice == 'Weekly') {
+  //     this.range = 7
+  //     this.daysInAweek(new Date(this.chosenDate), 7).forEach(date => {
+  //       if (new Date(date).getDay() == 0) {
+  //         this.sundayCounter += 1
+  //       }
+  //       this.eventsArray.forEach(element => {
+  //         if ((new Date(element.start_date).getMonth() + '-' + new Date(element.start_date).getDate() + '-' + new Date(element.start_date).getFullYear()) ==
+  //           ((new Date(date).getMonth()) + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())) {
+  //           this.eventCounter += 1
+  //         }
+  //       })
+  //     })
+  //   } else if (choice == 'Monthly') {
+  //     this.range = 31
+  //     const dates = this.calendar.getDaysInMonth(new Date(this.chosenDate).getMonth(), new Date(this.chosenDate).getFullYear())
+  //     dates.forEach(date => {
+  //       if (new Date(date).getDay() == 0) {
+  //         this.sundayCounter += 1
+  //       }
+  //       this.eventsArray.forEach(element => {
+  //         if ((new Date(element.start_date).getMonth() + '-' + new Date(element.start_date).getDate() + '-' + new Date(element.start_date).getFullYear()) ==
+  //           ((new Date(date).getMonth()) + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())) {
+  //           this.eventCounter += 1
+  //         }
+  //       })
+  //     })
+  //   } else if (choice == "Yearly") {
+  //     this.range = this.getDaysArray(new Date(new Date().getFullYear(), 0, 1), new Date(new Date().getFullYear(), 11, 31)).length
+  //     var daylist = this.getDaysArray(new Date(new Date(this.chosenDate).getFullYear(), 0, 1), new Date(new Date(this.chosenDate).getFullYear(), 11, 31));
+  //     daylist.map((v) => v.toISOString().slice(0, 10)).join("")
+  //     daylist.forEach(date => {
+  //       if (new Date(date).getDay() == 0) {
+  //         this.sundayCounter += 1
+  //       }
+  //       this.eventsArray.forEach(element => {
+  //         if ((new Date(element.start_date).getMonth() + '-' + new Date(element.start_date).getDate() + '-' + new Date(element.start_date).getFullYear()) ==
+  //           ((new Date(date).getMonth() + 1) + '-' + new Date(date).getDate() + '-' + new Date(date).getFullYear())) {
+  //           this.eventCounter += 1
+  //         }
+  //       })
+  //     })
+  //   }
+  //   this.dateRender()
+  // }
 }

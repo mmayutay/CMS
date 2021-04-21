@@ -15,6 +15,7 @@ import { calendar } from '../../interfaces/user-options'
 export class DashboardPage implements OnInit {
   public whatWeek = 1
   public chosenMonth = this.calendar.convertMonth(new Date().getMonth())
+  public chosenYear = new Date().getFullYear()
   public typeOfView = "VIP Member"
   public listAllTheMembers = []
 
@@ -23,9 +24,10 @@ export class DashboardPage implements OnInit {
   //These are the variables for quarterly view
   public quarterBool = false;
   public quarterMonths = [
-    { months: ["Jan", "Feb", "Mar", "Apr"], choices: "1st (Jan-Apr)" },
-    { months: ["May", "Jun", "Jul", "Aug"], choices: "2nd (May-Aug)" },
-    { months: ["Sep", "Oct", "Nov", "Dec"], choices: "3rd (Sep-Dec)" }
+    { months: ["Jan", "Feb", "Mar"], choices: "1st (Jan-Mar)" },
+    { months: ["Apr", "May", "Jun"], choices: "2nd (Apr-Jun)" },
+    { months: ["Jul", "Aug", "Sep"], choices: "3rd (Jul-Sep)" },
+    { months: ["Oct", "Nov", "Dec"], choices: "4th (Oct-Dec)" }
   ]
   //These are the variables for monthly view
   public monthlyBool = false
@@ -121,31 +123,13 @@ export class DashboardPage implements OnInit {
         labels: this.monthChosen,
         datasets: [
           {
-            label: "Attendance Statistics",
+            label: "Attendance Statistics (%)",
             data: arrayForData,
-            // backgroundColor: [
-            //   "rgba(255, 99, 132, 0.2)",
-            //   "rgba(54, 162, 235, 0.2)",
-            //   "rgba(255, 206, 86, 0.2)",
-            //   "rgba(75, 192, 192, 0.2)",
-            //   "rgba(153, 102, 255, 0.2)",
-            //   "rgba(255, 159, 64, 0.2)"
-            // ],
             backgroundColor: [
-              "rgba(84, 216, 58, 0.4)",
-              // "rgba(84, 216, 58, 0.4)",
-              // "rgba(84, 216, 58, 0.4)",
-              // "rgba(84, 216, 58, 0.4)",
-              // "rgba(84, 216, 58, 0.4)",
-              // "rgba(84, 216, 58, 0.4)",
+              "rgba(84, 216, 58, 0.4)"
                         ],
             borderColor: [
-              "rgba(84, 216, 58, 1)",
-              // "rgba(84, 216, 58, 1)",
-              // "rgba(84, 216, 58, 1)",
-              // "rgba(84, 216, 58, 1)",
-              // "rgba(84, 216, 58, 1)",
-              // "rgba(84, 216, 58, 1)",
+              "rgba(84, 216, 58, 1)"
             ],
             borderWidth: 0,
           },
@@ -169,7 +153,6 @@ export class DashboardPage implements OnInit {
   userIsActiveOrNot() {
     var partialDataHandler;
     this.dataRequest.getAllUsersId().subscribe(data => {
-      console.log(data)
       partialDataHandler = data
       if (partialDataHandler.length == 0) {
         this.calendar.activeMember = [];
@@ -270,18 +253,20 @@ export class DashboardPage implements OnInit {
     this.monthChosen.length = 0
     if (this.typeOfViewChosed == 'Quarterly') {
       this.monthChosen = value.target.value.months
+      this.arrayOfCellgroup = this.calendar.getQuarterlyStats(this.calendar.membersAttendance.currentEventsAttendance, this.monthChosen, this.chosenYear);
+      this.arrayOfSundayCeleb = this.calendar.getQuarterlyStats(this.calendar.membersAttendance.currentUserAttendance, this.monthChosen, this.chosenYear);
     } else if (this.typeOfViewChosed == 'Monthly') {
       this.monthChosen = this.calendar.returnAllWeeks();
-      this.arrayOfCellgroup = this.calendar.getMonthlyStats(this.calendar.membersAttendance.currentEventsAttendance, this.chosenMonth);
-      this.arrayOfSundayCeleb = this.calendar.getMonthlyStats(this.calendar.membersAttendance.currentUserAttendance, this.chosenMonth);
+      this.arrayOfCellgroup = this.calendar.getMonthlyStats(this.calendar.membersAttendance.currentEventsAttendance, value.target.value, this.chosenYear);
+      this.arrayOfSundayCeleb = this.calendar.getMonthlyStats(this.calendar.membersAttendance.currentUserAttendance, value.target.value, this.chosenYear);
     } else if (this.typeOfViewChosed == 'Weekly') {
       this.monthChosen = this.calendar.returnAllDays();
-      this.arrayOfCellgroup = this.calendar.getWeekOfMonth(this.calendar.membersAttendance.currentEventsAttendance, value.target.value, this.chosenMonth);
-      this.arrayOfSundayCeleb = this.calendar.getWeekOfMonth(this.calendar.membersAttendance.currentUserAttendance, value.target.value, this.chosenMonth);
+      this.arrayOfSundayCeleb = this.calendar.getWeekOfMonth(this.calendar.membersAttendance.currentUserAttendance, this.whatWeek, this.chosenMonth + " " + this.chosenYear);
+      this.arrayOfCellgroup = this.calendar.getWeekOfMonth(this.calendar.membersAttendance.currentEventsAttendance, this.whatWeek, this.chosenMonth + " " + this.chosenYear);
     } else {
       this.monthChosen = this.calendar.returnAllMonthsChoices();
-      this.arrayOfCellgroup = this.calendar.returnStatisticsForAYear();
-      this.arrayOfSundayCeleb = this.calendar.returnStatisticsForAYear()
+      this.arrayOfCellgroup = this.calendar.returnStatisticsForAYear(this.calendar.membersAttendance.currentUserAttendance, this.chosenYear)
+      this.arrayOfSundayCeleb = this.calendar.returnStatisticsForAYear(this.calendar.membersAttendance.currentEventsAttendance, this.chosenYear)
     }
     this.graphCreated(this.barCanvas, this.arrayOfCellgroup);
     this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb); 
@@ -290,6 +275,15 @@ export class DashboardPage implements OnInit {
   getMonth(value) {
     this.chosenMonth = value.target.value
     this.monthsToView({target: {value: this.whatWeek}})
+  }
+
+  getChosenYear(value) {
+    this.chosenYear = value.target.value
+    if(this.typeOfViewChosed == 'Quarterly') {
+      this.monthsToView({target: {value: {months: ["Jan", "Feb", "Mar"]}}})
+    }else {
+      this.monthsToView({target: {value: this.whatWeek}})
+    }
   }
 
 

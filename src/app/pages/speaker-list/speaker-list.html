@@ -44,7 +44,7 @@
                 <ion-row>
                     <ion-item>
                         <!-- <p class="train" style="background-color:primary;"></p><p>Training</p>&nbsp;&nbsp; -->
-                        <ion-select placeholder="Select a Training" (ionChange)="getIDSelectedTraining($event)"
+                        <ion-select placeholder="Select Training" (ionChange)="getIDSelectedTraining($event)"
                             okText="Okay" cancelText="Dismiss">
                             <ion-select-option *ngFor="let speaker of dataDisplays.trainings" [value]="speaker.id">
                                 {{speaker.title}}</ion-select-option>
@@ -142,28 +142,28 @@
                     <ion-item>
                         <!-- This area is for select training  -->
                         <ion-icon name="accessibility-outline"></ion-icon>
-                        <ion-select class="ion-select" (ionChange)="getIDSelectedTraining($event)" placeholder="Select Training" okText="Okay" cancelText="Dismiss">
+                        <ion-select  (ionChange)="getIDSelectedTraining($event)" placeholder="Select Training" okText="Okay" cancelText="Dismiss">
                             <ion-select-option *ngFor="let training of dataDisplays.trainings" [value]="training.id"> {{ training.title }} </ion-select-option>
                         </ion-select>
                     </ion-item>
                     <ion-item>
                         <!-- This area is for select lesson  -->
                         <ion-icon name="folder-outline"></ion-icon>
-                        <ion-select class="ion-select" (ionChange)="returnSelectedLesson($event)" placeholder="Select Lesson" okText="Okay" cancelText="Dismiss">
+                        <ion-select  (ionChange)="returnSelectedLesson($event)" placeholder="Select Lesson" okText="Okay" cancelText="Dismiss">
                             <ion-select-option *ngFor="let lesson of lessonsOfSelectedTraining" [value]="lesson.id"> {{ lesson.title }} </ion-select-option>
                         </ion-select>
                     </ion-item>
                     <ion-item>
                         <!-- This area is for select class  -->
                         <ion-icon name="people-circle-outline"></ion-icon>
-                        <ion-select class="ion-select" (ionChange)="returnSelectedClass($event)" placeholder="Select Classes" okText="Okay" cancelText="Dismiss">
+                        <ion-select  (ionChange)="returnSelectedClass($event)" placeholder="Select Classes" okText="Okay" cancelText="Dismiss">
                             <ion-select-option *ngFor="let class of classesOfSelectedTraining" [value]="class.id"> {{ class.name }} </ion-select-option>
                         </ion-select>
                     </ion-item><br>
                     <ion-item>
                         <!-- This area is for select type  -->
                         <ion-icon name="thumbs-up-outline"></ion-icon>
-                        <ion-select class="ion-select" placeholder="Select a Type" okText="Okay" cancelText="Dismiss">
+                        <ion-select  placeholder="Select a Type" okText="Okay" cancelText="Dismiss">
                             <ion-select-option> Attendance </ion-select-option>
                         </ion-select>
                     </ion-item>
