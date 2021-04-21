@@ -102,7 +102,12 @@ const routes: Routes = [
   {
     path: 'update-selected-training/:id',
     loadChildren: () => import('./pages/update-selected-training/update-selected-training.module').then( m => m.UpdateSelectedTrainingPageModule)
+  },
+  {
+    path: 'my-network',
+    loadChildren: () => import('./pages/my-network/my-network.module').then( m => m.MyNetworkPageModule)
   }
+
 
 
 

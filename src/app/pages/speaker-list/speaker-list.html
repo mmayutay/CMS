@@ -170,18 +170,20 @@
                 </ion-row>
             </ion-grid>
             <div>
-                <h1 style="text-align: center; font-weight: 100;">Name of Students
-                    <ion-icon style="height: 30px; width: 30px;" (click)="addStudent()" name="add-circle-outline"></ion-icon>
-                </h1>
+                <!-- <h1 style="text-align: center; font-weight: 100;">Name of Students
+                    <ion-icon style="height: 30px; width: 30px;" (click)="addStudent()" ></ion-icon>
+                </h1> -->
                 <ion-item>
                     <table>
                         <tr>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
+                            <th>Name</th>
+                            <th>Score</th>
+                            <th>Remarks</th>
                         </tr>
                         <tr *ngFor="let student of allStudentsOfSelectedClass">
-                            <td>{{ student.firstname }}</td>
-                            <td>{{ student.lastname }}</td>
+                            <td>{{ student.firstname }} {{ student.lastname }}</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </table>
                 </ion-item>

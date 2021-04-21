@@ -1,9 +1,7 @@
 <ion-header>
     <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>My Network</ion-title>
+        <ion-icon slot="start" class="icon" name="arrow-back" [routerLink]="['/dashboard']"></ion-icon>
+        <ion-title>Add Attendance</ion-title>
     </ion-toolbar>
 
 </ion-header>
@@ -59,21 +57,5 @@
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>
-    <!-- <ion-content>
-        <h3 *ngFor="let user of currentUser "> <b>Leader:</b> {{user.lastname}}, {{user.firstname}}</h3>
-        <table>
-            <tr class="title ">
-                <th>Name</th>
-                <th *ngIf="currentUserRole !='Admin' ">Age</th>
-                <th *ngIf="currentUserRole=='Admin' ">Position</th>
-                <th>Attendance</th>
-            </tr>
-            <tr *ngFor="let member of groupMembers ">
-                <th>{{member.lastname}}, {{member.firstname}} </th>
-                <th *ngIf="currentUserRole !='Admin' "> {{member.age}} </th>
-                <th *ngIf="currentUserRole=='Admin' "> {{ member.roles }} </th>
-                <th> <input type="radio "> </th>
-            </tr>
-        </table> -->
 
 </ion-content>
