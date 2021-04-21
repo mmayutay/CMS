@@ -16,9 +16,9 @@ import { calendar } from "../../interfaces/user-options";
 export class ReportingsPage implements OnInit {
   public selectedLeader = 0
   public selectedTypeDate = {
-    week: '',
-    month: '',
-    year: ''
+    week: new Date(),
+    month: new Date(),
+    year: new Date()
   }
   public monthlyView = this.calendar.returnAllMonthsChoices()
   public weeklyView = [
@@ -169,12 +169,23 @@ export class ReportingsPage implements OnInit {
   // Kini siya nga function kay kuhaon ang selected week
   getSelectedWeek(week: any) {
     this.selectedTypeDate.week = week.target.value
-    // this.returnGroupsAttendance()
+    const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
+    members.subscribe((response: any) => {
+      response.forEach(element => {
+        this.returnGroupsAttendance(element, this.calendar.returnWeek(this.selectedTypeDate.month + ' ' + this.selectedTypeDate.year, this.selectedTypeDate.week))
+      });
+    })
   }
 
   // Kini siya nga function kay kuhaon ang selected Month 
   getSelectedMonth(month: any) {
     this.selectedTypeDate.month = month.target.value
+    const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
+    members.subscribe((response: any) => {
+      response.forEach(element => {
+        this.returnGroupsAttendance(element, this.calendar.getDaysInMonth(new Date(month.target.value + " " + this.selectedTypeDate.year).getMonth(), 2021))
+      });
+    })
   }
 
   // Kini siya nga function kay kuhaon ang selected year 
@@ -183,22 +194,21 @@ export class ReportingsPage implements OnInit {
     const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
     members.subscribe((response: any) => {
       response.forEach(element => {
-        this.returnGroupsAttendance(element)
+        this.returnGroupsAttendance(element, this.calendar.returnDatesOfWholeYear(year.target.value + "-1-1", year.target.value + "-31-12"))
       });
     })
   }
 
   // Kini siya nga function kay display na ni siya sa mga students ug sa ilang mga attendance ana nga selected week or month 
-  returnGroupsAttendance(member) {
+  returnGroupsAttendance(member, dates) {
     this.leaders.members.length = 0
     var eventCounter = 0
     var sundayCounter = 0
-    var arrayOfWeek = this.calendar.returnWeek(this.selectedTypeDate.month + ' ' + this.selectedTypeDate.year, this.selectedTypeDate.week)
 
     const membersAttendance = this.datarequest.getEventAndSCAttendance(member.id)
     membersAttendance.subscribe((attend: any) => {
       attend[0].currentEventsAttendance.forEach(attendance => {
-        arrayOfWeek.forEach(day => {
+        dates.forEach(day => {
           if ((new Date(attendance.date).getMonth() + '-' + new Date(attendance.date).getDate() + '-' + new Date(attendance.date).getFullYear())
             ==
             (new Date(day).getMonth() + '-' + new Date(day).getDate() + '-' + new Date(day).getFullYear())
@@ -208,7 +218,7 @@ export class ReportingsPage implements OnInit {
         })
       })
       attend[0].currentUserAttendance.forEach(attendance => {
-        arrayOfWeek.forEach(day => {
+        dates.forEach(day => {
           if ((new Date(attendance.date).getMonth() + '-' + new Date(attendance.date).getDate() + '-' + new Date(attendance.date).getFullYear())
             ==
             (new Date(day).getMonth() + '-' + new Date(day).getDate() + '-' + new Date(day).getFullYear())
@@ -218,7 +228,6 @@ export class ReportingsPage implements OnInit {
         })
       })
       this.leaders.members.push({user: member, eventAttendance: eventCounter, SCAttendance: sundayCounter})
-      // console.log({user: member.firstname + ' ' + member.lastname, cellgroup: eventCounter, sundayCeleb: sundayCounter})
     })
   }
 }

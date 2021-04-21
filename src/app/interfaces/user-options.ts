@@ -90,11 +90,11 @@ export class calendar {
     var arrayPercent = []
     arrayPercent.length = 0
     for (let count = 0; count < 5; count++) {
-        this.getWeekOfMonth(dataAttendance, count, month + " " + year).forEach(data => {
-          allAverage += data
-        })
-        arrayPercent.push((allAverage / this.membersOfAGroup.length))
-        allAverage = 0
+      this.getWeekOfMonth(dataAttendance, count, month + " " + year).forEach(data => {
+        allAverage += data
+      })
+      arrayPercent.push((allAverage / this.membersOfAGroup.length))
+      allAverage = 0
     }
     return arrayPercent;
   }
@@ -102,7 +102,7 @@ export class calendar {
   // Kini siya nga function kay iyang i return ang array sa percentage sa quarterly 
   getQuarterlyStats(dataAttendance: any, monthsOfQuarter: any, year: number) {
     var arrayPercentPerMonth = []
-    var sumMonthsStats  = 0
+    var sumMonthsStats = 0
     monthsOfQuarter.forEach(element => {
       this.getMonthlyStats(dataAttendance, element, year).forEach((response: any) => {
         sumMonthsStats += response
@@ -130,12 +130,12 @@ export class calendar {
   // Kini siya nga function kay iyang i return ang date sa whole year
   getDateOfAWholeYear(givenYear: any) {
     let listDate = []
-    let startDate = givenYear +  "-01-01"
+    let startDate = givenYear + "-01-01"
     let endDate = givenYear + "-12-31"
     let dateMove = new Date(startDate)
     let strDate = startDate
 
-    while(strDate < endDate) {
+    while (strDate < endDate) {
       strDate = dateMove.toISOString().slice(0, 10)
       listDate.push(new Date(strDate))
       dateMove.setDate(dateMove.getDate() + 1)
@@ -215,9 +215,9 @@ export class calendar {
     this.returnWeek(monthAndYear, week).forEach(event => {
       arrayOfDates.forEach(element => {
         if ((new Date(event).getMonth() + '-' + new Date(event).getDate() + '-' + new Date(event).getFullYear())
-          == 
+          ==
           (new Date(element.date).getMonth() + '-' + new Date(element.date).getDate() + '-' + new Date(element.date).getFullYear())) {
-            eventCounter += 1
+          eventCounter += 1
         }
       })
       arrayOfPercent.push((eventCounter / this.membersOfAGroup.length) * 100)
@@ -231,7 +231,7 @@ export class calendar {
     var arrayOfSelectedMonth = []
     var firstDate = new Date(new Date(date).getFullYear(), new Date(date).getMonth(), 1).getDay();
     this.getDaysInMonth(new Date(date).getMonth(), new Date(date).getFullYear()).forEach(element => {
-      if(chosenWeek == Math.ceil((new Date(element).getDate() + firstDate) / 7)) {
+      if (chosenWeek == Math.ceil((new Date(element).getDate() + firstDate) / 7)) {
         arrayOfSelectedMonth.push(element)
       }
     })
@@ -311,5 +311,21 @@ export class calendar {
       current.setDate(current.getDate() + 1);
     }
     return week;
+  }
+
+  // Kini siya nga function kay i return ang tanan nga date sa whole year 
+  returnDatesOfWholeYear(startdate, enddate) {
+    const listDate = [];
+    // const startDate = '2017-02-01';
+    // const endDate = '2017-02-10';
+    const dateMove = new Date(startdate);
+    let strDate = startdate;
+
+    while (strDate < enddate) {
+      strDate = dateMove.toISOString().slice(0, 10);
+      listDate.push(strDate);
+      dateMove.setDate(dateMove.getDate() + 1);
+    };
+    return listDate;
   }
 }
