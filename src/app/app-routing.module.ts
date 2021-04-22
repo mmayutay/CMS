@@ -92,7 +92,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/add-student/add-student.module').then( m => m.AddStudentPageModule)
   },
   {
-    path: 'add-student-score/:id/:type',
+    path: 'add-student-score/:trainingID/:lessonID/:classID',
     loadChildren: () => import('./pages/add-student-score/add-student-score.module').then( m => m.AddStudentScorePageModule)
   },
   {
@@ -102,7 +102,12 @@ const routes: Routes = [
   {
     path: 'update-selected-training/:id',
     loadChildren: () => import('./pages/update-selected-training/update-selected-training.module').then( m => m.UpdateSelectedTrainingPageModule)
+  },
+  {
+    path: 'my-network',
+    loadChildren: () => import('./pages/my-network/my-network.module').then( m => m.MyNetworkPageModule)
   }
+
 
 
 

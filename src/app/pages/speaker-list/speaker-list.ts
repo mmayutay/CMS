@@ -165,10 +165,10 @@ export class SpeakerListPage {
 
   // Kini siya nga function kay iyang i return ang mga student sa ana nga selected lesson 
   returnStudentsOfSelectedLessonAndClasses() {
-    const allStudents = this.eventsService.returnStudentsOfClasses(this.selectedClass, this.selectedLesson)
+    const allStudents = this.eventsService.getStudentOfClass(this.selectedClass)
     allStudents.subscribe((data: any) => {
       data.forEach(element => {
-        const user = this.dataRequest.getTheCurrentUser({ userID: element.students_id })
+        const user = this.dataRequest.getTheCurrentUser({ userID: element })
         user.subscribe((response: any) => {
           this.allStudentsOfSelectedClass.push(response[0])
         })
@@ -208,5 +208,10 @@ export class SpeakerListPage {
     })
   }
 
+  // Kini siya nga function kay mu route sa pag add or pag edit sa student, at the same time kay maka add sad ug another user 
+  updateScoreOrAddStudent() {
+    this.router.navigate(['/add-student-score/' + this.selectedTrainingID + '/' + this.selectedLesson + '/' + this.selectedClass])
+  }
 
 }
+// add-student-score/:trainingID/:lessonID/:classID

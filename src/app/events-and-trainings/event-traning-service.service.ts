@@ -102,9 +102,33 @@ export class EventTraningServiceService {
     return this.http.get(this.url + 'trainings-and-classes/return-selected-training/' + trainingID)
   }
 
+  // Kini siya nga function kay i return ang details sa selected lesson 
+  returnLessonDetails(lessonID) {
+    return this.http.get(this.url + 'trainings-and-classes/return-selected-lesson/' + lessonID);
+  }
 
   // Kini siya nga function kay iyang i return ang mga student sa selected lesson at the same time the same classes 
   returnStudentsOfClasses(lessonID, classID) {
     return this.http.get(this.url + 'class-records/get-students/' + lessonID + '/' + classID);
+  }
+
+  // Kini siya nga function kay i add ang selected user dn himuon siya nga student anang certain class 
+  addStudentToStudentCollection(studentsData) {
+    return this.http.post(this.url + 'trainings-and-classes/add-students-to-class', {userID: studentsData})
+  }
+
+  // Kini siya nga function kay mag add ug record sa certain student 
+  addStudentRecord(studentData) {
+    return this.http.post(this.url + 'trainings-and-classes/add-students-records', studentData)
+  }
+
+  // Kini siya nga function kay kuhaon niya ID nga gikan na jud sa cms users nga table 
+  getStudentOfClass(classID) {
+    return this.http.get(this.url + 'trainings-and-classes/get-students-of-selected-class/' + classID)
+  }
+
+  // Kini siya nga function kay kuhaon ang students sulod sa usa ka class 
+  getStudentOfSelectedClass(classID) {
+    return this.http.get(this.url + 'trainings-and-classes/students-of-the-class/' + classID);
   }
 }

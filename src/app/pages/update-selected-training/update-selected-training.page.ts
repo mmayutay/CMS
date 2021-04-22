@@ -24,10 +24,12 @@ export class UpdateSelectedTrainingPage implements OnInit {
     let id = this.activatedRoute.snapshot.paramMap.get('id')
     const lessonDetails = this.eventsRequest.returnLessons(id)
     lessonDetails.subscribe((data: any) => {
-      console.log(data)
       this.trainingDetails = data[0]
     })
 
   }
 
+  addLessonOfTraining(data) {
+    console.log(this.trainingDetails)
+  }
 }

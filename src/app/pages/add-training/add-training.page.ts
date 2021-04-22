@@ -49,6 +49,7 @@ export class AddTrainingPage implements OnInit {
     const trainings = this.eventsService.addTrainings(this.addTrainings.newTrainings)
     trainings.subscribe((data: any) => {
       console.log(data)
+      this.router.navigate(['/app/tabs/speakers'])
     })
   }
 

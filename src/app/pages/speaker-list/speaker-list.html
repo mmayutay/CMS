@@ -72,7 +72,8 @@
                                 </ion-list>
                                 <ion-row>
                                     <ion-col>
-                                        <ion-button class="btnEditDelete" routerLink="/update-selected-training/{{lesson.id}}">
+                                        <ion-button class="btnEditDelete"
+                                            routerLink="/update-selected-training/{{lesson.id}}">
                                             <ion-icon name="create-outline"></ion-icon>&nbsp;Edit
                                         </ion-button>
                                     </ion-col>
@@ -86,25 +87,23 @@
                         </ion-card>
                     </ion-col>
                 </ion-row>
-            </ion-grid>
+            </ion-grid><br><br>
+            <ion-card *ngIf="lessonsOfSelectedTraining.length == 0" style="text-align: center;"><br><br>
+                <img src="../../../assets/data/empty.png" style="width: 50%; height: 50%;">
+                <h2 style="font-weight: 100;">Nothing to show!</h2>
+            </ion-card>
         </div>
 
         <div *ngIf="segmentModel === 'Classes'">
             <ion-grid fixed>
                 <ion-row>
                     <ion-item>
-                        <ion-select placeholder="Select Training" (ionChange)="getIDSelectedTraining($event)" okText="Okay"
-                            cancelText="Dismiss">
+                        <ion-select placeholder="Select Training" (ionChange)="getIDSelectedTraining($event)"
+                            okText="Okay" cancelText="Dismiss">
                             <ion-select-option *ngFor="let speaker of dataDisplays.trainings" [value]="speaker.id">
                                 {{speaker.title}}</ion-select-option>
                         </ion-select>
                     </ion-item>
-                    <ion-item>
-                            <ion-select placeholder="Select Lesson of the Choosen Training" okText="Okay"
-                                cancelText="Dismiss">
-                                <ion-select-option></ion-select-option>
-                            </ion-select>
-                        </ion-item>
 
                     <ion-col size="12" size-md="6" *ngFor="let lesson of classesOfSelectedTraining">
                         <ion-card class="speaker-card">
@@ -131,7 +130,11 @@
                         </ion-card>
                     </ion-col>
                 </ion-row>
-            </ion-grid>
+            </ion-grid><br><br>
+            <ion-card *ngIf="classesOfSelectedTraining.length == 0" style="text-align: center;"><br><br>
+                <img src="../../../assets/data/empty.png" style="width: 50%; height: 50%;">
+                <h2 style="font-weight: 100;">Nothing to show!</h2>
+            </ion-card>
         </div>
 
 
@@ -142,46 +145,58 @@
                     <ion-item>
                         <!-- This area is for select training  -->
                         <ion-icon name="accessibility-outline"></ion-icon>
-                        <ion-select  (ionChange)="getIDSelectedTraining($event)" placeholder="Select Training" okText="Okay" cancelText="Dismiss">
-                            <ion-select-option *ngFor="let training of dataDisplays.trainings" [value]="training.id"> {{ training.title }} </ion-select-option>
+                        <ion-select (ionChange)="getIDSelectedTraining($event)" placeholder="Select Training"
+                            okText="Okay" cancelText="Dismiss">
+                            <ion-select-option *ngFor="let training of dataDisplays.trainings" [value]="training.id"> {{
+                                training.title }} </ion-select-option>
                         </ion-select>
                     </ion-item>
                     <ion-item>
                         <!-- This area is for select lesson  -->
                         <ion-icon name="folder-outline"></ion-icon>
-                        <ion-select  (ionChange)="returnSelectedLesson($event)" placeholder="Select Lesson" okText="Okay" cancelText="Dismiss">
-                            <ion-select-option *ngFor="let lesson of lessonsOfSelectedTraining" [value]="lesson.id"> {{ lesson.title }} </ion-select-option>
+                        <ion-select (ionChange)="returnSelectedLesson($event)" placeholder="Select Lesson" okText="Okay"
+                            cancelText="Dismiss">
+                            <ion-select-option *ngFor="let lesson of lessonsOfSelectedTraining" [value]="lesson.id"> {{
+                                lesson.title }} </ion-select-option>
                         </ion-select>
                     </ion-item>
                     <ion-item>
                         <!-- This area is for select class  -->
                         <ion-icon name="people-circle-outline"></ion-icon>
-                        <ion-select  (ionChange)="returnSelectedClass($event)" placeholder="Select Classes" okText="Okay" cancelText="Dismiss">
-                            <ion-select-option *ngFor="let class of classesOfSelectedTraining" [value]="class.id"> {{ class.name }} </ion-select-option>
+                        <ion-select (ionChange)="returnSelectedClass($event)" placeholder="Select Classes" okText="Okay"
+                            cancelText="Dismiss">
+                            <ion-select-option *ngFor="let class of classesOfSelectedTraining" [value]="class.id"> {{
+                                class.name }} </ion-select-option>
                         </ion-select>
                     </ion-item><br>
                     <ion-item>
                         <!-- This area is for select type  -->
                         <ion-icon name="thumbs-up-outline"></ion-icon>
-                        <ion-select  placeholder="Select a Type" okText="Okay" cancelText="Dismiss">
+                        <ion-select placeholder="Select a Type" okText="Okay" cancelText="Dismiss">
                             <ion-select-option> Attendance </ion-select-option>
                         </ion-select>
                     </ion-item>
                 </ion-row>
             </ion-grid>
-            <div>
-                <h1 style="text-align: center; font-weight: 100;">Name of Students
-                    <ion-icon style="height: 30px; width: 30px;" (click)="addStudent()" name="add-circle-outline"></ion-icon>
-                </h1>
-                <ion-item>
+            <div><br>
+                <ion-card *ngIf="allStudentsOfSelectedClass.length == 0" style="text-align: center;"><br><br>
+                    <img src="../../../assets/data/empty.png" style="width: 40%; height: 40%;">
+                    <h2 style="font-weight: 100;">Nothing to show!</h2>
+                </ion-card>
+                <!-- <h1 style="text-align: center; font-weight: 100;">Name of Students
+                    <ion-icon style="height: 30px; width: 30px;" (click)="addStudent()" ></ion-icon>
+                </h1> -->
+                <ion-item *ngIf="allStudentsOfSelectedClass.length != 0">
                     <table>
                         <tr>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
+                            <th>Name</th>
+                            <th>Score</th>
+                            <th>Remarks</th>
                         </tr>
                         <tr *ngFor="let student of allStudentsOfSelectedClass">
-                            <td>{{ student.firstname }}</td>
-                            <td>{{ student.lastname }}</td>
+                            <td>{{ student.firstname }} {{ student.lastname }}</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </table>
                 </ion-item>
@@ -238,11 +253,16 @@
                 <ion-icon color="primary" style="font-size: 25px;" name="add-outline"></ion-icon>
                 <ion-label>Training</ion-label>
             </ion-card>
-            <ion-card class="fabBtn" (click)="navigateAddLesson()">
+            <ion-card *ngIf="selectedTrainingID != undefined" class="fabBtn" (click)="navigateAddLesson()">
                 <ion-icon color="primary" style="font-size: 25px;" name="add-outline"></ion-icon>
                 <ion-label>Lesson</ion-label>
             </ion-card>
         </ion-fab-list>
+    </ion-fab>
+    <ion-fab *ngIf="segmentModel == 'Records' && allStudentsOfSelectedClass.length == 0" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button *ngIf="selectedClass != undefined" (click)="updateScoreOrAddStudent()">
+            <ion-icon name="pencil-outline"></ion-icon>
+        </ion-fab-button>
     </ion-fab>
 
 </ion-content>
