@@ -208,15 +208,16 @@ export class CheckTutorial implements CanLoad {
   // Kini siya nga function kay like ang gi choose nga display sa reportings kay weekly, monthly or yearly 
   typeChoice(choice) {
     this.choice = choice
-    if (choice == 'Weekly') {
+    if (this.choice == 'Weekly') {
       this.eventCounter = 1
-    } else if (choice == 'Monthly') {
+    } else if (this.choice == 'Monthly') {
       this.eventCounter = 4
-    } else if (choice == 'Quarterly') {
+    } else if (this.choice == 'Quarterly') {
       this.eventCounter = 12
     } else {
       this.eventCounter = 52
     }
+    this.members.length = 0
   }
 
   // typeChoice(choice, chosenDate) {

@@ -4,6 +4,7 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 // import { DataDisplayProvider } from 'app/providers/data-editing';
 import { DataDisplayProvider } from '../../providers/data-editing';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-classes',
@@ -28,7 +29,8 @@ export class AddClassesPage implements OnInit {
     private request: RequestsService,
     private eventsService: EventTraningServiceService,
     private dataRequest: DataRequestsService,
-    private dataDisplays: DataDisplayProvider
+    private dataDisplays: DataDisplayProvider,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -42,11 +44,35 @@ export class AddClassesPage implements OnInit {
 
   // Kini siya nga function kay mag add ug class sa certain training 
   addClass(data) {
+    var studentRecord = {selectedTrainingID: '', classesID: '', studentID: ''}
+    studentRecord.selectedTrainingID = this.addClasses.newClasses.selectedTrainingID
     const addClasses = this.eventsService.addClassAndStudents(this.addClasses.newClasses)
     addClasses.subscribe((data: any) => {
-      console.log(data)
+      studentRecord.classesID = data.id
+      this.studentsAdded.forEach(element => {
+        const student = this.eventsService.addStudentToStudentCollection(element)
+        student.subscribe((response: any) => {
+          studentRecord.studentID = response.id
+          const newRecord = this.eventsService.addStudentRecord(studentRecord)
+          newRecord.subscribe((record: any) => {
+            this.router.navigate(['/app/tabs/speakers'])
+          })
+        })
+      });
     })
   }
+
+  // $classes->training_id = $request->className['selectedTrainingID'];
+  // $classes->name = $request->className['Name'];
+  // $classes->remarks = $request->className['Description'];
+
+  // $records->lessons_id = $request->input('selectedTrainingID');
+  // $records->classes_id = $request->input('classesID');
+  // $records->students_id = $request->input('studentID');
+  // $records->type = '';
+  // $records->score = 0;
+  // $records->overall = 0;
+  // $records->remarks = '';
 
   // Kini siya nga function kay mag add ug students 
 

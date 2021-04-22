@@ -92,7 +92,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/add-student/add-student.module').then( m => m.AddStudentPageModule)
   },
   {
-    path: 'add-student-score/:id/:type',
+    path: 'add-student-score/:trainingID/:lessonID/:classID',
     loadChildren: () => import('./pages/add-student-score/add-student-score.module').then( m => m.AddStudentScorePageModule)
   },
   {

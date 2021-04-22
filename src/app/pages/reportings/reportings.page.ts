@@ -68,6 +68,7 @@ export class ReportingsPage implements OnInit {
 
   ngOnInit() {
     this.getTheCurrentUser();
+    this.leaders.typeChoice(this.leaders.choice)
   }
 
   getData(members) {
@@ -167,37 +168,49 @@ export class ReportingsPage implements OnInit {
   }
 
   // Kini siya nga function kay kuhaon ang selected week
-  getSelectedWeek(week: any) {
-    this.selectedTypeDate.week = week.target.value
-    const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
-    members.subscribe((response: any) => {
-      response.forEach(element => {
-        this.returnGroupsAttendance(element, this.calendar.returnWeek(this.selectedTypeDate.month + ' ' + this.selectedTypeDate.year, this.selectedTypeDate.week))
-      });
-    })
-  }
+  // getSelectedWeek(week: any) {
+  //   this.selectedTypeDate.week = week.target.value
+  //   const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
+  //   members.subscribe((response: any) => {
+  //     response.forEach(element => {
+  //       this.returnGroupsAttendance(element, this.calendar.returnWeek(this.selectedTypeDate.month + ' ' + this.selectedTypeDate.year, this.selectedTypeDate.week))
+  //     });
+  //   })
+  // }
 
   // Kini siya nga function kay kuhaon ang selected Month 
-  getSelectedMonth(month: any) {
-    this.selectedTypeDate.month = month.target.value
+  getSelectedDate(selectedDate: any) {
     const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
     members.subscribe((response: any) => {
       response.forEach(element => {
-        this.returnGroupsAttendance(element, this.calendar.getDaysInMonth(new Date(month.target.value + " " + this.selectedTypeDate.year).getMonth(), 2021))
-      });
+        if(this.typeChoice == 'Weekly') {
+          this.returnGroupsAttendance(element, this.calendar.dates(new Date(selectedDate.target.value)))
+        }else if(this.typeChoice == 'Monthly') {
+          this.returnGroupsAttendance(element, this.calendar.getDaysInMonth(new Date(selectedDate.target.value).getMonth(), new Date(selectedDate.target.value).getFullYear()))
+        }else {
+          this.returnGroupsAttendance(element, this.calendar.returnDatesOfWholeYear(new Date(selectedDate.target.value).getFullYear() + "-1-1", new Date(selectedDate.target.value).getFullYear() + "-31-12"))
+        }
+      })
     })
+    // this.selectedTypeDate.month = month.target.value
+    // const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
+    // members.subscribe((response: any) => {
+    //   response.forEach(element => {
+    //     this.returnGroupsAttendance(element, this.calendar.getDaysInMonth(new Date(month.target.value + " " + this.selectedTypeDate.year).getMonth(), 2021))
+    //   });
+    // })
   }
 
   // Kini siya nga function kay kuhaon ang selected year 
-  getSelectedYear(year: any) {
-    this.selectedTypeDate.year = year.target.value
-    const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
-    members.subscribe((response: any) => {
-      response.forEach(element => {
-        this.returnGroupsAttendance(element, this.calendar.returnDatesOfWholeYear(year.target.value + "-1-1", year.target.value + "-31-12"))
-      });
-    })
-  }
+  // getSelectedYear(year: any) {
+  //   this.selectedTypeDate.year = year.target.value
+  //   const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
+  //   members.subscribe((response: any) => {
+  //     response.forEach(element => {
+  //       this.returnGroupsAttendance(element, this.calendar.returnDatesOfWholeYear(year.target.value + "-1-1", year.target.value + "-31-12"))
+  //     });
+  //   })
+  // }
 
   // Kini siya nga function kay display na ni siya sa mga students ug sa ilang mga attendance ana nga selected week or month 
   returnGroupsAttendance(member, dates) {
@@ -230,4 +243,6 @@ export class ReportingsPage implements OnInit {
       this.leaders.members.push({user: member, eventAttendance: eventCounter, SCAttendance: sundayCounter})
     })
   }
+
+  
 }
