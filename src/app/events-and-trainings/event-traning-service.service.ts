@@ -131,4 +131,9 @@ export class EventTraningServiceService {
   getStudentOfSelectedClass(classID) {
     return this.http.get(this.url + 'trainings-and-classes/students-of-the-class/' + classID);
   }
+
+  // Kini siya nga function kay i update ang score sa certain student 
+  updateScore(studentId, updatedScore) {
+    return this.http.get(this.url + 'trainings-and-classes/update-students-score/' + studentId +'/' + updatedScore)
+  }
 }

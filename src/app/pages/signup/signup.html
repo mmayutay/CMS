@@ -43,17 +43,16 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <ion-text color="danger">Birthday is required</ion-text>
                     </ion-label><br>
-                    <ion-item>
-                        <!-- <ion-label position="stacked" color="primary">Age</ion-label> -->
+                    <ion-item *ngIf="submitted == true">
                         <div class="input-container">
                             <ion-icon class="iconLogin" name="calendar"></ion-icon>
                             <input [disabled]="true" [(ngModel)]="signup.newUser.Age" class="input" placeholder="Age" name="Age" type="number" #age="ngModel" required />
                         </div>&nbsp;&nbsp;
                     </ion-item>
-                    <ion-label *ngIf="!age.valid && age.touched && age.errors?.required">
+                    <!-- <ion-label *ngIf="!age.valid && age.touched && age.errors?.required">
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <ion-text color="danger">Age is required</ion-text>
-                    </ion-label><br>
+                    </ion-label><br> -->
                     <ion-item>
                         <div class="input-container">
                             <ion-icon class="iconLogin" name="person"></ion-icon>

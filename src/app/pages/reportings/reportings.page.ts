@@ -14,6 +14,7 @@ import { calendar } from "../../interfaces/user-options";
   styleUrls: ["./reportings.page.scss"],
 })
 export class ReportingsPage implements OnInit {
+  public currentDate = this.calendar.convertMonth(new Date().getMonth()) + ' ' + new Date().getDate() + ' ' + new Date().getFullYear()
   public selectedLeader = 0
   public selectedTypeDate = {
     week: new Date(),
@@ -180,15 +181,16 @@ export class ReportingsPage implements OnInit {
 
   // Kini siya nga function kay kuhaon ang selected Month 
   getSelectedDate(selectedDate: any) {
+    this.currentDate = selectedDate.target.value
     const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
     members.subscribe((response: any) => {
       response.forEach(element => {
         if(this.typeChoice == 'Weekly') {
-          this.returnGroupsAttendance(element, this.calendar.dates(new Date(selectedDate.target.value)))
+          this.returnGroupsAttendance(element, this.calendar.dates(new Date(this.currentDate)))
         }else if(this.typeChoice == 'Monthly') {
-          this.returnGroupsAttendance(element, this.calendar.getDaysInMonth(new Date(selectedDate.target.value).getMonth(), new Date(selectedDate.target.value).getFullYear()))
+          this.returnGroupsAttendance(element, this.calendar.getDaysInMonth(new Date(this.currentDate).getMonth(), new Date(selectedDate.target.value).getFullYear()))
         }else {
-          this.returnGroupsAttendance(element, this.calendar.returnDatesOfWholeYear(new Date(selectedDate.target.value).getFullYear() + "-1-1", new Date(selectedDate.target.value).getFullYear() + "-31-12"))
+          this.returnGroupsAttendance(element, this.calendar.returnDatesOfWholeYear(new Date(this.currentDate).getFullYear() + "-1-1", new Date(selectedDate.target.value).getFullYear() + "-31-12"))
         }
       })
     })

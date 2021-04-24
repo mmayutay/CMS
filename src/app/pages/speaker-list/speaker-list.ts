@@ -19,10 +19,15 @@ import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
   styleUrls: ['./speaker-list.scss'],
 })
 export class SpeakerListPage {
+  public defaultTraining = ''
+  public defaultLesson = ''
+  public defaultClass = ''
+
   public selectedTrainingID;
   public selectedClass;
   public selectedLesson;
   public allStudentsOfSelectedClass = []
+  public studentsClassesScores = []
 
   public paginationCount = 5
   public count = 0
@@ -68,6 +73,23 @@ export class SpeakerListPage {
   }
 
   ionViewDidEnter() {
+    // this.dataDisplays.getClasssesByUser()
+    this.displayDefaultTraining()
+  }
+
+
+  // Kini siya nga function kay mag return ug default nga trainings 
+  displayDefaultTraining() {
+    const getCurrentUser = this.request.getTheCurrentUserIdInStorage()
+    getCurrentUser.then((id) => {
+      const trainings = this.eventsService.getTrainings(id)
+      trainings.subscribe((data: any) => {
+        this.defaultTraining = data[0].title
+        this.selectedTrainingID = data[0].id
+        this.returnAllLessons(data[0].id)
+        this.returnClassesOfTraining(data[0].id)
+      })
+    })
   }
 
   counter(i: number) {
@@ -79,6 +101,8 @@ export class SpeakerListPage {
     this.classesOfSelectedTraining.length = 0
     this.lessonsOfSelectedTraining.length = 0
     this.allStudentsOfSelectedClass.length = 0
+    this.displayDefaultTraining()
+    this.returnStudentsOfSelectedLessonAndClasses()
   }
 
 
@@ -132,6 +156,8 @@ export class SpeakerListPage {
     const lessons = this.eventsService.returnLessons(trainingID)
     lessons.subscribe((data: any) => {
       this.lessonsOfSelectedTraining = data
+      this.defaultLesson = data[0].title
+      this.selectedLesson = data[0].id
     })
   }
 
@@ -151,6 +177,8 @@ export class SpeakerListPage {
     const classes = this.eventsService.returnClassesOfTraining(trainingID)
     classes.subscribe((data: any) => {
       this.classesOfSelectedTraining = data
+      this.defaultClass = data[0].name
+      this.selectedClass = data[0].id
     })
   }
 
@@ -173,6 +201,11 @@ export class SpeakerListPage {
           this.allStudentsOfSelectedClass.push(response[0])
         })
       });
+    })
+
+    const students = this.eventsService.getStudentOfSelectedClass(this.selectedClass)
+    students.subscribe((data: any) => {
+      this.studentsClassesScores = data
     })
   }
 

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
-// import { RequestsService } from 'app/logInAndSignupService/requests.service';
 import { RequestsService } from '../logInAndSignupService/requests.service';
-// import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
 import { DataRequestsService } from '../request-to-BE/data-requests.service';
 
 @Injectable({
@@ -23,11 +21,16 @@ export class DataDisplayProvider {
         private eventRequest: EventTraningServiceService
     ) {
         this.getAllTheStudents();
+        this.getClasssesByUser();
+    }
+
+    //  Kini siya nga function kay kuhaon daan ang mga classes sa members by user 
+    getClasssesByUser() {
         const getCurrentUser = this.requet.getTheCurrentUserIdInStorage()
         getCurrentUser.then((id) => {
-          this.getTrainings(id)
+            this.getTrainings(id)
         })
-     }
+    }
 
     // These functions are the responsible for displays and editing classes and trainings
     updatingCertainEventOrClass(typeOfEdit, newData) {
@@ -37,7 +40,7 @@ export class DataDisplayProvider {
                     this.trainings[index] = newData
                 }
             }
-        }else {
+        } else {
             for (let index = 0; index < this.classes.length; index++) {
                 if (this.classes[index].id == newData.id) {
                     this.classes[index] = newData
@@ -55,7 +58,7 @@ export class DataDisplayProvider {
     getAllTheStudents() {
         const user = this.requet.getTheCurrentUserIdInStorage()
         user.then((res: any) => {
-            const allMembers = this.dataRequest.getMyCellgroup({leaderid: res})
+            const allMembers = this.dataRequest.getMyCellgroup({ leaderid: res })
             allMembers.subscribe((response: any) => {
                 this.studentsAvailable = response
             })
@@ -66,16 +69,16 @@ export class DataDisplayProvider {
     deleteTrainingOrClass(typeOfDelete: string, value: number) {
         if (typeOfDelete == 'Trainings') {
             this.trainings.splice(value)
-        }else {
+        } else {
             this.classes.splice(value)
         }
     }
 
     // This function is to allow a user to add a class or a trainings
     addNewClassesOrTrainings(typeOfAdd, value) {
-        if(typeOfAdd == 'Trainings') {
+        if (typeOfAdd == 'Trainings') {
             this.trainings.push(value)
-        }else {
+        } else {
             this.classes.push(value)
         }
     }

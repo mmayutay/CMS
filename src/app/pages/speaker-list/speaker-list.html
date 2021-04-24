@@ -20,10 +20,10 @@
     </ion-header>
     <ion-card slot="fixed" style="width: 100%;margin: 0;">
         <ion-segment (ionChange)="segmentModels($event)" value="Trainings" scrollable="true">
-            <ion-segment-button value="Trainings">
+            <ion-segment-button value="Trainings" [disabled]="lessonsOfSelectedTraining.length == 0">
                 Trainings
             </ion-segment-button>
-            <ion-segment-button value="Classes">
+            <ion-segment-button value="Classes" [disabled]="classesOfSelectedTraining.length == 0">
                 Classes
             </ion-segment-button>
             <ion-segment-button value="Records">
@@ -44,8 +44,7 @@
                 <ion-row>
                     <ion-item>
                         <!-- <p class="train" style="background-color:primary;"></p><p>Training</p>&nbsp;&nbsp; -->
-                        <ion-select placeholder="Select Training" (ionChange)="getIDSelectedTraining($event)"
-                            okText="Okay" cancelText="Dismiss">
+                        <ion-select [placeholder]="defaultTraining" (ionChange)="getIDSelectedTraining($event)" okText="Okay" cancelText="Dismiss">
                             <ion-select-option *ngFor="let speaker of dataDisplays.trainings" [value]="speaker.id">
                                 {{speaker.title}}</ion-select-option>
                         </ion-select>
@@ -89,8 +88,10 @@
                 </ion-row>
             </ion-grid><br><br>
             <ion-card *ngIf="lessonsOfSelectedTraining.length == 0" style="text-align: center;"><br><br>
-                <img src="../../../assets/data/empty.png" style="width: 50%; height: 50%;">
-                <h2 style="font-weight: 100;">Nothing to show!</h2>
+                <ion-spinner name="crescent" *ngIf="lessonsOfSelectedTraining.length == 0" style="width: 5em; height: 5em;">
+                    <img src="../../../assets/data/empty.png" style="width: 50%; height: 50%;">
+                </ion-spinner>
+                <h2 style="font-weight: 100;">Nothing to show!</h2><br><br>
             </ion-card>
         </div>
 
@@ -98,7 +99,7 @@
             <ion-grid fixed>
                 <ion-row>
                     <ion-item>
-                        <ion-select placeholder="Select Training" (ionChange)="getIDSelectedTraining($event)"
+                        <ion-select [placeholder]="defaultTraining" (ionChange)="getIDSelectedTraining($event)"
                             okText="Okay" cancelText="Dismiss">
                             <ion-select-option *ngFor="let speaker of dataDisplays.trainings" [value]="speaker.id">
                                 {{speaker.title}}</ion-select-option>
@@ -132,8 +133,10 @@
                 </ion-row>
             </ion-grid><br><br>
             <ion-card *ngIf="classesOfSelectedTraining.length == 0" style="text-align: center;"><br><br>
-                <img src="../../../assets/data/empty.png" style="width: 50%; height: 50%;">
-                <h2 style="font-weight: 100;">Nothing to show!</h2>
+                <ion-spinner name="crescent" *ngIf="classesOfSelectedTraining.length == 0" style="width: 5em; height: 5em;">
+                    <img src="../../../assets/data/empty.png" style="width: 50%; height: 50%;">
+                </ion-spinner>
+                <h2 style="font-weight: 100;">Nothing to show!</h2><br><br>
             </ion-card>
         </div>
 
@@ -145,7 +148,7 @@
                     <ion-item>
                         <!-- This area is for select training  -->
                         <ion-icon name="accessibility-outline"></ion-icon>
-                        <ion-select (ionChange)="getIDSelectedTraining($event)" placeholder="Select Training"
+                        <ion-select (ionChange)="getIDSelectedTraining($event)" [placeholder]="defaultTraining"
                             okText="Okay" cancelText="Dismiss">
                             <ion-select-option *ngFor="let training of dataDisplays.trainings" [value]="training.id"> {{
                                 training.title }} </ion-select-option>
@@ -154,7 +157,7 @@
                     <ion-item>
                         <!-- This area is for select lesson  -->
                         <ion-icon name="folder-outline"></ion-icon>
-                        <ion-select (ionChange)="returnSelectedLesson($event)" placeholder="Select Lesson" okText="Okay"
+                        <ion-select (ionChange)="returnSelectedLesson($event)" [placeholder]="defaultLesson" okText="Okay"
                             cancelText="Dismiss">
                             <ion-select-option *ngFor="let lesson of lessonsOfSelectedTraining" [value]="lesson.id"> {{
                                 lesson.title }} </ion-select-option>
@@ -163,7 +166,7 @@
                     <ion-item>
                         <!-- This area is for select class  -->
                         <ion-icon name="people-circle-outline"></ion-icon>
-                        <ion-select (ionChange)="returnSelectedClass($event)" placeholder="Select Classes" okText="Okay"
+                        <ion-select (ionChange)="returnSelectedClass($event)" [placeholder]="defaultClass" okText="Okay"
                             cancelText="Dismiss">
                             <ion-select-option *ngFor="let class of classesOfSelectedTraining" [value]="class.id"> {{
                                 class.name }} </ion-select-option>
@@ -193,10 +196,10 @@
                             <th>Score</th>
                             <th>Remarks</th>
                         </tr>
-                        <tr *ngFor="let student of allStudentsOfSelectedClass">
+                        <tr *ngFor="let student of allStudentsOfSelectedClass; let i = index">
                             <td>{{ student.firstname }} {{ student.lastname }}</td>
-                            <td></td>
-                            <td></td>
+                            <td> {{ studentsClassesScores[i].score }} </td>
+                            <td> {{ studentsClassesScores[i].remarks }} </td>
                         </tr>
                     </table>
                 </ion-item>
@@ -258,7 +261,7 @@
             </ion-card>
         </ion-fab-list>
     </ion-fab>
-    <ion-fab *ngIf="segmentModel == 'Records' && allStudentsOfSelectedClass.length == 0" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab *ngIf="segmentModel == 'Records'" vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button *ngIf="selectedClass != undefined" (click)="updateScoreOrAddStudent()">
             <ion-icon name="pencil-outline"></ion-icon>
         </ion-fab-button>

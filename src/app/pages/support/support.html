@@ -31,14 +31,14 @@
             <ion-row class="grid">
                 <ion-col size-xs="4">Name</ion-col>
                 <ion-col size-xs="4">CG</ion-col>
-                <ion-col size-xs="4">SC</ion-col>
+                <ion-col *ngIf="isSunday" size-xs="4">SC</ion-col>
             </ion-row>
             <ion-row *ngFor="let member of groupMembers">
                 <ion-col size-xs="4">{{member.lastname}}, {{member.firstname}} </ion-col>
                 <ion-col size-xs="4">
                     <ion-checkbox (ionChange)="addEventsAttendance(member)"></ion-checkbox>
                 </ion-col>
-                <ion-col size-xs="4">
+                <ion-col *ngIf="isSunday" size-xs="4">
                     <ion-checkbox (ionChange)="addSundayCelebAttendance(member)"></ion-checkbox>
                     <!-- <ion-toggle color="success"></ion-toggle> -->
                 </ion-col>
