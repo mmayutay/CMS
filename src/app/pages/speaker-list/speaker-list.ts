@@ -19,17 +19,22 @@ import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
   styleUrls: ['./speaker-list.scss'],
 })
 export class SpeakerListPage {
+  public defaultTraining = ''
+  public defaultLesson = ''
+  public defaultClass = ''
+
   public selectedTrainingID;
   public selectedClass;
   public selectedLesson;
   public allStudentsOfSelectedClass = []
+  public studentsClassesScores = []
 
   public paginationCount = 5
   public count = 0
   public classes;
   public trainings;
-  public lessonsOfSelectedTraining = []
-  public classesOfSelectedTraining = []
+  public lessonsOfSelectedTraining;
+  public classesOfSelectedTraining;
   segmentModel = "Trainings";
   pageOfItems: Array<any>;
 
@@ -68,6 +73,23 @@ export class SpeakerListPage {
   }
 
   ionViewDidEnter() {
+    // this.dataDisplays.getClasssesByUser()
+    this.displayDefaultTraining()
+  }
+
+
+  // Kini siya nga function kay mag return ug default nga trainings 
+  displayDefaultTraining() {
+    const getCurrentUser = this.request.getTheCurrentUserIdInStorage()
+    getCurrentUser.then((id) => {
+      const trainings = this.eventsService.getTrainings(id)
+      trainings.subscribe((data: any) => {
+        this.defaultTraining = data[0].title
+        this.selectedTrainingID = data[0].id
+        this.returnAllLessons(data[0].id)
+        this.returnClassesOfTraining(data[0].id)
+      })
+    })
   }
 
   counter(i: number) {
@@ -76,9 +98,11 @@ export class SpeakerListPage {
 
   segmentModels(value) {
     this.segmentModel = value.target.value;
-    this.classesOfSelectedTraining.length = 0
-    this.lessonsOfSelectedTraining.length = 0
-    this.allStudentsOfSelectedClass.length = 0
+    this.classesOfSelectedTraining = undefined
+    this.lessonsOfSelectedTraining = undefined
+    this.allStudentsOfSelectedClass = undefined
+    this.displayDefaultTraining()
+    this.returnStudentsOfSelectedLessonAndClasses()
   }
 
 
@@ -132,6 +156,8 @@ export class SpeakerListPage {
     const lessons = this.eventsService.returnLessons(trainingID)
     lessons.subscribe((data: any) => {
       this.lessonsOfSelectedTraining = data
+      this.defaultLesson = data[0].title
+      this.selectedLesson = data[0].id
     })
   }
 
@@ -151,6 +177,8 @@ export class SpeakerListPage {
     const classes = this.eventsService.returnClassesOfTraining(trainingID)
     classes.subscribe((data: any) => {
       this.classesOfSelectedTraining = data
+      this.defaultClass = data[0].name
+      this.selectedClass = data[0].id
     })
   }
 
@@ -167,12 +195,18 @@ export class SpeakerListPage {
   returnStudentsOfSelectedLessonAndClasses() {
     const allStudents = this.eventsService.getStudentOfClass(this.selectedClass)
     allStudents.subscribe((data: any) => {
+      this.allStudentsOfSelectedClass = []
       data.forEach(element => {
         const user = this.dataRequest.getTheCurrentUser({ userID: element })
         user.subscribe((response: any) => {
           this.allStudentsOfSelectedClass.push(response[0])
         })
       });
+    })
+
+    const students = this.eventsService.getStudentOfSelectedClass(this.selectedClass)
+    students.subscribe((data: any) => {
+      this.studentsClassesScores = data
     })
   }
 

@@ -4,9 +4,7 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 
 import { AlertController, ToastController } from '@ionic/angular';
 import Swal from 'sweetalert2';
-// import { AttendanceAddingService } from 'app/request-to-BE/attendance-adding.service';
 import { AttendanceAddingService } from '../../request-to-BE/attendance-adding.service';
-// import { CheckTutorial } from 'app/providers/check-tutorial.service';
 import { CheckTutorial } from '../../providers/check-tutorial.service';
 import { Router } from '@angular/router';
 
@@ -17,6 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./support.scss'],
 })
 export class SupportPage {
+  public isSunday = false
   public currentDate = (new Date(this.leader.chosenDate).getMonth() + 1) + '/' + new Date(this.leader.chosenDate).getDate() + '/' + new Date(this.leader.chosenDate).getFullYear();
   public hasEvent = false
 
@@ -47,6 +46,11 @@ export class SupportPage {
   }
 
   onChangePage(pageOfItems: Array<any>, type) {
+    if(new Date().getDay()  == 0) {
+      this.isSunday = true
+    }else {
+      this.isSunday = false
+    }
     // update current page of items
     if(type == 'add') {
       if(this.classes.length < (this.paginationCount + 5)) {

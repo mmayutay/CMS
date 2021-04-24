@@ -31,15 +31,20 @@
                         </ion-input>
                     </ion-item>
                     <ion-item>
+                        <ion-label position="stacked" color="primary">Gender</ion-label>
+                        <ion-input name="Gender" type="text" [(ngModel)]="updatedData.newUser.Gender" required>
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
                         <ion-label position="stacked" color="primary">Birthday</ion-label>
                         <ion-input name="Birthday" type="date" [(ngModel)]="updatedData.newUser.Birthday" required>
                         </ion-input>
                     </ion-item>
-                    <ion-item>
+                    <!-- <ion-item>
                         <ion-label position="stacked" color="primary">Age</ion-label>
                         <ion-input name="Age" type="number" [(ngModel)]="updatedData.newUser.Age" required>
                         </ion-input>
-                    </ion-item>
+                    </ion-item> -->
                     <ion-item>
                         <ion-label position="stacked" color="primary">Address</ion-label>
                         <ion-input name="Address" type="text" [(ngModel)]="updatedData.newUser.Address" required>

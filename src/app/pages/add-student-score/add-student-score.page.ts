@@ -10,6 +10,7 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
   styleUrls: ['./add-student-score.page.scss'],
 })
 export class AddStudentScorePage implements OnInit {
+  public numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   public trainingsClassAndLessons = {
     trainingTitle: '',
     classTitle: '',
@@ -89,8 +90,6 @@ export class AddStudentScorePage implements OnInit {
     classChose.subscribe((classes: any) => {
       this.trainingsClassAndLessons.classTitle = classes[0].name
     })
-
-    console.log(this.trainingsClassAndLessons)
   }
 
   submit() {
@@ -122,7 +121,10 @@ export class AddStudentScorePage implements OnInit {
 
   scoreEditing(score, student) {
     student.studentScore.score = score.target.value
-    console.log(student)
+    const updateScore = this.eventRequest.updateScore(student.studentScore.students_id, score.target.value)
+    updateScore.subscribe((data: any) => {
+      console.log(data)
+    })
   }
 
 }

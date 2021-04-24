@@ -71,14 +71,14 @@
             <tr *ngFor="let student of studentsScore">
               <!-- <td>{{ student.firstname }} {{ student.lastname }}</td> -->
               <td>{{ student.student.lastname }}, {{ student.student.firstname }}</td>
-              <td><ion-input [value]="student.studentScore.score" (ionChange)="scoreEditing($event, student)" class="score" type="text"></ion-input></td>
+              <td><ion-input type="number" [value]="student.studentScore.score" (ionChange)="scoreEditing($event, student)" class="score"></ion-input></td>
               <td><ion-input [value]="student.studentScore.remarks" class="remarks" type="text"></ion-input></td>
             </tr>
           </table>
         </ion-item>
-        <div class="ion-padding">
+        <!-- <div class="ion-padding">
           <ion-button type="submit" expand="block" (click)="submit()"><ion-icon name="document-text-outline"></ion-icon>Save</ion-button>
-        </div>
+        </div> -->
       </div>
     </div>
   </ion-card>
