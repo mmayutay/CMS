@@ -123,7 +123,7 @@ export class AddStudentPage implements OnInit {
 
   // Re-route back to the selected trainings or class
   backToTrainingOrClass() {
-    this.router.navigateByUrl('/app/tabs/speakers')
+    this.router.navigateByUrl('/app/tabs/speakers/speaker-details/' + this.segmentModel + '/' + this.selectedItemId)
   }
 
   async loadingAdded(user) {

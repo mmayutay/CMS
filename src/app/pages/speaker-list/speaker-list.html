@@ -70,7 +70,7 @@
                                         </ion-button>
                                     </ion-col>
                                     <ion-col>
-                                        <ion-button class="btnEditDelete" (click)="deleteLesson()">
+                                        <ion-button class="btnEditDelete" (click)="deleteLesson(lesson.id)">
                                             <ion-icon name="trash-outline"></ion-icon>&nbsp;Delete
                                         </ion-button>
                                     </ion-col>
@@ -209,39 +209,6 @@
                 </ion-card>
             </div>
         </div>
-        <!-- <div *ngIf="segmentModel == 'trainings'" class="ion-margin">
-            <ion-grid>
-                <ion-row class="grid">
-                    <ion-col size-xs="4">Trainings</ion-col>
-                    <ion-col size-xs="4">Title</ion-col>
-                </ion-row>
-                <ion-row *ngFor="let training of trainings" (click)="navigateToAddingScore(training.id, 'trainings')">
-                    <ion-col size-xs="4">{{training.name}}</ion-col>
-                    <ion-col size-xs="4">{{training.title}}</ion-col>
-                </ion-row>
-            </ion-grid>
-            <div class="pagination">
-                <a (click)="onChangePage($event, 'deduct')">❮</a>
-                <a style="float:right" (click)="onChangePage($event, 'add')">❯</a>
-            </div>
-        </div>
-        <div *ngIf="segmentModel == 'classes'" class="ion-margin">
-            <ion-grid>
-                <ion-row class="grid">
-                    <ion-col size-xs="4">Classes</ion-col>
-                    <ion-col size-xs="4">Title</ion-col>
-                </ion-row>
-                <ion-row *ngFor="let class of classes; let i = index"
-                    (click)="navigateToAddingScore(class.id, 'classes')">
-                    <ion-col size-xs="4">{{class.name}}</ion-col>
-                    <ion-col size-xs="4">{{class.title}}</ion-col>
-                </ion-row>
-            </ion-grid>
-            <div class="pagination">
-                <a (click)="onChangePage($event, 'deduct')">❮</a>
-                <a style="float:right" (click)="onChangePage($event, 'add')">❯</a>
-            </div>
-        </div> -->
     </ion-card>
     <ion-fab *ngIf="segmentModel != 'Records'" vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button>

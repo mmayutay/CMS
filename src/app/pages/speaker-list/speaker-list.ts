@@ -156,8 +156,10 @@ export class SpeakerListPage {
     const lessons = this.eventsService.returnLessons(trainingID)
     lessons.subscribe((data: any) => {
       this.lessonsOfSelectedTraining = data
-      this.defaultLesson = data[0].title
-      this.selectedLesson = data[0].id
+      if(data.length != 0) {
+        this.defaultLesson = data[0].title
+        this.selectedLesson = data[0].id
+      }
     })
   }
 
@@ -177,8 +179,10 @@ export class SpeakerListPage {
     const classes = this.eventsService.returnClassesOfTraining(trainingID)
     classes.subscribe((data: any) => {
       this.classesOfSelectedTraining = data
-      this.defaultClass = data[0].name
-      this.selectedClass = data[0].id
+      if(data.length != 0) {
+        this.defaultClass = data[0].name
+        this.selectedClass = data[0].id
+      }
     })
   }
 
@@ -222,24 +226,71 @@ export class SpeakerListPage {
     await alert.present();
   }
 
-  deleteLesson() {
-    Swal.fire({
-      title: 'Are you sure you want to delete this lesson?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-      }
-    })
+  // deleteLesson() {
+  //   Swal.fire({
+  //     title: 'Are you sure you want to delete this lesson?',
+  //     text: "You won't be able to revert this!",
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, delete it!'
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       Swal.fire(
+  //         'Deleted!',
+  //         'Your file has been deleted.',
+  //         'success'
+  //       )
+  //     }
+  //   })
+  // }
+
+  // Kini siya nga function kay pag delete ug lesson sa certain training 
+  async deleteLesson(lessonID) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Delete Lesson?',
+      message: 'Are you sure you want to delete this lesson?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            console.log('Confirm Okay');
+            const deleteLesson = this.eventsService.deleteLessonOfTraining(lessonID)
+            deleteLesson.subscribe((response: any ) => {
+              console.log(response)
+              this.successfullyDeleted()
+            })
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  // Kini siya nga function kay successfully deleted alert 
+  async successfullyDeleted() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Alert',
+      subHeader: 'Subtitle',
+      message: 'This is an alert message.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 
   // Kini siya nga function kay mu route sa pag add or pag edit sa student, at the same time kay maka add sad ug another user 

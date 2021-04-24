@@ -8,6 +8,8 @@ import { EventTraningServiceService } from 'app/events-and-trainings/event-trani
   styleUrls: ['./add-lesson.page.scss'],
 })
 export class AddLessonPage implements OnInit {
+  public addLessonCounter = 0
+  public currentLengthLesson = 0
   public lessonsToAdd = 1
   public arrayOfLessons = []
   public lessonsAdded = {
@@ -30,16 +32,23 @@ export class AddLessonPage implements OnInit {
 
   ngOnInit() {
     this.lessonsAdded.trainingsID = this.activatedRoute.snapshot.paramMap.get('id')
+    const getLessons = this.eventRequest.returnLessons(this.lessonsAdded.trainingsID)
+    getLessons.subscribe((lessons: any) => {
+      // console.log(lessons[lessons.length - 1].lesson)
+      if(lessons.length != 0) {
+        this.currentLengthLesson = Number(lessons[lessons.length - 1].lesson)
+      }else {
+        this.currentLengthLesson = 0
+      }
+    })
   }
 
   // Kini siya nga function kay ang pag add ug lesson sa certain trainings 
-  addLessonOfTraining(data) {
+  addLessonOfTraining(data, index) {
+    this.addLessonCounter += 1
     this.data = data.form.value
     this.arrayOfLessons.push(this.data)
-    // const addLesson = this.eventRequest.addLessonTraining(this.lessonsAdded)
-    // addLesson.subscribe((data: any) => {
-    //   console.log(data)
-    // })
+    this.arrayOfLessons[index].lesson = this.currentLengthLesson + this.addLessonCounter
   }
 
   counter(i: number) {

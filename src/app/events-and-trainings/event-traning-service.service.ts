@@ -136,4 +136,9 @@ export class EventTraningServiceService {
   updateScore(studentId, updatedScore) {
     return this.http.get(this.url + 'trainings-and-classes/update-students-score/' + studentId +'/' + updatedScore)
   }
+
+  // Kini siya nga function kay mag delete ug lesson sa certain training 
+  deleteLessonOfTraining(lessonID) {
+    return this.http.get(this.url + 'trainings-and-classes/deleteLessonOfTraining/' + lessonID)
+  }
 }

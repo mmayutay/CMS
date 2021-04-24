@@ -121,7 +121,6 @@ export class SpeakerDetailPage {
         const usersData = this.dataRequest.getTheCurrentUser({userID: element})
         usersData.subscribe((usersDetails: any) => {
           this.listOfStudents.push(usersDetails[0])
-          console.log(usersDetails[0])
         })
       });
     })
