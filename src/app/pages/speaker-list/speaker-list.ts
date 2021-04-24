@@ -33,8 +33,8 @@ export class SpeakerListPage {
   public count = 0
   public classes;
   public trainings;
-  public lessonsOfSelectedTraining = []
-  public classesOfSelectedTraining = []
+  public lessonsOfSelectedTraining;
+  public classesOfSelectedTraining;
   segmentModel = "Trainings";
   pageOfItems: Array<any>;
 
@@ -98,9 +98,9 @@ export class SpeakerListPage {
 
   segmentModels(value) {
     this.segmentModel = value.target.value;
-    this.classesOfSelectedTraining.length = 0
-    this.lessonsOfSelectedTraining.length = 0
-    this.allStudentsOfSelectedClass.length = 0
+    this.classesOfSelectedTraining = undefined
+    this.lessonsOfSelectedTraining = undefined
+    this.allStudentsOfSelectedClass = undefined
     this.displayDefaultTraining()
     this.returnStudentsOfSelectedLessonAndClasses()
   }
@@ -195,6 +195,7 @@ export class SpeakerListPage {
   returnStudentsOfSelectedLessonAndClasses() {
     const allStudents = this.eventsService.getStudentOfClass(this.selectedClass)
     allStudents.subscribe((data: any) => {
+      this.allStudentsOfSelectedClass = []
       data.forEach(element => {
         const user = this.dataRequest.getTheCurrentUser({ userID: element })
         user.subscribe((response: any) => {

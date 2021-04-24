@@ -74,13 +74,9 @@ export class DataDisplayProvider {
         }
     }
 
-    // This function is to allow a user to add a class or a trainings
-    addNewClassesOrTrainings(typeOfAdd, value) {
-        if (typeOfAdd == 'Trainings') {
-            this.trainings.push(value)
-        } else {
-            this.classes.push(value)
-        }
+    // This function is to allow a user to add a trainings
+    addNewClassesOrTrainings(value) {
+        this.trainings.push(value)
     }
 
     // Kini siya nga function kay ang pag kuha sa tanan nga trainings created by the current user 
