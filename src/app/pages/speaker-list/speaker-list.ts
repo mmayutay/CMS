@@ -264,9 +264,9 @@ export class SpeakerListPage {
           text: 'Okay',
           handler: () => {
             console.log('Confirm Okay');
-            const deleteLesson = this.eventsService.deleteLessonOfTraining(lessonID)
+            const deleteLesson = this.eventsService.deleteLessonOfTraining(lessonID.id)
             deleteLesson.subscribe((response: any ) => {
-              console.log(response)
+              this.lessonsOfSelectedTraining.splice(this.lessonsOfSelectedTraining.indexOf(lessonID), 1)
               this.successfullyDeleted()
             })
           }
@@ -281,16 +281,14 @@ export class SpeakerListPage {
   async successfullyDeleted() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Alert',
-      subHeader: 'Subtitle',
-      message: 'This is an alert message.',
+      header: 'Deleted!',
+      message: 'Lesson Selected was successfully deleted!',
       buttons: ['OK']
     });
 
     await alert.present();
 
     const { role } = await alert.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 
   // Kini siya nga function kay mu route sa pag add or pag edit sa student, at the same time kay maka add sad ug another user 

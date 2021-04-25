@@ -66,5 +66,5 @@
 </ion-content>
 
 <div class="button-bottom">
-  <ion-button expand="full" (click)="submitLessons()">Submit {{ arrayOfLessons.length }} Added Lessons</ion-button>
+  <ion-button expand="full" (click)="submitLessons()" [disabled]="arrayOfLessons.length == 0">Submit {{ arrayOfLessons.length }} Added Lessons</ion-button>
 </div>
