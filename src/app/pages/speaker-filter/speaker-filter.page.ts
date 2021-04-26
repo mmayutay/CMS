@@ -28,8 +28,12 @@ export class SpeakerFilterPage implements OnInit {
 
   ngOnInit() {
     const currentUser = this.request.getTheCurrentUserIdInStorage()
-    const userTraAndCla = this.eventRequest
+    // const userTraAndCla = this.eventRequest
     currentUser.then(id => {
+      const getTrainings = this.eventRequest.getTrainings(id)
+      getTrainings.subscribe((trainings: any) => {
+        this.trainings = trainings
+      })
     })
   }
 
@@ -42,8 +46,8 @@ export class SpeakerFilterPage implements OnInit {
   }
 
   // This function is to updated selected item in classes or in trainings
-  updateSelectedItem(type, value) {
-    this.router.navigate(['/update-class-or-trainings/' + type + '/' + value.id])
+  updateSelectedItem(value) {
+    this.router.navigate(['/update-class-or-trainings/' + value.id])
     this.dismiss();
   }
 

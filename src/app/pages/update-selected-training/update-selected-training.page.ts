@@ -22,8 +22,9 @@ export class UpdateSelectedTrainingPage implements OnInit {
 
   ngOnInit() {
     let id = this.activatedRoute.snapshot.paramMap.get('id')
-    const lessonDetails = this.eventsRequest.returnLessons(id)
+    const lessonDetails = this.eventsRequest.returnLessonDetails(id)
     lessonDetails.subscribe((data: any) => {
+      console.log(data)
       this.trainingDetails = data[0]
     })
 

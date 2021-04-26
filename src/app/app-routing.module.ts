@@ -80,7 +80,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/add-classes/add-classes.module').then( m => m.AddClassesPageModule)
   },
   {
-    path: 'update-class-or-trainings/:typeUpdate/:selectedItemID',
+    path: 'update-class-or-trainings/:selectedItemID',
     loadChildren: () => import('./pages/update-class-or-trainings/update-class-or-trainings.module').then( m => m.UpdateClassOrTrainingsPageModule)
   },
   {

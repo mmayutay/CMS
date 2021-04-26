@@ -14,7 +14,7 @@ import { DataDisplayProvider } from '../../providers/data-editing';
 export class UpdateClassOrTrainingsPage implements OnInit {
   public selectedItemID = ''
   public updateTrainings = {
-    Name: '',
+    Code: '',
     Lesson: '',
     Title: '',
     Description: '',
@@ -34,9 +34,18 @@ export class UpdateClassOrTrainingsPage implements OnInit {
     this.updateTrainings.typeSelected = this.activatedRoute.snapshot.paramMap.get('typeUpdate');
     const paramsSelectedItem = this.activatedRoute.snapshot.paramMap.get('selectedItemID');
     this.selectedItemID = paramsSelectedItem
+    this.getSelectedTraining()
+
   }
 
-
-
+  // Kini siya nga function kay kuhaon niya ang selected training 
+  getSelectedTraining() {
+    const selectedTraining = this.eventRequest.returnTrainingDetails(this.selectedItemID)
+    selectedTraining.subscribe((trainingDetails: any) => {
+      this.updateTrainings.Title = trainingDetails[0].title
+      this.updateTrainings.Code = trainingDetails[0].code
+      this.updateTrainings.Description = trainingDetails[0].description
+    })
+  }
 
 }
