@@ -6,6 +6,7 @@ import { RequestsService } from "../logInAndSignupService/requests.service";
   providedIn: "root",
 })
 export class calendar {
+  public membersAttendance;
   public membersOfAGroup;
   public statsAttendance = [];
   public activeMember = [];
@@ -81,6 +82,21 @@ export class calendar {
     weeks[3] = "4th";
     return weeks;
   }
+
+  // Kini siya nga function kay iyang i return ang array sa percentage nga basihan sa statistics 
+  getMonthlyStats(dataAttendance: any, month: string) {
+    var allAverage = 0
+    var arrayPercent = []
+    for (let count = 0; count < 4; count++) {
+        this.getWeekOfMonth(dataAttendance, count, month).forEach(data => {
+          allAverage += data
+        })
+        arrayPercent.push((allAverage / this.membersOfAGroup.length))
+        allAverage = 0
+    }
+    return arrayPercent;
+  }
+
   returnAllWeeklyAttendance() {
     return [75, 0, 0, 0, 0, 0, 0];
   }
@@ -102,19 +118,19 @@ export class calendar {
 
   returnTypeOfMember() {
     var members = [];
-    this.dataRequest.allVipUsers().subscribe((data:any) => {
-      members.push({type: "VIP Members", length:data.length});
+    this.dataRequest.allVipUsers().subscribe((data: any) => {
+      members.push({ type: "VIP Members", length: data.length });
       console.log(members);
     })
 
-    this.dataRequest.getRegularMembers().subscribe((data:any) => {
-      members.push({type: "Regular Members", length:data.length});
+    this.dataRequest.getRegularMembers().subscribe((data: any) => {
+      members.push({ type: "Regular Members", length: data.length });
       console.log(members);
     })
 
-    members.push({type: "Active Members", length: this.activeMember.length });
-    members.push({type: "Inactive Members", length: this.inactiveMember.length });
-    
+    members.push({ type: "Active Members", length: this.activeMember.length });
+    members.push({ type: "Inactive Members", length: this.inactiveMember.length });
+
     return members;
   }
 
@@ -147,21 +163,42 @@ export class calendar {
       );
       attendanceCounter = 0;
     }
-    // console.log("weeklyAttendance:: " ,weeklyAttendance);
-    // console.log("Array of Dates: ", date)
     return weeklyAttendance;
-    
+
+  }
+
+  // Kini siya nga function kay i return ang tanan nga attendance sa iyang mga members 
+  returnAttendance(data) {
+    this.membersAttendance = data[0]
   }
 
   // get the week of the month
-  getWeekOfMonth(arrayOfDates) {
-    var time = new Date();
-    var day = time.getDay();
-    arrayOfDates.forEach(element => {
-      var weekOfMonth = Math.ceil((new Date(element.date).getDate() - 1 - day) / 7);
-      console.log(weekOfMonth + 1)
-    });
-    
+  getWeekOfMonth(arrayOfDates: any, week: number, month: string) {
+    var convertWhen;
+    var day = new Date().getDay();
+    var givenMonthArray = []
+    this.allDatesOfYear(new Date(), 365).forEach(element => {
+      convertWhen = Math.ceil((new Date(element).getDate() - 1 - day) / 7)
+      if (convertWhen == week) {
+        if (new Date(element).toString().includes(month)) {
+          givenMonthArray.push(element)
+        }
+      }
+    })
+    var arrayOfPercent = []
+    var eventCounter = 0
+    givenMonthArray.forEach(event => {
+      arrayOfDates.forEach(element => {
+        if ((new Date(event).getMonth() + '-' + new Date(event).getDate()) == (new Date(element.date).getMonth() + '-' + new Date(element.date).getDate())) {
+          eventCounter += 1
+        }
+      })
+      arrayOfPercent.push((eventCounter / this.membersOfAGroup.length) * 100)
+      eventCounter = 0
+    })
+
+    return arrayOfPercent;
+
   }
 
   monthlyData(date) {
@@ -185,8 +222,7 @@ export class calendar {
       );
       attendanceCounter = 0;
     }
-    // console.log("weeklyAttendance:: " ,weeklyAttendance);
-    console.log("dfdfd: ",monthlyAttendance);
+    console.log("dfdfd: ", monthlyAttendance);
     return monthlyAttendance;
 
   }
@@ -200,5 +236,43 @@ export class calendar {
     }
     return days;
   }
-  
+
+
+  dates(current) {
+    var week = new Array();
+    // Starting Monday not Sunday
+    current.setDate((current.getDate() - current.getDay() + 1));
+    for (var i = 0; i < 7; i++) {
+      week.push(
+        new Date(current)
+      );
+      current.setDate(current.getDate() + 1);
+    }
+    return week;
+  }
+
+
+  returnAllDateOfYear(start, end) {
+    // var start = new Date("2015/01/15");
+    // var end = new Date("2016/12/15");
+
+    while (start <= end) {
+      console.log(new Date(start));
+      start.setMonth(start.getMonth() + 1);
+    }
+  }
+
+  allDatesOfYear(current: Date, range: Number) {
+    var week = new Array();
+    current.setDate((current.getDate() - current.getDay() + 1));
+    for (var i = 0; i < range; i++) {
+      week.push(
+        (new Date(current).getMonth() + 1) + '-' +
+        (new Date(current).getDate() - 1) + '-' +
+        new Date(current).getFullYear()
+      );
+      current.setDate(current.getDate() + 1);
+    }
+    return week;
+  }
 }

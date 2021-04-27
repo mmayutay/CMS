@@ -61,7 +61,6 @@ export class AddStudentPage implements OnInit {
 
     this.selectedItemId = this.activatedRoute.snapshot.paramMap.get('selectedItemID');
     this.segmentModel = this.activatedRoute.snapshot.paramMap.get('typeOfAdd');
-    this.getTheCertainItemSelected();
   }
 
 
@@ -132,16 +131,6 @@ export class AddStudentPage implements OnInit {
     });
   }
 
-
-  // This function is to get the value of a selected item in class or in trainings
-  getTheCertainItemSelected() {
-    console.log(this.selectedItemId + ' ' + this.segmentModel)
-    const selectedItem = this.eventRequest.getSelectedTrainingsOrClasses(this.segmentModel, this.selectedItemId)
-    selectedItem.subscribe((data: any) => {
-      this.itemSelected = data
-      console.log(data)
-    })
-  }
 
   // Re-route back to the selected trainings or class
   backToTrainingOrClass() {

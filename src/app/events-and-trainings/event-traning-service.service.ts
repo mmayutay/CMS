@@ -40,38 +40,6 @@ export class EventTraningServiceService {
     return this.http.delete(this.url + 'add-event-announcement/delete/' + id)
   }
 
-
-
-  // This function is to get all the trainings and classes
-  getTrainingsAndClasses(instructorId) {
-    return this.http.get(this.url + 'trainings-by-instructor/' + instructorId)
-  }
-
-  // This function will add a training or a class with the user who inputed the trainings
-  addTrainingsOrClasses(classOrTraining) {
-    return this.http.post(this.url + 'trainings-by-instructor/add', classOrTraining);
-  }
-
-  // Kini siya nga function kay ang pag add ug lessons 
-  addLessonOfATrainingOrClass(lessons) {
-    return this.http.post(this.url + 'trainings-by-instructor/add/lessons', lessons)
-  }
-
-  // This function will get the specific item that the user selected
-  getSelectedTrainingsOrClasses(typeSelected, idSelectedItem) {
-    return this.http.post(this.url + 'trainings-by-instructor/get-selected-class', { typeSelected: typeSelected, idSelectedItem: idSelectedItem })
-  }
-
-  // Kini siya nga function kay kuhaon ang tanan nga lessons sa certain trainings or class 
-  getLessons(id, type) {
-    return this.http.get(this.url + 'trainings-by-instructor/get/lessons/' + id + '/' + type)
-  }
-
-  // A function that get all the students of a certain trainings or event that is being selected
-  getStudent(typeSelected, training) {
-    return this.http.post(this.url + 'trainings-by-instructor/get-student-of-a-class-training', { typeSelected: typeSelected, training: training });
-  }
-
   // This function is to delete multiple students
   deleteStudents(trainingID, arrayOfStudentsID) {
     return this.http.post(this.url + 'student-trainings-or-class/delete-multiple-students', { studentsId: arrayOfStudentsID, selectedTraining: trainingID });
@@ -82,19 +50,35 @@ export class EventTraningServiceService {
     return this.http.post(this.url + 'student-trainings-or-class/addToRecords', studentsData);
   }
 
-
-  // A function that update a value of a selected item in class or in trainings
-  updateClassOrTrainings(itemID, updatedItem) {
-    return this.http.post(this.url + 'trainings-by-instructor/update-training-or-class/' + itemID, updatedItem)
+  // Kini nga function kay kuhaon niya ang tanan nga students sa certain class or training 
+  returnStudentsOfClassOrTrainings(id, type) {
+    return this.http.get(this.url + "student-trainings-or-class/get-students-trainings-classes/" + id + "/" + type);
   }
 
-  // This function will delete the selected item in class or in trainings
-  deleteClassOrTrainings(selectedItemId, typeSelected) {
-    return this.http.post(this.url + 'trainings-by-instructor/delete-training-or-class/' + selectedItemId, { typeSelected: typeSelected })
+  // Kini siya nga function kay ang pag update sa score sa certain student sa class or trainings nga na belong siya
+  updateStudentScore(data) {
+    return this.http.post(this.url + "student-trainings-or-class/update-students-score", data)
   }
 
-  // This function will retrieve all the class and trainings posted by the current user
-  returnClassAndTrainingsByUser(id) {
-    return this.http.get(this.url + 'trainings-by-instructor/return-by-current-user/' + id)
+
+
+  // Kini siya nga function kay ang pag add ug trainings with lessons sa 
+  addTrainings(data) {
+    return this.http.post(this.url + 'trainings-and-classes/add-trainings-with-lessons', data)
+  }
+
+  // Kini siya nga function kay i return ang tanan nga mga trainings created by the current user 
+  getTrainings(id) {
+    return this.http.get(this.url + 'trainings-and-classes/get-all-trainings/' + id)
+  }
+
+  // Kini siya nga function kay mag add ug lesson sa certain trainings 
+  addLessonTraining(data, id) {
+    return this.http.post(this.url + 'trainings-and-classes/add-lesson-of-training/' + id, data);
+  }
+
+  // Kini siya nga function kay iyang i return ang tanan nga lesson sa selected training 
+  returnLessons(id) {
+    return this.http.get(this.url + 'trainings-and-classes/return-lesson-of-selected-training/' + id)
   }
 }
