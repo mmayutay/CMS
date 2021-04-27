@@ -24,6 +24,7 @@ import { DashboardPopoverPage } from './pages/dashboard-popover/dashboard-popove
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
 // import {MatTableModule} from '@angular/material/table';
 // import {MatPaginatorModule} from '@angular/material/paginator';
 // import {MatTableDataSource} from '@angular/material/table';

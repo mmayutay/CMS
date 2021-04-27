@@ -69,4 +69,13 @@ export class RequestsService {
   getLeaders() {
     return this.http.get(this.url + 'get-leaders')
   }
+
+  sendCodeReset(value) {
+    console.log("Request value: ", value);
+    return this.http.get(this.url + 'send-code/' + value)
+  }
+
+  resetPass(password){
+    return this.http.post(this.url + 'reset-password', password)
+  }
 }
