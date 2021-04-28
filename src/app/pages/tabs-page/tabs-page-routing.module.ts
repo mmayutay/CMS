@@ -34,11 +34,12 @@ const routes: Routes = [
             loadChildren: () => import('../session-detail/session-detail.module').then(m => m.SessionDetailModule)
           },
           {
-            path: 'speaker-details/:speakerId',
+            path: 'speaker-details/:addType/:speakerId', 
             loadChildren: () => import('../speaker-detail/speaker-detail.module').then(m => m.SpeakerDetailModule)
           }
         ]
       },
+          
       {
         path: 'map',
         children: [
@@ -61,9 +62,9 @@ const routes: Routes = [
         path: '',
         redirectTo: '/app/tabs/schedule',
         pathMatch: 'full'
-      }
+      },
     ]
-  }
+  },
 ];
 
 @NgModule({

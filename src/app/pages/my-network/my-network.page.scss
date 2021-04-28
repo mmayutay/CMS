@@ -1,0 +1,11 @@
+.grid {
+    background-color: #68ED9A;
+    font-weight: bold;
+    ion-row:first-child {
+        //   background-color: yellowgreen;
+        font-weight: bold;
+    }
+    ion-row:nth-child(even) {
+        background: #dddddd;
+    }
+}

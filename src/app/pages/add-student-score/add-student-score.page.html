@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon slot="start" class="icon" name="arrow-back" [routerLink]="['/app/tabs/speakers']"></ion-icon>
+    <ion-title>Scores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-card>
+    <div class="ion-margin">
+      <ion-grid fixed>
+        <ion-row>
+          <ion-item>
+            <!-- This area is for select training  -->
+            <ion-icon name="accessibility-outline"></ion-icon>
+              <ion-select [placeholder]="trainingsClassAndLessons.trainingTitle" okText="Okay" cancelText="Dismiss">
+                <ion-select-option>sample</ion-select-option>
+              </ion-select>
+          </ion-item>
+          <ion-item>
+            <!-- This area is for select lesson  -->
+            <ion-icon name="folder-outline"></ion-icon>
+            <ion-select [placeholder]="trainingsClassAndLessons.lessonTitle" okText="Okay" cancelText="Dismiss">
+              <ion-select-option>sample</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <!-- This area is for select class  -->
+            <ion-icon name="people-circle-outline"></ion-icon>
+            <ion-select [placeholder]="trainingsClassAndLessons.classTitle" okText="Okay" cancelText="Dismiss">
+              <ion-select-option>sample</ion-select-option>
+            </ion-select>
+          </ion-item><br>
+          <ion-item>
+            <!-- This area is for select type  -->
+            <ion-icon name="thumbs-up-outline"></ion-icon>
+            <ion-select placeholder="Select a Type" okText="Okay" cancelText="Dismiss">
+              <ion-select-option> Attendance </ion-select-option>
+            </ion-select>
+          </ion-item><br>
+          <ion-item>
+            <!-- This area is for select type  -->
+            <ion-icon name="create-outline"></ion-icon>
+            <ion-select placeholder="10" okText="Okay" cancelText="Dismiss">
+              <ion-select-option> 10 </ion-select-option>
+              <ion-select-option> 9 </ion-select-option>
+              <ion-select-option> 8 </ion-select-option>
+              <ion-select-option> 7 </ion-select-option>
+              <ion-select-option> 6 </ion-select-option>
+              <ion-select-option> 5 </ion-select-option>
+              <ion-select-option> 4 </ion-select-option>
+              <ion-select-option> 3 </ion-select-option>
+              <ion-select-option> 2 </ion-select-option>
+              <ion-select-option> 1 </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-row>
+      </ion-grid>
+      <div>
+        <!-- <h1 style="text-align: center; font-weight: 100;">Name of Students
+            <ion-icon style="height: 30px; width: 30px;" (click)="addStudent()"></ion-icon>
+        </h1> -->
+        <ion-item>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Remarks</th>
+            </tr>
+            <tr *ngFor="let student of studentsScore">
+              <!-- <td>{{ student.firstname }} {{ student.lastname }}</td> -->
+              <td>{{ student.student.lastname }}, {{ student.student.firstname }}</td>
+              <td><ion-input type="number" [value]="student.studentScore.score" (ionChange)="scoreEditing($event, student)" class="score"></ion-input></td>
+              <td><ion-input [value]="student.studentScore.remarks" class="remarks" type="text"></ion-input></td>
+            </tr>
+          </table>
+        </ion-item>
+        <!-- <div class="ion-padding">
+          <ion-button type="submit" expand="block" (click)="submit()"><ion-icon name="document-text-outline"></ion-icon>Save</ion-button>
+        </div> -->
+      </div>
+    </div>
+  </ion-card>
+</ion-content>
+
+<!-- <ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+          First Name
+      </ion-col>
+      <ion-col>
+          Last Name
+      </ion-col>
+      <ion-col>
+          Score
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let value of studentsScore; let i = index">
+      <ion-col>
+        <div id="firstname"> -->
+<!-- {{ value.students.firstname }} -->
+<!-- </div> -->
+<!-- </ion-col>
+      <ion-col> -->
+<!-- <div id="lastname"> -->
+<!-- {{ value.students.lastname }} -->
+<!-- </div> -->
+<!-- </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-select [value]="value.records.score" (ionChange)="getTheUpdatedScore(value.students, $event)" okText="Okay">
+            <ion-select-option *ngFor="let in of counter(11); let i = index" [value]="i">{{i}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+<!-- <ion-row class="header-row">
+    <ion-col>
+      Firstname
+    </ion-col>
+    <ion-col>
+      Lastname
+    </ion-col>
+    <ion-col tappable (click)="sortBy('score')">
+      Score
+      <ion-icon name="arrow-down" *ngIf="sortDirection == 1"></ion-icon>
+      <ion-icon name="arrow-up" *ngIf="sortDirection == 2"></ion-icon>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+
+  </ion-row> 
+</ion-content> -->

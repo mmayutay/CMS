@@ -28,15 +28,15 @@ export class AppComponent implements OnInit {
       icon: 'calendar'
     },
     {
-      title: 'Trainings',
+      title: 'Trainings/Classes',
       url: '/app/tabs/speakers',
       icon: 'people'
     },
-    {
-      title: 'Map',
-      url: '/app/tabs/map',
-      icon: 'map'
-    },
+    // {
+    //   title: 'Map',
+    //   url: '/app/tabs/map',
+    //   icon: 'map'
+    // },
     {
       title: 'About',
       url: '/app/tabs/about',

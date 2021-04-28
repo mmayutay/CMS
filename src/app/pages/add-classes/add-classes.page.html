@@ -1,0 +1,67 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-icon slot="start" class="icon" name="arrow-back" [routerLink]="['/app/tabs/speakers']"></ion-icon>
+        <ion-title>Add Classes</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card class="card">
+        <ion-card-content>
+            <form #addEventsForm="ngForm" novalidate>
+                <ion-list lines="none">
+                    <ion-item>
+                        <ion-select placeholder="Select Training" (ionChange)="getIDSelectedTraining($event)"
+                            okText="Okay" cancelText="Dismiss">
+                            <ion-select-option *ngFor="let speaker of dataDisplays.trainings" [value]="speaker.id">
+                                {{speaker.title}}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <br>
+
+                    <ion-item>
+                        <!-- <div class="input-container"> -->
+                            <ion-label position="floating">Class Name</ion-label>
+                            <ion-input [(ngModel)]="addClasses.newClasses.Name"
+                                name="Lesson" type="text" required></ion-input>
+                        <!-- </div>&nbsp;&nbsp; -->
+                    </ion-item><br>
+
+                    <ion-item>
+                        <!-- <div class="input-container"> -->
+                            <ion-label position="floating">Description</ion-label>
+                            <ion-input [(ngModel)]="addClasses.newClasses.Description" #nameCtrl="ngModel" name="Description" type="text" #Description="ngModel"
+                                required></ion-input>
+                        <!-- </div>&nbsp;&nbsp; -->
+                    </ion-item>
+                    <ion-label *ngIf="!Description.valid && Description.touched && Description.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Description is required</ion-text>
+                    </ion-label><br>
+                </ion-list>
+                <!-- This table is for the list of names  -->
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>Lastname</th>
+                        <th>Firstname</th>
+                        <th></th>
+                    </tr>
+                    <tr *ngFor="let val of allUsers;let i = index" [id]="val.id">
+                        <td><ion-icon name="happy-outline"></ion-icon></td>
+                        <td>{{ val.lastname }}</td>
+                        <td> {{ val.firstname }} </td>
+                        <td>
+                            <ion-icon (click)="addStudent(val.id)" name="add-circle-outline"></ion-icon>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="ion-padding">
+                    <ion-button (click)="addClass(addEventsForm)" type="submit" expand="block">
+                        <ion-icon name="document-text-outline"></ion-icon>Save</ion-button>
+                </div>
+            </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

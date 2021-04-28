@@ -21,6 +21,7 @@ export class ModalPagePage implements OnInit {
       Contact_number: null,
       Facebook: '',
       Instagram: '',
+      Gender: '',
       Twitter: '',
     }, groupBelong: {
       Leader: ''
@@ -28,7 +29,6 @@ export class ModalPagePage implements OnInit {
       code: 'Member'
     }
   };
-  public update;
 
   constructor(
     private request: RequestsService,
@@ -38,17 +38,27 @@ export class ModalPagePage implements OnInit {
 
   ngOnInit() {
     this.request.getTheCurrentUserIdInStorage().then(res => {
-      this.datasRequest.editUserInfo({userID: res}).subscribe(data => {
-        this.update.newUser = data[0]
-        console.log(this.update)
+      this.datasRequest.getTheCurrentUser({userID: res}).subscribe(data => {
+        this.updatedData.newUser = data[0]
+        this.updatedData.newUser.Lastname = data[0].lastname
+        this.updatedData.newUser.Firstname = data[0].firstname
+        this.updatedData.newUser.Birthday = data[0].birthday
+        this.updatedData.newUser.Age = data[0].age
+        this.updatedData.newUser.Address = data[0].address
+        this.updatedData.newUser.Marital_status = data[0].marital_status
+        this.updatedData.newUser.Email = data[0].email
+        this.updatedData.newUser.Contact_number = data[0].contact_number
+        this.updatedData.newUser.Facebook = data[0].facebook
+        this.updatedData.newUser.Instagram = data[0].instagram
+        this.updatedData.newUser.Twitter = data[0].twitter
+        this.updatedData.newUser.Gender = data[0].gender
       })
     })
   }
   
 
   onUpdate() {
-    this.request.updateInfo(this.update).subscribe(res => {
-      location.reload();
+    this.request.updateInfo(this.updatedData).subscribe(res => {
       this.router.navigate(['/account'])
     })
   }

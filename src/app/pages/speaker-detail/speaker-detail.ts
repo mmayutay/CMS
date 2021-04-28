@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ConferenceData } from '../../providers/conference-data';
 import { ActionSheetController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
+import { calendar } from '../../interfaces/user-options';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service';
+import { DataDisplayProvider } from '../../providers/data-editing';
 
 @Component({
   selector: 'page-speaker-detail',
@@ -10,97 +14,115 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
   styleUrls: ['./speaker-detail.scss'],
 })
 export class SpeakerDetailPage {
+  public listOfStudents = []
+  public lessons = []
+  public deleteItems = []
+  public isToDelete = false
+  public classOrTrainingStudents = []
   speaker: any;
+  segmentModel = "Trainings";
+  public selectedItemId = ''
+  public detail = {
+    name: '',
+    title: '',
+    description: ''
+  };
+  public trainingDetails = {
+    title: '',
+    description: ''
+  };
 
   constructor(
-    private dataProvider: ConferenceData,
     private route: ActivatedRoute,
+    private redirect: Router,
     public actionSheetCtrl: ActionSheetController,
     public confData: ConferenceData,
     public inAppBrowser: InAppBrowser,
+    private eventRequest: EventTraningServiceService,
+    private datas: calendar,
+    private dataRequest: DataRequestsService,
+    public dataDisplays: DataDisplayProvider
   ) {}
 
   ionViewWillEnter() {
-    this.dataProvider.load().subscribe((data: any) => {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
-      if (data && data.speakers) {
-        for (const speaker of data.speakers) {
-          if (speaker && speaker.id === speakerId) {
-            this.speaker = speaker;
-            break;
-          }
-        }
-      }
-    });
+      this.selectedItemId = speakerId
+      this.segmentModel = this.route.snapshot.paramMap.get('addType');
+      this.getClassDetails()
+      this.getStudentsOfSelectedClass()
   }
 
-  openExternalUrl(url: string) {
-    this.inAppBrowser.create(
-      url,
-      '_blank'
-    );
+  // This function will add the user 
+  getCertainUser(student){
+    student.forEach(element => {
+    const getUser = this.dataRequest.getStudentsData(element.students_id)
+      getUser.subscribe((response) => {
+        // this.classOrTrainingStudents.push(response[0])
+        this.dataDisplays.studentsOfCertainTraining.push(response[0])
+      })
+    });
+  }
+ 
+  navigateToAddStudent() {
+    this.redirect.navigateByUrl('/add-student/' + this.segmentModel + '/' + this.selectedItemId)
   }
 
-  async openSpeakerShare(speaker: any) {
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Share ' + speaker.name,
-      buttons: [
-        {
-          text: 'Copy Link',
-          handler: () => {
-            console.log(
-              'Copy link clicked on https://twitter.com/' + speaker.twitter
-            );
-            if (
-              (window as any).cordova &&
-              (window as any).cordova.plugins.clipboard
-            ) {
-              (window as any).cordova.plugins.clipboard.copy(
-                'https://twitter.com/' + speaker.twitter
-              );
-            }
-          }
-        },
-        {
-          text: 'Share via ...'
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        }
-      ]
-    });
-
-    await actionSheet.present();
+  navigateBackToSpeakers() {
+    this.listOfStudents.length = 0
+    this.redirect.navigateByUrl('/app/tabs/speakers');
   }
 
-  async openContact(speaker: any) {
-    const mode = 'ios'; // this.config.get('mode');
+  wantToDelete() {
+    if(this.isToDelete) {
+      this.isToDelete = false
+    }else {
+      this.isToDelete = true
+    }
+  }
 
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Contact ' + speaker.name,
-      buttons: [
-        {
-          text: `Email ( ${speaker.email} )`,
-          icon: mode !== 'ios' ? 'mail' : null,
-          handler: () => {
-            window.open('mailto:' + speaker.email);
-          }
-        },
-        {
-          text: `Call ( ${speaker.phone} )`,
-          icon: mode !== 'ios' ? 'call' : null,
-          handler: () => {
-            window.open('tel:' + speaker.phone);
-          }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        }
-      ]
-    });
+  getValue(value) {
+    if(!this.deleteItems.includes(value)) {
+      this.deleteItems.push(value)
+    }else {
+      this.deleteItems.splice(this.deleteItems.indexOf(value), 1)
+    }
+  }
 
-    await actionSheet.present();
+  deleteSelectedItems() {
+    var arrayOfId = []
+    this.deleteItems.forEach(element => {
+      arrayOfId.push(element.id)
+      this.dataDisplays.studentsOfCertainTraining.splice(this.dataDisplays.studentsOfCertainTraining.indexOf(element), 1)
+    })
+    const studentsID = this.eventRequest.deleteStudents(this.selectedItemId, arrayOfId)
+    studentsID.subscribe((response) => {
+      console.log(response)
+    })
+  }
+
+
+  // Kini siya nga function kay kuhaon niya details sa selected classes sa trainings 
+  getClassDetails() {
+    const classDetails = this.eventRequest.returnClassDetails(this.selectedItemId)
+    classDetails.subscribe((data: any) => {
+      this.detail = data[0]
+      const trainingDetails = this.eventRequest.returnTrainingDetails(data[0].training_id)
+      trainingDetails.subscribe((response: any) => {
+        this.trainingDetails = response[0]
+      })
+    })
+  }
+
+  // Kini siya nga function kay kuhaon niya ang tanan nga mga student anang selected class 
+  getStudentsOfSelectedClass() {
+    const studentsIDs = this.eventRequest.getStudentOfClass(this.selectedItemId)
+    studentsIDs.subscribe((students: any) => {
+      students.forEach(element => {
+        const usersData = this.dataRequest.getTheCurrentUser({userID: element})
+        usersData.subscribe((usersDetails: any) => {
+          this.listOfStudents.push(usersDetails[0])
+        })
+      });
+    })
   }
 }

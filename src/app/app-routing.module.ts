@@ -60,9 +60,58 @@ const routes: Routes = [
     loadChildren: () => import('./pages/add-event/add-event.module').then( m => m.AddEventPageModule)
   },
   {
+    path: 'dashboard-popover',
+    loadChildren: () => import('./pages/dashboard-popover/dashboard-popover.module').then( m => m.DashboardPopoverPageModule)
+  },
+  {
+    path: 'display-members/:type',
+    loadChildren: () => import('./pages/display-members/display-members.module').then( m => m.DisplayMembersPageModule)
+  },
+  {
     path: 'update-my-events-posted/:id',
     loadChildren: () => import('./pages/update-my-events-posted/update-my-events-posted.module').then( m => m.UpdateMyEventsPostedPageModule)
+  },
+  {
+    path: 'add-training',
+    loadChildren: () => import('./pages/add-training/add-training.module').then( m => m.AddTrainingPageModule)
+  },
+  {
+    path: 'add-classes',
+    loadChildren: () => import('./pages/add-classes/add-classes.module').then( m => m.AddClassesPageModule)
+  },
+  {
+    path: 'update-class-or-trainings/:selectedItemID',
+    loadChildren: () => import('./pages/update-class-or-trainings/update-class-or-trainings.module').then( m => m.UpdateClassOrTrainingsPageModule)
+  },
+  {
+    path: 'speaker-filter',
+    loadChildren: () => import('./pages/speaker-filter/speaker-filter.module').then( m => m.SpeakerFilterPageModule)
+  },
+  {
+    path: 'add-student/:typeOfAdd/:selectedItemID',
+    loadChildren: () => import('./pages/add-student/add-student.module').then( m => m.AddStudentPageModule)
+  },
+  {
+    path: 'add-student-score/:trainingID/:lessonID/:classID',
+    loadChildren: () => import('./pages/add-student-score/add-student-score.module').then( m => m.AddStudentScorePageModule)
+  },
+  {
+    path: 'add-lesson/:id',
+    loadChildren: () => import('./pages/add-lesson/add-lesson.module').then( m => m.AddLessonPageModule)
+  },
+  {
+    path: 'update-selected-training/:id',
+    loadChildren: () => import('./pages/update-selected-training/update-selected-training.module').then( m => m.UpdateSelectedTrainingPageModule)
+  },
+  {
+    path: 'my-network',
+    loadChildren: () => import('./pages/my-network/my-network.module').then( m => m.MyNetworkPageModule)
+  },
+  {
+    path: 'forgotpassword',
+    loadChildren: () => import('./pages/forgotpassword/forgotpassword.module').then( m => m.ForgotpasswordPageModule)
   }
+
 
 
 

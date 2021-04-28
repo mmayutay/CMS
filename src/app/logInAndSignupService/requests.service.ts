@@ -41,6 +41,7 @@ export class RequestsService {
   }
 
   updateInfo(userDetails){
+    console.log("User Details:: ",userDetails);
     return this.http.post(this.url + 'updateUser', userDetails)
   }
 
@@ -63,5 +64,19 @@ export class RequestsService {
 
   cellGroup(){
     return this.http.get(this.url + 'cellgroup')
+  }
+
+  // This route is to get all the leaders 
+  getLeaders() {
+    return this.http.get(this.url + 'get-leaders')
+  }
+
+  sendCodeReset(value) {
+    console.log("Request value: ", value);
+    return this.http.get(this.url + 'send-code/' + value)
+  }
+
+  resetPass(password){
+    return this.http.post(this.url + 'reset-password', password)
   }
 }

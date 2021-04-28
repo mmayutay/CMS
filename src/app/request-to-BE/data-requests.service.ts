@@ -16,6 +16,12 @@ export class DataRequestsService {
     private userData: UserData
   ) {  }
 
+
+  // Kini siya nga function kay i return ang tanan nga user from admin to members 
+  returnAllUser() {
+    return this.request.get(this.url + 'list')
+  }
+
   //This will get all the users of a certain group
   getAllMembersOfAGroup(leaderID) {
     return this.request.post(this.url + "return-members-group", {leaderID: leaderID})
@@ -127,6 +133,15 @@ export class DataRequestsService {
   //This will let the leader to fetch all the attendance of his/her member
   getMemberSCAndEventsAttendance(currentUserId) {
     return this.request.post(this.url + 'leader-sc-cg', {currentUserId: currentUserId})
+  }
+
+  addClassStudent(id, classes) {
+    return this.request.post( this.url + "classes/add/"+ id.id, {classes: classes});
+  }
+
+  // A function to get the students data
+  getStudentsData(id) {
+    return this.request.get( this.url + 'student-trainings-or-class/get-student/' + id );
   }
 
 }

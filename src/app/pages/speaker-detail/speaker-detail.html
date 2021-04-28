@@ -1,43 +1,41 @@
-<ion-content class="speaker-detail">
-  <ion-header class="ion-no-border">
+<ion-header>
     <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/app/tabs/speakers"></ion-back-button>
-      </ion-buttons>
-      <ion-buttons *ngIf="speaker" slot="end">
-        <ion-button (click)="openContact(speaker)">
-          <ion-icon slot="icon-only" ios="call-outline" md="call-sharp"></ion-icon>
-        </ion-button>
-        <ion-button (click)="openSpeakerShare(speaker)">
-          <ion-icon slot="icon-only" ios="share-outline" md="share-sharp"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+        <ion-icon slot="start" class="icon" name="arrow-back" (click)="navigateBackToSpeakers()"></ion-icon>
+        <ion-title>{{segmentModel}} Details</ion-title>
     </ion-toolbar>
-  </ion-header>
-
-  <div class="speaker-background">
-    <img [src]="speaker?.profilePic" [alt]="speaker?.name">
-    <h2>{{speaker?.name}}</h2>
-  </div>
-
-  <div class="ion-padding speaker-detail">
-    <p>{{speaker?.about}} Say hello on social media!</p>
-
-    <hr>
-
-    <ion-chip color="twitter" button (click)="openExternalUrl('https://twitter.com/' + speaker.twitter)">
-      <ion-icon name="logo-twitter"></ion-icon>
-      <ion-label>Twitter</ion-label>
-    </ion-chip>
-
-    <ion-chip color="dark" button (click)="openExternalUrl('https://github.com/ionic-team/ionic')">
-      <ion-icon name="logo-github"></ion-icon>
-      <ion-label>GitHub</ion-label>
-    </ion-chip>
-
-    <ion-chip color="instagram" button (click)="openExternalUrl('https://instagram.com/ionicframework')">
-      <ion-icon name="logo-instagram"></ion-icon>
-      <ion-label>Instagram</ion-label>
-    </ion-chip>
-  </div>
+</ion-header>
+<ion-content class="speaker-detail">
+    <ion-card>
+        <i>
+            <h3>{{detail.name}}</h3>
+        </i>
+        <u>
+            <b>
+                <h2>Training: {{trainingDetails.title}}</h2>
+            </b>
+        </u>
+        <p>{{trainingDetails.description}}</p>
+    </ion-card>
+    <ion-card>
+        <h3 style="text-align: center;">List of Enrolled Students</h3>
+        <table class="table">
+            <tr>
+                <th *ngIf="isToDelete"> Select</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+            </tr>
+            <tr *ngFor="let name of listOfStudents">
+                <td *ngIf="isToDelete"> <input type="checkbox" (click)="getValue(name)"></td>
+                <td>{{ name.firstname }}</td>
+                <td>{{ name.lastname }}</td>
+                <td>{{ name.age }}</td>
+            </tr>
+        </table>
+    </ion-card>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
+        <ion-fab-button>
+            <ion-icon name="add" (click)="navigateToAddStudent()"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

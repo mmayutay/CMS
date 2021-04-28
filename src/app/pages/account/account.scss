@@ -20,8 +20,8 @@ ion-select:hover {
 ion-button.btnLogin {
     background-color: #23c962;
     border-radius: 100%;
-    margin-left: 10%;
-    margin-right: 10%;
+    // margin-left: 10%;
+    // margin-right: 10%;
 }
 
 // .ionCard {
@@ -81,13 +81,13 @@ ion-tab-button {
 }
 
 @media only screen and (min-width: 600px) {
-    .column {
-        float: left;
-        width: 100%;
-        height: auto;
-        padding: 10px;
-        height: 50%;
-    }
+    // .column {
+    //     float: left;
+    //     width: 100%;
+    //     height: auto;
+    //     padding: 10px;
+    //     height: 50%;
+    // }
     li {
         float: left;
         text-align: center;
@@ -105,7 +105,7 @@ ion-tab-button {
     ion-button.btnLogin {
         background-color: #23c962;
         border-radius: 100%;
-        margin-left: 10%;
-        margin-right: 10%;
+        // margin-left: 10%;
+        // margin-right: 10%;
     }
 }

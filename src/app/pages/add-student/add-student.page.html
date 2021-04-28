@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-icon slot="start" name="arrow-back" (click)="backToTrainingOrClass()"></ion-icon>
+        <ion-searchbar type="text" debounce="500" (ionChange)="updateList($event)" name="search" placeholder="Search"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <table>
+            <tr *ngFor="let lists of list; index as i">
+                <td>{{lists.firstname}}</td>
+                <td>{{lists.lastname}}</td>
+                <td>
+                    <ion-button size="small" color="primary" (click)="addMember(lists)">Add</ion-button>
+                </td>
+            </tr>
+        </table>
+    </ion-card>
+</ion-content>

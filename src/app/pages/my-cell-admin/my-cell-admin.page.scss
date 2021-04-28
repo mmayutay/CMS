@@ -1,14 +1,28 @@
-table {
-    width: 100%;
-    border-collapse: collapse;
+.grid {
+    background-color: #68ED9A;
+    font-weight: bold;
+    ion-row:first-child {
+        //   background-color: yellowgreen;
+        font-weight: bold;
+    }
+    ion-row:nth-child(even) {
+        background: #dddddd;
+    }
 }
 
-table,
-td,
-th {
-    border: 1px solid black;
-    padding: 10px;
-    font-size: 10px;
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border: 1px solid #ddd;
+}
+
+.pagination a.active {
+    background-color: #4caf50;
+    color: white;
+    border: 1px solid #4caf50;
 }
 
 .title {

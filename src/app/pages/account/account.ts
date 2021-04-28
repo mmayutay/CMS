@@ -24,7 +24,20 @@ export class AccountPage implements AfterViewInit {
   public partialData = ""
   public auxiliary = "";
   public ministries = "any";
-  public holder = [];
+  public holder = {
+    lastname: '',
+    firstname: '',
+    birthday: '',
+    age: '',
+    address: '',
+    marital_status: '',
+    email: '',
+    contact_number: '',
+    facebook: '',
+    instagram: '',
+    twitter: '',
+    leader: ''
+  };
   public roleHolder;
   public isMember:boolean = true;
 
@@ -51,7 +64,6 @@ export class AccountPage implements AfterViewInit {
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.datasRequest.getTheCurrentUser({ userID: res }).subscribe(data => {
         this.holder = data[0];
-        console.log(data[0].auxilliary);
         this.auxiliary = data[0].auxilliary
         this.ministries = data[0].ministries
         
@@ -111,13 +123,8 @@ export class AccountPage implements AfterViewInit {
   }
 
   optAuxiliary(value) {
-    this.router.navigate(['auxiliary/:type'], { queryParams: {content: value} })
+    this.router.navigate(['auxiliary/' + value.target.value], { queryParams: {content: value.target.value} })
     console.log("Selected auxiliary: ", value);
-    // this.datasRequest.displayAuxiliary({auxi: value}).subscribe(data => {
-    //   this.storage = data;
-    //   console.log(data);
-    //   console.log("Sample data: ", this.storage);
-    // });
   }
 
   optAuxiliaryMember(event){
@@ -138,7 +145,6 @@ export class AccountPage implements AfterViewInit {
   getUserRole(){
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.datasRequest.getNetworkWhereIBelong(res).subscribe(data => {
-        console.log(data)
         this.role = data[0].roles        
       })
     })

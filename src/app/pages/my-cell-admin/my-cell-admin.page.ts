@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { AlertController } from '@ionic/angular';
-// import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -12,6 +13,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class MyCellAdminPage implements OnInit {
   segmentModel = "NewApprovedMembers";
+  public role = ""
 
   public date = new Date();
   public dataAttendanceToPass = {
@@ -28,12 +30,15 @@ export class MyCellAdminPage implements OnInit {
   public currentUserRole = '';
   public notificationsContent;
   public members;
+  public paginationCount = 5
+  public count = 0
+  public classes;
+  pageOfItems: Array<any>;
 
   constructor(
     private request: RequestsService,
     private dataRequest: DataRequestsService,
-    private alertControl: AlertController,
-    // private qrScanner: QRScanner
+    private alertControl: AlertController
   ) { }
 
   ngOnInit() {
@@ -41,10 +46,32 @@ export class MyCellAdminPage implements OnInit {
     this.getVIPMembers();
   }
 
+  onChangePage(pageOfItems: Array<any>, type) {
+    // update current page of items
+    if(type == 'add') {
+      if(this.classes.length < (this.paginationCount + 5)) {
+        Swal.fire('Sorry', 'No Data to show!', 'error')
+      }else {
+        this.paginationCount += 5
+        this.count += 5
+      }
+    }else {
+      if((this.count - 5) < 0) {
+        Swal.fire('Sorry', 'No Data to show!', 'error')
+      }else {
+        this.paginationCount -= 5
+        this.count -= 5
+      }
+    }
+    this.pageOfItems = pageOfItems;
+    console.log("DFDFD: ", this.pageOfItems)
+  }
+
   showMembersBelongToThisGroup() {
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.dataRequest.getNetworkWhereIBelong(res).subscribe(data => {
-        this.dataRequest.getMyNetwork(data[0].roles).subscribe(result => {
+        this.dataRequest.getMyNetwork(data[0].id).subscribe(result => {
+          this.role = data[0].roles
           this.members = result
         })
       })
@@ -138,11 +165,5 @@ export class MyCellAdminPage implements OnInit {
   // createCode() {
   //   this.createdCode = this.qrData
   // } 
-
-  // qrCodeScanner() {
-  //   this.qrScanner.scan().subscribe(status  => {
-  //     console.log(status)
-  //   })
-  // }
 
 }

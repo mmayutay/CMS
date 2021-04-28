@@ -35,7 +35,9 @@ export class SignupPage {
       Instagram: '',
       Twitter: '',
       Category: '',
-      Description:'A new member added!'
+      Description:'A new member added!',
+      isCGVIP: 'true',
+      isSCVIP: 'true'
     }, groupBelong: {
       Leader: ''
     }, role: {

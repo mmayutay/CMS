@@ -7,7 +7,10 @@ import { filter } from 'rxjs/operators';
 
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
+// import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
+import { ModalController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -33,10 +36,11 @@ export class MinistriesPage implements AfterViewInit {
 
 
   constructor(
-
     private activeRoute: ActivatedRoute,
     private dataRequest: DataRequestsService,
     private request: RequestsService,
+    private modalController: ModalController,
+    private alertController: AlertController,
   ) { }
 
   ngAfterViewInit() {
@@ -44,7 +48,7 @@ export class MinistriesPage implements AfterViewInit {
     this.getUserRole();
 
     this.type = this.activeRoute.snapshot.paramMap.get('type')
-    console.log(this.type);
+    // console.log(this.type);
     this.getAllMinistryMembers(this.type);
 
     // this.dataSource.paginator = this.paginator;
@@ -93,12 +97,13 @@ export class MinistriesPage implements AfterViewInit {
   }
 
   iconAdd() {
+    console.log("dfdfdfdfd");
+    
     this.addClicked = true;
     console.log(this.addClicked);
-
   }
 
-  addMember(memberId) {
+  addMember(memberId) {    
     this.dataRequest.getTheCurrentUser({ userID: memberId.id }).subscribe(data => {
       this.storage.push(data[0])
     })
@@ -107,8 +112,6 @@ export class MinistriesPage implements AfterViewInit {
       this.holder = data;
       console.log("Add Member: ", this.holder);
     });
-
-
     this.addClicked = false;
   }
 
@@ -134,4 +137,73 @@ export class MinistriesPage implements AfterViewInit {
       })
     })
   }
+
+  async presentAlertPrompt(info) {
+    const alert = await this.alertController.create({
+      message: 'Ministries',
+      cssClass: 'my-custom-class',
+      header: 'Details!',
+      inputs: [
+        {
+          name: 'name1',
+          type: 'text',
+          id: 'name1-id',
+          value: 'Firstname: ' + info.firstname,
+          placeholder: 'firstName',
+          disabled: true
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name2-id',
+          value: 'Lastname: ' + info.lastname,
+          placeholder: 'lastName',
+          disabled: true
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name3-id',
+          value: 'Address: ' + info.address,
+          placeholder: 'Address',
+          disabled: true
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name4-id',
+          value: 'Email: ' + info.email,
+          placeholder: 'Email',
+          disabled: true
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name5-id',
+          value: 'Contact No.: ' + info.contact_number,
+          placeholder: 'Contact Number',
+          disabled: true
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name6-id',
+          value: 'Leader: ' + info.leader,
+          placeholder: 'Leader',
+          disabled: true
+        },
+      ],
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            console.log('Confirm Ok');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
 }

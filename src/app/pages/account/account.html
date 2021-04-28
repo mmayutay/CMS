@@ -26,11 +26,10 @@
                             <ion-label>AUXILIARY</ion-label>
                             <ion-label>{{ auxiliary }}</ion-label>
                         </ion-tab-button>
-                        <ion-tab-button *ngIf="role === 'Admin'">
+                        <ion-tab-button *ngIf="role !== 'Member'">
                             <ion-icon color="primary" name="person"></ion-icon>
                             <ion-label>AUXILIARY</ion-label>
-                            <ion-select name="auxi[]" id="auxi" placeholder="View Auxiliary" #newSelect [(ngModel)]="auxiliary"
-                                (click)="optAuxiliary($event)">
+                            <ion-select name="auxi[]" id="auxi" placeholder="View Auxiliary" #newSelect (ionChange)="optAuxiliary($event)">
                                 <ion-select-option value="Kids">Blessed Kids</ion-select-option>
                                 <ion-select-option value="Blessed Youth">Blessed Youth(13-21)</ion-select-option>
                                 <ion-select-option value="Single">Blessed Singles(Singles 22 up)</ion-select-option>
@@ -47,26 +46,26 @@
                             <ion-label>MINISTRY</ion-label>
                             <ion-label>{{ ministries }}</ion-label>
                         </ion-tab-button>
-                        <ion-tab-button *ngIf="role === 'Admin'">
+                        <ion-tab-button *ngIf="role !== 'Member'">
                             <ion-icon color="primary" name="person"></ion-icon>
                             <ion-label>MINISTRIES</ion-label>
                             <ion-select (ionChange)="optMinistry($event)" placeholder="View Ministry">
                                 <ion-select-option value="PraiseAndWorship">Praise & Worship</ion-select-option>
                                 <ion-select-option value="Multimedia">Multimedia</ion-select-option>
                                 <ion-select-option value="Hospitality">Hospitality</ion-select-option>
-                                <ion-select-option value="Blessed Kids">Blessed Kidz</ion-select-option>
+                                <!-- <ion-select-option value="Blessed Kids">Blessed Kidz</ion-select-option> -->
                             </ion-select>
                         </ion-tab-button>
                     </ion-card>
                 </ion-col>
-                <ion-col>
+                <!-- <ion-col>
                     <ion-card *ngIf="role !== 'Member'" class="addUserCard">
                         <ion-tab-button routerLink="/create-new-user">
                             <ion-icon color="primary" name="person-add"></ion-icon>
                             <ion-label>ADD NEW USER</ion-label>
                         </ion-tab-button>
                     </ion-card>
-                </ion-col>
+                </ion-col> -->
             </ion-row>
             <!-- </ion-tab-bar>
             </ion-tabs> -->
@@ -79,7 +78,7 @@
                 <hr class="solid">
                 <!-- <p>Fullname: {{holder.firstname}} {{holder.lastname}}</p> -->
                 <p>Birthday: {{holder.birthday}}</p>
-                <p>Age: {{holder.age}}</p>
+                <!-- <p>Age: {{holder.age}}</p> -->
                 <p>Address: {{holder.address}}</p>
                 <p>Marital Status: {{holder.marital_status}}</p>
                 <p>Email: {{holder.email}}</p>
@@ -89,8 +88,15 @@
                 <p>Twitter: {{holder.twitter}}</p>
                 <p>Leader: {{holder.leader}}</p>
             </div>
-            <ion-button type="submit" class="btnLogin" [routerLink]="['/modal-page']">UPDATE INFORMATION
-            </ion-button><br><br>
+            <ion-row>
+                <ion-col></ion-col>
+                <ion-col>
+                    <ion-button type="submit" class="btnLogin" [routerLink]="['/modal-page']">UPDATE INFORMATION
+                    </ion-button>
+                </ion-col>
+                <ion-col></ion-col>
+            </ion-row><br>
         </div>
+
     </ion-card>
 </ion-content>
