@@ -24,21 +24,11 @@
             <ion-label position="floating">Select Date</ion-label>
             <ion-datetime [value]="currentDate" (ionChange)="getSelectedDate($event)" displayFormat="DDDD MMM D, YYYY" min="2000" max="2021"></ion-datetime>
           </ion-item>
-          
-        <!-- <ion-select *ngIf="leaders.choice == 'Weekly'" placeholder="What Week?" (ionChange)="getSelectedWeek($event)">
-            <ion-select-option *ngFor="let week of weeklyView" [value]="week.value">{{ week.display }}</ion-select-option>
-        </ion-select>
-        <ion-select *ngIf="leaders.choice != 'Yearly'" placeholder="What Month?" (ionChange)="getSelectedMonth($event)">
-            <ion-select-option *ngFor="let month of monthlyView" [value]="month">{{ month }}</ion-select-option>
-        </ion-select>
-        <ion-select placeholder="What Year?" (ionChange)="getSelectedYear($event)">
-            <ion-select-option *ngFor="let year of listOfYears()" [value]="year">{{ year }}</ion-select-option>
-        </ion-select> -->
     </ion-item>
     <ion-item>
         <div class="input-container">
             <ion-icon class="iconLogin" name="person"></ion-icon>
-            <ion-select placeholder="Leader" *ngFor="let leader of leaders.leaders" (ionChange)="getData($event)">
+            <ion-select placeholder="Leader" *ngFor="let leader of leaders.leaders" (ionChange)="getData($event)" [value]="leaders.leaders[0]">
                 <ion-select-option [value]="leader"> {{ leader.lastname }}, {{ leader.firstname }}</ion-select-option>
             </ion-select>
         </div>

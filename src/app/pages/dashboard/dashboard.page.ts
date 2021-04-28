@@ -60,8 +60,8 @@ export class DashboardPage implements OnInit {
   @ViewChild("barCanvas", { static: true }) barCanvas: ElementRef;
   @ViewChild("lineCanvas", { static: true }) lineCanvas: ElementRef;
 
-  public arrayOfCellgroup = [20, 100, 20, 20];
-  public arrayOfSundayCeleb = [20, 60, 100, 20];
+  public arrayOfCellgroup = [];
+  public arrayOfSundayCeleb = [];
 
   public sample;
 
