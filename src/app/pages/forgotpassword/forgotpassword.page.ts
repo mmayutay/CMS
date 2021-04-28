@@ -55,7 +55,7 @@ export class ForgotpasswordPage implements OnInit {
     console.log(value);
     // console.log(this.contact_number)
     this.presentAlert()
-    this.request.sendCodeReset(value).subscribe(res => {
+    this.request.sendCodeForgot(value).subscribe(res => {
       this.successfullySent()
       console.log(res)
     })

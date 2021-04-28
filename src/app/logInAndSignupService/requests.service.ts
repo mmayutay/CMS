@@ -70,7 +70,7 @@ export class RequestsService {
     return this.http.get(this.url + 'get-leaders')
   }
 
-  sendCodeReset(value) {
+  sendCodeForgot(value) {
     console.log("Request value: ", value);
     return this.http.get(this.url + 'send-code/' + value)
   }
