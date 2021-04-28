@@ -17,8 +17,8 @@ import {AccountPage} from './pages/account/account';
 import { AuxiliaryPage } from './pages/auxiliary/auxiliary.page';
 import { ModalPagePage } from './pages/modal-page/modal-page.page';
 
-import { NgxQRCodeModule } from 'ngx-qrcode2';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+// import { NgxQRCodeModule } from 'ngx-qrcode2';
+// import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // import {MatTableModule} from '@angular/material/table';
@@ -40,7 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }),
-    NgxQRCodeModule,
+    // NgxQRCodeModule,
     BrowserAnimationsModule
   ],
   declarations: [AppComponent],
@@ -50,7 +50,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AuxiliaryPage,
     AccountPage,
     ModalPagePage,
-    QRScanner
+    // QRScanner
   ],
   
   bootstrap: [AppComponent]

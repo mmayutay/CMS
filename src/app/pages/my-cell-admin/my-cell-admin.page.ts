@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { AlertController } from '@ionic/angular';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
+// import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class MyCellAdminPage implements OnInit {
     private request: RequestsService,
     private dataRequest: DataRequestsService,
     private alertControl: AlertController,
-    private qrScanner: QRScanner
+    // private qrScanner: QRScanner
   ) { }
 
   ngOnInit() {
@@ -139,10 +139,10 @@ export class MyCellAdminPage implements OnInit {
   //   this.createdCode = this.qrData
   // } 
 
-  qrCodeScanner() {
-    this.qrScanner.scan().subscribe(status  => {
-      console.log(status)
-    })
-  }
+  // qrCodeScanner() {
+  //   this.qrScanner.scan().subscribe(status  => {
+  //     console.log(status)
+  //   })
+  // }
 
 }
