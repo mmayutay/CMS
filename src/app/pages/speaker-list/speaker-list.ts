@@ -293,8 +293,9 @@ export class SpeakerListPage {
 
   // Kini siya nga function kay mu route sa pag add or pag edit sa student, at the same time kay maka add sad ug another user 
   updateScoreOrAddStudent() {
+    this.allStudentsOfSelectedClass.length = 0
     this.router.navigate(['/add-student-score/' + this.selectedTrainingID + '/' + this.selectedLesson + '/' + this.selectedClass])
   }
 
 }
-// add-student-score/:trainingID/:lessonID/:classID
+// add-student-score/:trainingID/:lessonID/:classIDI

@@ -7,23 +7,15 @@
 </ion-header>
 <ion-content>
     <ion-item>
-        <!-- <ion-label position="stacked" color="primary">Birthday</ion-label> -->
-        <div class="input-container">
-            <ion-icon class="iconLogin" name="calendar"></ion-icon>
-            <input class="input" placeholder="Birthday" name="Birthday" type="text" id="birth" [value]="currentDate" disabled required />
+        <div>
+            <ion-label position="floating">Select Date</ion-label>
+            <ion-datetime [value]="currentDate" displayFormat="DDDD MMM D, YYYY" min="2000" max="2021"></ion-datetime>
         </div>&nbsp;&nbsp;
     </ion-item>
-    <!-- <ion-label>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <ion-text color="danger">Birthday is required</ion-text>
-    </ion-label> -->
     <ion-item>
         <div class="input-container">
             <ion-icon class="iconLogin" name="person"></ion-icon>
-            <!-- <ion-select placeholder="Leader"> -->
             <input class="input" *ngFor="let user of currentUser" disabled placeholder="{{user.lastname}}, {{user.firstname}}" name="Leader" type="text" id="leader" required />
-            <!-- <ion-select-option value="f" *ngFor="let user of currentUser"><b>Leader:</b> {{user.lastname}}, {{user.firstname}}</ion-select-option>
-            </ion-select> -->
         </div>
     </ion-item>
     <div class="ion-margin">

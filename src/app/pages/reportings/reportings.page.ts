@@ -70,6 +70,15 @@ export class ReportingsPage implements OnInit {
   ngOnInit() {
     this.getTheCurrentUser();
     this.leaders.typeChoice(this.leaders.choice)
+    const user = this.request.getTheCurrentUserIdInStorage()
+    user.then(id => {
+      const role = this.request.getTheUserRoleFromTheStorage()
+      role.then(userRole => {
+        if(userRole == '3') {
+          this.getData({target: {value: {id: id}}})
+        }
+      })
+    })
   }
 
   getData(members) {
