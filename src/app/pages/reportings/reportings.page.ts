@@ -72,12 +72,7 @@ export class ReportingsPage implements OnInit {
     this.leaders.typeChoice(this.leaders.choice)
     const user = this.request.getTheCurrentUserIdInStorage()
     user.then(id => {
-      const role = this.request.getTheUserRoleFromTheStorage()
-      role.then(userRole => {
-        if(userRole == '3') {
-          this.getData({target: {value: {id: id}}})
-        }
-      })
+      this.getData({target: {value: {id: id}}})
     })
   }
 
@@ -193,6 +188,7 @@ export class ReportingsPage implements OnInit {
     this.currentDate = selectedDate.target.value
     const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
     members.subscribe((response: any) => {
+      console.log(response)
       response.forEach(element => {
         if(this.typeChoice == 'Weekly') {
           this.returnGroupsAttendance(element, this.calendar.dates(new Date(this.currentDate)))
@@ -251,7 +247,7 @@ export class ReportingsPage implements OnInit {
           }
         })
       })
-      this.leaders.members.push({user: member, eventAttendance: eventCounter, SCAttendance: sundayCounter})
+      this.leaders.members.push({user: member, event: eventCounter, attendance: sundayCounter})
     })
   }
 

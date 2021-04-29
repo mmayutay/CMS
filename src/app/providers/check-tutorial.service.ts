@@ -35,6 +35,7 @@ export class CheckTutorial implements CanLoad {
   ) {
     // this.typeChoice(this.choice, new Date())
     this.getAllTheLeaders();
+    this.dateRender()
     const events = this.eventsRequest.retrieveAllAnnouncement()
     events.subscribe((response: any) => {
       this.eventsArray = response
@@ -152,7 +153,7 @@ export class CheckTutorial implements CanLoad {
           })
         })
       }
-      this.members.push({ user: memberId, SCAttendance: SCAttendanceCounter, eventAttendance: eventAttendanceCounter })
+      this.members.push({ user: memberId, attendance: SCAttendanceCounter, event: eventAttendanceCounter })
       eventAttendanceCounter = 0
       SCAttendanceCounter = 0
     })
