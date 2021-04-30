@@ -76,6 +76,6 @@ export class RequestsService {
   }
 
   resetPass(password){
-    return this.http.post(this.url + 'reset-password', password)
+    return this.http.post(this.url + 'reset-pass', password)
   }
 }

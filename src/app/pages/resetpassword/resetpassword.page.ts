@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RequestsService } from '../../logInAndSignupService/requests.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-resetpassword',
@@ -12,7 +14,17 @@ export class ResetpasswordPage implements OnInit {
   public type = 'password';
   public type2 = 'password';
   public password = {currentPass: '', newPass:''};
-  constructor() { }
+  public updatedData  = {
+    newPassUsername: {
+      username: '',
+      password: '',
+    }
+  };
+
+  constructor(
+    public request: RequestsService,
+    public router: Router
+  ) { }
 
   ngOnInit() {
   }
@@ -32,6 +44,13 @@ export class ResetpasswordPage implements OnInit {
     } else {
       this.type2 = 'password';
     }
+  }
+
+  onUpdate() {
+    this.request.updateInfo(this.updatedData).subscribe(res => {
+      location.reload();
+      this.router.navigate(['/login'])
+    })
   }
   
 
