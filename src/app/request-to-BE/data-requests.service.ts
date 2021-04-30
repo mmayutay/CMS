@@ -72,6 +72,11 @@ export class DataRequestsService {
     return this.request.post(this.url + 'currentUserRole', {id: roleID})
   }
 
+  // Kini siya nga function kay kuhaon niya ang the same niya ug role 
+  returnCellgroupTheSameRole(userRoleID) {
+    return this.request.get(this.url + 'get-the-same-role/' + userRoleID)
+  }
+
   getMyNetwork(myRole){
     return this.request.post(this.url + 'network', {role: myRole})
   }

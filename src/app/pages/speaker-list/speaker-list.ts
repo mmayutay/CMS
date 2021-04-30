@@ -33,7 +33,6 @@ export class SpeakerListPage {
   public count = 0
   public classes;
   public trainings;
-  public lessonsOfSelectedTraining;
   public classesOfSelectedTraining;
   segmentModel = "Trainings";
   pageOfItems: Array<any>;
@@ -100,7 +99,7 @@ export class SpeakerListPage {
   segmentModels(value) {
     this.segmentModel = value.target.value;
     this.classesOfSelectedTraining = undefined
-    this.lessonsOfSelectedTraining = undefined
+    this.dataDisplays.lessonsAdded = undefined
     this.allStudentsOfSelectedClass = undefined
     this.displayDefaultTraining()
     this.returnStudentsOfSelectedLessonAndClasses()
@@ -156,7 +155,7 @@ export class SpeakerListPage {
     this.returnClassesOfTraining(trainingID)
     const lessons = this.eventsService.returnLessons(trainingID)
     lessons.subscribe((data: any) => {
-      this.lessonsOfSelectedTraining = data
+      this.dataDisplays.lessonsAdded = data
       if(data.length != 0) {
         this.defaultLesson = data[0].title
         this.selectedLesson = data[0].id
@@ -267,7 +266,7 @@ export class SpeakerListPage {
             console.log('Confirm Okay');
             const deleteLesson = this.eventsService.deleteLessonOfTraining(lessonID.id)
             deleteLesson.subscribe((response: any ) => {
-              this.lessonsOfSelectedTraining.splice(this.lessonsOfSelectedTraining.indexOf(lessonID), 1)
+              this.dataDisplays.lessonsAdded.splice(this.dataDisplays.lessonsAdded.indexOf(lessonID), 1)
               this.successfullyDeleted()
             })
           }

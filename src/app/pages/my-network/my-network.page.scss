@@ -10,6 +10,7 @@
     }
 }
 
+<<<<<<< HEAD
 .table {
     margin-top: 10%;
     border-collapse: collapse;
@@ -52,4 +53,20 @@ tr:nth-child(even) {
 
 th {
     background-color: #68ED9A;
+=======
+ion-row {
+    border-bottom: 1px solid rgba(133, 133, 133, 0.5);
+}
+
+.card {
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+ion-content {
+    font-weight: 100;
+>>>>>>> 5cf01074a9f8a8cfcf288380333eda7b2bb89cc3
 }

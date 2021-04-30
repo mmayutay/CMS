@@ -10,22 +10,27 @@
 <ion-content>
     <div class="ion-margin" *ngIf="currentUserRole != 'Admin'">
         <ion-grid>
-            <ion-row class="grid">
-                <ion-col size-xs="4">Name</ion-col>
-                <ion-col size-xs="4">Role</ion-col>
-                <ion-col size-xs="4">Description</ion-col>
-            </ion-row>
-            <ion-row *ngFor="let member of members">
-                <ion-col size-xs="4">{{ member.lastname }}, {{ member.firstname }}</ion-col>
-                <ion-col size-xs="4">
-                    {{ role }}
-                </ion-col>
-                <ion-col size-xs="4">{{ member.description }}</ion-col>
-            </ion-row>
+            <div *ngIf="members != undefined">
+                <ion-row class="grid">
+                    <ion-col size-xs="6">Name</ion-col>
+                    <ion-col size-xs="6">Role</ion-col>
+                </ion-row><br>
+                <ion-row *ngFor="let member of members" style="padding-bottom: 10px;">
+                    <ion-col size-xs="6">{{ member.lastname }}, {{ member.firstname }}</ion-col>
+                    <ion-col size-xs="6">
+                        {{ role }}
+                    </ion-col>
+                </ion-row>
+            </div>
+            <div style="text-align: center;">
+                <div *ngIf="members == undefined">
+                    <ion-spinner style="width: 5em; height: 5em;" name="crescent"></ion-spinner>
+                </div>
+            </div>
         </ion-grid>
-        <div class="pagination">
+        <!-- <div class="pagination">
             <a (click)="onChangePage($event, 'deduct')">❮</a>
             <a style="float:right" (click)="onChangePage($event, 'add')">❯</a>
-        </div>
+        </div> -->
     </div>
 </ion-content>

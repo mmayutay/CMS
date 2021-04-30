@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
+import { DataDisplayProvider } from 'app/providers/data-editing';
 
 @Component({
   selector: 'app-add-lesson',
@@ -26,6 +27,7 @@ export class AddLessonPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private dataDisplays: DataDisplayProvider,
     private eventRequest: EventTraningServiceService,
     private router: Router
   ) { }
@@ -34,7 +36,6 @@ export class AddLessonPage implements OnInit {
     this.lessonsAdded.trainingsID = this.activatedRoute.snapshot.paramMap.get('id')
     const getLessons = this.eventRequest.returnLessons(this.lessonsAdded.trainingsID)
     getLessons.subscribe((lessons: any) => {
-      // console.log(lessons[lessons.length - 1].lesson)
       if(lessons.length != 0) {
         this.currentLengthLesson = Number(lessons[lessons.length - 1].lesson)
       }else {
@@ -64,6 +65,7 @@ export class AddLessonPage implements OnInit {
     this.arrayOfLessons.forEach(element => {
       const addLessons = this.eventRequest.addLessonTraining(element, this.lessonsAdded.trainingsID)
       addLessons.subscribe((data: any) => {
+        this.dataDisplays.lessonsAdded.push(data)
         this.router.navigate(['/app/tabs/speakers'])
       })
     }); 
@@ -73,6 +75,7 @@ export class AddLessonPage implements OnInit {
   trainingDetails() {
     const trainingsDet = this.eventRequest.returnTrainingDetails(this.lessonsAdded.trainingsID)
     trainingsDet.subscribe((details: any) => {
+      console.log(details)
       this.lessonsAdded.lesson = details[0].level
     })
   }

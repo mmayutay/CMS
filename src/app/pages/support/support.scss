@@ -81,8 +81,10 @@ ion-card {
 }
 
 .saveBtn {
-    margin-left: 5%;
-    margin-right: 5%;
+    position: absolute;
+    bottom: 70px;
+    left: 34%;
+    margin-left: -104.5px; /*104.5px is half of the button's width*/
     width: 90%;
 }
 
@@ -148,4 +150,13 @@ ion-list {
     background-color: #4caf50;
     color: white;
     border: 1px solid #4caf50;
+}
+.spinning {
+    padding-top: 10%;
+    width: 100%;
+    text-align: center;
+}
+
+ion-row {
+    border-bottom: 1px solid rgba(110, 110, 110, 0.5);
 }
