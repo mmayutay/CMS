@@ -21,32 +21,39 @@
     <div class="ion-margin">
         <ion-grid>
             <ion-row class="grid">
-                <ion-col size-xs="4">Name</ion-col>
-                <ion-col size-xs="4">CG</ion-col>
-                <ion-col size-xs="4">SC</ion-col>
-            </ion-row>
-            <ion-row *ngFor="let member of groupMembers">
-                <ion-col size-xs="4">{{member.lastname}}, {{member.firstname}} </ion-col>
-                <ion-col size-xs="4">
-                    <ion-checkbox (ionChange)="addEventsAttendance(member)"></ion-checkbox>
-                </ion-col>
-                <ion-col *ngIf="isSunday" size-xs="4">
-                    <ion-checkbox (ionChange)="addSundayCelebAttendance(member)"></ion-checkbox>
-                    <!-- <ion-toggle color="success"></ion-toggle> -->
-                </ion-col>
-                <ion-col *ngIf="!isSunday">
-                    <p>Not Sunday</p>
-                </ion-col>
-            </ion-row>
+                <ion-col size-xs="6">Name</ion-col>
+                <ion-col size-xs="2">CG</ion-col>
+                <ion-col size-xs="2">SC</ion-col>
+            </ion-row><br>
+            <div *ngIf="groupMembers.length != 0">
+                <ion-row *ngFor="let member of groupMembers">
+                    <ion-col size-xs="6">{{member.lastname}}, {{member.firstname}} </ion-col>
+                    <ion-col size-xs="2">
+                        <ion-checkbox (ionChange)="addEventsAttendance(member)"></ion-checkbox>
+                    </ion-col>
+                    <ion-col *ngIf="isSunday" size-xs="2">
+                        <ion-checkbox (ionChange)="addSundayCelebAttendance(member)"></ion-checkbox>
+                        <!-- <ion-toggle color="success"></ion-toggle> -->
+                    </ion-col>
+                    <ion-col *ngIf="!isSunday">
+                        <p style="margin-top: 0;">Not Sunday</p>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <div class="spinning">
+                <div *ngIf="groupMembers.length == 0">
+                    <ion-spinner style="width: 5em; height: 5em;" name="crescent"></ion-spinner>
+                </div>
+            </div>
         </ion-grid>
-        <div class="pagination">
+        <!-- <div class="pagination">
             <a *ngIf="groupMembers.length != 0" (click)=" onChangePage($event, 'deduct') ">❮</a>
             <a *ngIf="groupMembers.length != 0" style="float:right " (click)="onChangePage($event, 'add') ">❯</a>
-        </div>
+        </div> -->
         <!-- <a>❮</a>
             <a style="float: right; ">❯</a> -->
     </div>
-    <ion-button class="saveBtn" color="success" (click)="addAttendanceSelectedEvent()">Save</ion-button>
+    
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
         <ion-fab-button routerLink="/create-new-user">
             <ion-icon name="add"></ion-icon>
@@ -54,3 +61,4 @@
     </ion-fab>
 
 </ion-content>
+<ion-button class="saveBtn" color="success" (click)="addAttendanceSelectedEvent()">Save</ion-button>

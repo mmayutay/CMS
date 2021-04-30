@@ -36,20 +36,25 @@
     <div class="ion-margin">
         <ion-grid>
             <ion-row class="grid">
-                <ion-col size-xs="4">Name</ion-col>
-                <ion-col size-xs="4">CG</ion-col>
-                <ion-col size-xs="4">SC</ion-col>
-            </ion-row>
-            <ion-row *ngFor="let member of leaders.members;let i = index">
-                <ion-col size-xs="4">{{ member.user.lastname }}, {{ member.user.firstname }}</ion-col>
-                <ion-col size-xs="4"> {{ member.event }}/{{ 1 * leaders.eventCounter }}</ion-col>
-                <ion-col size-xs="4">{{ member.attendance }}/{{ leaders.eventCounter }}</ion-col>
-            </ion-row>
+                <ion-col size-xs="6">Name</ion-col>
+                <ion-col size-xs="2">CG</ion-col>
+                <ion-col size-xs="2">SC</ion-col>
+            </ion-row><br>
+            <div *ngIf="leaders.members.length != 0">
+                <ion-row *ngFor="let member of leaders.members;let i = index">
+                    <ion-col size-xs="6">{{ member.user.lastname }}, {{ member.user.firstname }}</ion-col>
+                    <ion-col size-xs="2"> {{ member.event }}/{{ 1 * leaders.eventCounter }}</ion-col>
+                    <ion-col size-xs="2">{{ member.attendance }}/{{ leaders.eventCounter }}</ion-col>
+                </ion-row>
+            </div>
+            <div *ngIf="leaders.members.length == 0">
+                <ion-spinner style="width: 5em; height: 5em;" name="crescent"></ion-spinner>
+            </div>
         </ion-grid>
-        <div class="pagination">
+        <!-- <div class="pagination">
             <a (click)="onChangePage($event, 'deduct')">❮</a>
             <a style="float:right" (click)="onChangePage($event, 'add')">❯</a>
-        </div>
+        </div> -->
     </div>
 </ion-content>
 <div *ngIf="leaders.returnLeaderIDBoolean()">

@@ -68,14 +68,16 @@ export class MyCellAdminPage implements OnInit {
   }
 
   showMembersBelongToThisGroup() {
+    const role = this.request.getTheUserRoleFromTheStorage()
+    role.then((userRole: any) => {
+      this.role = this.roleConverter(userRole)
+    })
+    console.log(this.role)
     this.request.getTheUserRoleFromTheStorage().then(res => {
-      this.dataRequest.getNetworkWhereIBelong(res).subscribe(data => {
-        this.dataRequest.getMyNetwork(data[0].id).subscribe(result => {
-          this.role = data[0].roles
-          this.members = result
-        })
+      this.dataRequest.returnCellgroupTheSameRole(res).subscribe(data => {
+          this.members = data
       })
-      this.dataRequest.getNetworkWhereIBelong(res).subscribe(result => {
+      this.dataRequest.returnCellgroupTheSameRole(res).subscribe(result => {
         this.currentUserData = result
         this.currentUserRole = result[0].roles
         this.getTheCurrentUser();
@@ -83,10 +85,20 @@ export class MyCellAdminPage implements OnInit {
     })
   }
 
+  // Kini siya nga function kay i convert ang role sa current user 
+  roleConverter(role) {
+    var roles = new Array();
+    roles[0] = "Admin"
+    roles[1] = "Pastor"
+    roles[12] = "Leader"
+    roles[144] = "Member(144)"
+    roles[1728] = "Member(1728)"
+    return roles[Number(role)]
+  }
+
   openApprovedMember(divID, divToClose) {
     document.getElementById('data').style.display = 'block'
     document.getElementById(divID).style.width = '250px';
-    // document.getElementById(divToClose).style.width = '0';
   }
   closeApprovedModal(divID){
     document.getElementById('data').style.display = 'none'
