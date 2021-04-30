@@ -9,13 +9,13 @@
     <ion-item>
         <div>
             <ion-label position="floating">Select Date</ion-label>
-            <ion-datetime [value]="currentDate" displayFormat="DDDD MMM D, YYYY" min="2000" max="2021"></ion-datetime>
+            <ion-datetime [value]="currentDate" [(ngModel)]="leader.chosenDate" displayFormat="DDDD MMM D, YYYY" min="2000" max="2021"></ion-datetime>
         </div>&nbsp;&nbsp;
     </ion-item>
     <ion-item>
         <div class="input-container">
             <ion-icon class="iconLogin" name="person"></ion-icon>
-            <input class="input" *ngFor="let user of currentUser" disabled placeholder="{{user.lastname}}, {{user.firstname}}" name="Leader" type="text" id="leader" required />
+            <input class="input" disabled placeholder="{{currentUser.lastname}}, {{currentUser.firstname}}" name="Leader" type="text" id="leader" required />
         </div>
     </ion-item>
     <div class="ion-margin">

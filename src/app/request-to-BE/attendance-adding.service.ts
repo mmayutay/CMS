@@ -9,7 +9,7 @@ import { AlertController } from '@ionic/angular';
 })
 
 export class AttendanceAddingService {
-    public selectedEventsID = ''
+    public selectedEventsID = 'Attendance'
     public eventOwner = ''
     public multipleMembersAttendanceCG = []
     public multipleMembersAttendanceSC = []
