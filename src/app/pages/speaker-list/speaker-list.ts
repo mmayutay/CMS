@@ -84,6 +84,7 @@ export class SpeakerListPage {
     getCurrentUser.then((id) => {
       const trainings = this.eventsService.getTrainings(id)
       trainings.subscribe((data: any) => {
+        console.log("Training Data:: ",data);
         this.defaultTraining = data[0].title
         this.selectedTrainingID = data[0].id
         this.returnAllLessons(data[0].id)
