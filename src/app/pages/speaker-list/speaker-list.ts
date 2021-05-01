@@ -26,7 +26,6 @@ export class SpeakerListPage {
   public selectedTrainingID;
   public selectedClass;
   public selectedLesson;
-  public allStudentsOfSelectedClass = []
   public studentsClassesScores = []
 
   public paginationCount = 5
@@ -72,7 +71,6 @@ export class SpeakerListPage {
   }
 
   ionViewDidEnter() {
-    // this.dataDisplays.getClasssesByUser()
     this.displayDefaultTraining()
   }
 
@@ -99,7 +97,7 @@ export class SpeakerListPage {
     this.segmentModel = value.target.value;
     this.classesOfSelectedTraining = undefined
     this.dataDisplays.lessonsAdded = undefined
-    this.allStudentsOfSelectedClass = undefined
+    this.dataDisplays.allStudentsOfSelectedClass = undefined
     this.displayDefaultTraining()
     this.returnStudentsOfSelectedLessonAndClasses()
   }
@@ -198,18 +196,18 @@ export class SpeakerListPage {
   returnStudentsOfSelectedLessonAndClasses() {
     const allStudents = this.eventsService.getStudentOfClass(this.selectedClass)
     allStudents.subscribe((data: any) => {
-      this.allStudentsOfSelectedClass = []
+      this.dataDisplays.allStudentsOfSelectedClass = []
       data.forEach(element => {
         const user = this.dataRequest.getTheCurrentUser({ userID: element })
         user.subscribe((response: any) => {
-          this.allStudentsOfSelectedClass.push(response[0])
+          this.dataDisplays.allStudentsOfSelectedClass.push(response[0])
         })
-      });
+      })
     })
 
     const students = this.eventsService.getStudentOfSelectedClass(this.selectedClass)
     students.subscribe((data: any) => {
-      this.studentsClassesScores = data
+      this.dataDisplays.studentsScores = data
     })
   }
 
@@ -224,26 +222,6 @@ export class SpeakerListPage {
 
     await alert.present();
   }
-
-  // deleteLesson() {
-  //   Swal.fire({
-  //     title: 'Are you sure you want to delete this lesson?',
-  //     text: "You won't be able to revert this!",
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#3085d6',
-  //     cancelButtonColor: '#d33',
-  //     confirmButtonText: 'Yes, delete it!'
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire(
-  //         'Deleted!',
-  //         'Your file has been deleted.',
-  //         'success'
-  //       )
-  //     }
-  //   })
-  // }
 
   // Kini siya nga function kay pag delete ug lesson sa certain training 
   async deleteLesson(lessonID) {
@@ -292,7 +270,6 @@ export class SpeakerListPage {
 
   // Kini siya nga function kay mu route sa pag add or pag edit sa student, at the same time kay maka add sad ug another user 
   updateScoreOrAddStudent() {
-    this.allStudentsOfSelectedClass.length = 0
     this.router.navigate(['/add-student-score/' + this.selectedTrainingID + '/' + this.selectedLesson + '/' + this.selectedClass])
   }
 

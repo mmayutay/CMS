@@ -8,6 +8,8 @@ import { DataRequestsService } from '../request-to-BE/data-requests.service';
 })
 
 export class DataDisplayProvider {
+    public allStudentsOfSelectedClass = []
+    public studentsScores = []
     public lessonsAdded = []
     public studentsOfCertainTraining = []
     public dataDisplays = []

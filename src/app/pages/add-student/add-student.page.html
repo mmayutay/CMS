@@ -9,10 +9,11 @@
     <ion-card>
         <table>
             <tr *ngFor="let lists of list; index as i">
-                <td>{{lists.firstname}}</td>
-                <td>{{lists.lastname}}</td>
+                <td>{{lists.user.firstname}}</td>
+                <td>{{lists.user.lastname}}</td>
                 <td>
-                    <ion-button size="small" color="primary" (click)="addMember(lists)">Add</ion-button>
+                    <ion-checkbox [checked]="lists.isAttended" (click)="addMember(lists)"></ion-checkbox>
+                    <!-- <ion-button size="small" color="primary" (click)="addMember(lists)">Add</ion-button> -->
                 </td>
             </tr>
         </table>

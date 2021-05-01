@@ -58,10 +58,10 @@ export class AddStudentPage implements OnInit {
 
   ngOnInit() {
     this.returnAllUsers()
-    // this.getUserRole();
 
     this.selectedItemId = this.activatedRoute.snapshot.paramMap.get('selectedItemID');
     this.segmentModel = this.activatedRoute.snapshot.paramMap.get('typeOfAdd');
+    this.returnStudentsOfCurrentClass(this.selectedItemId)
   }
 
 
@@ -81,7 +81,7 @@ export class AddStudentPage implements OnInit {
         const currentUser = this.request.getTheCurrentUserIdInStorage()
         currentUser.then((id: any) => {
           if(id != element.id) {
-            this.list.push(element)
+            this.list.push({user: element, isAttended: false})
           }
         })
       })
@@ -95,15 +95,21 @@ export class AddStudentPage implements OnInit {
   }
 
   addMember(memberId) {
-    this.studentToAdd.lessons_id = this.selectedItemId
-    this.studentToAdd.classes_id = this.segmentModel
-    this.studentToAdd.students_id = memberId.id
-    this.loadingAdded(memberId)
-    const addStudentsRecord = this.eventRequest.addStudentsRecord(this.studentToAdd)
-    addStudentsRecord.subscribe((response: any) => {
-      console.log(response)
-      this.router.navigate(['/app/tabs/speakers'])
-    })
+    if(memberId.isAttended == true) {
+      memberId.isAttended = false
+    }else {
+      memberId.isAttended = true
+    }
+    console.log(memberId)
+    // this.studentToAdd.lessons_id = this.selectedItemId
+    // this.studentToAdd.classes_id = this.segmentModel
+    // this.studentToAdd.students_id = memberId.id
+    // this.loadingAdded(memberId)
+    // const addStudentsRecord = this.eventRequest.addStudentsRecord(this.studentToAdd)
+    // addStudentsRecord.subscribe((response: any) => {
+    //   console.log(response)
+    //   this.router.navigate(['/app/tabs/speakers'])
+    // })
   }
 
   updateList(event: any) {
@@ -151,6 +157,14 @@ export class AddStudentPage implements OnInit {
 
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
+  }
+
+  // Kini siya kay i return ang students daan sa current selected class 
+  returnStudentsOfCurrentClass(classid) {
+    const students = this.eventRequest.getStudentOfSelectedClass(classid)  
+    students.subscribe((response: any) => {
+      console.log(response)
+    })
   }
 
 }
