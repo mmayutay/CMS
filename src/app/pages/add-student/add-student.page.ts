@@ -3,9 +3,7 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
-// import { calendar } from 'app/interfaces/user-options';
 import { calendar } from '../../interfaces/user-options';
-// import { DataDisplayProvider } from 'app/providers/data-editing';
 import { DataDisplayProvider } from '../../providers/data-editing';
 import { LoadingController, AlertController } from '@ionic/angular';
 
@@ -22,6 +20,8 @@ export class AddStudentPage implements OnInit {
 
   public foundNames = []
   public ministryMembers = []
+
+  public listOfCurrentStudents = []
 
 
   // @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -57,11 +57,12 @@ export class AddStudentPage implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.returnAllUsers()
 
     this.selectedItemId = this.activatedRoute.snapshot.paramMap.get('selectedItemID');
     this.segmentModel = this.activatedRoute.snapshot.paramMap.get('typeOfAdd');
-    this.returnStudentsOfCurrentClass(this.selectedItemId)
+    // this.returnStudentsOfCurrentClass(this.selectedItemId)
+    this.returnCurrentStudents(this.selectedItemId)
+    this.returnAllUsers();
   }
 
 
@@ -79,10 +80,16 @@ export class AddStudentPage implements OnInit {
     allUsers.subscribe((response: any) => {
       response.forEach(element => {
         const currentUser = this.request.getTheCurrentUserIdInStorage()
-        currentUser.then((id: any) => {
-          if(id != element.id) {
-            this.list.push({user: element, isAttended: false})
-          }
+        currentUser.then((id: any) => {          
+          this.listOfCurrentStudents.forEach(currentStudent => {
+            if(id != element.id) {
+              if(currentStudent == element.id) {
+                this.list.push({user: element, isAttended: true})
+              }else {
+                this.list.push({user: element, isAttended: false})
+              }
+            }
+          })
         })
       })
     })
@@ -164,6 +171,14 @@ export class AddStudentPage implements OnInit {
     const students = this.eventRequest.getStudentOfSelectedClass(classid)  
     students.subscribe((response: any) => {
       console.log(response)
+    })
+  }
+
+  // Kini siya nga function kay kuhaon ang tanan nga students sa selected certain class 
+  returnCurrentStudents(classID) {
+    const currentStudents = this.eventRequest.getStudentOfClass(classID)
+    currentStudents.subscribe((response: any) => {
+      this.listOfCurrentStudents = response
     })
   }
 

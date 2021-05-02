@@ -47,12 +47,8 @@ export class AddStudentScorePage implements OnInit {
     let lesson = this.activatedRoute.snapshot.paramMap.get('lessonID');
     let classID = this.activatedRoute.snapshot.paramMap.get('classID');
     this.getTrainingLessonAndClass(trainining, lesson, classID)
-    // this.returnStudentsOfClass(classID)
     console.log(this.dataDisplays.allStudentsOfSelectedClass)
     console.log(this.dataDisplays.studentsScores)
-    // let id = this.activatedRoute.snapshot.paramMap.get('id');
-
-    // add-student-score/:trainingID/:lessonID/:classID
   }
 
   loadData(){
