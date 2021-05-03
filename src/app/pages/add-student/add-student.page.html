@@ -1,21 +1,51 @@
 <ion-header>
     <ion-toolbar>
         <ion-icon slot="start" name="arrow-back" (click)="backToTrainingOrClass()"></ion-icon>
-        <ion-searchbar type="text" debounce="500" (ionChange)="updateList($event)" name="search" placeholder="Search"></ion-searchbar>
+        <ion-title>Update Class</ion-title>
+        <!-- <ion-searchbar type="text" debounce="500" (ionChange)="updateList($event)" name="search" placeholder="Search">
+        </ion-searchbar> -->
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-card>
+    <div style="padding: 20px; border: 1px solid rgba(184, 184, 184, 0.5);">
+        <ion-item>
+            <div class="input-container">
+                <ion-icon class="iconLogin" name="calendar"></ion-icon>
+                <ion-input [value]="itemSelected.title" disabled></ion-input>
+            </div>
+        </ion-item>
+        <!-- <p>Class Name</p> -->
+        <ion-item> 
+            <ion-label position="floating">Class Name</ion-label>
+            <div class="input-container">
+                <ion-input [value]="classDetails.name"></ion-input>
+            </div>
+        </ion-item>
+        <!-- <p>Description</p> -->
+        <ion-item> 
+            <ion-label position="floating">Description</ion-label>
+            <div class="input-container">
+                <ion-textarea [value]="classDetails.remarks"></ion-textarea>
+            </div>
+        </ion-item><br>
         <table>
-            <tr *ngFor="let lists of list; index as i">
-                <td>{{lists.user.firstname}}</td>
-                <td>{{lists.user.lastname}}</td>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let lists of list; let i = index">
+                <td>{{lists.firstname}}</td>
+                <td>{{lists.lastname}}</td>
                 <td>
-                    <ion-checkbox [checked]="lists.isAttended" (click)="addMember(lists)"></ion-checkbox>
+                    <ion-checkbox [checked]="isAlreadyAttended[i]" (click)="addMember(lists, isAlreadyAttended[i], i)"></ion-checkbox>
                     <!-- <ion-button size="small" color="primary" (click)="addMember(lists)">Add</ion-button> -->
                 </td>
             </tr>
         </table>
-    </ion-card>
+    </div><br><br><br>
 </ion-content>
+<div class="button-bottom">
+    <ion-button><ion-icon name="document-text-outline"></ion-icon>Save</ion-button>
+</div>

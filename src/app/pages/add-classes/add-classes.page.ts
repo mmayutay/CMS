@@ -50,13 +50,11 @@ export class AddClassesPage implements OnInit {
     addClasses.subscribe((data: any) => {
       studentRecord.classesID = data.id
       this.studentsAdded.forEach(element => {
-        const student = this.eventsService.addStudentToStudentCollection(element)
-        student.subscribe((response: any) => {
-          studentRecord.studentID = response.id
-          const newRecord = this.eventsService.addStudentRecord(studentRecord)
-          newRecord.subscribe((record: any) => {
-            this.router.navigate(['/app/tabs/speakers'])
-          })
+        studentRecord.studentID = element
+        const newRecord = this.eventsService.addStudentRecord(studentRecord)
+        newRecord.subscribe((record: any) => {
+          console.log(record)
+          this.router.navigate(['/app/tabs/speakers'])
         })
       });
     })

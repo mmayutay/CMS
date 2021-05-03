@@ -41,8 +41,8 @@
           <ion-item>
             <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
             <div class="input-container">
-              <ion-input [(ngModel)]="addTrainings.newTrainings.description" #nameCtrl="ngModel" placeholder="Description"
-                name="Description" type="text" #Description="ngModel" required></ion-input>
+              <ion-textarea [(ngModel)]="addTrainings.newTrainings.description" #nameCtrl="ngModel" placeholder="Description"
+                name="Description" type="text" #Description="ngModel" required></ion-textarea>
             </div>&nbsp;&nbsp;
           </ion-item>
           <ion-label *ngIf="!Description.valid && Description.touched && Description.errors?.required">
