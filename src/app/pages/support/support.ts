@@ -4,9 +4,7 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 
 import { AlertController, ToastController } from '@ionic/angular';
 import Swal from 'sweetalert2';
-// import { AttendanceAddingService } from 'app/request-to-BE/attendance-adding.service';
 import { AttendanceAddingService } from '../../request-to-BE/attendance-adding.service';
-// import { CheckTutorial } from 'app/providers/check-tutorial.service';
 import { CheckTutorial } from '../../providers/check-tutorial.service';
 import { Router } from '@angular/router';
 
@@ -17,12 +15,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./support.scss'],
 })
 export class SupportPage {
+  public isSunday = false
   public currentDate = (new Date(this.leader.chosenDate).getMonth() + 1) + '/' + new Date(this.leader.chosenDate).getDate() + '/' + new Date(this.leader.chosenDate).getFullYear();
   public hasEvent = false
 
   public currentUserId = ''
   public currentUserRole = ''
-  public currentUser = [];
+  public currentUser = {
+    firstname: '',
+    lastname: '',
+    id: ''
+  };
   public members;
   public groupMembers = [];
   public paginationCount = 5
@@ -47,6 +50,11 @@ export class SupportPage {
   }
 
   onChangePage(pageOfItems: Array<any>, type) {
+    if(new Date().getDay()  == 0) {
+      this.isSunday = true
+    }else {
+      this.isSunday = false
+    }
     // update current page of items
     if(type == 'add') {
       if(this.classes.length < (this.paginationCount + 5)) {
@@ -68,8 +76,10 @@ export class SupportPage {
   }
 
   ionViewDidEnter() {
-    this.getTheCurrentUserRole();
+    // this.getTheCurrentUserRole();
     this.request.getTheCurrentUserIdInStorage;
+    this.returnMembers()
+    this.currentUserDetails()
   }
 
   cellGroupFunction(){
@@ -107,63 +117,85 @@ export class SupportPage {
   }
 
 
-  ifCurrentUserIsMember(){
-    this.request.getTheUserRoleFromTheStorage().then(res => {
-      this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
-        if(data[0].roles == '3'){
-          this.currentUserRole = data[0].roles
-          this.request.getTheCurrentUserIdInStorage().then(result => {
-            this.currentUserId = result
-            this.datarequest.getTheCurrentUser({userID: result}).subscribe(response => {
-              this.datarequest.getTheCurrentUser({userID: response[0].leader}).subscribe(leaderData => {
-                this.currentUser.push(leaderData[0])
-                this.getAllMembers();
-              })
-            })
-          })
-        }
+  // ifCurrentUserIsMember(){
+  //   this.request.getTheUserRoleFromTheStorage().then(res => {
+  //     this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
+  //       if(data[0].roles == '3'){
+  //         this.currentUserRole = data[0].roles
+  //         this.request.getTheCurrentUserIdInStorage().then(result => {
+  //           this.currentUserId = result
+  //           this.datarequest.getTheCurrentUser({userID: result}).subscribe(response => {
+  //             this.datarequest.getTheCurrentUser({userID: response[0].leader}).subscribe(leaderData => {
+  //               this.currentUser.push(leaderData[0])
+  //               this.getAllMembers();
+  //             })
+  //           })
+  //         })
+  //       }
+  //     })
+  //   })
+  // }
+
+  // Kini siya nga function kay i display ang current user 
+  currentUserDetails() {
+    const userID = this.request.getTheCurrentUserIdInStorage()
+    userID.then((id: any) => {
+      const user = this.datarequest.getTheCurrentUser({userID: id})
+      user.subscribe((response: any) => {
+        this.currentUser = response[0]
       })
     })
   }
 
-  getTheCurrentUserRole() {
-    this.groupMembers.length = 0
-    this.currentUser.length = 0
-    this.request.getTheUserRoleFromTheStorage().then(res => {
-      this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
-        if(data[0].roles == '3') {
-          this.ifCurrentUserIsMember();
-        }else if(data[0].roles == "1"){
-          this.currentUserRole = data[0].roles
-          this.datarequest.getAllTheUserRoles().subscribe(result => {
-            this.members = result
-            this.members.forEach(element => {
-              if(element.roles == '1'){
-                this.members.slice(this.members.indexOf(element), 1)
-                this.currentUser.push(element)
-              }else{
-                this.groupMembers.push(element)
-              }
-            });
-          });
-        }else{
-          this.request.getTheCurrentUserIdInStorage().then(res => {
-            this.datarequest.getTheCurrentUser({userID: res}).subscribe((data) => {
-              this.currentUser.push(data[0])
-            })
-            this.datarequest.getMyCellgroup({leaderid: res}).subscribe((data) => {
-              this.members = data
-              this.members.forEach(element => {
-                if(element.leader == res){
-                  this.groupMembers.push(element);
-                }
-              });
-            })
-          })
-        }
+  // Kini siya nga function kay kung ang naka login kay primary or 144, i return ang tanan nga members 
+  returnMembers() {
+    const currentUser = this.request.getTheCurrentUserIdInStorage()
+    currentUser.then((id: any) => {
+      const group = this.datarequest.getAllMembersOfAGroup(id)
+      group.subscribe((members: any) => {
+        this.groupMembers = members
       })
     })
   }
+
+  // getTheCurrentUserRole() {
+  //   this.groupMembers.length = 0
+  //   this.currentUser.length = 0
+  //   this.request.getTheUserRoleFromTheStorage().then(res => {
+  //     this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
+  //       if(data[0].roles == '3') {
+  //         this.ifCurrentUserIsMember();
+  //       }else if(data[0].roles == "1"){
+  //         this.currentUserRole = data[0].roles
+  //         this.datarequest.getAllTheUserRoles().subscribe(result => {
+  //           this.members = result
+  //           this.members.forEach(element => {
+  //             if(element.roles == '1'){
+  //               this.members.slice(this.members.indexOf(element), 1)
+  //               this.currentUser.push(element)
+  //             }else{
+  //               this.groupMembers.push(element)
+  //             }
+  //           });
+  //         });
+  //       }else{
+  //         this.request.getTheCurrentUserIdInStorage().then(res => {
+  //           this.datarequest.getTheCurrentUser({userID: res}).subscribe((data) => {
+  //             this.currentUser.push(data[0])
+  //           })
+  //           this.datarequest.getMyCellgroup({leaderid: res}).subscribe((data) => {
+  //             this.members = data
+  //             this.members.forEach(element => {
+  //               if(element.leader == res){
+  //                 this.groupMembers.push(element);
+  //               }
+  //             });
+  //           })
+  //         })
+  //       }
+  //     })
+  //   })
+  // }
 
   // this function is intended is the current user is also a member, so that this function will retrieve all the
   //members of the group where the current user belong
@@ -182,8 +214,8 @@ export class SupportPage {
   addAttendanceSelectedEvent(){
     this.attendance.multipleMembersAttendanceCG.forEach(element => {
       this.attendance.dateOfEvents.type = this.attendance.selectedEventsID
-      this.attendance.dateOfEvents.leader = this.currentUser[0].id
-      this.attendance.dateOfEvents.date = new Date().toString()
+      this.attendance.dateOfEvents.leader = this.currentUser.id
+      this.attendance.dateOfEvents.date = new Date(this.leader.chosenDate).toString()
       this.attendance.dateOfEvents.member = element.id
       const addAttendance = this.attendance.addEventsAttendance(this.attendance.dateOfEvents)
       addAttendance.subscribe((response: any) => {

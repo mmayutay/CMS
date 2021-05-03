@@ -14,6 +14,7 @@ import { DataDisplayProvider } from '../../providers/data-editing';
   styleUrls: ['./speaker-detail.scss'],
 })
 export class SpeakerDetailPage {
+  public listOfStudents = []
   public lessons = []
   public deleteItems = []
   public isToDelete = false
@@ -48,6 +49,7 @@ export class SpeakerDetailPage {
       this.selectedItemId = speakerId
       this.segmentModel = this.route.snapshot.paramMap.get('addType');
       this.getClassDetails()
+      this.getStudentsOfSelectedClass()
   }
 
   // This function will add the user 
@@ -66,7 +68,7 @@ export class SpeakerDetailPage {
   }
 
   navigateBackToSpeakers() {
-    this.dataDisplays.studentsOfCertainTraining.length = 0
+    this.listOfStudents.length = 0
     this.redirect.navigateByUrl('/app/tabs/speakers');
   }
 
@@ -108,6 +110,19 @@ export class SpeakerDetailPage {
       trainingDetails.subscribe((response: any) => {
         this.trainingDetails = response[0]
       })
+    })
+  }
+
+  // Kini siya nga function kay kuhaon niya ang tanan nga mga student anang selected class 
+  getStudentsOfSelectedClass() {
+    const studentsIDs = this.eventRequest.getStudentOfClass(this.selectedItemId)
+    studentsIDs.subscribe((students: any) => {
+      students.forEach(element => {
+        const usersData = this.dataRequest.getTheCurrentUser({userID: element})
+        usersData.subscribe((usersDetails: any) => {
+          this.listOfStudents.push(usersDetails[0])
+        })
+      });
     })
   }
 }

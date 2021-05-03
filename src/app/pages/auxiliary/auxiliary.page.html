@@ -11,25 +11,27 @@
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>View Details</th>
                 <!-- <th>Age</th> -->
                 <!-- <th>Birthday</th> -->
-                <th>Address</th>
+                <!-- <th>Address</th> -->
                 <!-- <th>Marital Status</th> -->
-                <th>Email</th>
+                <!-- <th>Email</th>
                 <th>Contact No.</th>
-                <th>Leader</th>
+                <th>Leader</th> -->
             </tr>
             <tr *ngFor="let info of storage; index as i">
                 <!-- <ion-col>{{ i + 1 }}</ion-col> -->
                 <td>{{info.firstname}}</td>
                 <td>{{info.lastname}}</td>
+                <td style="text-align:center;" (click)="presentAlertPrompt(info)"><ion-icon style="font-size:25px;" color="primary" name="eye"></ion-icon></td>
                 <!-- <td>{{info.age}}</td>
                 <td>{{info.birthday}}</td> -->
-                <td>{{info.address}}</td>
+                <!-- <td>{{info.address}}</td> -->
                 <!-- <td>{{info.marital_status}}</td> -->
-                <td>{{info.email}}</td>
+                <!-- <td>{{info.email}}</td>
                 <td>{{info.contact_number}}</td>
-                <td>{{info.leader}}</td>
+                <td>{{info.leader}}</td> -->
             </tr>
         </table>
     </ion-card>

@@ -18,7 +18,7 @@ export class SignupPage {
 
   public birthdate;
   public theNewUserRole = "";
-  public role = "";
+  public role = 0;
 
   signup = {
     newUser: {
@@ -35,7 +35,9 @@ export class SignupPage {
       Instagram: '',
       Twitter: '',
       Category: '',
-      Description:'A new member added!'
+      Description:'A new member added!',
+      isCGVIP: 'true',
+      isSCVIP: 'true'
     }, groupBelong: {
       Leader: ''
     }, role: {
@@ -52,11 +54,11 @@ export class SignupPage {
   ) { }
 
   ngOnInit() {
-    this.declaringTheCurrentRole()
+    this.roleDeclaration();
+    // this.declaringTheCurrentRole()
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.signup.groupBelong.Leader = res
     })
-    this.roleDeclaration();
   }
 
 
@@ -78,9 +80,8 @@ export class SignupPage {
   }
 
   onSignup(form: NgForm) {
-    if(this.role == 'Leader'){
-      this.signup.role.code = '4'
-    }
+    this.signup.role.code = this.role.toString()
+    console.log(this.signup)
     this.request.signUp(this.signup).subscribe(res => {
       this.router.navigate(['/account'])
     })
@@ -98,10 +99,11 @@ export class SignupPage {
     })
   }
   roleDeclaration() {
-    this.request.getTheUserRoleFromTheStorage().then(result => {
-      this.dataRequest.getNetworkWhereIBelong(result).subscribe(data => {
-        this.role = data[0].roles
-      })
+    this.request.getTheUserRoleFromTheStorage().then((result: any) => {
+      this.role = Number(result) * 12
+      // this.dataRequest.getNetworkWhereIBelong(result).subscribe(data => {
+      //   this.role = data[0].roles
+      // })
     })
   }
 

@@ -41,6 +41,7 @@ export class RequestsService {
   }
 
   updateInfo(userDetails){
+    console.log("User Details:: ",userDetails);
     return this.http.post(this.url + 'updateUser', userDetails)
   }
 
@@ -76,6 +77,7 @@ export class RequestsService {
   }
 
   resetPass(password){
+    console.log("User Account:: ", password)
     return this.http.post(this.url + 'reset-pass', password)
   }
 }

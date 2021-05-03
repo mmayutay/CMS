@@ -13,7 +13,7 @@
         <div class="ion-text-center">
             <img src="../../../assets/img/avatar.png" alt="avatar">
             <h2><b>{{holder.firstname}} {{holder.lastname}}</b></h2>
-            <h4>{{ role }}</h4>
+            <h4>{{ roleConverter(role) }}</h4>
         </div>
         <div>
             <!-- <ion-tabs> -->
@@ -53,7 +53,7 @@
                                 <ion-select-option value="PraiseAndWorship">Praise & Worship</ion-select-option>
                                 <ion-select-option value="Multimedia">Multimedia</ion-select-option>
                                 <ion-select-option value="Hospitality">Hospitality</ion-select-option>
-                                <ion-select-option value="Blessed Kids">Blessed Kidz</ion-select-option>
+                                <!-- <ion-select-option value="Blessed Kids">Blessed Kidz</ion-select-option> -->
                             </ion-select>
                         </ion-tab-button>
                     </ion-card>
@@ -78,7 +78,7 @@
                 <hr class="solid">
                 <!-- <p>Fullname: {{holder.firstname}} {{holder.lastname}}</p> -->
                 <p>Birthday: {{holder.birthday}}</p>
-                <p>Age: {{holder.age}}</p>
+                <!-- <p>Age: {{holder.age}}</p> -->
                 <p>Address: {{holder.address}}</p>
                 <p>Marital Status: {{holder.marital_status}}</p>
                 <p>Email: {{holder.email}}</p>
@@ -88,8 +88,15 @@
                 <p>Twitter: {{holder.twitter}}</p>
                 <p>Leader: {{holder.leader}}</p>
             </div>
-            <ion-button type="submit" class="btnLogin" [routerLink]="['/modal-page']">UPDATE INFORMATION
-            </ion-button><br><br>
+            <ion-row>
+                <ion-col></ion-col>
+                <ion-col>
+                    <ion-button type="submit" class="btnLogin" [routerLink]="['/modal-page']">UPDATE INFORMATION
+                    </ion-button>
+                </ion-col>
+                <ion-col></ion-col>
+            </ion-row><br>
         </div>
+
     </ion-card>
 </ion-content>

@@ -21,6 +21,7 @@ export class ModalPagePage implements OnInit {
       Contact_number: null,
       Facebook: '',
       Instagram: '',
+      Gender: '',
       Twitter: '',
     }, groupBelong: {
       Leader: ''
@@ -50,6 +51,7 @@ export class ModalPagePage implements OnInit {
         this.updatedData.newUser.Facebook = data[0].facebook
         this.updatedData.newUser.Instagram = data[0].instagram
         this.updatedData.newUser.Twitter = data[0].twitter
+        this.updatedData.newUser.Gender = data[0].gender
       })
     })
   }
@@ -57,7 +59,6 @@ export class ModalPagePage implements OnInit {
 
   onUpdate() {
     this.request.updateInfo(this.updatedData).subscribe(res => {
-      location.reload();
       this.router.navigate(['/account'])
     })
   }

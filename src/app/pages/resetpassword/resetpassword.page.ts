@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,10 +24,18 @@ export class ResetpasswordPage implements OnInit {
 
   constructor(
     public request: RequestsService,
-    public router: Router
+    public router: Router,
+    public dataRequest: DataRequestsService
   ) { }
 
   ngOnInit() {
+    this.request.getTheCurrentUserIdInStorage().then(res => {
+      this.dataRequest.getAccount({userID: res}).subscribe(data => {
+        this.updatedData.newPassUsername = data[0]
+        this.updatedData.newPassUsername.username = data[0].username
+        this.updatedData.newPassUsername.password = data[0].password
+      })
+    })
   }
 
   showCurrentPassword() {
@@ -47,7 +56,7 @@ export class ResetpasswordPage implements OnInit {
   }
 
   onUpdate() {
-    this.request.updateInfo(this.updatedData).subscribe(res => {
+    this.request.resetPass(this.updatedData).subscribe(res => {
       location.reload();
       this.router.navigate(['/login'])
     })

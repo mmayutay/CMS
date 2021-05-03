@@ -1,70 +1,56 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-icon slot="start" class="icon" name="arrow-back" [routerLink]="['/app/tabs/speakers']"></ion-icon>
-    <ion-title>Add Lesson</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-icon slot="start" class="icon" name="arrow-back" [routerLink]="['/app/tabs/speakers']"></ion-icon>
+        <ion-title>Add Lesson</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
-  <div style="text-align: center; width: 100%; margin-left: 10%;">
-    <ion-input style="position: fixed;width: 75%;" (ionChange)="addMultipleLessons($event)"
-      placeholder="How many lessons you want to add?" type="number"></ion-input>
-  </div><br><br>
+    <div style="text-align: center; width: 100%; margin-left: 10%;">
+        <ion-input style="position: fixed;width: 75%;" (ionChange)="addMultipleLessons($event)" placeholder="How many lessons you want to add?" type="number"></ion-input>
+    </div><br><br>
 
+    <ion-card class="card" *ngFor="let in of counter(lessonsToAdd); let i = index">
+        <ion-card-content>
+            <form #addEventsForm="ngForm" novalidate>
+                <ion-list lines="none">
+                    <ion-item>
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="locate-outline"></ion-icon>
+                            <ion-input [(ngModel)]="lessonsAdded.name[i]" [placeholder]="'Lesson ' + (i + 1)" name="name" type="text" #Name="ngModel" required></ion-input>
+                        </div>&nbsp;&nbsp;
+                    </ion-item><br>
 
+                    <ion-item>
+                        <div class="input-container">
+                            <ion-input [(ngModel)]="lessonsAdded.title[i]" #nameCtrl="ngModel" placeholder="Title" name="title" type="text" #Title="ngModel" required></ion-input>
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!Title.valid && Title.touched && Title.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Title is required</ion-text>
+                    </ion-label><br>
 
-  <ion-card class="card" *ngFor="let in of counter(lessonsToAdd); let i = index">
-    <ion-card-content>
-      <form #addEventsForm="ngForm" novalidate>
-        <ion-list lines="none">
-          <ion-item>
-            <div class="input-container">
-              <ion-icon class="iconLogin" name="locate-outline"></ion-icon>
-              <ion-input [(ngModel)]="lessonsAdded.name[i]" placeholder="Lesson Name" name="name" type="text"
-                #Name="ngModel" required></ion-input>
-            </div>&nbsp;&nbsp;
-          </ion-item><br>
+                    <ion-item>
+                        <div class="input-container">
+                            <ion-input [(ngModel)]="lessonsAdded.description[i]" #nameCtrl="ngModel" placeholder="Description" name="description" type="text" #Description="ngModel" required></ion-input>
+                        </div>&nbsp;&nbsp;
+                    </ion-item>
+                    <ion-label *ngIf="!Description.valid && Description.touched && Description.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Description is required</ion-text>
+                    </ion-label><br>
+                </ion-list>
+                <div class="ion-padding">
+                    <ion-button (click)="addLessonOfTraining(addEventsForm, i)" type="submit" expand="block">Add</ion-button>
+                </div>
+            </form>
 
-          <ion-item>
-            <div class="input-container">
-              <ion-input [(ngModel)]="lessonsAdded.title[i]" #nameCtrl="ngModel" placeholder="Title" name="title"
-                type="text" #Title="ngModel" required></ion-input>
-            </div>&nbsp;&nbsp;
-          </ion-item>
-          <ion-label *ngIf="!Title.valid && Title.touched && Title.errors?.required">
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <ion-text color="danger">Title is required</ion-text>
-          </ion-label><br>
-
-          <ion-item>
-            <div class="input-container">
-              <ion-input [(ngModel)]="lessonsAdded.description[i]" #nameCtrl="ngModel" placeholder="Description"
-                name="description" type="text" #Description="ngModel" required></ion-input>
-            </div>&nbsp;&nbsp;
-          </ion-item>
-          <ion-label *ngIf="!Description.valid && Description.touched && Description.errors?.required">
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <ion-text color="danger">Description is required</ion-text>
-          </ion-label><br>
-
-          <ion-item>
-            <div class="input-container">
-              <ion-icon class="iconLogin" name="add-circle-outline"></ion-icon>
-              <ion-input [(ngModel)]="lessonsAdded.lesson[i]" placeholder="Level" name="lesson" type="number"
-                required></ion-input>
-            </div>&nbsp;&nbsp;
-          </ion-item>
-        </ion-list>
-        <div class="ion-padding">
-          <ion-button (click)="addLessonOfTraining(addEventsForm)" type="submit" expand="block">Add</ion-button>
-        </div>
-      </form>
-
-    </ion-card-content>
-  </ion-card><br><br>
+        </ion-card-content>
+    </ion-card><br><br>
 </ion-content>
 
 <div class="button-bottom">
-  <ion-button expand="full" (click)="submitLessons()">Submit {{ arrayOfLessons.length }} Added Lessons</ion-button>
+    <ion-button expand="full" (click)="submitLessons()" [disabled]="arrayOfLessons.length == 0">Submit {{ arrayOfLessons.length }} Added Lessons</ion-button>
 </div>

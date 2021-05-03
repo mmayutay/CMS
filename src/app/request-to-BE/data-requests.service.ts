@@ -143,4 +143,8 @@ export class DataRequestsService {
   getStudentsData(id) {
     return this.request.get( this.url + 'student-trainings-or-class/get-student/' + id );
   }
+
+  getAccount(id) {
+    return this.request.get(this.url + 'allAccounts' + id);
+  }
 }

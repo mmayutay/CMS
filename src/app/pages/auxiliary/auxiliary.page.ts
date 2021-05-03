@@ -21,7 +21,7 @@ export class AuxiliaryPage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     public dataRequest: DataRequestsService,
-    private alertCtrl: AlertController,
+    private alertController: AlertController,
 
     // public menuController: MenuController
     ) { }
@@ -54,6 +54,74 @@ export class AuxiliaryPage implements OnInit {
       console.log(data)
       this.storage = data
     })
+  }
+
+  async presentAlertPrompt(info) {
+    const alert = await this.alertController.create({
+      message: 'Auxiliary',
+      cssClass: 'my-custom-class',
+      header: 'Details!',
+      inputs: [
+        {
+          name: 'name1',
+          type: 'text',
+          id: 'name1-id',
+          value: 'Firstname: ' + info.firstname,
+          placeholder: 'firstName',
+          disabled: true
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name2-id',
+          value: 'Lastname: ' + info.lastname,
+          placeholder: 'lastName',
+          disabled: true
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name3-id',
+          value: 'Address: ' + info.address,
+          placeholder: 'Address',
+          disabled: true
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name4-id',
+          value: 'Email: ' + info.email,
+          placeholder: 'Email',
+          disabled: true
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name5-id',
+          value: 'Contact No.: ' + info.contact_number,
+          placeholder: 'Contact Number',
+          disabled: true
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name6-id',
+          value: 'Leader: ' + info.leader,
+          placeholder: 'Leader',
+          disabled: true
+        },
+      ],
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            console.log('Confirm Ok');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }

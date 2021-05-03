@@ -4,8 +4,10 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { SpeakerFilterPage } from '../speaker-filter/speaker-filter.page';
 import { MenuController, AlertController, IonList, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+
+import Swal from 'sweetalert2'
+import 'sweetalert2/src/sweetalert2.scss'
 
 // import { DataDisplayProvider } from 'app/providers/data-editing';
 import { DataDisplayProvider } from '../../providers/data-editing';
@@ -17,17 +19,22 @@ import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
   styleUrls: ['./speaker-list.scss'],
 })
 export class SpeakerListPage {
+  public defaultTraining = ''
+  public defaultLesson = ''
+  public defaultClass = ''
+
   public selectedTrainingID;
   public selectedClass;
   public selectedLesson;
   public allStudentsOfSelectedClass = []
+  public studentsClassesScores = []
 
   public paginationCount = 5
   public count = 0
   public classes;
   public trainings;
-  public lessonsOfSelectedTraining = []
-  public classesOfSelectedTraining = []
+  public lessonsOfSelectedTraining;
+  public classesOfSelectedTraining;
   segmentModel = "Trainings";
   pageOfItems: Array<any>;
 
@@ -42,6 +49,7 @@ export class SpeakerListPage {
     private router: Router,
     private alertController: AlertController
   ) { }
+
 
   onChangePage(pageOfItems: Array<any>, type) {
     // update current page of items
@@ -65,6 +73,23 @@ export class SpeakerListPage {
   }
 
   ionViewDidEnter() {
+    // this.dataDisplays.getClasssesByUser()
+    this.displayDefaultTraining()
+  }
+
+
+  // Kini siya nga function kay mag return ug default nga trainings 
+  displayDefaultTraining() {
+    const getCurrentUser = this.request.getTheCurrentUserIdInStorage()
+    getCurrentUser.then((id) => {
+      const trainings = this.eventsService.getTrainings(id)
+      trainings.subscribe((data: any) => {
+        this.defaultTraining = data[0].title
+        this.selectedTrainingID = data[0].id
+        this.returnAllLessons(data[0].id)
+        this.returnClassesOfTraining(data[0].id)
+      })
+    })
   }
 
   counter(i: number) {
@@ -73,9 +98,11 @@ export class SpeakerListPage {
 
   segmentModels(value) {
     this.segmentModel = value.target.value;
-    this.classesOfSelectedTraining.length = 0
-    this.lessonsOfSelectedTraining.length = 0
-    this.allStudentsOfSelectedClass.length = 0
+    this.classesOfSelectedTraining = undefined
+    this.lessonsOfSelectedTraining = undefined
+    this.allStudentsOfSelectedClass = undefined
+    this.displayDefaultTraining()
+    this.returnStudentsOfSelectedLessonAndClasses()
   }
 
 
@@ -129,6 +156,10 @@ export class SpeakerListPage {
     const lessons = this.eventsService.returnLessons(trainingID)
     lessons.subscribe((data: any) => {
       this.lessonsOfSelectedTraining = data
+      if(data.length != 0) {
+        this.defaultLesson = data[0].title
+        this.selectedLesson = data[0].id
+      }
     })
   }
 
@@ -148,30 +179,40 @@ export class SpeakerListPage {
     const classes = this.eventsService.returnClassesOfTraining(trainingID)
     classes.subscribe((data: any) => {
       this.classesOfSelectedTraining = data
+      if(data.length != 0) {
+        this.defaultClass = data[0].name
+        this.selectedClass = data[0].id
+      }
     })
   }
 
   // Kini siya nga function kay ang pag add ug student sa certain training 
   addStudent() {
-    if(this.selectedTrainingID == undefined || this.selectedClass == undefined) {
+    if (this.selectedTrainingID == undefined || this.selectedClass == undefined) {
       this.presentAlert()
-    }else {
+    } else {
       this.router.navigate(['/add-student/' + this.selectedTrainingID + '/' + this.selectedClass])
     }
   }
 
   // Kini siya nga function kay iyang i return ang mga student sa ana nga selected lesson 
   returnStudentsOfSelectedLessonAndClasses() {
-    const allStudents = this.eventsService.returnStudentsOfClasses(this.selectedClass, this.selectedLesson)
+    const allStudents = this.eventsService.getStudentOfClass(this.selectedClass)
     allStudents.subscribe((data: any) => {
+      this.allStudentsOfSelectedClass = []
       data.forEach(element => {
-        const user = this.dataRequest.getTheCurrentUser({userID: element.students_id})
+        const user = this.dataRequest.getTheCurrentUser({ userID: element })
         user.subscribe((response: any) => {
           this.allStudentsOfSelectedClass.push(response[0])
         })
       });
     })
-  } 
+
+    const students = this.eventsService.getStudentOfSelectedClass(this.selectedClass)
+    students.subscribe((data: any) => {
+      this.studentsClassesScores = data
+    })
+  }
 
 
   async presentAlert() {
@@ -185,5 +226,76 @@ export class SpeakerListPage {
     await alert.present();
   }
 
+  // deleteLesson() {
+  //   Swal.fire({
+  //     title: 'Are you sure you want to delete this lesson?',
+  //     text: "You won't be able to revert this!",
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, delete it!'
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       Swal.fire(
+  //         'Deleted!',
+  //         'Your file has been deleted.',
+  //         'success'
+  //       )
+  //     }
+  //   })
+  // }
+
+  // Kini siya nga function kay pag delete ug lesson sa certain training 
+  async deleteLesson(lessonID) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Delete Lesson?',
+      message: 'Are you sure you want to delete this lesson?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            console.log('Confirm Okay');
+            const deleteLesson = this.eventsService.deleteLessonOfTraining(lessonID.id)
+            deleteLesson.subscribe((response: any ) => {
+              this.lessonsOfSelectedTraining.splice(this.lessonsOfSelectedTraining.indexOf(lessonID), 1)
+              this.successfullyDeleted()
+            })
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  // Kini siya nga function kay successfully deleted alert 
+  async successfullyDeleted() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Deleted!',
+      message: 'Lesson Selected was successfully deleted!',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+  }
+
+  // Kini siya nga function kay mu route sa pag add or pag edit sa student, at the same time kay maka add sad ug another user 
+  updateScoreOrAddStudent() {
+    this.allStudentsOfSelectedClass.length = 0
+    this.router.navigate(['/add-student-score/' + this.selectedTrainingID + '/' + this.selectedLesson + '/' + this.selectedClass])
+  }
 
 }
+// add-student-score/:trainingID/:lessonID/:classIDI

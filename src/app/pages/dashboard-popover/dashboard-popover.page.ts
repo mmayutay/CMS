@@ -32,7 +32,6 @@ export class DashboardPopoverPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("Type of Members:: ", this.typeOfViewMember);
 
     this.getTheVipMembers();
 
@@ -47,7 +46,6 @@ export class DashboardPopoverPage implements OnInit {
         this.vipMembers.push(element.firstname + " " + element.lastname)
 
         this.length = this.vipMembers.length;
-        console.log(this.length);
 
       })
     })
