@@ -15,7 +15,7 @@ export class ForgotpasswordPage implements OnInit {
   public showCurrentPass = false;
   public type = 'password';
   public type2 = 'password';
-  public password = {currentPass: '', newPass:''};
+  public password = {passUsername: '', newPassword: '', confirmPassword:''};
   public contact_number = ''
   public contactNumber = ''
 
@@ -61,6 +61,13 @@ export class ForgotpasswordPage implements OnInit {
     })
   }
 
+  verifyCode(codeInput){
+    console.log("ts: ", codeInput);
+    this.request.verifyCodeReset(codeInput).subscribe(res => {
+      console.log(res)
+    })
+  }
+
   async presentAlert() {
     const loading = await this.loadingCtrl.create({
       message: 'Please wait...',
@@ -78,9 +85,10 @@ export class ForgotpasswordPage implements OnInit {
     await alert.present();
   }
 
-  resetPassword(){
-    this.request.resetPass(this.password).subscribe(res => {
-      console.log(res)
+  resetPassword(data){
+    console.log(data.value);
+    this.request.resetPass(data.value).subscribe(res => {
+      console.log(res);
     })
   }
 

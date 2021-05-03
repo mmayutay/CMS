@@ -72,11 +72,17 @@ export class RequestsService {
   }
 
   sendCodeReset(value) {
-    console.log("Request value: ", value);
+    // console.log("Request value: ", value);
     return this.http.get(this.url + 'send-code/' + value)
   }
 
-  resetPass(password){
-    return this.http.post(this.url + 'reset-password', password)
+  verifyCodeReset(codeInput) {
+    console.log("Request code input: " + codeInput);
+    return this.http.get(this.url + 'verify-code/' + codeInput)
+  }
+
+  resetPass(inputData){
+    console.log("request:" , inputData);
+    return this.http.post(this.url + 'reset-password', inputData)
   }
 }
