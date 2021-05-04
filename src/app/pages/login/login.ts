@@ -63,6 +63,7 @@ export class LoginPage {
       }
     })
   }
+  
   async presentAlert() {
     const alert = await this.alertControl.create({
       cssClass: 'my-custom-class',

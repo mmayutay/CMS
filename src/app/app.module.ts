@@ -8,9 +8,6 @@ import { IonicModule } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { SpeakerFilterPage } from './pages/speaker-filter/speaker-filter.page';
 
-
-// import { MDBBootstrapModule } from 'angular-bootstrap-md';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -22,13 +19,9 @@ import { AuxiliaryPage } from './pages/auxiliary/auxiliary.page';
 import { ModalPagePage } from './pages/modal-page/modal-page.page';
 import { DashboardPopoverPage } from './pages/dashboard-popover/dashboard-popover.page';
 
-
+import { MyNetworkPage } from './pages/my-network/my-network.page'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-// import {MatTableModule} from '@angular/material/table';
-// import {MatPaginatorModule} from '@angular/material/paginator';
-// import {MatTableDataSource} from '@angular/material/table';
 
 
 @NgModule({
@@ -38,10 +31,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    // MatTableModule,
-    // MatPaginatorModule,
-    // MatTableDataSource,
-    // MDBBootstrapModule.forRoot(),
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -56,6 +45,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AuxiliaryPage,
     AccountPage,
     ModalPagePage,
+    MyNetworkPage
   ],
   entryComponents: [DashboardPopoverPage, SpeakerFilterPage],
   

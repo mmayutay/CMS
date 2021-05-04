@@ -56,7 +56,6 @@ export class AccountPage implements AfterViewInit {
 
   ngAfterViewInit() {
     // this.menuController.enable(true);
-    this.getUserRole();
     this.userData.storage.get(this.request.storageUserRole).then(res => {
       this.role = res      
     })
@@ -142,11 +141,12 @@ export class AccountPage implements AfterViewInit {
 
   }
 
-  getUserRole(){
-    this.request.getTheUserRoleFromTheStorage().then(res => {
-      this.datasRequest.getNetworkWhereIBelong(res).subscribe(data => {
-        this.role = data[0].roles        
-      })
-    })
-  }
+  roleConverter(role) {
+    var roles = new Array();
+    roles[0] = "Admin"
+    roles[1] = "Pastor"
+    roles[12] = "Leader"
+    roles[144] = "Member"
+    return roles[Number(role)]
+}
 }

@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
-// import { NavController, NavParams } from '@ionic/angular';
+import { DataRequestsService } from '../../request-to-BE/data-requests.service';
+import { Router } from '@angular/router';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-forgotpassword',
-  templateUrl: './forgotpassword.page.html',
-  styleUrls: ['./forgotpassword.page.scss'],
+  selector: 'app-resetpassword',
+  templateUrl: './resetpassword.page.html',
+  styleUrls: ['./resetpassword.page.scss'],
 })
-export class ForgotpasswordPage implements OnInit {
-  public login = { username: '', password: '', currentpassword: ''};
+export class ResetpasswordPage implements OnInit {
+  public login = { username: '', password: '', currentpassword: '' };
   public showPass = false;
   public showCurrentPass = false;
   public type = 'password';
   public type2 = 'password';
-  public password = {username: '', currpassword: '', newPassword:''};
+  public password = { username: '', currpassword: '', newPassword: '' };
   public contact_number = ''
   public contactNumber = ''
 
@@ -26,16 +27,16 @@ export class ForgotpasswordPage implements OnInit {
     public loadingCtrl: LoadingController,
     // public navCtrl: NavController, 
     // public navParams: NavParams, 
-    public formbuilder:FormBuilder
+    public formbuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit() {
   }
 
-
   showCurrentPassword() {
     this.showCurrentPass = !this.showCurrentPass;
-    if(this.showCurrentPass){
+    if (this.showCurrentPass) {
       this.type = 'text';
     } else {
       this.type = 'password';
@@ -43,52 +44,44 @@ export class ForgotpasswordPage implements OnInit {
   }
   showPassword() {
     this.showPass = !this.showPass;
-    if(this.showPass){
+    if (this.showPass) {
       this.type2 = 'text';
     } else {
       this.type2 = 'password';
     }
   }
-  
-  sendCode(value){
-    console.log("CLICKED!!")
-    console.log(value);
-    // console.log(this.contact_number)
-    this.presentAlert()
-    this.request.sendCodeForgot(value).subscribe(res => {
-      this.successfullySent()
-      console.log(res)
-    })
-  }
-
-  verifyCode(codeInput){
-    console.log("ts: ", codeInput);
-    this.request.verifyCodeReset(codeInput).subscribe(res => {
-      console.log(res)
-    })
-  }
 
   async presentAlert() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Please wait...',
-      duration: 2000
+    const alert = await this.alertController.create({
+
+      header: 'Error',
+      message: 'Email or password is incorrect.',
+      buttons: ['OK']
     });
-    await loading.present();
+
+    await alert.present();
   }
 
   async successfullySent() {
     const alert = await this.alertController.create({
       header: 'Sent',
-      message: 'Successfully sent',
+      message: 'Password updated succesfully.',
       buttons: ['OK']
     });
     await alert.present();
   }
 
-  resetPassword(data){
+  resetPassword(data) {
     console.log(data.value);
-    this.request.resetPass(data.value).subscribe(res => {
+    this.request.resetPass(data.value).subscribe( res => {
       console.log(res);
+      if(res != null) {
+        this.successfullySent();
+        this.router.navigateByUrl('/login');
+      } else {
+        this.presentAlert();
+        this.router.navigateByUrl('/resetpassword');
+      }
     })
   }
 

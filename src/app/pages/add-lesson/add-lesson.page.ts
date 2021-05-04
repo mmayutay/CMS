@@ -15,7 +15,7 @@ export class AddLessonPage implements OnInit {
   public lessonsAdded = {
     trainingsID: "",
     name: [],
-    lesson: [],
+    lesson: "",
     title: [],
     description: []
   }
@@ -41,6 +41,7 @@ export class AddLessonPage implements OnInit {
         this.currentLengthLesson = 0
       }
     })
+    this.trainingDetails()
   }
 
   // Kini siya nga function kay ang pag add ug lesson sa certain trainings 
@@ -66,5 +67,13 @@ export class AddLessonPage implements OnInit {
         this.router.navigate(['/app/tabs/speakers'])
       })
     }); 
+  }
+
+  // Kini siya nga function kay kuhaon ang details sa trainings nga adto i add ang lesson 
+  trainingDetails() {
+    const trainingsDet = this.eventRequest.returnTrainingDetails(this.lessonsAdded.trainingsID)
+    trainingsDet.subscribe((details: any) => {
+      this.lessonsAdded.lesson = details[0].level
+    })
   }
 }
