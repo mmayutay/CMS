@@ -155,12 +155,15 @@ export class calendar {
   }
 
   returnTypeOfMember() {
+    let userRole = 0
+    const currentUserRole = this.request.getTheUserRoleFromTheStorage()
+    currentUserRole.then((role: any) => { userRole = Number(role) / 12})
     var members = [];
     this.dataRequest.allVipUsers().subscribe((data: any) => {
       members.push({ type: "VIP Members", length: data.length });
     })
 
-    this.dataRequest.getRegularMembers().subscribe((data: any) => {
+    this.dataRequest.getRegularMembers(userRole).subscribe((data: any) => {
       members.push({ type: "Regular Members", length: data.length });
     })
 

@@ -54,10 +54,14 @@ export class LoginPage {
   }
   
   onLogin() {
-    this.request.loginService(this.login).subscribe(res => {
+    this.request.loginService(this.login).subscribe((res: any) => {
       console.log(res)
       if (res != null) {
-        this.getTheUsersCurrentRole(res[0].roles, res);
+        if(res.length != 0) {
+          this.getTheUsersCurrentRole(res[0].roles, res);
+        }else {
+          this.presentAlert()
+        }
       } else {
         this.presentAlert();
       }

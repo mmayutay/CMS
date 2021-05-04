@@ -30,8 +30,8 @@
           <ion-item>
             <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
             <div class="input-container">
-              <ion-input [(ngModel)]="addTrainings.newTrainings.title" #nameCtrl="ngModel" placeholder="Title" name="Title"
-                type="text" #Title="ngModel" required></ion-input>
+              <ion-input [(ngModel)]="addTrainings.newTrainings.title" #nameCtrl="ngModel" placeholder="Title"
+                name="Title" type="text" #Title="ngModel" required></ion-input>
             </div>&nbsp;&nbsp;
           </ion-item>
           <ion-label *ngIf="!Title.valid && Title.touched && Title.errors?.required">
@@ -41,8 +41,8 @@
           <ion-item>
             <!-- <ion-label position="stacked" color="primary">Description</ion-label> -->
             <div class="input-container">
-              <ion-textarea [(ngModel)]="addTrainings.newTrainings.description" #nameCtrl="ngModel" placeholder="Description"
-                name="Description" type="text" #Description="ngModel" required></ion-textarea>
+              <ion-textarea [(ngModel)]="addTrainings.newTrainings.description" #nameCtrl="ngModel"
+                placeholder="Description" name="Description" type="text" #Description="ngModel" required></ion-textarea>
             </div>&nbsp;&nbsp;
           </ion-item>
           <ion-label *ngIf="!Description.valid && Description.touched && Description.errors?.required">
@@ -54,7 +54,14 @@
             <!-- <ion-label position="stacked" color="primary">Lastname</ion-label> -->
             <div class="input-container">
               <ion-icon class="iconLogin" name="add-circle-outline"></ion-icon>
-              <ion-input [(ngModel)]="addTrainings.newTrainings.level" placeholder="Level" name="LessonsNumber" type="number" required></ion-input>
+              <ion-select name="LessonsNumber" placeholder="Choose level of Training"
+                [(ngModel)]="addTrainings.newTrainings.level" okText="Okay" cancelText="Dismiss">
+                <ion-select-option value="12">Primary/Leader</ion-select-option>
+                <ion-select-option value="144">Member(144)</ion-select-option>
+                <ion-select-option value="1728">Member(1728)</ion-select-option>
+              </ion-select>
+
+              <!-- <ion-input  placeholder="Level" name="LessonsNumber" type="number" required></ion-input> -->
             </div>&nbsp;&nbsp;
           </ion-item>
         </ion-list>

@@ -131,8 +131,8 @@ export class DataRequestsService {
   }
 
   //This function will fetch all member users from the database except to the VIP members
-  getRegularMembers() {
-    return this.request.get(this.url + 'regular-members')
+  getRegularMembers(code) {
+    return this.request.get(this.url + 'regular-members/' + code)
   } 
 
   //This will let the leader to fetch all the attendance of his/her member

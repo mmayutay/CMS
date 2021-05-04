@@ -28,8 +28,8 @@
     <ion-item>
         <div class="input-container">
             <ion-icon class="iconLogin" name="person"></ion-icon>
-            <ion-select placeholder="Leader" *ngFor="let leader of leaders.leaders" (ionChange)="getData($event)" [value]="leaders.leaders[0]">
-                <ion-select-option [value]="leader"> {{ leader.lastname }}, {{ leader.firstname }}</ion-select-option>
+            <ion-select placeholder="Leader" (ionChange)="getData($event)" [value]="leaders.leaders[0]">
+                <ion-select-option *ngFor="let leader of leaders.leaders" [value]="leader"> {{ leader.lastname }}, {{ leader.firstname }}</ion-select-option>
             </ion-select>
         </div>
     </ion-item>

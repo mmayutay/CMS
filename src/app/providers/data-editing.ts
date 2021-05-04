@@ -24,7 +24,8 @@ export class DataDisplayProvider {
         private eventRequest: EventTraningServiceService
     ) {
         this.getAllTheStudents();
-        this.getClasssesByUser();
+        // this.getClasssesByUser();
+        this.allTrainings();
     }
 
     //  Kini siya nga function kay kuhaon daan ang mga classes sa members by user 
@@ -80,6 +81,15 @@ export class DataDisplayProvider {
     // This function is to allow a user to add a trainings
     addNewClassesOrTrainings(value) {
         this.trainings.push(value)
+    }
+
+    // Kini siya nga function kay i return ang tanan nga trainings nga created sa tanan nga users 
+    allTrainings() {
+        const allTrainings = this.eventRequest.getAllTrainingsByAnyUser()
+        allTrainings.subscribe((response: any) => {
+            console.log(response)
+            this.trainings = response
+        })
     }
 
     // Kini siya nga function kay ang pag kuha sa tanan nga trainings created by the current user 

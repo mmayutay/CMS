@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { RequestsService } from 'app/logInAndSignupService/requests.service';
 import { filter } from 'rxjs/operators';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 
@@ -18,7 +19,8 @@ export class DisplayMembersPage implements OnInit {
 
   constructor(
     private activeRoute: ActivatedRoute,
-    private dataRequest: DataRequestsService
+    private dataRequest: DataRequestsService,
+    private request: RequestsService
   ) { }
 
   ngOnInit() {
@@ -123,9 +125,12 @@ export class DisplayMembersPage implements OnInit {
   }
   //This function will return all Regular Members 
   getTheRegularMembers() {
+    let userRole = 0
+    const currentUserRole = this.request.getTheUserRoleFromTheStorage()
+    currentUserRole.then(role => {userRole = Number(role) / 12})
     var arrayRegularMembers = []
     var regularMembers;
-    this.dataRequest.getRegularMembers().subscribe(result => {
+    this.dataRequest.getRegularMembers(userRole).subscribe(result => {
       regularMembers = result
       regularMembers.forEach(element => {
         arrayRegularMembers.push(element.firstname + ' ' + element.lastname)

@@ -65,6 +65,10 @@ textarea {
     padding-left: 20px;
 }
 
+ion-select {
+    width: 100px;
+}
+
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     ion-button,
