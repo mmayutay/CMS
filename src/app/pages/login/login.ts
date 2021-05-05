@@ -75,6 +75,20 @@ export class LoginPage {
     await alert.present();
   }
 
+  async forgotPassword() {
+    const alert = await this.alertControl.create({
+      header: "Notice",
+      message: "Contact Admin for Forgot Password",
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  onForgotPassword() {
+    this.forgotPassword();
+  }
+
   getTheUsersCurrentRole(roleID, currentuser) {
     this.dataRequest.getNetworkWhereIBelong(roleID).subscribe(res => {
       this.request.storeTheCurrentUserToStorage(currentuser[0].userid, currentuser[0].roles)

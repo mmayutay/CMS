@@ -53,7 +53,6 @@ export class ResetpasswordPage implements OnInit {
 
   async presentAlert() {
     const alert = await this.alertController.create({
-
       header: 'Error',
       message: 'Email or password is incorrect.',
       buttons: ['OK']
@@ -65,7 +64,7 @@ export class ResetpasswordPage implements OnInit {
   async successfullySent() {
     const alert = await this.alertController.create({
       header: 'Sent',
-      message: 'Password updated succesfully.',
+      message: 'Password updated succesfully!',
       buttons: ['OK']
     });
     await alert.present();
@@ -75,13 +74,14 @@ export class ResetpasswordPage implements OnInit {
     console.log(data.value);
     this.request.resetPass(data.value).subscribe( res => {
       console.log(res);
-      if(res != null) {
-        this.successfullySent();
-        this.router.navigateByUrl('/login');
-      } else {
+      if(!res) {
         this.presentAlert();
         this.router.navigateByUrl('/resetpassword');
+      } else {
+        this.successfullySent();
+        this.router.navigateByUrl('/login');
       }
+      console.log(res);
     })
   }
 
