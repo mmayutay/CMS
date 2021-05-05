@@ -81,16 +81,18 @@
                     </ion-col>
                 </ion-row>
             </ion-grid><br><br>
-            <ion-card *ngIf="dataDisplays.lessonsAdded == undefined || dataDisplays.lessonsAdded.length == 0"
+            <div *ngIf="dataDisplays.lessonsAdded == undefined || dataDisplays.lessonsAdded.length == 0"
                 style="text-align: center;"><br><br>
-                <ion-spinner name="crescent" *ngIf="dataDisplays.lessonsAdded == undefined"
-                    style="width: 5em; height: 5em;"></ion-spinner>
+                <div *ngIf="dataDisplays.lessonsAdded == undefined">
+                    <ion-spinner name="crescent" style="width: 5em; height: 5em;"></ion-spinner><br>
+                    Loading...
+                </div>
                 <div *ngIf="dataDisplays.lessonsAdded != undefined">
                     <img *ngIf="dataDisplays.lessonsAdded.length == 0" src="../../../assets/data/empty.png"
                         style="width: 50%; height: 50%;">
-                </div>
-                <h2 style="font-weight: 100;">No Lessons found!</h2><br><br>
-            </ion-card>
+                    <h2 style="font-weight: 100;">No Lessons found!</h2>
+                </div><br><br>
+            </div>
         </div>
 
         <div *ngIf="segmentModel === 'Classes'">
@@ -130,16 +132,18 @@
                     </ion-col>
                 </ion-row>
             </ion-grid><br><br>
-            <ion-card *ngIf="classesOfSelectedTraining == undefined || classesOfSelectedTraining.length == 0"
+            <div *ngIf="classesOfSelectedTraining == undefined || classesOfSelectedTraining.length == 0"
                 style="text-align: center;"><br><br>
-                <ion-spinner name="crescent" *ngIf="classesOfSelectedTraining == undefined"
-                    style="width: 5em; height: 5em;"></ion-spinner>
+                <div *ngIf="classesOfSelectedTraining == undefined">
+                    <ion-spinner name="crescent" style="width: 5em; height: 5em;"></ion-spinner><br>
+                    Loading...
+                </div>
                 <div *ngIf="classesOfSelectedTraining != undefined">
                     <img *ngIf="classesOfSelectedTraining.length == 0" src="../../../assets/data/empty.png"
                         style="width: 50%; height: 50%;">
-                </div>
-                <h2 style="font-weight: 100;">Nothing to show!</h2><br><br>
-            </ion-card>
+                    <h2 style="font-weight: 100;">No Classes!</h2>
+                </div><br><br>
+            </div>
         </div>
 
 
@@ -179,16 +183,19 @@
                         <ion-icon name="thumbs-up-outline"></ion-icon>
                         <ion-select placeholder="Select a Type" okText="Okay" cancelText="Dismiss">
                             <ion-select-option> Attendance </ion-select-option>
+                            <ion-select-option> Activity </ion-select-option>
+                            <ion-select-option> Quiz </ion-select-option>
                         </ion-select>
                     </ion-item>
                 </ion-row>
             </ion-grid>
             <div><br>
-                <ion-card *ngIf="allStudentsOfSelectedClass == undefined" style="text-align: center;"><br><br>
+                <ion-card *ngIf="dataDisplays.allStudentsOfSelectedClass == undefined" style="text-align: center;">
+                    <br><br>
                     <img src="../../../assets/data/empty.png" style="width: 40%; height: 40%;">
                     <h2 style="font-weight: 100;">Nothing to show!</h2>
                 </ion-card>
-                <div *ngIf="allStudentsOfSelectedClass != undefined">
+                <div *ngIf="dataDisplays.allStudentsOfSelectedClass != undefined">
                     <ion-item>
                         <table>
                             <tr>
@@ -196,18 +203,18 @@
                                 <th>Score</th>
                                 <th>Remarks</th>
                             </tr>
-                            <tr *ngFor="let student of allStudentsOfSelectedClass; let i = index">
+                            <tr *ngFor="let student of dataDisplays.allStudentsOfSelectedClass; let i = index">
                                 <td>{{ student.firstname }} {{ student.lastname }}</td>
-                                <td> {{ studentsClassesScores[i].score }} </td>
-                                <td> {{ studentsClassesScores[i].remarks }} </td>
+                                <td> {{ dataDisplays.studentsScores[i].score }} </td>
+                                <td> {{ dataDisplays.studentsScores[i].remarks }} </td>
                             </tr>
                         </table>
                     </ion-item>
                 </div>
-                <ion-card style="text-align: center;">
+                <div style="text-align: center;">
                     <ion-spinner name="crescent" *ngIf="classesOfSelectedTraining == undefined"
                         style="width: 5em; height: 5em;"></ion-spinner>
-                </ion-card>
+                </div>
             </div>
         </div>
     </ion-card>

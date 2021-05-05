@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { EventTraningServiceService } from 'app/events-and-trainings/event-traning-service.service';
 import { HttpClient } from '@angular/common/http';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
+import { DataDisplayProvider } from '../../providers/data-editing';
 
 @Component({
   selector: 'app-add-student-score',
@@ -35,7 +36,8 @@ export class AddStudentScorePage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private eventRequest:  EventTraningServiceService,
     private http: HttpClient,
-    private dataRequest: DataRequestsService
+    private dataRequest: DataRequestsService,
+    private dataDisplays: DataDisplayProvider
   ) { 
     // this.loadData();
   }
@@ -45,10 +47,8 @@ export class AddStudentScorePage implements OnInit {
     let lesson = this.activatedRoute.snapshot.paramMap.get('lessonID');
     let classID = this.activatedRoute.snapshot.paramMap.get('classID');
     this.getTrainingLessonAndClass(trainining, lesson, classID)
-    this.returnStudentsOfClass(classID)
-    // let id = this.activatedRoute.snapshot.paramMap.get('id');
-
-    // add-student-score/:trainingID/:lessonID/:classID
+    console.log(this.dataDisplays.allStudentsOfSelectedClass)
+    console.log(this.dataDisplays.studentsScores)
   }
 
   loadData(){
@@ -97,34 +97,40 @@ export class AddStudentScorePage implements OnInit {
   }
 
   // Kini siya nga function kay kuhaon niya ang mga students sa gi select nga class 
-  returnStudentsOfClass(classID) {
-    var counter = 0 
-    const students = this.eventRequest.getStudentOfClass(classID)
-    students.subscribe((response: any) => {
-      response.forEach(element => {
-        const studentsData = this.dataRequest.getTheCurrentUser({userID: element})
-        studentsData.subscribe((student: any) => {
-          counter += 1
-          this.returnStudentsScore(student, classID, counter)
-        })
-      })
-    })
-  }
+  // returnStudentsOfClass(classID) {
+  //   var counter = 0 
+  //   const students = this.eventRequest.getStudentOfClass(classID)
+  //   students.subscribe((response: any) => {
+  //     response.forEach(element => {
+  //       const studentsData = this.dataRequest.getTheCurrentUser({userID: element})
+  //       studentsData.subscribe((student: any) => {
+  //         counter += 1
+  //         // this.returnStudentsScore(student, classID, counter)
+  //       })
+  //     })
+  //   })
+  // }
 
   // Kini siya nga function kay i display na niya ang mga students ug ilang mga score
-  returnStudentsScore(student, classID, counter) {
-    const studentsScore = this.eventRequest.getStudentOfSelectedClass(classID)
-    studentsScore.subscribe((scores: any) => {
-        this.studentsScore.push({student: student[0], studentScore: scores[counter - 1]})
-    })
-  }
+  // returnStudentsScore(student, classID, counter) {
+  //   const studentsScore = this.eventRequest.getStudentOfSelectedClass(classID)
+  //   studentsScore.subscribe((scores: any) => {
+  //       this.studentsScore.push({student: student[0], studentScore: scores[counter - 1]})
+  //   })
+  // }
 
   scoreEditing(score, student) {
-    student.studentScore.score = score.target.value
-    const updateScore = this.eventRequest.updateScore(student.studentScore.students_id, score.target.value)
-    updateScore.subscribe((data: any) => {
-      console.log(data)
-    })
+    for (let index = 0; index < this.dataDisplays.allStudentsOfSelectedClass.length; index++) {      
+      if (student.id == this.dataDisplays.allStudentsOfSelectedClass[index].id) {
+        const students = this.eventRequest.returnStudentFromStudentCollection(student.id)
+        students.subscribe((response: any) => {
+          const updateScore = this.eventRequest.updateScore(response.id, score.target.value)
+          updateScore.subscribe((data: any) => {
+            this.dataDisplays.studentsScores[index].score = data.score
+          })
+        })
+      }
+    }
   }
 
 }

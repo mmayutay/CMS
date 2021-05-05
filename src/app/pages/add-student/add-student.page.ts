@@ -3,9 +3,7 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
-// import { calendar } from 'app/interfaces/user-options';
 import { calendar } from '../../interfaces/user-options';
-// import { DataDisplayProvider } from 'app/providers/data-editing';
 import { DataDisplayProvider } from '../../providers/data-editing';
 import { LoadingController, AlertController } from '@ionic/angular';
 
@@ -18,10 +16,13 @@ import { LoadingController, AlertController } from '@ionic/angular';
 export class AddStudentPage implements OnInit {
   public segmentModel = '';
   public selectedItemId = ''
-  public itemSelected;
+  public itemSelected = { title: '' };
+  public classDetails = { name: '', remarks: '' }
 
   public foundNames = []
   public ministryMembers = []
+
+  public listOfCurrentStudents = []
 
 
   // @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -29,6 +30,7 @@ export class AddStudentPage implements OnInit {
   public storage: any;
   content: string;
   public list = [];
+  public isAlreadyAttended = []
   public holder: any;
   public addClicked = false;
   public role = "";
@@ -54,20 +56,22 @@ export class AddStudentPage implements OnInit {
     private dataDisplay: DataDisplayProvider,
     private loadingController: LoadingController,
     private alertController: AlertController
-    ) { }
+  ) { }
 
   ngOnInit() {
-    this.returnAllUsers()
-    // this.getUserRole();
 
     this.selectedItemId = this.activatedRoute.snapshot.paramMap.get('selectedItemID');
     this.segmentModel = this.activatedRoute.snapshot.paramMap.get('typeOfAdd');
+    // this.returnStudentsOfCurrentClass(this.selectedItemId)
+    this.returnCurrentStudents(this.selectedItemId)
+    this.returnAllUsers();
+    this.getTrainingAndClass()
   }
 
 
-  getUserRole() {    
+  getUserRole() {
     this.request.getTheCurrentUserIdInStorage().then(res => {
-      this.dataRequest.getMyCellgroup({leaderid: res}).subscribe((data: any) => {
+      this.dataRequest.getMyCellgroup({ leaderid: res }).subscribe((data: any) => {
         this.list = data
         console.log(this.list)
       })
@@ -75,16 +79,28 @@ export class AddStudentPage implements OnInit {
   }
 
   returnAllUsers() {
+    var currentUserID = ""
+    const currentUser = this.request.getTheCurrentUserIdInStorage()
+    currentUser.then((id: any) => { currentUserID = id })
+
     const allUsers = this.dataRequest.returnAllUser()
     allUsers.subscribe((response: any) => {
-      response.forEach(element => {
-        const currentUser = this.request.getTheCurrentUserIdInStorage()
-        currentUser.then((id: any) => {
-          if(id != element.id) {
-            this.list.push(element)
+      for (let i = 0; i < this.listOfCurrentStudents.length; i++) {
+        for (let j = 0; j < response.length; j++) {
+          if (currentUserID != response[j].id) {
+            if (this.listOfCurrentStudents[i] == response[j].id) {
+              this.list.push(response[j])
+              this.isAlreadyAttended.push(true)
+              response.splice(response.indexOf(response[j]), 1)
+            } else {
+              if (!this.list.includes(response[j])) {
+                this.list.push(response[j])
+                this.isAlreadyAttended.push(false)
+              }
+            }
           }
-        })
-      })
+        }
+      }
     })
   }
 
@@ -94,16 +110,18 @@ export class AddStudentPage implements OnInit {
 
   }
 
-  addMember(memberId) {
-    this.studentToAdd.lessons_id = this.selectedItemId
-    this.studentToAdd.classes_id = this.segmentModel
-    this.studentToAdd.students_id = memberId.id
-    this.loadingAdded(memberId)
-    const addStudentsRecord = this.eventRequest.addStudentsRecord(this.studentToAdd)
-    addStudentsRecord.subscribe((response: any) => {
-      console.log(response)
-      this.router.navigate(['/app/tabs/speakers'])
-    })
+  addMember(memberId, userIsAttended, index) {
+    if(!userIsAttended) {
+      this.studentToAdd.lessons_id = this.selectedItemId
+      this.studentToAdd.classes_id = this.segmentModel
+      this.studentToAdd.students_id = memberId.id
+      this.loadingAdded(memberId)
+      const addStudentsRecord = this.eventRequest.addStudentsRecord(this.studentToAdd)
+      addStudentsRecord.subscribe((response: any) => {
+        console.log(response)
+        this.router.navigate(['/app/tabs/speakers'])
+      })
+    }
   }
 
   updateList(event: any) {
@@ -153,4 +171,31 @@ export class AddStudentPage implements OnInit {
     console.log('onDidDismiss resolved with role', role);
   }
 
+  // Kini siya kay i return ang students daan sa current selected class 
+  returnStudentsOfCurrentClass(classid) {
+    const students = this.eventRequest.getStudentOfSelectedClass(classid)
+    students.subscribe((response: any) => {
+      console.log(response)
+    })
+  }
+
+  // Kini siya nga function kay kuhaon ang tanan nga students sa selected certain class 
+  returnCurrentStudents(classID) {
+    const currentStudents = this.eventRequest.getStudentOfClass(classID)
+    currentStudents.subscribe((response: any) => {
+      this.listOfCurrentStudents = response
+    })
+  }
+
+  // Kini siya nga function kay maoy responsible sa pag kuha sa name sa training ug sa class 
+  getTrainingAndClass() {
+    const classDetail = this.eventRequest.returnClassDetails(this.selectedItemId)
+    classDetail.subscribe((classDetails: any) => {
+      this.classDetails = classDetails[0]
+    })
+    const getTheTraining = this.eventRequest.returnTrainingDetails(this.segmentModel)
+    getTheTraining.subscribe((trainingDetail: any) => {
+      this.itemSelected = trainingDetail[0]
+    })
+  }
 }

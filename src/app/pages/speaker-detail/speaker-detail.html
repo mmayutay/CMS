@@ -1,9 +1,9 @@
 <ion-header>
     <ion-toolbar>
         <ion-icon slot="start" class="icon" name="arrow-back" (click)="navigateBackToSpeakers()"></ion-icon>
-        <ion-title>{{segmentModel}} Details</ion-title>
+        <ion-title>Class Details</ion-title>
     </ion-toolbar>
-</ion-header>
+</ion-header><br><br>
 <ion-content class="speaker-detail">
     <ion-card>
         <i>
@@ -15,8 +15,6 @@
             </b>
         </u>
         <p>{{trainingDetails.description}}</p>
-    </ion-card>
-    <ion-card>
         <h3 style="text-align: center;">List of Enrolled Students</h3>
         <table class="table">
             <tr>
@@ -35,7 +33,7 @@
     </ion-card>
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
         <ion-fab-button>
-            <ion-icon name="add" (click)="navigateToAddStudent()"></ion-icon>
+            <ion-icon name="pencil-outline" (click)="navigateToAddStudent()"></ion-icon>
         </ion-fab-button>
     </ion-fab>
 </ion-content>

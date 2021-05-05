@@ -141,4 +141,9 @@ export class EventTraningServiceService {
   deleteLessonOfTraining(lessonID) {
     return this.http.get(this.url + 'trainings-and-classes/deleteLessonOfTraining/' + lessonID)
   }
+
+  // Kini siya nga function kay i return ang certain student sa student collection 
+  returnStudentFromStudentCollection(user_id) {
+    return this.http.get(this.url + 'trainings-and-classes/get-certain-student-collection-student/' + user_id)
+  }
 }
