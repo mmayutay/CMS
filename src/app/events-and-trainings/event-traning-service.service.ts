@@ -87,6 +87,11 @@ export class EventTraningServiceService {
     return this.http.post(this.url + 'trainings-and-classes/add-lesson-of-training/' + id, data);
   }
 
+  // Kini siya nga function kay i update ang selected lesson 
+  updateLesson(lessonID, updatedData) {
+    return this.http.post(this.url + 'lesson/update/' + lessonID, updatedData)
+  }
+
   // Kini siya nga function kay iyang i return ang tanan nga lesson sa selected training 
   returnLessons(id) {
     return this.http.get(this.url + 'trainings-and-classes/return-lesson-of-selected-training/' + id)
@@ -100,6 +105,11 @@ export class EventTraningServiceService {
   // Kini siya nga function kay mag add siya ug class at the same time kay mga students sa created classes 
   addClassAndStudents(className) {
     return this.http.post(this.url + 'trainings-and-classes/add-classes-with-students', {className: className})
+  }
+
+  // Kini siya function kay i update ang details sa selected class 
+  updateClassDetails(classID, data) {
+    return this.http.post(this.url + 'trainings-and-classes/update-class-of-training/' + classID, data)
   }
 
   // Kini siya nga function kay i return ang selected class 

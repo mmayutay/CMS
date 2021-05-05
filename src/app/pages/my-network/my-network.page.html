@@ -11,27 +11,26 @@
   <div class="card">
     <p>Leader's Name: </p>
     <h1>Geneva Rivas</h1>
-    <ion-grid>
+
+    <div *ngIf="groupMembers.length == 0" style="text-align: center;">
+      <ion-spinner style="width: 5em; height: 5em;" name="crescent"></ion-spinner>
+    </div>
+    <ion-grid *ngIf="groupMembers.length != 0">
       <ion-row class="grid">
         <ion-col size-xs="4">First Name</ion-col>
         <ion-col size-xs="4">Last Name</ion-col>
         <ion-col size-xs="4">Age</ion-col>
       </ion-row><br>
-      <ion-row style="padding-bottom: 10px;">
-        <ion-col size-xs="4">Raymond Jay </ion-col>
-        <ion-col size-xs="4">Yorong</ion-col>
-        <ion-col size-xs="4">22</ion-col>
+      <ion-row style="padding-bottom: 10px;" *ngFor="let member of groupMembers">
+        <ion-col size-xs="4">{{ member.firstname }} </ion-col>
+        <ion-col size-xs="4">{{ member.lastname }}</ion-col>
+        <ion-col size-xs="4">{{ member.age }}</ion-col>
       </ion-row><br>
-      <ion-row style="padding-bottom: 10px;">
-        <ion-col size-xs="4">Romeo </ion-col>
-        <ion-col size-xs="4">Lenizo</ion-col>
-        <ion-col size-xs="4">21</ion-col>
-      </ion-row>
     </ion-grid>
   </div>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
-    <ion-fab-button routerLink="/support">
+    <ion-fab-button routerLink="/support/my-network">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

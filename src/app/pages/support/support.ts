@@ -6,7 +6,7 @@ import { AlertController, ToastController } from '@ionic/angular';
 import Swal from 'sweetalert2';
 import { AttendanceAddingService } from '../../request-to-BE/attendance-adding.service';
 import { CheckTutorial } from '../../providers/check-tutorial.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./support.scss'],
 })
 export class SupportPage {
+  public nextRoute = 'reportings'
   public isSunday = false
   public currentDate = (new Date(this.leader.chosenDate).getMonth() + 1) + '/' + new Date(this.leader.chosenDate).getDate() + '/' + new Date(this.leader.chosenDate).getFullYear();
   public hasEvent = false
@@ -44,7 +45,8 @@ export class SupportPage {
     private attendance: AttendanceAddingService,
     private leader: CheckTutorial,
     public alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { 
     this.attendance.dataUse
   }
@@ -76,6 +78,8 @@ export class SupportPage {
   }
 
   ionViewDidEnter() {
+    this.nextRoute = this.activatedRoute.snapshot.paramMap.get('nextroute');
+
     // this.getTheCurrentUserRole();
     this.request.getTheCurrentUserIdInStorage;
     this.returnMembers()
@@ -114,6 +118,11 @@ export class SupportPage {
     }else {
       this.notSunday()
     }
+  }
+
+  // Kini sya nga function kay i reroute padung sa kung asa gikan 
+  reRouteToWhereItCameFrom() {
+    this.router.navigate(['/' + this.nextRoute])
   }
 
 

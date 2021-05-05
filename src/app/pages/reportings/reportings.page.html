@@ -11,7 +11,7 @@
     <ion-item>
         <div class="input-container">
             <ion-icon class="iconLogin" name="calendar"></ion-icon>
-            <ion-select placeholder="Weekly" [(ngModel)]="typeChoice" (ionChange)="leaders.typeChoice($event.target.value, 7)">
+            <ion-select placeholder="Weekly" [(ngModel)]="typeChoice" (ionChange)="chosenType($event.target.value)">
                 <ion-select-option value="Weekly">Weekly</ion-select-option>
                 <ion-select-option value="Monthly">Monthly</ion-select-option>
                 <ion-select-option value="Quarterly">Quarterly</ion-select-option>
@@ -59,7 +59,7 @@
 </ion-content>
 <div *ngIf="leaders.returnLeaderIDBoolean()">
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
-        <ion-fab-button routerLink="/support">
+        <ion-fab-button routerLink="/support/reportings">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>

@@ -19,14 +19,14 @@
         <ion-item> 
             <ion-label position="floating">Class Name</ion-label>
             <div class="input-container">
-                <ion-input [value]="classDetails.name"></ion-input>
+                <ion-input [(ngModel)]="classDetails.name"></ion-input>
             </div>
         </ion-item>
         <!-- <p>Description</p> -->
         <ion-item> 
             <ion-label position="floating">Description</ion-label>
             <div class="input-container">
-                <ion-textarea [value]="classDetails.remarks"></ion-textarea>
+                <ion-textarea [(ngModel)]="classDetails.remarks"></ion-textarea>
             </div>
         </ion-item><br>
         <table>
@@ -47,5 +47,5 @@
     </div><br><br><br>
 </ion-content>
 <div class="button-bottom">
-    <ion-button><ion-icon name="document-text-outline"></ion-icon>Save</ion-button>
+    <ion-button (click)="updateSelectedClass()"><ion-icon name="document-text-outline"></ion-icon>Save</ion-button>
 </div>
