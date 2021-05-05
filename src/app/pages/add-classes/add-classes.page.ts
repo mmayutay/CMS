@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-classes.page.scss'],
 })
 export class AddClassesPage implements OnInit {
+  public chosenType = ''
   public lessonsOfSelectedTraining = ""
   public allUsers = []
   public studentsAdded = []
@@ -44,7 +45,7 @@ export class AddClassesPage implements OnInit {
 
   // Kini siya nga function kay mag add ug class sa certain training 
   addClass(data) {
-    var studentRecord = {selectedTrainingID: '', classesID: '', studentID: ''}
+    var studentRecord = {selectedTrainingID: '', classesID: '', studentID: '', type: this.chosenType}
     studentRecord.selectedTrainingID = this.addClasses.newClasses.selectedTrainingID
     const addClasses = this.eventsService.addClassAndStudents(this.addClasses.newClasses)
     addClasses.subscribe((data: any) => {

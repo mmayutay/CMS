@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule)
   },
   {
-    path: 'support',
+    path: 'support/:nextroute',
     loadChildren: () => import('./pages/support/support.module').then(m => m.SupportModule)
   },
   {

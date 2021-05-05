@@ -138,33 +138,33 @@ export class SessionDetailPage {
     currentUserID.then((id: any) => {
       const groupMembers = this.dataRequest.getAllMembersOfAGroup(id);
       groupMembers.subscribe((response: any) => {
-        this.getMembersAttendance(response);
+        // this.getMembersAttendance(response);
       });
     })
   }
 
   // Kini nga function kay ang pag kuha sa attendance sa certain member kung naka attend ba siya sa selected event
-  getMembersAttendance(arrayOfMembers) {
-    arrayOfMembers.forEach((member) => {
-      const attendance = this.eventsAttendance.getMemberAttendance(member.id);
-      attendance.subscribe((result: any) => {
-        result[0].currentEventsAttendance.forEach((attendance) => {
-          const eventDetails = this.eventsAttendance.getEventDetails(attendance.type)
-          eventDetails.subscribe((result: any) => {
-            if (this.session.title == result[0].title) {
-              if (!this.members.includes(member)) {
-                this.members.push(member);
-                this.membersAttendance.push('Attended')
-              }
-            } else {
-              if(!this.members.includes(member)) {
-                this.members.push(member)
-                this.membersAttendance.push("Didn't Attend") 
-              }
-            }
-          })
-        })
-      })
-    })
-  }
+  // getMembersAttendance(arrayOfMembers) {
+  //   arrayOfMembers.forEach((member) => {
+  //     const attendance = this.eventsAttendance.getMemberAttendance(member.id);
+  //     attendance.subscribe((result: any) => {
+  //       result[0].currentEventsAttendance.forEach((attendance) => {
+  //         const eventDetails = this.eventsAttendance.getEventDetails(attendance.type)
+  //         eventDetails.subscribe((result: any) => {
+  //           if (this.session.title == result[0].title) {
+  //             if (!this.members.includes(member)) {
+  //               this.members.push(member);
+  //               this.membersAttendance.push('Attended')
+  //             }
+  //           } else {
+  //             if(!this.members.includes(member)) {
+  //               this.members.push(member)
+  //               this.membersAttendance.push("Didn't Attend") 
+  //             }
+  //           }
+  //         })
+  //       })
+  //     })
+  //   })
+  // }
 }

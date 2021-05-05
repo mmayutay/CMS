@@ -118,7 +118,6 @@ export class AddStudentPage implements OnInit {
         this.studentToAdd.lessons_id = this.segmentModel
         this.studentToAdd.classes_id = this.selectedItemId
         this.studentToAdd.students_id = memberId.id
-        // this.loadingAdded(memberId)
         const addStudentsRecord = this.eventRequest.addStudentRecord(this.studentToAdd)
         addStudentsRecord.subscribe((response: any) => {
           console.log(response)
@@ -130,9 +129,6 @@ export class AddStudentPage implements OnInit {
         })
       }
     })
-    // if(!userIsAttended) {
-
-    // }
   }
 
   updateList(event: any) {
@@ -154,6 +150,14 @@ export class AddStudentPage implements OnInit {
   backToTrainingOrClass() {
     this.router.navigateByUrl('/app/tabs/speakers/speaker-details/' + this.segmentModel + '/' + this.selectedItemId)
   }
+
+  // Kini siya nga function kay pag update na man ni sa details sa class 
+  updateSelectedClass() {
+    const updateNow = this.eventRequest.updateClassDetails(this.selectedItemId, this.classDetails)
+    updateNow.subscribe((result: any) => {
+      this.backToTrainingOrClass()
+    })
+  }  
 
   // async loadingAdded(user) {
   //   const loading = await this.loadingController.create({
@@ -207,6 +211,7 @@ export class AddStudentPage implements OnInit {
     const getTheTraining = this.eventRequest.returnTrainingDetails(this.segmentModel)
     getTheTraining.subscribe((trainingDetail: any) => {
       this.itemSelected = trainingDetail[0]
+      console.log(trainingDetail)
     })
   }
 }

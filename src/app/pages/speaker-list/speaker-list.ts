@@ -160,6 +160,8 @@ export class SpeakerListPage {
       if(data.length != 0) {
         this.defaultLesson = data[0].title
         this.selectedLesson = data[0].id
+      }else {
+        this.defaultLesson = "Your selected training has no lesson"
       }
     })
   }

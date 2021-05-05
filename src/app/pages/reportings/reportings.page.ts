@@ -72,11 +72,28 @@ export class ReportingsPage implements OnInit {
     this.leaders.typeChoice(this.leaders.choice)
     const user = this.request.getTheCurrentUserIdInStorage()
     user.then(id => {
-      this.getData({target: {value: {id: id}}})
+      // this.leaders.getMembersOfCertainLeader({target: {value: {id: id}}})
     })
   }
 
+
+  // Kini siya nga function kay i render ang mga attendance sa certain month 
+  chosenType(choice) {
+    if (choice == 'Weekly') {
+      this.leaders.eventCounter = 1
+    } else if (choice == 'Monthly') {
+      this.leaders.eventCounter = 4
+    } else if (choice == 'Quarterly') {
+      this.leaders.eventCounter = 12
+    } else {
+      this.leaders.eventCounter = 52
+    }
+    this.leaders.members.length = 0
+    this.getData({target: {value: {id: this.selectedLeader}}})
+  }
+
   getData(members) {
+    console.log(members.target.value.id)
     this.selectedLeader = members.target.value.id
     this.leaders.getMembersOfCertainLeader(members.target.value.id)
     // console.log(members.target.value)

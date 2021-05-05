@@ -83,7 +83,7 @@ export class SignupPage {
     this.signup.role.code = this.role.toString()
     console.log(this.signup)
     this.request.signUp(this.signup).subscribe(res => {
-      this.router.navigate(['/account'])
+      this.router.navigate(['/support'])
     })
   }
 

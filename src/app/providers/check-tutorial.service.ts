@@ -35,7 +35,6 @@ export class CheckTutorial implements CanLoad {
   ) {
     // this.typeChoice(this.choice, new Date())
     this.getAllTheLeaders();
-    this.dateRender()
     const events = this.eventsRequest.retrieveAllAnnouncement()
     events.subscribe((response: any) => {
       this.eventsArray = response
@@ -97,6 +96,7 @@ export class CheckTutorial implements CanLoad {
     this.certainLeadersID = id
     const members = this.dataRequest.getMyCellgroup({ leaderid: id })
     members.subscribe((data: any) => {
+      console.log(data)
       const attendance = this.dataRequest.getMemberSCAndEventsAttendance(id)
       attendance.subscribe((response: any) => {
         if (response[0].currentEventsAttendance.length == 0 && response[0].currentUserAttendance.length == 0) {
