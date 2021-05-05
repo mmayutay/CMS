@@ -3,6 +3,7 @@ import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { Router } from '@angular/router';
 import { calendar } from '../../interfaces/user-options';
 import { PopoverController } from '@ionic/angular';
+import { RequestsService } from 'app/logInAndSignupService/requests.service';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class DashboardPopoverPage implements OnInit {
     private dataRequest: DataRequestsService,
     private router: Router,
     private calendar: calendar,
-    private popController: PopoverController
+    private popController: PopoverController,
+    private request: RequestsService
   ) { }
 
   ngOnInit() {
@@ -51,8 +53,11 @@ export class DashboardPopoverPage implements OnInit {
     })
   }
   getTheRegularMembers() {
+    let userRole = 0
+    const currentUserRole = this.request.getTheUserRoleFromTheStorage()
+    currentUserRole.then(role => { userRole = Number(role) / 12})
     var regularMembers;
-    this.dataRequest.getRegularMembers().subscribe(result => {
+    this.dataRequest.getRegularMembers(userRole).subscribe(result => {
       regularMembers = result
       regularMembers.forEach(element => {
         this.regularMembers.push(element.firstname + ' ' + element.lastname)

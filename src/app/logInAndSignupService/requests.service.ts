@@ -67,8 +67,8 @@ export class RequestsService {
   }
 
   // This route is to get all the leaders 
-  getLeaders() {
-    return this.http.get(this.url + 'get-leaders')
+  getLeaders(role) {
+    return this.http.get(this.url + 'get-leaders/' + role)
   }
 
   sendCodeReset(value) {

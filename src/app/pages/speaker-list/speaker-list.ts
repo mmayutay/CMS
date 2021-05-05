@@ -19,9 +19,11 @@ import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
   styleUrls: ['./speaker-list.scss'],
 })
 export class SpeakerListPage {
+  public currentUsersId = ''
   public defaultTraining = ''
   public defaultLesson = ''
   public defaultClass = ''
+  public defaultType = 'Attendance'
 
   public selectedTrainingID;
   public selectedClass;
@@ -79,11 +81,12 @@ export class SpeakerListPage {
   displayDefaultTraining() {
     const getCurrentUser = this.request.getTheCurrentUserIdInStorage()
     getCurrentUser.then((id) => {
-      const trainings = this.eventsService.getTrainings(id)
+      this.currentUsersId = id
+      const trainings = this.eventsService.getAllTrainingsByAnyUser()
       trainings.subscribe((data: any) => {
         console.log("Training Data:: ",data);
         this.defaultTraining = data[0].title
-        this.selectedTrainingID = data[0].id
+        this.selectedTrainingID = data[0]
         this.returnAllLessons(data[0].id)
         this.returnClassesOfTraining(data[0].id)
       })
@@ -115,13 +118,13 @@ export class SpeakerListPage {
 
   // Kini siya function kay ang pag add ug lesson sa certain trainings 
   navigateAddLesson() {
-    this.router.navigate(['/add-lesson/' + this.selectedTrainingID])
+    this.router.navigate(['/add-lesson/' + this.selectedTrainingID.id])
   }
 
-  // Kini siya nga function kay kuhaon niya ang ID sa selected training 
+  // Kini siya nga function kay kuhaon ang details selected training 
   getIDSelectedTraining(value) {
     this.selectedTrainingID = value.target.value
-    this.returnAllLessons(value.target.value)
+    this.returnAllLessons(value.target.value.id)
   }
 
   async presentFilter() {
@@ -189,7 +192,7 @@ export class SpeakerListPage {
     if (this.selectedTrainingID == undefined || this.selectedClass == undefined) {
       this.presentAlert()
     } else {
-      this.router.navigate(['/add-student/' + this.selectedTrainingID + '/' + this.selectedClass])
+      this.router.navigate(['/add-student/' + this.selectedTrainingID.id + '/' + this.selectedClass])
     }
   }
 
@@ -271,7 +274,7 @@ export class SpeakerListPage {
 
   // Kini siya nga function kay mu route sa pag add or pag edit sa student, at the same time kay maka add sad ug another user 
   updateScoreOrAddStudent() {
-    this.router.navigate(['/add-student-score/' + this.selectedTrainingID + '/' + this.selectedLesson + '/' + this.selectedClass])
+    this.router.navigate(['/add-student-score/' + this.selectedTrainingID.id + '/' + this.selectedLesson + '/' + this.selectedClass])
   }
 
 }

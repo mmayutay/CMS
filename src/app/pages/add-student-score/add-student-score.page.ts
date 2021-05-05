@@ -11,6 +11,7 @@ import { DataDisplayProvider } from '../../providers/data-editing';
   styleUrls: ['./add-student-score.page.scss'],
 })
 export class AddStudentScorePage implements OnInit {
+  public classID = ''
   public numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   public trainingsClassAndLessons = {
     trainingTitle: '',
@@ -46,9 +47,8 @@ export class AddStudentScorePage implements OnInit {
     let trainining = this.activatedRoute.snapshot.paramMap.get('trainingID');
     let lesson = this.activatedRoute.snapshot.paramMap.get('lessonID');
     let classID = this.activatedRoute.snapshot.paramMap.get('classID');
+    this.classID = classID
     this.getTrainingLessonAndClass(trainining, lesson, classID)
-    console.log(this.dataDisplays.allStudentsOfSelectedClass)
-    console.log(this.dataDisplays.studentsScores)
   }
 
   loadData(){
@@ -122,13 +122,14 @@ export class AddStudentScorePage implements OnInit {
   scoreEditing(score, student) {
     for (let index = 0; index < this.dataDisplays.allStudentsOfSelectedClass.length; index++) {      
       if (student.id == this.dataDisplays.allStudentsOfSelectedClass[index].id) {
-        const students = this.eventRequest.returnStudentFromStudentCollection(student.id)
-        students.subscribe((response: any) => {
-          const updateScore = this.eventRequest.updateScore(response.id, score.target.value)
-          updateScore.subscribe((data: any) => {
-            this.dataDisplays.studentsScores[index].score = data.score
-          })
+        const updateScore = this.eventRequest.updateScore(student.id, score.target.value, this.classID)
+        updateScore.subscribe((data: any) => {
+          this.dataDisplays.studentsScores[index].score = data.score
         })
+        // const students = this.eventRequest.returnStudentFromStudentCollection(student.id)
+        // students.subscribe((response: any) => {
+
+        // })
       }
     }
   }

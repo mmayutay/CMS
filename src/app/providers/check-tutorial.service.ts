@@ -65,9 +65,12 @@ export class CheckTutorial implements CanLoad {
 
   // This function will get all the leaders
   getAllTheLeaders() {
-    const leaders = this.request.getLeaders()
-    leaders.subscribe((data: any) => {
-      this.leaders = data
+    const currentUserRole = this.request.getTheUserRoleFromTheStorage()
+    currentUserRole.then(role => {
+      const leaders = this.request.getLeaders(role)
+      leaders.subscribe((data: any) => {
+        this.leaders = data
+      })
     })
   }
 

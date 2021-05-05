@@ -45,9 +45,14 @@ export class EventTraningServiceService {
     return this.http.post(this.url + 'student-trainings-or-class/delete-multiple-students', { studentsId: arrayOfStudentsID, selectedTraining: trainingID });
   }
 
-  // Kini siya nga function kay mag add ug records sa certain training
-  addStudentsRecord(studentsData) {
-    return this.http.post(this.url + 'class-records/add-student', studentsData);
+  // Kini siya nga function kay i check if ang selected student kay already a student sa class or dili 
+  checkStudent(studentID, classID) {
+    return this.http.get(this.url + 'trainings-and-classes/check-student-already-exist/' + studentID + '/' + classID)
+  }
+
+  // Kini siya nga function kay mag remove ug student sa certain class 
+  removeStudentOfClass(studentID, classID) {
+    return this.http.delete(this.url + 'trainings-and-classes/remove-student-from-class/' + studentID + '/' + classID)
   }
 
   // Kini nga function kay kuhaon niya ang tanan nga students sa certain class or training 
@@ -70,6 +75,11 @@ export class EventTraningServiceService {
   // Kini siya nga function kay i return ang tanan nga mga trainings created by the current user 
   getTrainings(id) {
     return this.http.get(this.url + 'trainings-and-classes/get-all-trainings/' + id)
+  }
+
+  // Kini siya nga function kay kuhaon tanan nga trainings 
+  getAllTrainingsByAnyUser() {
+    return this.http.get(this.url + 'trainings-and-classes/return-all-traininings')
   }
 
   // Kini siya nga function kay mag add ug lesson sa certain trainings 
@@ -133,8 +143,8 @@ export class EventTraningServiceService {
   }
 
   // Kini siya nga function kay i update ang score sa certain student 
-  updateScore(studentId, updatedScore) {
-    return this.http.get(this.url + 'trainings-and-classes/update-students-score/' + studentId +'/' + updatedScore)
+  updateScore(studentId, updatedScore, classID) {
+    return this.http.get(this.url + 'trainings-and-classes/update-students-score/' + studentId +'/' + updatedScore + '/' + classID)
   }
 
   // Kini siya nga function kay mag delete ug lesson sa certain training 

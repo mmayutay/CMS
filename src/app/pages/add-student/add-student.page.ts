@@ -110,18 +110,29 @@ export class AddStudentPage implements OnInit {
 
   }
 
-  addMember(memberId, userIsAttended, index) {
-    if(!userIsAttended) {
-      this.studentToAdd.lessons_id = this.selectedItemId
-      this.studentToAdd.classes_id = this.segmentModel
-      this.studentToAdd.students_id = memberId.id
-      this.loadingAdded(memberId)
-      const addStudentsRecord = this.eventRequest.addStudentsRecord(this.studentToAdd)
-      addStudentsRecord.subscribe((response: any) => {
-        console.log(response)
-        this.router.navigate(['/app/tabs/speakers'])
-      })
-    }
+  addMember(memberId) {
+    console.log(memberId.id, this.selectedItemId, this.segmentModel)
+    const checkStudent = this.eventRequest.checkStudent(memberId.id, this.selectedItemId)
+    checkStudent.subscribe((response: any) => {
+      if(response.length == 0) {
+        this.studentToAdd.lessons_id = this.segmentModel
+        this.studentToAdd.classes_id = this.selectedItemId
+        this.studentToAdd.students_id = memberId.id
+        // this.loadingAdded(memberId)
+        const addStudentsRecord = this.eventRequest.addStudentRecord(this.studentToAdd)
+        addStudentsRecord.subscribe((response: any) => {
+          console.log(response)
+        })
+      }else {
+        const removeStudent = this.eventRequest.removeStudentOfClass(memberId.id, this.segmentModel)
+        removeStudent.subscribe((response: any) => {
+          console.log(response)
+        })
+      }
+    })
+    // if(!userIsAttended) {
+
+    // }
   }
 
   updateList(event: any) {
@@ -144,32 +155,32 @@ export class AddStudentPage implements OnInit {
     this.router.navigateByUrl('/app/tabs/speakers/speaker-details/' + this.segmentModel + '/' + this.selectedItemId)
   }
 
-  async loadingAdded(user) {
-    const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      message: 'Please wait...',
-      duration: 3000
-    });
-    await loading.present();
+  // async loadingAdded(user) {
+  //   const loading = await this.loadingController.create({
+  //     cssClass: 'my-custom-class',
+  //     message: 'Please wait...',
+  //     duration: 3000
+  //   });
+  //   await loading.present();
 
-    const { role, data } = await loading.onDidDismiss();
-    this.successfullyAdded(user)
-  }
+  //   const { role, data } = await loading.onDidDismiss();
+  //   this.successfullyAdded(user)
+  // }
 
-  async successfullyAdded(name) {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Successfully Added!',
-      subHeader: name.firstname + " " + name.lastname,
-      message: name.firstname + " " + name.lastname + " is successfully added!",
-      buttons: ['OK']
-    });
+  // async successfullyAdded(name) {
+  //   const alert = await this.alertController.create({
+  //     cssClass: 'my-custom-class',
+  //     header: 'Successfully Added!',
+  //     subHeader: name.firstname + " " + name.lastname,
+  //     message: name.firstname + " " + name.lastname + " is successfully added!",
+  //     buttons: ['OK']
+  //   });
 
-    await alert.present();
+  //   await alert.present();
 
-    const { role } = await alert.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
-  }
+  //   const { role } = await alert.onDidDismiss();
+  //   console.log('onDidDismiss resolved with role', role);
+  // }
 
   // Kini siya kay i return ang students daan sa current selected class 
   returnStudentsOfCurrentClass(classid) {

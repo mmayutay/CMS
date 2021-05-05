@@ -79,6 +79,7 @@ export class ReportingsPage implements OnInit {
   getData(members) {
     this.selectedLeader = members.target.value.id
     this.leaders.getMembersOfCertainLeader(members.target.value.id)
+    // console.log(members.target.value)
   }
 
 
