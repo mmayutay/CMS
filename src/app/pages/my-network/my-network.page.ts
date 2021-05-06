@@ -9,6 +9,7 @@ import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
 })
 export class MyNetworkPage implements OnInit {
   public groupMembers = []
+  public leaderDetails = []
 
   constructor(
     private dataRequest: DataRequestsService,
@@ -19,6 +20,7 @@ export class MyNetworkPage implements OnInit {
     const leader = this.request.getTheCurrentUserIdInStorage()
     leader.then((id: any) => {
       this.getMembersOfNetwork(id)
+      this.getUserDetails(id)
     })
 
   }
@@ -28,6 +30,15 @@ export class MyNetworkPage implements OnInit {
     const myNetwork = this.dataRequest.getAllMembersOfAGroup(id)
     myNetwork.subscribe((response: any) => {
       this.groupMembers = response
+    })
+  }
+
+  // Kini siya nga function kay i return ang details sa current user 
+  getUserDetails(userID) {
+    const userDetails = this.dataRequest.getTheCurrentUser({userID: userID})
+    userDetails.subscribe((response: any) => {
+      console.log(response)
+      this.leaderDetails = response
     })
   }
 
