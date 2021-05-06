@@ -10,7 +10,7 @@
 <ion-content>
   <div class="card">
     <p>Leader's Name: </p>
-    <h1>Geneva Rivas</h1>
+    <h1 *ngFor="let user of leaderDetails">{{ user.firstname + ' ' + user.lastname}}</h1>
 
     <div *ngIf="groupMembers.length == 0" style="text-align: center;">
       <ion-spinner style="width: 5em; height: 5em;" name="crescent"></ion-spinner>

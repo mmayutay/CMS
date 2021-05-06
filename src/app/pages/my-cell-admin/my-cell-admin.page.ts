@@ -72,7 +72,6 @@ export class MyCellAdminPage implements OnInit {
     role.then((userRole: any) => {
       this.role = this.roleConverter(userRole)
     })
-    console.log(this.role)
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.dataRequest.returnCellgroupTheSameRole(res).subscribe(data => {
           this.members = data
