@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { LoadingController, MenuController } from '@ionic/angular';
 // import { AlertController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { UserData } from '../../providers/user-data';
@@ -29,7 +29,8 @@ export class LoginPage {
     public router: Router,
     private request: RequestsService,
     private alertControl: AlertController,
-    private dataRequest: DataRequestsService
+    private dataRequest: DataRequestsService,
+    private loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -54,6 +55,7 @@ export class LoginPage {
   }
   
   onLogin() {
+    this.presentLoading()
     this.request.loginService(this.login).subscribe((res: any) => {
       console.log(res)
       if (res != null) {
@@ -67,6 +69,7 @@ export class LoginPage {
       }
     })
   }
+  
   async presentAlert() {
     const alert = await this.alertControl.create({
       cssClass: 'my-custom-class',
@@ -76,6 +79,33 @@ export class LoginPage {
     });
 
     await alert.present();
+  }
+
+  async forgotPassword() {
+    const alert = await this.alertControl.create({
+      header: "Notice",
+      message: "Contact Admin for Forgot Password",
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 3000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+
+
+  onForgotPassword() {
+    this.forgotPassword();
   }
 
   getTheUsersCurrentRole(roleID, currentuser) {

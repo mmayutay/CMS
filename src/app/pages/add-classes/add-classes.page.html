@@ -11,8 +11,7 @@
             <form #addEventsForm="ngForm" novalidate>
                 <ion-list lines="none">
                     <ion-item>
-                        <ion-select placeholder="Select Training" (ionChange)="getIDSelectedTraining($event)"
-                            okText="Okay" cancelText="Dismiss">
+                        <ion-select placeholder="Select Training" (ionChange)="getIDSelectedTraining($event)" okText="Okay" cancelText="Dismiss">
                             <ion-select-option *ngFor="let speaker of dataDisplays.trainings" [value]="speaker.id">
                                 {{speaker.title}}</ion-select-option>
                         </ion-select>
@@ -21,12 +20,14 @@
 
                     <ion-item>
                         <!-- <div class="input-container"> -->
-                            <ion-label position="floating">Class Name</ion-label>
-                            <ion-input [(ngModel)]="addClasses.newClasses.Name"
-                                name="Lesson" type="text" required></ion-input>
+                        <ion-label position="floating">Class Name</ion-label>
+                        <ion-input [(ngModel)]="addClasses.newClasses.Name" #Name="ngModel" name="Lesson" type="text" required></ion-input>
                         <!-- </div>&nbsp;&nbsp; -->
-                    </ion-item><br>
-
+                    </ion-item>
+                    <ion-label *ngIf="!Name.valid && Name.touched && Name.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Class Name is required</ion-text>
+                    </ion-label><br>
                     <ion-item>
                             <ion-select placeholder="Choose Type" [(ngModel)]="chosenType" name="type" okText="Okay" cancelText="Dismiss">
                                 <ion-select-option> Attendance </ion-select-option>
@@ -37,9 +38,8 @@
 
                     <ion-item>
                         <!-- <div class="input-container"> -->
-                            <ion-label position="floating">Description</ion-label>
-                            <ion-input [(ngModel)]="addClasses.newClasses.Description" #nameCtrl="ngModel" name="Description" type="text" #Description="ngModel"
-                                required></ion-input>
+                        <ion-label position="floating">Description</ion-label>
+                        <ion-input [(ngModel)]="addClasses.newClasses.Description" #nameCtrl="ngModel" name="Description" type="text" #Description="ngModel" required></ion-input>
                         <!-- </div>&nbsp;&nbsp; -->
                     </ion-item>
                     <ion-label *ngIf="!Description.valid && Description.touched && Description.errors?.required">
@@ -56,7 +56,9 @@
                         <th></th>
                     </tr>
                     <tr *ngFor="let val of allUsers;let i = index" [id]="val.id">
-                        <td><ion-icon name="happy-outline"></ion-icon></td>
+                        <td>
+                            <ion-icon name="happy-outline"></ion-icon>
+                        </td>
                         <td>{{ val.lastname }}</td>
                         <td> {{ val.firstname }} </td>
                         <td>

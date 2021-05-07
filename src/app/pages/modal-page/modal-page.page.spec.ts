@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { ModalPagePage } from './modal-page.page';
@@ -7,7 +7,7 @@ describe('ModalPagePage', () => {
   let component: ModalPagePage;
   let fixture: ComponentFixture<ModalPagePage>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ModalPagePage ],
       imports: [IonicModule.forRoot()]

@@ -48,6 +48,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/modal-page/modal-page.module').then( m => m.ModalPagePageModule)
   },
   {
+    path: 'my-network',
+    loadChildren: () => import('./pages/my-network/my-network-routing.module').then( m => m.MyNetworkPageRoutingModule)
+  },
+  {
     path: 'my-cell-admin',
     loadChildren: () => import('./pages/my-cell-admin/my-cell-admin.module').then( m => m.MyCellAdminPageModule)
   },
@@ -80,7 +84,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/add-classes/add-classes.module').then( m => m.AddClassesPageModule)
   },
   {
-    path: 'update-class-or-trainings/:selectedItemID',
+    path: 'update-class-or-trainings/:typeUpdate/:selectedItemID',
     loadChildren: () => import('./pages/update-class-or-trainings/update-class-or-trainings.module').then( m => m.UpdateClassOrTrainingsPageModule)
   },
   {
@@ -103,14 +107,15 @@ const routes: Routes = [
     path: 'update-selected-training/:id',
     loadChildren: () => import('./pages/update-selected-training/update-selected-training.module').then( m => m.UpdateSelectedTrainingPageModule)
   },
+  // {
+  //   path: 'forgotpassword',
+  //   loadChildren: () => import('./pages/forgotpassword/forgotpassword.module').then( m => m.ForgotpasswordPageModule)
+  // },
   {
-    path: 'my-network',
-    loadChildren: () => import('./pages/my-network/my-network.module').then( m => m.MyNetworkPageModule)
-  },
-  {
-    path: 'forgotpassword',
-    loadChildren: () => import('./pages/forgotpassword/forgotpassword.module').then( m => m.ForgotpasswordPageModule)
+    path: 'resetpassword',
+    loadChildren: () => import('./pages/resetpassword/resetpassword.module').then( m => m.ResetpasswordPageModule)
   }
+
 
 
 
@@ -118,7 +123,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,25 +1,28 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-icon slot="start" class="icon" name="arrow-back" [routerLink]="['/app/tabs/speakers']"></ion-icon>
-    <ion-title>Add New Trainings</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-icon slot="start" class="icon" name="arrow-back" [routerLink]="['/app/tabs/speakers']"></ion-icon>
+        <ion-title>Add New Trainings</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card class="card">
-    <ion-card-content>
-      <form #addEventsForm="ngForm" novalidate>
-        <ion-list lines="none">
-          <ion-item>
-            <!-- <ion-label position="stacked" color="primary">Lastname</ion-label> -->
-            <div class="input-container">
-              <ion-icon class="iconLogin" name="locate-outline"></ion-icon>
-              <ion-input [(ngModel)]="addTrainings.newTrainings.code" placeholder="Code" name="Code" type="text"
-                #Name="ngModel" required></ion-input>
-            </div>&nbsp;&nbsp;
-          </ion-item><br>
+    <ion-card class="card">
+        <ion-card-content>
+            <form #addEventsForm="ngForm" novalidate>
+                <ion-list lines="none">
+                    <ion-item>
+                        <!-- <ion-label position="stacked" color="primary">Lastname</ion-label> -->
+                        <div class="input-container">
+                            <ion-icon class="iconLogin" name="locate-outline"></ion-icon>
+                            <ion-input [(ngModel)]="addTrainings.newTrainings.code" placeholder="Code" name="Code" type="text" #Code="ngModel" required></ion-input>
+                        </div>&nbsp;&nbsp;
+                    </ion-item><br>
+                    <ion-label *ngIf="!Code.valid && Code.touched && Code.errors?.required">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <ion-text color="danger">Code is required</ion-text>
+                    </ion-label><br>
 
-          <!-- <div *ngFor="let in of counter(lessonsToCreate); let i = index">
+                    <!-- <div *ngFor="let in of counter(lessonsToCreate); let i = index">
             <ion-item>
               <div class="input-container">
                 <textarea [(ngModel)]="addTrainings.newTrainings.Lesson[i]" [placeholder]="'Lesson ' + (i+1)"

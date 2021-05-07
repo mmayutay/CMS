@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { DashboardPopoverPage } from './dashboard-popover.page';
@@ -7,7 +7,7 @@ describe('DashboardPopoverPage', () => {
   let component: DashboardPopoverPage;
   let fixture: ComponentFixture<DashboardPopoverPage>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ DashboardPopoverPage ],
       imports: [IonicModule.forRoot()]
