@@ -30,7 +30,7 @@ export class AddClassesPage implements OnInit {
     private request: RequestsService,
     private eventsService: EventTraningServiceService,
     private dataRequest: DataRequestsService,
-    private dataDisplays: DataDisplayProvider,
+    public dataDisplays: DataDisplayProvider,
     private router: Router
   ) { }
 

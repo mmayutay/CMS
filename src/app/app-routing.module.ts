@@ -106,10 +106,6 @@ const routes: Routes = [
   {
     path: 'my-network',
     loadChildren: () => import('./pages/my-network/my-network.module').then( m => m.MyNetworkPageModule)
-  },
-  {
-    path: 'forgotpassword',
-    loadChildren: () => import('./pages/forgotpassword/forgotpassword.module').then( m => m.ForgotpasswordPageModule)
   }
 
 
@@ -118,7 +114,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
