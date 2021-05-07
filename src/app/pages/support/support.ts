@@ -43,7 +43,7 @@ export class SupportPage {
     public request: RequestsService,
     private datarequest: DataRequestsService,
     private attendance: AttendanceAddingService,
-    private leader: CheckTutorial,
+    public leader: CheckTutorial,
     public alertController: AlertController,
     private router: Router,
     private activatedRoute: ActivatedRoute

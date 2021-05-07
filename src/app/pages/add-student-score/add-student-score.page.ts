@@ -38,7 +38,7 @@ export class AddStudentScorePage implements OnInit {
     private eventRequest:  EventTraningServiceService,
     private http: HttpClient,
     private dataRequest: DataRequestsService,
-    private dataDisplays: DataDisplayProvider
+    public dataDisplays: DataDisplayProvider
   ) { 
     // this.loadData();
   }
