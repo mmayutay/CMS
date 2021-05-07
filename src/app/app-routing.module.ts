@@ -48,10 +48,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/modal-page/modal-page.module').then( m => m.ModalPagePageModule)
   },
   {
-    path: 'my-network',
-    loadChildren: () => import('./pages/my-network/my-network-routing.module').then( m => m.MyNetworkPageRoutingModule)
-  },
-  {
     path: 'my-cell-admin',
     loadChildren: () => import('./pages/my-cell-admin/my-cell-admin.module').then( m => m.MyCellAdminPageModule)
   },
@@ -112,8 +108,8 @@ const routes: Routes = [
   //   loadChildren: () => import('./pages/forgotpassword/forgotpassword.module').then( m => m.ForgotpasswordPageModule)
   // },
   {
-    path: 'resetpassword',
-    loadChildren: () => import('./pages/resetpassword/resetpassword.module').then( m => m.ResetpasswordPageModule)
+    path: 'my-network',
+    loadChildren: () => import('./pages/my-network/my-network.module').then( m => m.MyNetworkPageModule)
   }
 
 
