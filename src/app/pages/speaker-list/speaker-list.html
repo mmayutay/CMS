@@ -34,9 +34,16 @@
     <ion-card><br><br>
 
         <div *ngIf="segmentModel === 'Trainings'">
+            <div>
+                <div *ngIf="defaultTraining == ''" style="text-align: center;">
+                    <br><br><br><br>
+                    <img src="../../../assets/data/empty.png" style="width: 50%; height: 50%;">
+                    <h2 style="font-weight: 100;">No training to show!</h2><br>
+                </div>
+            </div>
             <ion-grid fixed>
                 <ion-row>
-                    <ion-item>
+                    <ion-item *ngIf="defaultTraining != ''">
                         <ion-select [placeholder]="defaultTraining" (ionChange)="getIDSelectedTraining($event)"
                             okText="Okay" cancelText="Dismiss">
                             <ion-select-option *ngFor="let speaker of dataDisplays.trainings" [value]="speaker">
@@ -84,11 +91,11 @@
             </ion-grid><br><br>
             <div *ngIf="dataDisplays.lessonsAdded == undefined || dataDisplays.lessonsAdded.length == 0"
                 style="text-align: center;"><br><br>
-                <div *ngIf="dataDisplays.lessonsAdded == undefined">
+                <div *ngIf="dataDisplays.lessonsAdded == undefined && defaultTraining != ''">
                     <ion-spinner name="crescent" style="width: 5em; height: 5em;"></ion-spinner><br>
                     Loading...
                 </div>
-                <div *ngIf="dataDisplays.lessonsAdded != undefined">
+                <div *ngIf="dataDisplays.lessonsAdded != undefined && defaultTraining != ''">
                     <img *ngIf="dataDisplays.lessonsAdded.length == 0" src="../../../assets/data/empty.png"
                         style="width: 50%; height: 50%;">
                     <h2 style="font-weight: 100;">No Lessons found!</h2>
@@ -97,8 +104,15 @@
         </div>
 
         <div *ngIf="segmentModel === 'Classes'">
+            <div>
+                <div *ngIf="defaultTraining == ''" style="text-align: center;">
+                    <br><br><br><br>
+                    <img src="../../../assets/data/empty.png" style="width: 50%; height: 50%;">
+                    <h2 style="font-weight: 100;">No training to show!</h2><br>
+                </div>
+            </div>
             <ion-grid fixed>
-                <ion-row>
+                <ion-row *ngIf="defaultTraining != ''">
                     <ion-item>
                         <ion-select [placeholder]="defaultTraining" (ionChange)="returnClassesOfTraining($event.target.value)"
                             okText="Okay" cancelText="Dismiss">
@@ -135,7 +149,7 @@
             </ion-grid><br><br>
             <div *ngIf="classesOfSelectedTraining == undefined || classesOfSelectedTraining.length == 0"
                 style="text-align: center;"><br><br>
-                <div *ngIf="classesOfSelectedTraining == undefined">
+                <div *ngIf="classesOfSelectedTraining == undefined && defaultTraining != ''">
                     <ion-spinner name="crescent" style="width: 5em; height: 5em;"></ion-spinner><br>
                     Loading...
                 </div>
@@ -150,8 +164,13 @@
 
         <!-- Display Records -->
         <div *ngIf="segmentModel == 'Records'" class="ion-margin">
+            <div *ngIf="defaultTraining == ''" style="text-align: center;">
+                <br><br><br><br>
+                <img src="../../../assets/data/empty.png" style="width: 50%; height: 50%;">
+                <h2 style="font-weight: 100;">No Record to show!</h2><br><br><br><br>
+            </div>
             <ion-grid fixed>
-                <ion-row>
+                <ion-row *ngIf="defaultTraining != ''">
                     <ion-item>
                         <!-- This area is for select training  -->
                         <ion-icon name="accessibility-outline"></ion-icon>
@@ -190,7 +209,7 @@
                     </ion-item>
                 </ion-row>
             </ion-grid>
-            <div><br>
+            <div *ngIf="defaultTraining != ''"><br>
                 <div *ngIf="dataDisplays.allStudentsOfSelectedClass == undefined" style="text-align: center;">
                     <br><br>
                     <img src="../../../assets/data/empty.png" style="width: 40%; height: 40%;">
@@ -224,16 +243,18 @@
         <ion-fab-button>
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
-        <ion-fab-list side="top" *ngIf="segmentModel == 'Classes'">
-            <ion-card class="fabBtn" (click)="navigateAddClassOfLesson()">
-                <ion-icon color="primary" style="font-size: 25px;" name="add-outline"></ion-icon>
-                <ion-label>Classes</ion-label>
-            </ion-card>
-            <!-- <ion-fab-button >
-                <ion-icon color="primary" style="font-size: 25px;" name="add-outline"></ion-icon>
-                <ion-label>Class</ion-label>
-            </ion-fab-button> -->
-        </ion-fab-list>
+        <div *ngIf="defaultTraining != ''">
+            <ion-fab-list side="top" *ngIf="segmentModel == 'Classes'">
+                <ion-card class="fabBtn" (click)="navigateAddClassOfLesson()">
+                    <ion-icon color="primary" style="font-size: 25px;" name="add-outline"></ion-icon>
+                    <ion-label>Classes</ion-label>
+                </ion-card>
+                <!-- <ion-fab-button >
+                    <ion-icon color="primary" style="font-size: 25px;" name="add-outline"></ion-icon>
+                    <ion-label>Class</ion-label>
+                </ion-fab-button> -->
+            </ion-fab-list>
+        </div>
 
         <ion-fab-list side="top" *ngIf="segmentModel == 'Trainings'">
             <ion-card class="fabBtn" (click)="addEventOrClass()">
@@ -248,10 +269,12 @@
             </ion-card>
         </ion-fab-list>
     </ion-fab>
-    <ion-fab *ngIf="segmentModel == 'Records' && selectedTrainingID.instructor == currentUsersId" vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button *ngIf="selectedClass != undefined" (click)="updateScoreOrAddStudent()">
-            <ion-icon name="pencil-outline"></ion-icon>
-        </ion-fab-button>
+    <ion-fab *ngIf="segmentModel == 'Records'" vertical="bottom" horizontal="end" slot="fixed">
+        <div *ngIf="selectedTrainingID.instructor == currentUsersId">
+            <ion-fab-button *ngIf="selectedClass != undefined" (click)="updateScoreOrAddStudent()">
+                <ion-icon name="pencil-outline"></ion-icon>
+            </ion-fab-button>
+        </div>
     </ion-fab>
 
 </ion-content>

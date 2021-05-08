@@ -84,11 +84,12 @@ export class SpeakerListPage {
       this.currentUsersId = id
       const trainings = this.eventsService.getAllTrainingsByAnyUser()
       trainings.subscribe((data: any) => {
-        console.log("Training Data:: ",data);
-        this.defaultTraining = data[0].title
-        this.selectedTrainingID = data[0]
-        this.returnAllLessons(data[0].id)
-        this.returnClassesOfTraining(data[0].id)
+        if(data.length != 0) {
+          this.defaultTraining = data[0].title
+          this.selectedTrainingID = data[0]
+          this.returnAllLessons(data[0].id)
+          this.returnClassesOfTraining(data[0].id)
+        }
       })
     })
   }

@@ -48,7 +48,7 @@ export class AddEventPage implements OnInit {
 
   showDate(type) {
     if(type == 'start_time'){
-      this.start_time = new Date(this.addEvents.newEvents.Start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+      this.start_time = this.addEvents.newEvents.Start_date + ', ' + new Date(this.addEvents.newEvents.Start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
     }else if(type == 'end_time') {
       this.end_time = new Date(this.addEvents.newEvents.End_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
     }

@@ -68,6 +68,10 @@ export class ReportingsPage implements OnInit {
   }
 
   ngOnInit() {
+    var time = "2021-05-11, 08:00"
+    var test = new Date(time).getHours()
+    console.log(test)
+
     this.getTheCurrentUser();
     this.leaders.typeChoice(this.leaders.choice)
     const user = this.request.getTheCurrentUserIdInStorage()
@@ -93,7 +97,6 @@ export class ReportingsPage implements OnInit {
   }
 
   getData(members) {
-    console.log(members.target.value.id)
     this.selectedLeader = members.target.value.id
     this.leaders.getMembersOfCertainLeader(members.target.value.id)
     // console.log(members.target.value)
@@ -206,7 +209,6 @@ export class ReportingsPage implements OnInit {
     this.currentDate = selectedDate.target.value
     const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
     members.subscribe((response: any) => {
-      console.log(response)
       response.forEach(element => {
         if(this.typeChoice == 'Weekly') {
           this.returnGroupsAttendance(element, this.calendar.dates(new Date(this.currentDate)))
@@ -249,7 +251,7 @@ export class ReportingsPage implements OnInit {
         dates.forEach(day => {
           if ((new Date(attendance.date).getMonth() + '-' + new Date(attendance.date).getDate() + '-' + new Date(attendance.date).getFullYear())
             ==
-            (new Date(day).getMonth() + '-' + new Date(day).getDate() + '-' + new Date(day).getFullYear())
+            (new Date(day).getMonth() + '-' + (new Date(day).getDate() - 1) + '-' + new Date(day).getFullYear())
           ) {
             eventCounter += 1
           }
