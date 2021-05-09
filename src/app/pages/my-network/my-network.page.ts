@@ -19,8 +19,16 @@ export class MyNetworkPage implements OnInit {
   ngOnInit() {
     const leader = this.request.getTheCurrentUserIdInStorage()
     leader.then((id: any) => {
-      this.getMembersOfNetwork(id)
       this.getUserDetails(id)
+      const userAccount = this.dataRequest.getCurrentUserAccount(id)
+      userAccount.subscribe((data: any) => {
+        console.log(data)
+        if(data.roles == 12 || data.roles == 1) {
+          this.getMembersOfNetwork(id)
+        }else {
+          this.getMembersOfNetwork(this.leaderDetails[0].leader)
+        }
+      })
     })
 
   }

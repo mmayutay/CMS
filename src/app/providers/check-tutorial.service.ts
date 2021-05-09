@@ -19,7 +19,7 @@ export class CheckTutorial implements CanLoad {
   public sundayCounter = 0
   public certainLeadersID = ""
   public leaders = []
-  public members = []
+  public members;
   public chosenDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + '-'
   public attendanceEventsAndSC = []
   public eventsArray = []
@@ -104,6 +104,7 @@ export class CheckTutorial implements CanLoad {
             this.members.push({ user: element, attendance: 0, event: 0 })
           })
         } else {
+          console.log(data)
           data.forEach(element => {
             this.getSundayAttendance(element)
           })
@@ -221,7 +222,7 @@ export class CheckTutorial implements CanLoad {
     } else {
       this.eventCounter = 52
     }
-    this.members.length = 0
+    this.members = []
   }
 
   // typeChoice(choice, chosenDate) {

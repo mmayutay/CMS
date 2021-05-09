@@ -28,7 +28,7 @@ export class SupportPage {
     id: ''
   };
   public members;
-  public groupMembers = [];
+  public groupMembers;
   public paginationCount = 5
   public count = 0
   public classes;

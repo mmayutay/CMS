@@ -13,7 +13,7 @@ export class AttendanceAddingService {
     public eventOwner = ''
     public multipleMembersAttendanceCG = []
     public multipleMembersAttendanceSC = []
-    public url = "https://thesisprojectgroup8.herokuapp.com/api/"
+    public url = "http://localhost:8000/api/"
     public currentDate = new Date().getMonth() + '/' + new Date().getDate() + '/' + new Date().getFullYear();
     public hasEvent = false
     public dateOfEvents = {

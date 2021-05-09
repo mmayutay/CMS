@@ -170,5 +170,6 @@ export class SchedulePage implements OnInit {
       this.shownSessions = this.user.favorites
       this.groups = this.user.favorites
     }
+    console.log(this.groups)
   }
 }

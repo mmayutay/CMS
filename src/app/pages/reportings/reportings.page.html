@@ -40,15 +40,23 @@
                 <ion-col size-xs="2">CG</ion-col>
                 <ion-col size-xs="2">SC</ion-col>
             </ion-row><br>
-            <div *ngIf="leaders.members.length != 0">
-                <ion-row *ngFor="let member of leaders.members;let i = index">
-                    <ion-col size-xs="6">{{ member.user.lastname }}, {{ member.user.firstname }}</ion-col>
-                    <ion-col size-xs="2"> {{ member.event }}/{{ 1 * leaders.eventCounter }}</ion-col>
-                    <ion-col size-xs="2">{{ member.attendance }}/{{ leaders.eventCounter }}</ion-col>
-                </ion-row>
+            <div *ngIf="leaders.members != undefined">
+                <div *ngIf="leaders.members.length != 0">
+                    <ion-row *ngFor="let member of leaders.members;let i = index">
+                        <ion-col size-xs="6">{{ member.user.lastname }}, {{ member.user.firstname }}</ion-col>
+                        <ion-col size-xs="2"> {{ member.event }}/{{ 1 * leaders.eventCounter }}</ion-col>
+                        <ion-col size-xs="2">{{ member.attendance }}/{{ leaders.eventCounter }}</ion-col>
+                    </ion-row>
+                </div>
             </div>
-            <div *ngIf="leaders.members.length == 0">
+            <div *ngIf="leaders.members == undefined">
                 <ion-spinner style="width: 5em; height: 5em;" name="crescent"></ion-spinner>
+            </div>
+            <div *ngIf="leaders.members != undefined">
+                <div *ngIf="leaders.members.length == 0">
+                    <img src="../../../assets/data/empty.png" style="width: 40%; height: 40%;">
+                    <h2 style="font-weight: 100;">Nothing to show!</h2>
+                </div>
             </div>
         </ion-grid>
         <!-- <div class="pagination">
