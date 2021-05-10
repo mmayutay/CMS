@@ -9,7 +9,7 @@
     <ion-item>
         <div>
             <ion-label position="floating">Select Date</ion-label>
-            <ion-datetime [value]="currentDate" [(ngModel)]="leader.chosenDate" displayFormat="DDDD MMM D, YYYY"
+            <ion-datetime [value]="currentDate" [(ngModel)]="leaders.chosenDate" (ionChange)="returnMembers()" displayFormat="DDDD MMM D, YYYY"
                 min="2000" max="2021"></ion-datetime>
         </div>&nbsp;&nbsp;
     </ion-item>
@@ -35,10 +35,10 @@
             </ion-row><br>
             <div *ngIf="groupMembers != undefined">
                 <div *ngIf="groupMembers.length != 0">
-                    <ion-row *ngFor="let member of groupMembers">
+                    <ion-row *ngFor="let member of groupMembers; let i = index">
                         <ion-col size-xs="6">{{member.lastname}}, {{member.firstname}} </ion-col>
                         <ion-col size-xs="2">
-                            <ion-checkbox (ionChange)="addEventsAttendance(member)"></ion-checkbox>
+                            <ion-checkbox (ionChange)="addEventsAttendance(member)" [checked]="alreadyAttendedArray[i]" [disabled]="alreadyAttendedArray[i]"></ion-checkbox>
                         </ion-col>
                         <ion-col *ngIf="isSunday" size-xs="2">
                             <ion-checkbox (ionChange)="addSundayCelebAttendance(member)"></ion-checkbox>

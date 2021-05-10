@@ -57,6 +57,9 @@ export class ReportingsPage implements OnInit {
   public classes;
   pageOfItems: Array<any>;
 
+
+  public currentUserRole = ''
+
   constructor(
     private datarequest: DataRequestsService,
     private request: RequestsService,
@@ -68,15 +71,11 @@ export class ReportingsPage implements OnInit {
   }
 
   ngOnInit() {
-    var time = "2021-05-11, 08:00"
-    var test = new Date(time).getHours()
-    console.log(test)
-
     this.getTheCurrentUser();
     this.leaders.typeChoice(this.leaders.choice)
-    const user = this.request.getTheCurrentUserIdInStorage()
-    user.then(id => {
-      // this.leaders.getMembersOfCertainLeader({target: {value: {id: id}}})
+    const user = this.request.getTheUserRoleFromTheStorage()
+    user.then(role => {
+      this.currentUserRole = role
     })
   }
 
@@ -269,6 +268,7 @@ export class ReportingsPage implements OnInit {
       })
       this.leaders.members.push({user: member, event: eventCounter, attendance: sundayCounter})
     })
+    console.log(this.leaders.members)
   }
 
   

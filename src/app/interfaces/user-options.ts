@@ -6,13 +6,15 @@ import { RequestsService } from "../logInAndSignupService/requests.service";
   providedIn: "root",
 })
 export class calendar {
-  public membersAttendance;
+  public membersAttendance = {
+    currentEventsAttendance: [],
+    currentUserAttendance: []
+  };
   public membersOfAGroup;
   public statsAttendance = [];
   public activeMember = [];
   public inactiveMember = [];
   public studentsNames = [];
-
 
   constructor(
     private dataRequest: DataRequestsService,
@@ -115,6 +117,7 @@ export class calendar {
 
   // Kini siya nga function kay i return ang statistics sa whole year 
   returnStatisticsForAYear(dataAttendance: any, year: number) {
+    console.log('Test')
     var arrayOfStats = []
     for (let index = 0; index < 12; index++) {
       var month = this.getMonthlyStats(dataAttendance, this.convertMonth(index), year)
@@ -213,6 +216,7 @@ export class calendar {
 
   // get the week of the month
   getWeekOfMonth(arrayOfDates: any, week: number, monthAndYear: string) {
+    console.log(arrayOfDates)
     var arrayOfPercent = []
     var eventCounter = 0
     this.returnWeek(monthAndYear, week).forEach(event => {

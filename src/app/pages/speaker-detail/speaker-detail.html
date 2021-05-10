@@ -31,7 +31,7 @@
             </tr>
         </table>
     </ion-card>
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab *ngIf="author == currentUser">
         <ion-fab-button>
             <ion-icon name="pencil-outline" (click)="navigateToAddStudent()"></ion-icon>
         </ion-fab-button>

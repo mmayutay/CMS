@@ -100,7 +100,8 @@ export class SignupPage {
   }
   roleDeclaration() {
     this.request.getTheUserRoleFromTheStorage().then((result: any) => {
-      this.role = Number(result) * 12
+      this.role = Number(result)
+      console.log(this.role)
       // this.dataRequest.getNetworkWhereIBelong(result).subscribe(data => {
       //   this.role = data[0].roles
       // })
