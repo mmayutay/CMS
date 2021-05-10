@@ -7,14 +7,14 @@ import { UserData } from '../providers/user-data'
   providedIn: 'root'
 })
 export class DataRequestsService {
-  public url = "http://localhost:8000/api/"
+  public url = "https://thesisprojectgroup8.herokuapp.com/api/"
   public currentUserRole = ''
   public roleToLogged = ""
 
   constructor(
     private request: HttpClient,
     private userData: UserData
-  ) {  }
+  ) { }
 
 
   // Kini siya nga function kay i return ang tanan nga user from admin to members 
@@ -24,7 +24,7 @@ export class DataRequestsService {
 
   //This will get all the users of a certain group
   getAllMembersOfAGroup(leaderID) {
-    return this.request.post(this.url + "return-members-group", {leaderID: leaderID})
+    return this.request.post(this.url + "return-members-group", { leaderID: leaderID })
   }
 
   //This will store the data if the current user already had his/her attendance
@@ -49,27 +49,27 @@ export class DataRequestsService {
   }
 
   displayAuxiliary(auxiliaryValue) {
-    return this.request.post(this.url + "profile/auxiliary" , auxiliaryValue);
+    return this.request.post(this.url + "profile/auxiliary", auxiliaryValue);
   }
 
   displayMinistry(ministryValue) {
-    return this.request.post( this.url + "profile/ministries" , ministryValue);
+    return this.request.post(this.url + "profile/ministries", ministryValue);
   }
 
   ministryList() {
-    return this.request.get( this.url + 'ministries/list');
+    return this.request.get(this.url + 'ministries/list');
   }
 
   addMinistryMember(id, ministry) {
-    return this.request.post( this.url + "ministries/add/"+id.id, {ministries: ministry});
+    return this.request.post(this.url + "ministries/add/" + id.id, { ministries: ministry });
   }
 
-  getMyCellgroup(leaderId){
+  getMyCellgroup(leaderId) {
     return this.request.post(this.url + 'leader', leaderId)
   }
 
   getNetworkWhereIBelong(roleID) {
-    return this.request.post(this.url + 'currentUserRole', {id: roleID})
+    return this.request.post(this.url + 'currentUserRole', { id: roleID })
   }
 
   // Kini siya nga function kay kuhaon niya ang the same niya ug role 
@@ -77,8 +77,8 @@ export class DataRequestsService {
     return this.request.get(this.url + 'get-the-same-role/' + userRoleID)
   }
 
-  getMyNetwork(myRole){
-    return this.request.post(this.url + 'network', {role: myRole})
+  getMyNetwork(myRole) {
+    return this.request.post(this.url + 'network', { role: myRole })
   }
 
   //for Admin request
@@ -93,15 +93,15 @@ export class DataRequestsService {
 
   //data to pass is the current user's id
   getTheCurrentUserAttendance(currentUserId, month) {
-    return this.request.post(this.url + 'current-user-attendance', {currentUserId: currentUserId, month: month});
+    return this.request.post(this.url + 'current-user-attendance', { currentUserId: currentUserId, month: month });
   }
   //This function will get the current users attendance through his/her chosed year 
   usersAttendanceChosenYear(monthChose, yearChose, currentUserId) {
-    return this.request.post(this.url + 'user-attendance-year-selected', {currentUserId: currentUserId, month: monthChose, year: yearChose})
+    return this.request.post(this.url + 'user-attendance-year-selected', { currentUserId: currentUserId, month: monthChose, year: yearChose })
   }
 
   //This is for the admin to get all VIP Users
-  allVipUsers () {
+  allVipUsers() {
     return this.request.get(this.url + 'vip-users')
   }
 
@@ -117,7 +117,7 @@ export class DataRequestsService {
 
   //Function that get the current user's attendance in both event and sunday celebration
   getEventAndSCAttendance(currentUserId) {
-    return this.request.post(this.url + 'viewAttendancesOfSCandEvents', {currentUserId: currentUserId})
+    return this.request.post(this.url + 'viewAttendancesOfSCandEvents', { currentUserId: currentUserId })
   }
 
   //This function was used to get all the ID of all the only member users inside the collection
@@ -127,26 +127,26 @@ export class DataRequestsService {
 
   //This function will add the user to inactive where his/her attendance for sunday celebration is less than 4
   addMemberToInactive(user) {
-    return this.request.post(this.url + 'addInactiveUser', {memberId: user.id, active: user.boolean})
+    return this.request.post(this.url + 'addInactiveUser', { memberId: user.id, active: user.boolean })
   }
 
   //This function will fetch all member users from the database except to the VIP members
   getRegularMembers(code) {
     return this.request.get(this.url + 'regular-members/' + code)
-  } 
+  }
 
   //This will let the leader to fetch all the attendance of his/her member
   getMemberSCAndEventsAttendance(currentUserId) {
-    return this.request.post(this.url + 'leader-sc-cg', {currentUserId: currentUserId})
+    return this.request.post(this.url + 'leader-sc-cg', { currentUserId: currentUserId })
   }
 
   addClassStudent(id, classes) {
-    return this.request.post( this.url + "classes/add/"+ id.id, {classes: classes});
+    return this.request.post(this.url + "classes/add/" + id.id, { classes: classes });
   }
 
   // A function to get the students data
   getStudentsData(id) {
-    return this.request.get( this.url + 'student-trainings-or-class/get-student/' + id );
+    return this.request.get(this.url + 'student-trainings-or-class/get-student/' + id);
   }
 
   getAccount(id) {
