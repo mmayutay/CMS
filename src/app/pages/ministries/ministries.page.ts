@@ -8,7 +8,6 @@ import { filter } from 'rxjs/operators';
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 // import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 
 import { ModalController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
@@ -98,12 +97,12 @@ export class MinistriesPage implements AfterViewInit {
 
   iconAdd() {
     console.log("dfdfdfdfd");
-    
+
     this.addClicked = true;
     console.log(this.addClicked);
   }
 
-  addMember(memberId) {    
+  addMember(memberId) {
     this.dataRequest.getTheCurrentUser({ userID: memberId.id }).subscribe(data => {
       this.storage.push(data[0])
     })

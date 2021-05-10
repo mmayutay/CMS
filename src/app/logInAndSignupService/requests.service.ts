@@ -13,17 +13,17 @@ export class RequestsService {
   public storageKeyVIP = 'is-vip'
   public boolean = true
   public userDataLength;
-  public url = "http://localhost:8000/api/"
+  public url = "https://thesisprojectgroup8.herokuapp.com/api/"
 
   constructor(
     private http: HttpClient,
     public userdata: UserData
   ) { }
 
-  loginService(userData){
+  loginService(userData) {
     return this.http.post(this.url + 'login', userData)
   }
-  
+
   logoutService() {
     return this.userdata.storage.clear()
   }
@@ -36,12 +36,12 @@ export class RequestsService {
     return this.userdata.storage.get(this.storageKeyUserId)
   }
 
-  signUp(userInfo){
+  signUp(userInfo) {
     return this.http.post(this.url + 'sign-up', userInfo)
   }
 
-  updateInfo(userDetails){
-    console.log("User Details:: ",userDetails);
+  updateInfo(userDetails) {
+    console.log("User Details:: ", userDetails);
     return this.http.post(this.url + 'updateUser', userDetails)
   }
 
@@ -62,7 +62,7 @@ export class RequestsService {
     return this.userdata.storage.get(this.storageKeyVIP)
   }
 
-  cellGroup(){
+  cellGroup() {
     return this.http.get(this.url + 'cellgroup')
   }
 
@@ -91,7 +91,7 @@ export class RequestsService {
     return this.http.get(this.url + 'send-code/' + value)
   }
 
-  resetPass(password){
+  resetPass(password) {
     console.log("User Account:: ", password)
     return this.http.post(this.url + 'reset-password', password)
   }
