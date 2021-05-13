@@ -110,6 +110,10 @@ const routes: Routes = [
   {
     path: 'my-network',
     loadChildren: () => import('./pages/my-network/my-network.module').then( m => m.MyNetworkPageModule)
+  },
+  {
+    path: 'resetpassword',
+    loadChildren: () => import('./pages/resetpassword/resetpassword.module').then( m => m.ResetpasswordPageModule)
   }
 
 
