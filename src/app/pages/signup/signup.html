@@ -13,7 +13,7 @@
                     <ion-item>
                         <!-- <ion-label position="stacked" color="primary">Lastname</ion-label> -->
                         <div class="input-container">
-                            <ion-icon class="iconLogin" name="person"></ion-icon>
+                            <ion-icon class="iconLogin" name="person" [routerLink]="['/resetpassword']"></ion-icon>
                             <input [(ngModel)]="signup.newUser.Lastname" class="input" placeholder="Lastname"
                                 name="Lastname" type="text" #lastname="ngModel" required />
                         </div>&nbsp;&nbsp;

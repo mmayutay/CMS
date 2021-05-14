@@ -21,6 +21,7 @@ import { DashboardPopoverPage } from './pages/dashboard-popover/dashboard-popove
 
 import { MyNetworkPage } from './pages/my-network/my-network.page'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ResetpasswordPage } from './pages/resetpassword/resetpassword.page';
 
 
 
@@ -45,7 +46,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AuxiliaryPage,
     AccountPage,
     ModalPagePage,
-    MyNetworkPage
+    MyNetworkPage, 
+    ResetpasswordPage
   ],
   entryComponents: [DashboardPopoverPage, SpeakerFilterPage],
   
