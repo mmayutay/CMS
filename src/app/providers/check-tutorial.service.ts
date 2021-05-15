@@ -19,7 +19,7 @@ export class CheckTutorial implements CanLoad {
   public sundayCounter = 0
   public certainLeadersID = ""
   public leaders = []
-  public members = []
+  public members;
   public chosenDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + '-'
   public attendanceEventsAndSC = []
   public eventsArray = []
@@ -92,11 +92,11 @@ export class CheckTutorial implements CanLoad {
 
   // This function is to get all the members of a certain leader
   getMembersOfCertainLeader(id) {
+    console.log(id)
     this.members.length = 0
     this.certainLeadersID = id
     const members = this.dataRequest.getMyCellgroup({ leaderid: id })
     members.subscribe((data: any) => {
-      console.log(data)
       const attendance = this.dataRequest.getMemberSCAndEventsAttendance(id)
       attendance.subscribe((response: any) => {
         if (response[0].currentEventsAttendance.length == 0 && response[0].currentUserAttendance.length == 0) {
@@ -221,7 +221,7 @@ export class CheckTutorial implements CanLoad {
     } else {
       this.eventCounter = 52
     }
-    this.members.length = 0
+    this.members = []
   }
 
   // typeChoice(choice, chosenDate) {

@@ -10,6 +10,7 @@ import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
 export class MyNetworkPage implements OnInit {
   public groupMembers = []
   public leaderDetails = []
+  public currentUserRole = ''
 
   constructor(
     private dataRequest: DataRequestsService,
@@ -17,10 +18,21 @@ export class MyNetworkPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    const currentUserRole = this.request.getTheUserRoleFromTheStorage()
+    currentUserRole.then(role => {
+      this.currentUserRole = role
+    })
     const leader = this.request.getTheCurrentUserIdInStorage()
     leader.then((id: any) => {
-      this.getMembersOfNetwork(id)
-      this.getUserDetails(id)
+      const userAccount = this.dataRequest.getCurrentUserAccount(id)
+      userAccount.subscribe((data: any) => {
+        if(data.roles == 12 || data.roles == 1) {
+          this.getMembersOfNetwork(id)
+          this.getUserDetails(id)
+        }else {
+          this.getCurrentUser(id)
+        }
+      })
     })
 
   }
@@ -39,6 +51,16 @@ export class MyNetworkPage implements OnInit {
     userDetails.subscribe((response: any) => {
       console.log(response)
       this.leaderDetails = response
+      
+    })
+  }
+
+  // Kini siya nga function kay kuhaon ang details sa curret user 
+  getCurrentUser(userid) {
+    const currentUser = this.dataRequest.getTheCurrentUser({userID: userid})
+    currentUser.subscribe((response: any) => {
+      this.getMembersOfNetwork(response[0].leader)
+      this.getUserDetails(response[0].leader)
     })
   }
 

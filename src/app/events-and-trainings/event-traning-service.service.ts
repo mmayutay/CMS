@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class EventTraningServiceService {
-  public url = "https://thesisprojectgroup8.herokuapp.com/api/"
+  public url = "http://localhost:8000/api/"
 
   constructor(
     private http: HttpClient
@@ -104,7 +104,7 @@ export class EventTraningServiceService {
 
   // Kini siya nga function kay mag add siya ug class at the same time kay mga students sa created classes 
   addClassAndStudents(className) {
-    return this.http.post(this.url + 'trainings-and-classes/add-classes-with-students', {className: className})
+    return this.http.post(this.url + 'trainings-and-classes/add-classes-with-students', { className: className })
   }
 
   // Kini siya function kay i update ang details sa selected class 
@@ -134,7 +134,7 @@ export class EventTraningServiceService {
 
   // Kini siya nga function kay i add ang selected user dn himuon siya nga student anang certain class 
   addStudentToStudentCollection(studentsData) {
-    return this.http.post(this.url + 'trainings-and-classes/add-students-to-class', {userID: studentsData})
+    return this.http.post(this.url + 'trainings-and-classes/add-students-to-class', { userID: studentsData })
   }
 
   // Kini siya nga function kay mag add ug record sa certain student 
@@ -154,7 +154,7 @@ export class EventTraningServiceService {
 
   // Kini siya nga function kay i update ang score sa certain student 
   updateScore(studentId, updatedScore, classID) {
-    return this.http.get(this.url + 'trainings-and-classes/update-students-score/' + studentId +'/' + updatedScore + '/' + classID)
+    return this.http.get(this.url + 'trainings-and-classes/update-students-score/' + studentId + '/' + updatedScore + '/' + classID)
   }
 
   // Kini siya nga function kay mag delete ug lesson sa certain training 

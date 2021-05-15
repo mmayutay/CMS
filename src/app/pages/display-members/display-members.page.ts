@@ -30,19 +30,14 @@ export class DisplayMembersPage implements OnInit {
     ).subscribe(params => {
       this.content = params.content;
       console.log("Member Content:: ", this.content);
+      this.returnActiveMembers()
 
       if (this.content == "VIP Members") {
         this.listAllTheMembers = this.getTheVipMembers()
-        console.log(this.listAllTheMembers)
       } else if (this.content == "Regular Members") {
         this.listAllTheMembers = this.getTheRegularMembers()
-      } else if (this.content == "Inactive Members") {
-        this.listAllTheMembers = this.inactive
       }
-      else {
-        this.listAllTheMembers = this.active
-      }
-    });
+    })
   }
 
   userIsActiveOrNot() {
@@ -92,19 +87,19 @@ export class DisplayMembersPage implements OnInit {
         })
       })
     }
-    if (counter >= 4) {
-      this.dataRequest.addMemberToInactive({ id: owner, boolean: true }).subscribe(result => {
-        this.dataRequest.getTheCurrentUser({ userID: result[0].userId }).subscribe(data => {
-          this.active.push(data[0].firstname + " " + data[0].lastname)
-        })
-      })
-    } else {
-      this.dataRequest.addMemberToInactive({ id: owner, boolean: false }).subscribe(result => {
-        this.dataRequest.getTheCurrentUser({ userID: result[0].userId }).subscribe(data => {
-          this.inactive.push(data[0].firstname + " " + data[0].lastname)
-        })
-      })
-    }
+    // if (counter >= 4) {
+    //   this.dataRequest.addMemberToInactive({ id: owner, boolean: true }).subscribe(result => {
+    //     this.dataRequest.getTheCurrentUser({ userID: result[0].userId }).subscribe(data => {
+    //       this.active.push(data[0].firstname + " " + data[0].lastname)
+    //     })
+    //   })
+    // } else {
+    //   this.dataRequest.addMemberToInactive({ id: owner, boolean: false }).subscribe(result => {
+    //     this.dataRequest.getTheCurrentUser({ userID: result[0].userId }).subscribe(data => {
+    //       this.inactive.push(data[0].firstname + " " + data[0].lastname)
+    //     })
+    //   })
+    // }
   }
 
   counter(i: number) {
@@ -113,15 +108,9 @@ export class DisplayMembersPage implements OnInit {
   
   //This function will return all VIP Members
   getTheVipMembers() {
-    var arrayVipMembers = []
-    var partialDataHandler;
     this.dataRequest.allVipUsers().subscribe(data => {
-      partialDataHandler = data
-      partialDataHandler.forEach(element => {
-        arrayVipMembers.push(element.firstname + " " + element.lastname)
-      })
+      this.listAllTheMembers = data
     })
-    return arrayVipMembers;
   }
   //This function will return all Regular Members 
   getTheRegularMembers() {
@@ -133,10 +122,29 @@ export class DisplayMembersPage implements OnInit {
     this.dataRequest.getRegularMembers(userRole).subscribe(result => {
       regularMembers = result
       regularMembers.forEach(element => {
-        arrayRegularMembers.push(element.firstname + ' ' + element.lastname)
+        arrayRegularMembers.push(element)
       });
     })
     return arrayRegularMembers;
+  }
+
+  // Kini siya nga functino kay i return ang active members 
+  returnActiveMembers() {
+    if(this.content == 'Active Members') {
+      const activeMembers = this.dataRequest.returnActiveAndInactiveUsers('true')
+      activeMembers.subscribe((response: any) => {
+        this.listAllTheMembers = response
+      })
+    }else if(this.content == 'Inactive Members') {
+      const inactiveMembers = this.dataRequest.returnActiveAndInactiveUsers('false')
+      inactiveMembers.subscribe((response: any) => {
+        this.listAllTheMembers = response
+      }) 
+    }else if(this.content == 'VIP Members') {
+      this.getTheVipMembers()
+    }else {
+      this.listAllTheMembers = this.getTheRegularMembers()
+    }
   }
 }
 

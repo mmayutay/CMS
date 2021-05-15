@@ -82,12 +82,17 @@ export class DashboardPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.request.getTheCurrentUserIdInStorage().then((id) => {
-      this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
-        this.calendar.returnAttendance(data)
-        this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
-      });
-    });
+    const userRole = this.request.getTheUserRoleFromTheStorage()
+    userRole.then(role => {
+      if(role != '1') {
+        this.request.getTheCurrentUserIdInStorage().then((id) => {
+          this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
+            this.calendar.returnAttendance(data)
+            this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
+          });
+        })
+      }
+    })
     
     this.userIsActiveOrNot();
     var slides = document.querySelector("ion-slides");

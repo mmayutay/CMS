@@ -30,7 +30,7 @@
   </div>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
-    <ion-fab-button routerLink="/support/my-network">
+    <ion-fab-button *ngIf="currentUserRole == '12' || currentUserRole == '1'" routerLink="/support/my-network">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

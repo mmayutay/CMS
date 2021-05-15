@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { AttendanceAddingService } from '../../request-to-BE/attendance-adding.service';
 import { CheckTutorial } from '../../providers/check-tutorial.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EventAndSCAttendance } from 'app/events-and-trainings/event-and-sc-attendance';
 
 
 @Component({
@@ -15,9 +16,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./support.scss'],
 })
 export class SupportPage {
+  public alreadyAttendedArray = []
+
   public nextRoute = 'reportings'
   public isSunday = false
-  public currentDate = (new Date(this.leader.chosenDate).getMonth() + 1) + '/' + new Date(this.leader.chosenDate).getDate() + '/' + new Date(this.leader.chosenDate).getFullYear();
+  public currentDate = (new Date(this.leaders.chosenDate).getMonth() + 1) + '/' + new Date(this.leaders.chosenDate).getDate() + '/' + new Date(this.leaders.chosenDate).getFullYear();
   public hasEvent = false
 
   public currentUserId = ''
@@ -28,7 +31,7 @@ export class SupportPage {
     id: ''
   };
   public members;
-  public groupMembers = [];
+  public groupMembers;
   public paginationCount = 5
   public count = 0
   public classes;
@@ -43,10 +46,11 @@ export class SupportPage {
     public request: RequestsService,
     private datarequest: DataRequestsService,
     private attendance: AttendanceAddingService,
-    public leader: CheckTutorial,
+    public leaders: CheckTutorial,
     public alertController: AlertController,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public eventsAndAttendance: EventAndSCAttendance
   ) { 
     this.attendance.dataUse
   }
@@ -163,6 +167,7 @@ export class SupportPage {
       const group = this.datarequest.getAllMembersOfAGroup(id)
       group.subscribe((members: any) => {
         this.groupMembers = members
+        this.checkIfMemberAlreadyAttended()
       })
     })
   }
@@ -224,12 +229,12 @@ export class SupportPage {
     this.attendance.multipleMembersAttendanceCG.forEach(element => {
       this.attendance.dateOfEvents.type = this.attendance.selectedEventsID
       this.attendance.dateOfEvents.leader = this.currentUser.id
-      this.attendance.dateOfEvents.date = new Date(this.leader.chosenDate).toString()
+      this.attendance.dateOfEvents.date = new Date(this.leaders.chosenDate).toString()
       this.attendance.dateOfEvents.member = element.id
       const addAttendance = this.attendance.addEventsAttendance(this.attendance.dateOfEvents)
       addAttendance.subscribe((response: any) => {
         this.attendance.successfulAddedAttendance();
-        this.router.navigate(['/app/tabs/schedule']) 
+        this.router.navigate(['/' + this.nextRoute]) 
       })
     })
     this.attendance.multipleMembersAttendanceSC.forEach(element => {
@@ -239,6 +244,36 @@ export class SupportPage {
         if(response == false) {
           this.attendance.SundayCelebrationError()
         }
+      })
+    })
+  }
+
+  // Kini siya nga function kay i check kung a certain user kay naka attend ba siya anang selected nga date 
+  checkIfMemberAlreadyAttended() {
+    this.alreadyAttendedArray = []
+    this.groupMembers.forEach(element => {
+      const userAttendance = this.eventsAndAttendance.getMemberAttendance(element.id)
+      userAttendance.subscribe((attendance: any) => {
+        attendance[0].currentEventsAttendance.forEach(element => {
+          if(
+            (new Date(this.leaders.chosenDate).getMonth() + 1) + '/' + new Date(this.leaders.chosenDate).getDate() + '/' + new Date(this.leaders.chosenDate).getFullYear() == 
+            (new Date(element.date).getMonth() + 1) + '/' + new Date(element.date).getDate() + '/' + new Date(element.date).getFullYear()
+          ) {
+            this.alreadyAttendedArray.push(true)
+          }else {
+            this.alreadyAttendedArray.push(false)
+          } 
+        });
+        attendance[0].currentUserAttendance.forEach(element => {
+          if(
+            (new Date(this.leaders.chosenDate).getMonth() + 1) + '/' + new Date(this.leaders.chosenDate).getDate() + '/' + new Date(this.leaders.chosenDate).getFullYear() == 
+            (new Date(element.date).getMonth() + 1) + '/' + new Date(element.date).getDate() + '/' + new Date(element.date).getFullYear()
+          ) {
+            this.alreadyAttendedArray.push(true)
+          }else {
+            this.alreadyAttendedArray.push(false)
+          } 
+        })
       })
     })
   }

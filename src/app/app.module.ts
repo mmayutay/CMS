@@ -14,7 +14,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MinistriesPage } from './pages/ministries/ministries.page';
-import {AccountPage} from './pages/account/account';
+import { AccountPage } from './pages/account/account';
 import { AuxiliaryPage } from './pages/auxiliary/auxiliary.page';
 import { ModalPagePage } from './pages/modal-page/modal-page.page';
 import { DashboardPopoverPage } from './pages/dashboard-popover/dashboard-popover.page';
@@ -41,7 +41,7 @@ import { ResetpasswordPage } from './pages/resetpassword/resetpassword.page';
   ],
   declarations: [AppComponent, DashboardPopoverPage, SpeakerFilterPage],
   providers: [
-    InAppBrowser, SplashScreen, StatusBar, 
+    InAppBrowser, SplashScreen, StatusBar,
     MinistriesPage,
     AuxiliaryPage,
     AccountPage,
@@ -50,9 +50,9 @@ import { ResetpasswordPage } from './pages/resetpassword/resetpassword.page';
     ResetpasswordPage
   ],
   entryComponents: [DashboardPopoverPage, SpeakerFilterPage],
-  
+
   bootstrap: [AppComponent]
 })
 
 
-export class AppModule {}
+export class AppModule { }

@@ -9,39 +9,49 @@
     <ion-item>
         <div>
             <ion-label position="floating">Select Date</ion-label>
-            <ion-datetime [value]="currentDate" [(ngModel)]="leader.chosenDate" displayFormat="DDDD MMM D, YYYY" min="2000" max="2021"></ion-datetime>
+            <ion-datetime [value]="currentDate" [(ngModel)]="leaders.chosenDate" (ionChange)="returnMembers()" displayFormat="DDDD MMM D, YYYY"
+                min="2000" max="2021"></ion-datetime>
         </div>&nbsp;&nbsp;
     </ion-item>
     <ion-item>
         <div class="input-container">
             <ion-icon class="iconLogin" name="person"></ion-icon>
-            <input class="input" disabled placeholder="{{currentUser.lastname}}, {{currentUser.firstname}}" name="Leader" type="text" id="leader" required />
+            <input class="input" disabled placeholder="{{currentUser.lastname}}, {{currentUser.firstname}}"
+                name="Leader" type="text" id="leader" required />
         </div>
     </ion-item>
     <div class="ion-margin">
+        <div *ngIf="leaders.members != undefined">
+            <div *ngIf="leaders.members.length == 0">
+                <img src="../../../assets/data/empty.png" style="width: 40%; height: 40%;">
+                <h2 style="font-weight: 100;">Nothing to show!</h2>
+            </div>
+        </div>
         <ion-grid>
             <ion-row class="grid">
                 <ion-col size-xs="6">Name</ion-col>
                 <ion-col size-xs="2">CG</ion-col>
                 <ion-col size-xs="2">SC</ion-col>
             </ion-row><br>
-            <div *ngIf="groupMembers.length != 0">
-                <ion-row *ngFor="let member of groupMembers">
-                    <ion-col size-xs="6">{{member.lastname}}, {{member.firstname}} </ion-col>
-                    <ion-col size-xs="2">
-                        <ion-checkbox (ionChange)="addEventsAttendance(member)"></ion-checkbox>
-                    </ion-col>
-                    <ion-col *ngIf="isSunday" size-xs="2">
-                        <ion-checkbox (ionChange)="addSundayCelebAttendance(member)"></ion-checkbox>
-                        <!-- <ion-toggle color="success"></ion-toggle> -->
-                    </ion-col>
-                    <ion-col *ngIf="!isSunday">
-                        <p style="margin-top: 0;">Not Sunday</p>
-                    </ion-col>
-                </ion-row>
+            <div *ngIf="groupMembers != undefined">
+                <div *ngIf="groupMembers.length != 0">
+                    <ion-row *ngFor="let member of groupMembers; let i = index">
+                        <ion-col size-xs="6">{{member.lastname}}, {{member.firstname}} </ion-col>
+                        <ion-col size-xs="2">
+                            <ion-checkbox (ionChange)="addEventsAttendance(member)" [checked]="alreadyAttendedArray[i]" [disabled]="alreadyAttendedArray[i]"></ion-checkbox>
+                        </ion-col>
+                        <ion-col *ngIf="isSunday" size-xs="2">
+                            <ion-checkbox (ionChange)="addSundayCelebAttendance(member)"></ion-checkbox>
+                            <!-- <ion-toggle color="success"></ion-toggle> -->
+                        </ion-col>
+                        <ion-col *ngIf="!isSunday">
+                            <p style="margin-top: 0;">Not Sunday</p>
+                        </ion-col>
+                    </ion-row>
+                </div>
             </div>
-            <div class="spinning">
-                <div *ngIf="groupMembers.length == 0">
+            <div *ngIf="groupMembers == undefined">
+                <div class="spinning">
                     <ion-spinner style="width: 5em; height: 5em;" name="crescent"></ion-spinner>
                 </div>
             </div>
@@ -53,7 +63,7 @@
         <!-- <a>❮</a>
             <a style="float: right; ">❯</a> -->
     </div>
-    
+
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
         <ion-fab-button routerLink="/create-new-user">
             <ion-icon name="add"></ion-icon>
