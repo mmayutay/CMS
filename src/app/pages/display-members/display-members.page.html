@@ -12,7 +12,7 @@
         <th>{{ content }}</th>
       </tr>
       <tr *ngFor="let value of listAllTheMembers">
-        <td> {{ value }} </td>
+        <td> {{ value.firstname + ' ' + value.lastname }} </td>
       </tr>
     </table>
   </div>

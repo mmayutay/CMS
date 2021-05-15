@@ -41,8 +41,7 @@
                 </ion-select-option>
             </ion-select>
             <ion-select [value]="chosenYear" (ionChange)="getChosenYear($event)" placeholder="What Year?">
-                <ion-select-option *ngFor="let year of yearlyView" [value]="year">{{
-                    year }}</ion-select-option>
+                <ion-select-option *ngFor="let year of yearlyView" [value]="year">{{ year }}</ion-select-option>
             </ion-select>
         </ion-input>
 
@@ -53,20 +52,17 @@
                 </ion-select-option>
             </ion-select>
             <ion-select (ionChange)="getMonth($event)" [placeholder]="calendar.returnAllMonthsChoices()[0]">
-                <ion-select-option *ngFor="let value of calendar.returnAllMonthsChoices()" [value]="value">{{
-                    value }}</ion-select-option>
+                <ion-select-option *ngFor="let value of calendar.returnAllMonthsChoices()" [value]="value">{{ value }}</ion-select-option>
             </ion-select>
             <ion-select (ionChange)="getChosenYear($event)" [placeholder]="yearlyView[yearlyView.length - 1]">
-                <ion-select-option *ngFor="let year of yearlyView" [value]="year">{{
-                    year }}</ion-select-option>
+                <ion-select-option *ngFor="let year of yearlyView" [value]="year">{{ year }}</ion-select-option>
             </ion-select>
         </ion-input>
 
         <!-- This will show if the type of choice is yearly -->
         <ion-input *ngIf="yearlyBool" (ionChange)="monthsToView($event)" name="code" ngModel class="input">
             <ion-select placeholder="What Year?">
-                <ion-select-option *ngFor="let value of yearlyView" [value]="value">{{ value }}
-                </ion-select-option>
+                <ion-select-option *ngFor="let value of yearlyView" [value]="value">{{ value }}</ion-select-option>
             </ion-select>
         </ion-input>
     </ion-card>

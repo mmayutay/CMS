@@ -13,7 +13,7 @@ export class RequestsService {
   public storageKeyVIP = 'is-vip'
   public boolean = true
   public userDataLength;
-  public url = "https://thesisprojectgroup8.herokuapp.com/api/"
+  public url = "http://localhost:8000/api/"
 
   constructor(
     private http: HttpClient,

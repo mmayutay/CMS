@@ -92,6 +92,7 @@ export class CheckTutorial implements CanLoad {
 
   // This function is to get all the members of a certain leader
   getMembersOfCertainLeader(id) {
+    console.log(id)
     this.members.length = 0
     this.certainLeadersID = id
     const members = this.dataRequest.getMyCellgroup({ leaderid: id })
