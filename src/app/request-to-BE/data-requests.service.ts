@@ -45,6 +45,11 @@ export class DataRequestsService {
     return this.request.post(this.url + "info", userId);
   }
 
+  // Kini siya nga function kay pag kuha ni sa certain member sa leader kung ang member kay naay member, i display ug apil
+  returnMembersWithMembers(leaderID) {
+    return this.request.get(this.url + 'certain-leader/' + leaderID)
+  }
+
   editUserInfo(userId) {
     return this.request.get(this.url + "info/edit", userId);
   }

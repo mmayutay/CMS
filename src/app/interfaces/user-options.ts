@@ -231,7 +231,6 @@ export class calendar {
   getWeekOfMonth(arrayOfDates: any, week: number, monthAndYear: string) {
     var arrayOfPercent = []
     var eventCounter = 0
-    console.log(this.returnWeek(monthAndYear, week))
     this.returnWeek(monthAndYear, week).forEach(event => {
       arrayOfDates.forEach(element => {
         if ((new Date(event).getMonth() + '-' + new Date(event).getDate() + '-' + new Date(event).getFullYear())

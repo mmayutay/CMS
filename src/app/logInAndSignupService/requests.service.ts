@@ -3,10 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { UserData } from '../providers/user-data'
 // import { userInfo } from 'os';
 
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
 export class RequestsService {
+  private currentUserSubject: BehaviorSubject<any>;
+  public currentUser: Observable<any>;
   public storageKey = 'current-logged'
   public storageUserRole = 'user-role'
   public storageKeyUserId = 'user-id'
@@ -18,13 +23,26 @@ export class RequestsService {
   constructor(
     private http: HttpClient,
     public userdata: UserData
-  ) { }
+  ) {
+    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+   }
 
   loginService(userData) {
-    return this.http.post(this.url + 'login', userData)
+    return this.http.post(this.url + 'login', userData).pipe(map(user => {
+      localStorage.setItem('currentUser', JSON.stringify(user))
+      this.currentUserSubject.next(user)
+      return user;
+    }))
   }
 
+  public get currentUserValue() {
+    return this.currentUserSubject.value;
+}
+
   logoutService() {
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
     return this.userdata.storage.clear()
   }
 

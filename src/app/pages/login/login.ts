@@ -31,7 +31,11 @@ export class LoginPage {
     private alertControl: AlertController,
     private dataRequest: DataRequestsService,
     private loadingController: LoadingController
-  ) { }
+  ) {
+    if(this.request.currentUserValue) {
+      this.router.navigate(['/app/tabs/schedule'])
+    }
+   }
 
   ngOnInit() {
     this.dataRequest.storeIfCurrentUserAlreadyAttended(false)

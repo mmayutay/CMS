@@ -64,9 +64,9 @@ export class CheckTutorial implements CanLoad {
 
   // This function will get all the leaders
   getAllTheLeaders() {
-    const currentUserRole = this.request.getTheUserRoleFromTheStorage()
-    currentUserRole.then(role => {
-      const leaders = this.request.getLeaders(role)
+    const currentUserID = this.request.getTheCurrentUserIdInStorage()
+    currentUserID.then(id => {
+      const leaders = this.dataRequest.returnMembersWithMembers(id)
       leaders.subscribe((data: any) => {
         this.leaders = data
       })
@@ -92,7 +92,6 @@ export class CheckTutorial implements CanLoad {
 
   // This function is to get all the members of a certain leader
   getMembersOfCertainLeader(id) {
-    console.log(id)
     this.members.length = 0
     this.certainLeadersID = id
     const members = this.dataRequest.getMyCellgroup({ leaderid: id })

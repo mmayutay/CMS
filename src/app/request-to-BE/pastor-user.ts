@@ -28,7 +28,6 @@ export class PastorUser {
       users.forEach(element => {
         const certainUserAttendance = this.dataRequest.getMemberSCAndEventsAttendance(element.id)
         certainUserAttendance.subscribe((response: any) => {
-            console.log(response)
             this.calendar.membersAttendance.currentEventsAttendance = response[0].currentEventsAttendance
             this.calendar.membersAttendance.currentUserAttendance = response[0].currentUserAttendance
         })
