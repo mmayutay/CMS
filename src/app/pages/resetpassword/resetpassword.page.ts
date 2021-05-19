@@ -71,6 +71,7 @@ export class ResetpasswordPage implements OnInit {
   }
 
   resetPassword(data) {
+    console.log(data)
     console.log(data.value);
     this.request.resetPass(data.value).subscribe( res => {
       console.log(res);
