@@ -89,7 +89,7 @@
                     </ion-col>
                 </ion-row>
             </ion-grid><br><br>
-            <ion-card *ngIf="lessonsOfSelectedTraining == undefined || lessonsOfSelectedTraining.length == 0"
+            <div *ngIf="lessonsOfSelectedTraining == undefined || lessonsOfSelectedTraining.length == 0"
                 style="text-align: center;"><br><br>
                 <ion-spinner name="crescent" *ngIf="lessonsOfSelectedTraining == undefined"
                     style="width: 5em; height: 5em;"></ion-spinner>
@@ -97,12 +97,12 @@
                     <img *ngIf="lessonsOfSelectedTraining.length == 0" src="../../../assets/data/empty.png"
                         style="width: 50%; height: 50%;">
                 </div>
-                <div *ngIf="dataDisplays.lessonsAdded != undefined && defaultTraining != ''">
-                    <img *ngIf="dataDisplays.lessonsAdded.length == 0" src="../../../assets/data/empty.png"
+                <div *ngIf="dataDisplays.lessonsAdded != undefined">
+                    <img *ngIf=" dataDisplays.lessonsAdded.length==0" src="../../../assets/data/empty.png"
                         style="width: 50%; height: 50%;">
                     <h2 style="font-weight: 100;">No Lessons found!</h2>
                 </div><br><br>
-        </div>
+            </div>
         </div>
 
         <div *ngIf="segmentModel === 'Classes'">

@@ -84,7 +84,7 @@ export class SpeakerListPage {
       this.currentUsersId = id
       const trainings = this.eventsService.getAllTrainingsByAnyUser()
       trainings.subscribe((data: any) => {
-        if(data.length != 0) {
+        if (data.length != 0) {
           this.defaultTraining = data[0].title
           this.selectedTrainingID = data[0]
           this.returnAllLessons(data[0].id)
@@ -158,10 +158,10 @@ export class SpeakerListPage {
     const lessons = this.eventsService.returnLessons(trainingID)
     lessons.subscribe((data: any) => {
       this.dataDisplays.lessonsAdded = data
-      if(data.length != 0) {
+      if (data.length != 0) {
         this.defaultLesson = data[0].title
         this.selectedLesson = data[0].id
-      }else {
+      } else {
         this.defaultLesson = "Your selected training has no lesson"
       }
     })
@@ -183,7 +183,7 @@ export class SpeakerListPage {
     const classes = this.eventsService.returnClassesOfTraining(trainingID)
     classes.subscribe((data: any) => {
       this.classesOfSelectedTraining = data
-      if(data.length != 0) {
+      if (data.length != 0) {
         this.defaultClass = data[0].name
         this.selectedClass = data[0].id
       }
@@ -249,7 +249,7 @@ export class SpeakerListPage {
           handler: () => {
             console.log('Confirm Okay');
             const deleteLesson = this.eventsService.deleteLessonOfTraining(lessonID.id)
-            deleteLesson.subscribe((response: any ) => {
+            deleteLesson.subscribe((response: any) => {
               this.dataDisplays.lessonsAdded.splice(this.dataDisplays.lessonsAdded.indexOf(lessonID), 1)
               this.successfullyDeleted()
             })
