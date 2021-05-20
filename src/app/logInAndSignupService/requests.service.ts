@@ -18,7 +18,7 @@ export class RequestsService {
   public storageKeyVIP = 'is-vip'
   public boolean = true
   public userDataLength;
-  public url = "http://localhost:8000/api/"
+  public url = "https://group8finalthesis.herokuapp.com/api/"
 
   constructor(
     private http: HttpClient,
@@ -26,7 +26,7 @@ export class RequestsService {
   ) {
     this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
-   }
+  }
 
   loginService(userData) {
     return this.http.post(this.url + 'login', userData).pipe(map(user => {
@@ -38,7 +38,7 @@ export class RequestsService {
 
   public get currentUserValue() {
     return this.currentUserSubject.value;
-}
+  }
 
   logoutService() {
     localStorage.removeItem('currentUser');

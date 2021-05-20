@@ -111,10 +111,11 @@ export class AddStudentPage implements OnInit {
   }
 
   addMember(memberId) {
+    this.presentLoading()
     console.log(memberId.id, this.selectedItemId, this.segmentModel)
     const checkStudent = this.eventRequest.checkStudent(memberId.id, this.selectedItemId)
     checkStudent.subscribe((response: any) => {
-      if(response.length == 0) {
+      if (response.length == 0) {
         this.studentToAdd.lessons_id = this.segmentModel
         this.studentToAdd.classes_id = this.selectedItemId
         this.studentToAdd.students_id = memberId.id
@@ -122,7 +123,7 @@ export class AddStudentPage implements OnInit {
         addStudentsRecord.subscribe((response: any) => {
           console.log(response)
         })
-      }else {
+      } else {
         const removeStudent = this.eventRequest.removeStudentOfClass(memberId.id, this.segmentModel)
         removeStudent.subscribe((response: any) => {
           console.log(response)
@@ -157,7 +158,19 @@ export class AddStudentPage implements OnInit {
     updateNow.subscribe((result: any) => {
       this.backToTrainingOrClass()
     })
-  }  
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 3000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
 
   // async loadingAdded(user) {
   //   const loading = await this.loadingController.create({

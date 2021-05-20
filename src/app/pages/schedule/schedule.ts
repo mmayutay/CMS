@@ -17,6 +17,7 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./schedule.scss'],
 })
 export class SchedulePage implements OnInit {
+  public currentDate = new Date();
   loading = false;
   users = []
   public partialArray = []
@@ -48,7 +49,7 @@ export class SchedulePage implements OnInit {
     private calendar: calendar,
     private pastorUser: PastorUser,
     private request: RequestsService
-  ) { 
+  ) {
     this.getRole()
   }
 
@@ -56,7 +57,7 @@ export class SchedulePage implements OnInit {
     this.loading = true
 
     this.menu.enable(true)
-    this.getAllTheEventsAndDisplay({target: {value: 'all'}});
+    this.getAllTheEventsAndDisplay({ target: { value: 'all' } });
 
     this.ios = this.config.get('mode') === 'ios';
   }
@@ -74,7 +75,7 @@ export class SchedulePage implements OnInit {
     if (data) {
       this.excludeTracks = data;
       // this.updateSchedule();
-      this.getAllTheEventsAndDisplay({target: {value: 'all'}})
+      this.getAllTheEventsAndDisplay({ target: { value: 'all' } })
     }
   }
 
@@ -123,7 +124,7 @@ export class SchedulePage implements OnInit {
           handler: () => {
             // they want to remove this session from their favorites
             this.user.removeFavorite(sessionData);
-            this.getAllTheEventsAndDisplay({target: {value: 'favorites'}});
+            this.getAllTheEventsAndDisplay({ target: { value: 'favorites' } });
 
             // close the sliding item and hide the option buttons
             slidingItem.close();
@@ -137,13 +138,13 @@ export class SchedulePage implements OnInit {
 
   searchEvent(value) {
     this.groups.forEach(element => {
-      if(element.title.toLowerCase().includes(value.target.value)) {
-        if(!this.partialArray.includes(element)) {
+      if (element.title.toLowerCase().includes(value.target.value)) {
+        if (!this.partialArray.includes(element)) {
           this.partialArray.push(element)
         }
       }
     })
-    if(this.partialArray.length != 0) {
+    if (this.partialArray.length != 0) {
       this.groups = this.partialArray
     }
   }
@@ -151,33 +152,42 @@ export class SchedulePage implements OnInit {
   getAllTheEventsAndDisplay(value) {
     var dataToDisplay = []
     var partialDataHandler;
-    if(value.target.value == "all") {
+    if (value.target.value == "all") {
       this.eventRequest.retrieveAllAnnouncement().subscribe(response => {
         partialDataHandler = response
         partialDataHandler.forEach(element => {
-          element.start_time = new Date(element.start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-          element.end_time = new Date(element.end_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-          element.start_date = this.calendar.convertMonth(new Date(element.start_date).getMonth()) + '/' + new Date(element.start_date).getDate() + '/' + new Date(element.start_date).getFullYear()
-          element.end_date = this.calendar.convertMonth(new Date(element.end_date).getMonth()) + '/' + new Date(element.end_date).getDate() + '/' + new Date(element.end_date).getFullYear()
-          dataToDisplay.push(element)
+          if (
+            ((new Date(element.end_date).getMonth() + '/' + new Date(element.end_date).getDate() + '/' + new Date(element.end_date).getFullYear())
+              !=
+              (new Date(this.currentDate).getMonth() + '/' + new Date(this.currentDate).getDate() + '/' + new Date(this.currentDate).getFullYear()))
+            &&
+            new Date(element.end_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+            !=
+            new Date(this.currentDate).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+          ) {
+            element.start_time = new Date(element.start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+            element.end_time = new Date(element.end_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+            element.start_date = this.calendar.convertMonth(new Date(element.start_date).getMonth()) + '/' + new Date(element.start_date).getDate() + '/' + new Date(element.start_date).getFullYear()
+            element.end_date = this.calendar.convertMonth(new Date(element.end_date).getMonth()) + '/' + new Date(element.end_date).getDate() + '/' + new Date(element.end_date).getFullYear()
+            dataToDisplay.push(element)
+          }
         });
         this.shownSessions = dataToDisplay
-        this.groups = dataToDisplay
+        this.groups = dataToDisplay.reverse()
       })
     } else {
       this.shownSessions = this.user.favorites
       this.groups = this.user.favorites
     }
-    console.log(this.groups)
   }
 
   // Kini siya nga function kay kuhaon ang current user role
   getRole() {
     const getUserRole = this.request.getTheUserRoleFromTheStorage()
     getUserRole.then((role: any) => {
-      if(role == '1') {
+      if (role == '1') {
         this.pastorUser.returnAttendanceOfAllUsers()
       }
     })
-  } 
+  }
 }

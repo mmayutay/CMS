@@ -21,7 +21,7 @@ export class AddEventPage implements OnInit {
       End_date: '',
       End_time: '',
       Location: ''
-    }, 
+    },
     currentUser: {
       userID: ''
     }
@@ -40,17 +40,17 @@ export class AddEventPage implements OnInit {
 
   onaddEvents(data) {
     this.eventRequest.addEventsAndAnnouncements(this.addEvents).subscribe(response => {
-      if(response != undefined) {
+      if (response != undefined) {
         this.successFullyAdded()
       }
     })
   }
 
   showDate(type) {
-    if(type == 'start_time'){
-      this.start_time = this.addEvents.newEvents.Start_date + ', ' + new Date(this.addEvents.newEvents.Start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-    }else if(type == 'end_time') {
-      this.end_time = new Date(this.addEvents.newEvents.End_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+    if (type == 'start_time') {
+      this.addEvents.newEvents.Start_time = new Date(this.addEvents.newEvents.Start_date).getMonth() + '-' + new Date(this.addEvents.newEvents.Start_date).getDate() + '-' + new Date(this.addEvents.newEvents.Start_date).getFullYear() + ', ' + new Date(this.start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+    } else if (type == 'end_time') {
+      this.addEvents.newEvents.End_time = new Date(this.addEvents.newEvents.End_date).getMonth() + '-' + new Date(this.addEvents.newEvents.End_date).getDate() + '-' + new Date(this.addEvents.newEvents.End_date).getFullYear() + ', ' + new Date(this.end_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
     }
   }
 
@@ -68,7 +68,7 @@ export class AddEventPage implements OnInit {
   }
 
   getTheCurrentUser() {
-    this.request.getTheCurrentUserIdInStorage().then(id => { 
+    this.request.getTheCurrentUserIdInStorage().then(id => {
       this.addEvents.currentUser.userID = id
     })
   }
