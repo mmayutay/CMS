@@ -72,8 +72,8 @@
                                 </ion-list>
                                 <ion-row>
                                     <ion-col>
-                                        <ion-button *ngIf="selectedTrainingID.instructor == currentUsersId" class="btnEditDelete"
-                                            routerLink="/update-selected-training/{{lesson.id}}">
+                                        <ion-button *ngIf="selectedTrainingID.instructor == currentUsersId"
+                                            class="btnEditDelete" routerLink="/update-selected-training/{{lesson.id}}">
                                             <ion-icon name="create-outline"></ion-icon>&nbsp;Edit
                                         </ion-button>
                                     </ion-col>
@@ -173,7 +173,8 @@
                         <ion-icon name="accessibility-outline"></ion-icon>
                         <ion-select (ionChange)="getIDSelectedTraining($event)" [placeholder]="defaultTraining"
                             okText="Okay" cancelText="Dismiss">
-                            <ion-select-option *ngFor="let training of dataDisplays.trainings" [value]="training.id"> {{
+                            <ion-select-option *ngFor="let training of dataDisplays.trainings" [value]="training.id">
+                                {{
                                 training.title }} </ion-select-option>
                         </ion-select>
                     </ion-item>
