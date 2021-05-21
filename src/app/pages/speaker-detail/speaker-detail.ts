@@ -46,30 +46,30 @@ export class SpeakerDetailPage {
     private dataRequest: DataRequestsService,
     public dataDisplays: DataDisplayProvider,
     public request: RequestsService
-  ) {}
+  ) { }
 
   ionViewWillEnter() {
-      this.getUserID()
-      const speakerId = this.route.snapshot.paramMap.get('speakerId');
-      this.selectedItemId = speakerId
-      this.segmentModel = this.route.snapshot.paramMap.get('addType');
-      this.author = this.route.snapshot.paramMap.get('author');
+    this.getUserID()
+    const speakerId = this.route.snapshot.paramMap.get('speakerId');
+    this.selectedItemId = speakerId
+    this.segmentModel = this.route.snapshot.paramMap.get('addType');
+    this.author = this.route.snapshot.paramMap.get('author');
 
-      this.getClassDetails()
-      this.getStudentsOfSelectedClass()
+    this.getClassDetails()
+    this.getStudentsOfSelectedClass()
   }
 
   // This function will add the user 
-  getCertainUser(student){
+  getCertainUser(student) {
     student.forEach(element => {
-    const getUser = this.dataRequest.getStudentsData(element.students_id)
+      const getUser = this.dataRequest.getStudentsData(element.students_id)
       getUser.subscribe((response) => {
         // this.classOrTrainingStudents.push(response[0])
         this.dataDisplays.studentsOfCertainTraining.push(response[0])
       })
     });
   }
- 
+
   navigateToAddStudent() {
     this.redirect.navigateByUrl('/add-student/' + this.segmentModel + '/' + this.selectedItemId)
   }
@@ -80,17 +80,17 @@ export class SpeakerDetailPage {
   }
 
   wantToDelete() {
-    if(this.isToDelete) {
+    if (this.isToDelete) {
       this.isToDelete = false
-    }else {
+    } else {
       this.isToDelete = true
     }
   }
 
   getValue(value) {
-    if(!this.deleteItems.includes(value)) {
+    if (!this.deleteItems.includes(value)) {
       this.deleteItems.push(value)
-    }else {
+    } else {
       this.deleteItems.splice(this.deleteItems.indexOf(value), 1)
     }
   }
@@ -125,7 +125,7 @@ export class SpeakerDetailPage {
     const studentsIDs = this.eventRequest.getStudentOfClass(this.selectedItemId)
     studentsIDs.subscribe((students: any) => {
       students.forEach(element => {
-        const usersData = this.dataRequest.getTheCurrentUser({userID: element})
+        const usersData = this.dataRequest.getTheCurrentUser({ userID: element })
         usersData.subscribe((usersDetails: any) => {
           this.listOfStudents.push(usersDetails[0])
         })

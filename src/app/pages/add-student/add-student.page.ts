@@ -149,7 +149,7 @@ export class AddStudentPage implements OnInit {
 
   // Re-route back to the selected trainings or class
   backToTrainingOrClass() {
-    this.router.navigateByUrl('/app/tabs/speakers/speaker-details/' + this.segmentModel + '/' + this.selectedItemId)
+    this.router.navigateByUrl('/app/tabs/speakers')
   }
 
   // Kini siya nga function kay pag update na man ni sa details sa class 
