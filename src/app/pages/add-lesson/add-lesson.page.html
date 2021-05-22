@@ -19,8 +19,8 @@
           <ion-item>
             <div class="input-container">
               <ion-icon class="iconLogin" name="locate-outline"></ion-icon>
-              <ion-input [(ngModel)]="lessonsAdded.name[i]" [placeholder]="'Lesson ' + (i + 1)" name="name" type="text"
-                #Name="ngModel" required></ion-input>
+              <ion-input [(ngModel)]="lessonsAdded.name[i]" [value]="'Lesson ' + (currentLengthLesson + 1 + i)" name="name" type="text"
+                #Name="ngModel" disabled></ion-input>
             </div>&nbsp;&nbsp;
           </ion-item><br>
 

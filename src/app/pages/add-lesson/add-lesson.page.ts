@@ -38,6 +38,7 @@ export class AddLessonPage implements OnInit {
     getLessons.subscribe((lessons: any) => {
       if(lessons.length != 0) {
         this.currentLengthLesson = Number(lessons[lessons.length - 1].lesson)
+        console.log(this.currentLengthLesson)
       }else {
         this.currentLengthLesson = 0
       }

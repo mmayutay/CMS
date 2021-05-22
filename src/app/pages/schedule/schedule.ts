@@ -158,11 +158,11 @@ export class SchedulePage implements OnInit {
         partialDataHandler.forEach(element => {
           if (
             ((new Date(element.end_date).getMonth() + '/' + new Date(element.end_date).getDate() + '/' + new Date(element.end_date).getFullYear())
-              !=
+              <=
               (new Date(this.currentDate).getMonth() + '/' + new Date(this.currentDate).getDate() + '/' + new Date(this.currentDate).getFullYear()))
             &&
             new Date(element.end_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-            !=
+            <=
             new Date(this.currentDate).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
           ) {
             element.start_time = new Date(element.start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
@@ -171,7 +171,7 @@ export class SchedulePage implements OnInit {
             element.end_date = this.calendar.convertMonth(new Date(element.end_date).getMonth()) + '/' + new Date(element.end_date).getDate() + '/' + new Date(element.end_date).getFullYear()
             dataToDisplay.push(element)
           }
-        });
+        })
         this.shownSessions = dataToDisplay
         this.groups = dataToDisplay.reverse()
       })
