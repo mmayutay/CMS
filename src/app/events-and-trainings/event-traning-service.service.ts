@@ -27,7 +27,7 @@ export class EventTraningServiceService {
 
   // This function is to update the users posted event
   updateEvent(id, updatedData) {
-    return this.http.post(this.url + 'add-event-announcement/update/' + id, updatedData)
+    return this.http.post(this.url + 'event-announcement/update/' + id, updatedData)
   }
 
   // This function return the selected item to edit
@@ -37,7 +37,7 @@ export class EventTraningServiceService {
 
   // This function will delete the selected item by the user
   deleteSelectedEvent(id) {
-    return this.http.delete(this.url + 'add-event-announcement/delete/' + id)
+    return this.http.delete(this.url + 'event-announcement/delete/' + id)
   }
 
   // This function is to delete multiple students
