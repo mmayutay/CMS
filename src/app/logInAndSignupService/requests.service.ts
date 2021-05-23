@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class RequestsService {
+  public darkmode = false
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
   public storageKey = 'current-logged'

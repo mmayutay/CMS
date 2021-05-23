@@ -29,7 +29,8 @@
                         <ion-tab-button *ngIf="role !== 'Member'">
                             <ion-icon color="primary" name="person"></ion-icon>
                             <ion-label>AUXILIARY</ion-label>
-                            <ion-select name="auxi[]" id="auxi" placeholder="View Auxiliary" #newSelect (ionChange)="optAuxiliary($event)">
+                            <ion-select name="auxi[]" id="auxi" placeholder="View Auxiliary" #newSelect
+                                (ionChange)="optAuxiliary($event)">
                                 <ion-select-option value="Kids">Blessed Kids</ion-select-option>
                                 <ion-select-option value="Blessed Youth">Blessed Youth(13-21)</ion-select-option>
                                 <ion-select-option value="Single">Blessed Singles(Singles 22 up)</ion-select-option>
@@ -80,19 +81,19 @@
                 Birthday:
                 <p> {{holder.birthday}}</p>
                 <!-- <p>Age: {{holder.age}}</p> -->
-                Address: 
+                Address:
                 <p>{{holder.address}}</p>
                 Marital Status:
                 <p>{{holder.marital_status}}</p>
-                Email: 
+                Email:
                 <p>{{holder.email}}</p>
-                Contact Number: 
+                Contact Number:
                 <p>{{holder.contact_number}}</p>
-                Facebook: 
+                Facebook:
                 <p>{{holder.facebook}}</p>
-                Instagram: 
+                Instagram:
                 <p>{{holder.instagram}}</p>
-                Twitter: 
+                Twitter:
                 <p>{{holder.twitter}}</p>
                 <!-- <p>Leader: {{holder.leader}}</p> -->
             </div>

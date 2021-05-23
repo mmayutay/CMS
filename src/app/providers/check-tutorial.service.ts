@@ -39,6 +39,8 @@ export class CheckTutorial implements CanLoad {
     events.subscribe((response: any) => {
       this.eventsArray = response
     })
+
+    this.dateRender()
   }
 
 
@@ -200,7 +202,7 @@ export class CheckTutorial implements CanLoad {
     this.sundayCounter = 0
     var array = this.calendar.getDaysInMonth(new Date(monthAndYear).getMonth(), new Date(monthAndYear).getFullYear())
     array.forEach(element => {
-      if(new Date(element).getDay() == 0) {
+      if (new Date(element).getDay() == 0) {
         this.sundayCounter += 1
       }
     })

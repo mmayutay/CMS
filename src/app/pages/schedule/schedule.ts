@@ -10,6 +10,7 @@ import { calendar } from '../../interfaces/user-options';
 import { PastorUser } from 'app/request-to-BE/pastor-user';
 import { RequestsService } from 'app/logInAndSignupService/requests.service';
 import { first } from 'rxjs/operators';
+import { TrainingsStorage } from 'app/model/user.model';
 
 @Component({
   selector: 'page-schedule',
@@ -48,7 +49,8 @@ export class SchedulePage implements OnInit {
     private eventRequest: EventTraningServiceService,
     private calendar: calendar,
     private pastorUser: PastorUser,
-    private request: RequestsService
+    private request: RequestsService,
+    public trainingStorage: TrainingsStorage
   ) {
     this.getRole()
   }
@@ -60,6 +62,7 @@ export class SchedulePage implements OnInit {
     this.getAllTheEventsAndDisplay({ target: { value: 'all' } });
 
     this.ios = this.config.get('mode') === 'ios';
+    this.trainingStorage.getAllTrainings()
   }
 
   async presentFilter() {
@@ -156,21 +159,21 @@ export class SchedulePage implements OnInit {
       this.eventRequest.retrieveAllAnnouncement().subscribe(response => {
         partialDataHandler = response
         partialDataHandler.forEach(element => {
-          if (
-            ((new Date(element.end_date).getMonth() + '/' + new Date(element.end_date).getDate() + '/' + new Date(element.end_date).getFullYear())
-              !=
-              (new Date(this.currentDate).getMonth() + '/' + new Date(this.currentDate).getDate() + '/' + new Date(this.currentDate).getFullYear()))
-            &&
-            new Date(element.end_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-            !=
-            new Date(this.currentDate).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-          ) {
-            element.start_time = new Date(element.start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-            element.end_time = new Date(element.end_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-            element.start_date = this.calendar.convertMonth(new Date(element.start_date).getMonth()) + '/' + new Date(element.start_date).getDate() + '/' + new Date(element.start_date).getFullYear()
-            element.end_date = this.calendar.convertMonth(new Date(element.end_date).getMonth()) + '/' + new Date(element.end_date).getDate() + '/' + new Date(element.end_date).getFullYear()
-            dataToDisplay.push(element)
-          }
+          // if (
+          //   ((new Date(element.end_date).getMonth() + '/' + new Date(element.end_date).getDate() + '/' + new Date(element.end_date).getFullYear())
+          //     <=
+          //     (new Date(this.currentDate).getMonth() + '/' + new Date(this.currentDate).getDate() + '/' + new Date(this.currentDate).getFullYear()))
+          //   &&
+          //   new Date(element.end_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+          //   <=
+          //   new Date(this.currentDate).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+          // ) {
+          element.start_time = new Date(element.start_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+          element.end_time = new Date(element.end_time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+          element.start_date = this.calendar.convertMonth(new Date(element.start_date).getMonth()) + '/' + new Date(element.start_date).getDate() + '/' + new Date(element.start_date).getFullYear()
+          element.end_date = this.calendar.convertMonth(new Date(element.end_date).getMonth()) + '/' + new Date(element.end_date).getDate() + '/' + new Date(element.end_date).getFullYear()
+          dataToDisplay.push(element)
+          // }
         });
         this.shownSessions = dataToDisplay
         this.groups = dataToDisplay.reverse()
@@ -189,5 +192,15 @@ export class SchedulePage implements OnInit {
         this.pastorUser.returnAttendanceOfAllUsers()
       }
     })
+  }
+
+  // Kini siya nga function kay refresh pareho sa facebook
+  doRefresh(event) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
 }

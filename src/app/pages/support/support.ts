@@ -16,6 +16,8 @@ import { EventAndSCAttendance } from 'app/events-and-trainings/event-and-sc-atte
   styleUrls: ['./support.scss'],
 })
 export class SupportPage {
+  public showEmpty = false
+
   public alreadyAttendedArray = []
 
   public nextRoute = 'reportings'
@@ -51,28 +53,23 @@ export class SupportPage {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public eventsAndAttendance: EventAndSCAttendance
-  ) { 
+  ) {
     this.attendance.dataUse
   }
 
   onChangePage(pageOfItems: Array<any>, type) {
-    if(new Date().getDay()  == 0) {
-      this.isSunday = true
-    }else {
-      this.isSunday = false
-    }
     // update current page of items
-    if(type == 'add') {
-      if(this.classes.length < (this.paginationCount + 5)) {
+    if (type == 'add') {
+      if (this.classes.length < (this.paginationCount + 5)) {
         Swal.fire('Sorry', 'No Data to show!', 'error')
-      }else {
+      } else {
         this.paginationCount += 5
         this.count += 5
       }
-    }else {
-      if((this.count - 5) < 0) {
+    } else {
+      if ((this.count - 5) < 0) {
         Swal.fire('Sorry', 'No Data to show!', 'error')
-      }else {
+      } else {
         this.paginationCount -= 5
         this.count -= 5
       }
@@ -82,6 +79,12 @@ export class SupportPage {
   }
 
   ionViewDidEnter() {
+    // console.log(new Date().getDay())
+    if (new Date().getDay() == 0) {
+      this.isSunday = true
+    } else {
+      this.isSunday = false
+    }
     this.nextRoute = this.activatedRoute.snapshot.paramMap.get('nextroute');
 
     // this.getTheCurrentUserRole();
@@ -90,7 +93,7 @@ export class SupportPage {
     this.currentUserDetails()
   }
 
-  cellGroupFunction(){
+  cellGroupFunction() {
     this.request.cellGroup();
   }
 
@@ -108,18 +111,18 @@ export class SupportPage {
 
   // Ang pag add ni ug attendance if naa bay event karong adlawa
   addEventsAttendance(member) {
-    if(!this.attendance.multipleMembersAttendanceCG.includes(member)) {
+    if (!this.attendance.multipleMembersAttendanceCG.includes(member)) {
       this.attendance.multipleMembersAttendanceCG.push(member)
     }
   }
 
   // Ang pag add ni ug attendance sa sunday celebration 
   addSundayCelebAttendance(member) {
-    if(new Date(this.currentDate).getDay() == 0) {
-      if(!this.attendance.multipleMembersAttendanceSC.includes(member)) {
+    if (new Date(this.currentDate).getDay() == 0) {
+      if (!this.attendance.multipleMembersAttendanceSC.includes(member)) {
         this.attendance.multipleMembersAttendanceSC.push(member)
       }
-    }else {
+    } else {
       this.notSunday()
     }
   }
@@ -130,30 +133,11 @@ export class SupportPage {
   }
 
 
-  // ifCurrentUserIsMember(){
-  //   this.request.getTheUserRoleFromTheStorage().then(res => {
-  //     this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
-  //       if(data[0].roles == '3'){
-  //         this.currentUserRole = data[0].roles
-  //         this.request.getTheCurrentUserIdInStorage().then(result => {
-  //           this.currentUserId = result
-  //           this.datarequest.getTheCurrentUser({userID: result}).subscribe(response => {
-  //             this.datarequest.getTheCurrentUser({userID: response[0].leader}).subscribe(leaderData => {
-  //               this.currentUser.push(leaderData[0])
-  //               this.getAllMembers();
-  //             })
-  //           })
-  //         })
-  //       }
-  //     })
-  //   })
-  // }
-
   // Kini siya nga function kay i display ang current user 
   currentUserDetails() {
     const userID = this.request.getTheCurrentUserIdInStorage()
     userID.then((id: any) => {
-      const user = this.datarequest.getTheCurrentUser({userID: id})
+      const user = this.datarequest.getTheCurrentUser({ userID: id })
       user.subscribe((response: any) => {
         this.currentUser = response[0]
       })
@@ -162,59 +146,27 @@ export class SupportPage {
 
   // Kini siya nga function kay kung ang naka login kay primary or 144, i return ang tanan nga members 
   returnMembers() {
+    if (new Date(this.leaders.chosenDate).getDay() == 0) {
+      this.isSunday = true
+    } else {
+      this.isSunday = false
+    }
     const currentUser = this.request.getTheCurrentUserIdInStorage()
     currentUser.then((id: any) => {
       const group = this.datarequest.getAllMembersOfAGroup(id)
       group.subscribe((members: any) => {
         this.groupMembers = members
+        this.showEmpty = (members.length == 0)
         this.checkIfMemberAlreadyAttended()
       })
     })
   }
 
-  // getTheCurrentUserRole() {
-  //   this.groupMembers.length = 0
-  //   this.currentUser.length = 0
-  //   this.request.getTheUserRoleFromTheStorage().then(res => {
-  //     this.datarequest.getNetworkWhereIBelong(res).subscribe(data => {
-  //       if(data[0].roles == '3') {
-  //         this.ifCurrentUserIsMember();
-  //       }else if(data[0].roles == "1"){
-  //         this.currentUserRole = data[0].roles
-  //         this.datarequest.getAllTheUserRoles().subscribe(result => {
-  //           this.members = result
-  //           this.members.forEach(element => {
-  //             if(element.roles == '1'){
-  //               this.members.slice(this.members.indexOf(element), 1)
-  //               this.currentUser.push(element)
-  //             }else{
-  //               this.groupMembers.push(element)
-  //             }
-  //           });
-  //         });
-  //       }else{
-  //         this.request.getTheCurrentUserIdInStorage().then(res => {
-  //           this.datarequest.getTheCurrentUser({userID: res}).subscribe((data) => {
-  //             this.currentUser.push(data[0])
-  //           })
-  //           this.datarequest.getMyCellgroup({leaderid: res}).subscribe((data) => {
-  //             this.members = data
-  //             this.members.forEach(element => {
-  //               if(element.leader == res){
-  //                 this.groupMembers.push(element);
-  //               }
-  //             });
-  //           })
-  //         })
-  //       }
-  //     })
-  //   })
-  // }
 
   // this function is intended is the current user is also a member, so that this function will retrieve all the
   //members of the group where the current user belong
   getAllMembers() {
-    this.datarequest.getMyCellgroup({leaderid: this.currentUser[0].id}).subscribe(data => {
+    this.datarequest.getMyCellgroup({ leaderid: this.currentUser[0].id }).subscribe(data => {
       this.members = data
       this.groupMembers = this.members
       // this.members.forEach(element => {
@@ -225,7 +177,15 @@ export class SupportPage {
 
 
   // Kini siya nga function kay ang pag add ug attendance sa cellgroup member for a certain event nga selected 
-  addAttendanceSelectedEvent(){
+  addAttendanceSelectedEvent() {
+    var newUser = {
+      newUser: {
+        leader: '',
+        member: '',
+        type: '',
+        date: ''
+      }
+    }
     this.attendance.multipleMembersAttendanceCG.forEach(element => {
       this.attendance.dateOfEvents.type = this.attendance.selectedEventsID
       this.attendance.dateOfEvents.leader = this.currentUser.id
@@ -234,14 +194,17 @@ export class SupportPage {
       const addAttendance = this.attendance.addEventsAttendance(this.attendance.dateOfEvents)
       addAttendance.subscribe((response: any) => {
         this.attendance.successfulAddedAttendance();
-        this.router.navigate(['/' + this.nextRoute]) 
+        this.router.navigate(['/' + this.nextRoute])
       })
     })
     this.attendance.multipleMembersAttendanceSC.forEach(element => {
       this.attendance.dateOfEvents.type = "Sunday"
-      const addSundayAttendance = this.attendance.http.post(this.attendance.url + 'attendance', this.attendance.dateOfEvents)
+      newUser.newUser.date = this.attendance.dateOfEvents.date
+      newUser.newUser.leader = this.attendance.dateOfEvents.leader
+      newUser.newUser.member = this.attendance.dateOfEvents.member
+      const addSundayAttendance = this.attendance.http.post(this.attendance.url + 'attendance', newUser)
       addSundayAttendance.subscribe((response: any) => {
-        if(response == false) {
+        if (response == false) {
           this.attendance.SundayCelebrationError()
         }
       })
@@ -255,24 +218,24 @@ export class SupportPage {
       const userAttendance = this.eventsAndAttendance.getMemberAttendance(element.id)
       userAttendance.subscribe((attendance: any) => {
         attendance[0].currentEventsAttendance.forEach(element => {
-          if(
-            (new Date(this.leaders.chosenDate).getMonth() + 1) + '/' + new Date(this.leaders.chosenDate).getDate() + '/' + new Date(this.leaders.chosenDate).getFullYear() == 
+          if (
+            (new Date(this.leaders.chosenDate).getMonth() + 1) + '/' + new Date(this.leaders.chosenDate).getDate() + '/' + new Date(this.leaders.chosenDate).getFullYear() ==
             (new Date(element.date).getMonth() + 1) + '/' + new Date(element.date).getDate() + '/' + new Date(element.date).getFullYear()
           ) {
             this.alreadyAttendedArray.push(true)
-          }else {
+          } else {
             this.alreadyAttendedArray.push(false)
-          } 
+          }
         });
         attendance[0].currentUserAttendance.forEach(element => {
-          if(
-            (new Date(this.leaders.chosenDate).getMonth() + 1) + '/' + new Date(this.leaders.chosenDate).getDate() + '/' + new Date(this.leaders.chosenDate).getFullYear() == 
+          if (
+            (new Date(this.leaders.chosenDate).getMonth() + 1) + '/' + new Date(this.leaders.chosenDate).getDate() + '/' + new Date(this.leaders.chosenDate).getFullYear() ==
             (new Date(element.date).getMonth() + 1) + '/' + new Date(element.date).getDate() + '/' + new Date(element.date).getFullYear()
           ) {
             this.alreadyAttendedArray.push(true)
-          }else {
+          } else {
             this.alreadyAttendedArray.push(false)
-          } 
+          }
         })
       })
     })

@@ -32,10 +32,10 @@ export class LoginPage {
     private dataRequest: DataRequestsService,
     private loadingController: LoadingController
   ) {
-    if(this.request.currentUserValue) {
+    if (this.request.currentUserValue) {
       this.router.navigate(['/app/tabs/schedule'])
     }
-   }
+  }
 
   ngOnInit() {
     this.dataRequest.storeIfCurrentUserAlreadyAttended(false)
@@ -43,29 +43,29 @@ export class LoginPage {
     this.menu.enable(false)
 
     this.request.getTheCurrentUserIdInStorage().then((data: any) => {
-      if(data != null) {
+      if (data != null) {
         this.router.navigate(['/app/tabs/schedule'])
       }
     })
   }
- 
+
   showPassword() {
-     this.showPass = !this.showPass;
-     if(this.showPass){
-       this.type = 'text';
-     } else {
-       this.type = 'password';
-     }
+    this.showPass = !this.showPass;
+    if (this.showPass) {
+      this.type = 'text';
+    } else {
+      this.type = 'password';
+    }
   }
-  
+
   onLogin() {
     this.presentLoading()
     this.request.loginService(this.login).subscribe((res: any) => {
       console.log(res)
       if (res != null) {
-        if(res.length != 0) {
+        if (res.length != 0) {
           this.getTheUsersCurrentRole(res[0].roles, res);
-        }else {
+        } else {
           this.presentAlert()
         }
       } else {
@@ -73,12 +73,12 @@ export class LoginPage {
       }
     })
   }
-  
+
   async presentAlert() {
     const alert = await this.alertControl.create({
       cssClass: 'my-custom-class',
       header: 'Error',
-      message: 'Email or password is incorrect.',
+      message: 'Username or password is incorrect.',
       buttons: ['OK']
     });
 
@@ -99,7 +99,7 @@ export class LoginPage {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',
-      duration: 3000
+      duration: 5000
     });
     await loading.present();
 

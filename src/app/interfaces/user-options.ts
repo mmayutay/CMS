@@ -91,7 +91,7 @@ export class calendar {
     var allAverage = 0
     var arrayPercent = []
     arrayPercent.length = 0
-    for (let count = 0; count < 5; count++) {
+    for (let count = 0; count < 6; count++) {
       this.getWeekOfMonth(dataAttendance, count, month + " " + year).forEach(data => {
         allAverage += data
       })
@@ -161,9 +161,9 @@ export class calendar {
     let userRole = 0
     const currentUserRole = this.request.getTheUserRoleFromTheStorage()
     currentUserRole.then((role: any) => {
-      if(role != '1') {
+      if (role != '1') {
         userRole = Number(role) / 12
-      }else {
+      } else {
         userRole = role
       }
     })

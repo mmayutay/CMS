@@ -12,6 +12,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 // import { DataDisplayProvider } from 'app/providers/data-editing';
 import { DataDisplayProvider } from '../../providers/data-editing';
 import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+import { TrainingsStorage } from 'app/model/user.model';
 
 @Component({
   selector: 'page-speaker-list',
@@ -19,13 +20,15 @@ import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
   styleUrls: ['./speaker-list.scss'],
 })
 export class SpeakerListPage {
+  public partialSelectedTraining = ''
+  public selectedTrainingAuthorAndCurrentUser = false
   public currentUsersId = ''
   public defaultTraining = ''
   public defaultLesson = ''
   public defaultClass = ''
   public defaultType = 'Attendance'
 
-  public selectedTrainingID;
+  public selectedTrainingID = { instructor: '', id: '' };
   public selectedClass;
   public selectedLesson;
   public studentsClassesScores = []
@@ -47,7 +50,9 @@ export class SpeakerListPage {
     private dataDisplays: DataDisplayProvider,
     private dataRequest: DataRequestsService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    public training: TrainingsStorage,
+    public trainingStorage: TrainingsStorage
   ) { }
 
 
@@ -74,6 +79,7 @@ export class SpeakerListPage {
 
   ionViewDidEnter() {
     this.displayDefaultTraining()
+    this.partialSelectedTraining = this.trainingStorage.allTrainings[0].id
   }
 
 
@@ -82,15 +88,16 @@ export class SpeakerListPage {
     const getCurrentUser = this.request.getTheCurrentUserIdInStorage()
     getCurrentUser.then((id) => {
       this.currentUsersId = id
-      const trainings = this.eventsService.getAllTrainingsByAnyUser()
-      trainings.subscribe((data: any) => {
-        if(data.length != 0) {
-          this.defaultTraining = data[0].title
-          this.selectedTrainingID = data[0]
-          this.returnAllLessons(data[0].id)
-          this.returnClassesOfTraining(data[0].id)
-        }
-      })
+      // const trainings = this.eventsService.getAllTrainingsByAnyUser()
+      // trainings.subscribe((data: any) => {
+      //   if (data.length != 0) {
+      this.selectedTrainingAuthorAndCurrentUser = (this.trainingStorage.allTrainings[0].instructor == this.currentUsersId)
+      this.defaultTraining = this.trainingStorage.allTrainings[0].title
+      this.selectedTrainingID = this.trainingStorage.allTrainings[0]
+      this.returnAllLessons(this.partialSelectedTraining)
+      this.returnClassesOfTraining(this.trainingStorage.allTrainings[0].id)
+      // }
+      // })
     })
   }
 
@@ -119,12 +126,13 @@ export class SpeakerListPage {
 
   // Kini siya function kay ang pag add ug lesson sa certain trainings 
   navigateAddLesson() {
-    this.router.navigate(['/add-lesson/' + this.selectedTrainingID.id])
+    this.router.navigate(['/add-lesson/' + this.selectedTrainingID])
   }
 
   // Kini siya nga function kay kuhaon ang details selected training 
   getIDSelectedTraining(value) {
     this.selectedTrainingID = value.target.value
+    this.selectedTrainingAuthorAndCurrentUser = (this.selectedTrainingID.instructor == this.currentUsersId)
     this.returnAllLessons(value.target.value.id)
   }
 
@@ -158,10 +166,10 @@ export class SpeakerListPage {
     const lessons = this.eventsService.returnLessons(trainingID)
     lessons.subscribe((data: any) => {
       this.dataDisplays.lessonsAdded = data
-      if(data.length != 0) {
+      if (data.length != 0) {
         this.defaultLesson = data[0].title
         this.selectedLesson = data[0].id
-      }else {
+      } else {
         this.defaultLesson = "Your selected training has no lesson"
       }
     })
@@ -180,10 +188,11 @@ export class SpeakerListPage {
 
   // Kini siya nga function kay i return ang classes sa certain lessons sa selected trainings 
   returnClassesOfTraining(trainingID) {
-    const classes = this.eventsService.returnClassesOfTraining(trainingID)
+    this.selectedTrainingID = trainingID
+    const classes = this.eventsService.returnClassesOfTraining(trainingID.id)
     classes.subscribe((data: any) => {
       this.classesOfSelectedTraining = data
-      if(data.length != 0) {
+      if (data.length != 0) {
         this.defaultClass = data[0].name
         this.selectedClass = data[0].id
       }
@@ -249,7 +258,7 @@ export class SpeakerListPage {
           handler: () => {
             console.log('Confirm Okay');
             const deleteLesson = this.eventsService.deleteLessonOfTraining(lessonID.id)
-            deleteLesson.subscribe((response: any ) => {
+            deleteLesson.subscribe((response: any) => {
               this.dataDisplays.lessonsAdded.splice(this.dataDisplays.lessonsAdded.indexOf(lessonID), 1)
               this.successfullyDeleted()
             })
