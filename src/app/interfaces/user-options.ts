@@ -160,7 +160,13 @@ export class calendar {
   returnTypeOfMember() {
     let userRole = 0
     const currentUserRole = this.request.getTheUserRoleFromTheStorage()
-    currentUserRole.then((role: any) => { userRole = Number(role) / 12})
+    currentUserRole.then((role: any) => {
+      if(role != '1') {
+        userRole = Number(role) / 12
+      }else {
+        userRole = role
+      }
+    })
     var members = [];
     this.dataRequest.allVipUsers().subscribe((data: any) => {
       members.push({ type: "VIP Members", length: data.length });
@@ -170,8 +176,15 @@ export class calendar {
       members.push({ type: "Regular Members", length: data.length });
     })
 
-    members.push({ type: "Active Members", length: this.activeMember.length });
-    members.push({ type: "Inactive Members", length: this.inactiveMember.length });
+    const activeMembers = this.dataRequest.returnActiveAndInactiveUsers('true')
+    activeMembers.subscribe((response: any) => {
+      members.push({ type: "Active Members", length: response.length });
+    })
+
+    const inactiveMembers = this.dataRequest.returnActiveAndInactiveUsers('false')
+    inactiveMembers.subscribe((response: any) => {
+      members.push({ type: "Inactive Members", length: response.length });
+    })
 
     return members;
   }
@@ -216,7 +229,6 @@ export class calendar {
 
   // get the week of the month
   getWeekOfMonth(arrayOfDates: any, week: number, monthAndYear: string) {
-    console.log(arrayOfDates)
     var arrayOfPercent = []
     var eventCounter = 0
     this.returnWeek(monthAndYear, week).forEach(event => {

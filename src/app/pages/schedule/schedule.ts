@@ -9,6 +9,7 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 import { calendar } from '../../interfaces/user-options';
 import { PastorUser } from 'app/request-to-BE/pastor-user';
 import { RequestsService } from 'app/logInAndSignupService/requests.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'page-schedule',
@@ -16,6 +17,8 @@ import { RequestsService } from 'app/logInAndSignupService/requests.service';
   styleUrls: ['./schedule.scss'],
 })
 export class SchedulePage implements OnInit {
+  loading = false;
+  users = []
   public partialArray = []
   // Gets a reference to the list element
   @ViewChild('scheduleList', { static: true }) scheduleList: IonList;
@@ -50,8 +53,9 @@ export class SchedulePage implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true
+
     this.menu.enable(true)
-    // this.updateSchedule();
     this.getAllTheEventsAndDisplay({target: {value: 'all'}});
 
     this.ios = this.config.get('mode') === 'ios';

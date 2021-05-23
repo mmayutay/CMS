@@ -87,7 +87,6 @@ export class DataDisplayProvider {
     allTrainings() {
         const allTrainings = this.eventRequest.getAllTrainingsByAnyUser()
         allTrainings.subscribe((response: any) => {
-            console.log(response)
             this.trainings = response
         })
     }

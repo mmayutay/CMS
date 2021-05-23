@@ -8,36 +8,33 @@ import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
 })
 
 export class PastorUser {
+    public activeMembers = []
+    public inactiveMembers = []
     public eventsAttendance = []
     public scAttendance = []
 
   constructor(
     public dataRequest: DataRequestsService,
     public eventsAndSCAttendance: EventAndSCAttendance,
-    public calendar: calendar
-  ) {}
+    public calendar: calendar,
+    // public 
+  ) {
+  }
 
   // Kini siya nga function kay i execute kung ang naka login kay ang pastor 
   returnAttendanceOfAllUsers() {
     const allUsers = this.dataRequest.returnAllUser()
     allUsers.subscribe((users: any) => {
       users.forEach(element => {
-        const certainUserAttendance = this.eventsAndSCAttendance.getMemberAttendance(element.id)
+        const certainUserAttendance = this.dataRequest.getMemberSCAndEventsAttendance(element.id)
         certainUserAttendance.subscribe((response: any) => {
-            console.log(response)
             this.calendar.membersAttendance.currentEventsAttendance = response[0].currentEventsAttendance
-            this.calendar.membersAttendance.currentUserAttendance = response[0].currentUserAttendance 
-            // response[0].currentUserAttendance.forEach(element => {
-            //     this.scAttendance.push(element)
-
-            // });
-            // response[0].currentEventsAttendance.forEach(element => {
-            //     this.scAttendance.push(element)
-            // });
+            this.calendar.membersAttendance.currentUserAttendance = response[0].currentUserAttendance
         })
       });
     })
   }
+
 }
 
 // membersAttendance.currentEventsAttendance

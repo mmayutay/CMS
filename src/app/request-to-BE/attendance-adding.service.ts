@@ -13,7 +13,7 @@ export class AttendanceAddingService {
     public eventOwner = ''
     public multipleMembersAttendanceCG = []
     public multipleMembersAttendanceSC = []
-    public url = "http://localhost:8080/api/"
+    public url = "http://localhost:8000/api/"
     public currentDate = new Date().getMonth() + '/' + new Date().getDate() + '/' + new Date().getFullYear();
     public hasEvent = false
     public dateOfEvents = {
