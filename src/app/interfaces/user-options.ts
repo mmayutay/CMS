@@ -6,13 +6,15 @@ import { RequestsService } from "../logInAndSignupService/requests.service";
   providedIn: "root",
 })
 export class calendar {
-  public membersAttendance;
+  public membersAttendance = {
+    currentEventsAttendance: [],
+    currentUserAttendance: []
+  };
   public membersOfAGroup;
   public statsAttendance = [];
   public activeMember = [];
   public inactiveMember = [];
   public studentsNames = [];
-
 
   constructor(
     private dataRequest: DataRequestsService,
@@ -115,6 +117,7 @@ export class calendar {
 
   // Kini siya nga function kay i return ang statistics sa whole year 
   returnStatisticsForAYear(dataAttendance: any, year: number) {
+    console.log('Test')
     var arrayOfStats = []
     for (let index = 0; index < 12; index++) {
       var month = this.getMonthlyStats(dataAttendance, this.convertMonth(index), year)
@@ -157,7 +160,13 @@ export class calendar {
   returnTypeOfMember() {
     let userRole = 0
     const currentUserRole = this.request.getTheUserRoleFromTheStorage()
-    currentUserRole.then((role: any) => { userRole = Number(role) / 12})
+    currentUserRole.then((role: any) => {
+      if(role != '1') {
+        userRole = Number(role) / 12
+      }else {
+        userRole = role
+      }
+    })
     var members = [];
     this.dataRequest.allVipUsers().subscribe((data: any) => {
       members.push({ type: "VIP Members", length: data.length });
@@ -167,8 +176,15 @@ export class calendar {
       members.push({ type: "Regular Members", length: data.length });
     })
 
-    members.push({ type: "Active Members", length: this.activeMember.length });
-    members.push({ type: "Inactive Members", length: this.inactiveMember.length });
+    const activeMembers = this.dataRequest.returnActiveAndInactiveUsers('true')
+    activeMembers.subscribe((response: any) => {
+      members.push({ type: "Active Members", length: response.length });
+    })
+
+    const inactiveMembers = this.dataRequest.returnActiveAndInactiveUsers('false')
+    inactiveMembers.subscribe((response: any) => {
+      members.push({ type: "Inactive Members", length: response.length });
+    })
 
     return members;
   }

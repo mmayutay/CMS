@@ -64,9 +64,9 @@ export class CheckTutorial implements CanLoad {
 
   // This function will get all the leaders
   getAllTheLeaders() {
-    const currentUserRole = this.request.getTheUserRoleFromTheStorage()
-    currentUserRole.then(role => {
-      const leaders = this.request.getLeaders(role)
+    const currentUserID = this.request.getTheCurrentUserIdInStorage()
+    currentUserID.then(id => {
+      const leaders = this.dataRequest.returnMembersWithMembers(id)
       leaders.subscribe((data: any) => {
         this.leaders = data
       })
@@ -96,7 +96,6 @@ export class CheckTutorial implements CanLoad {
     this.certainLeadersID = id
     const members = this.dataRequest.getMyCellgroup({ leaderid: id })
     members.subscribe((data: any) => {
-      console.log(data)
       const attendance = this.dataRequest.getMemberSCAndEventsAttendance(id)
       attendance.subscribe((response: any) => {
         if (response[0].currentEventsAttendance.length == 0 && response[0].currentUserAttendance.length == 0) {
@@ -104,7 +103,6 @@ export class CheckTutorial implements CanLoad {
             this.members.push({ user: element, attendance: 0, event: 0 })
           })
         } else {
-          console.log(data)
           data.forEach(element => {
             this.getSundayAttendance(element)
           })

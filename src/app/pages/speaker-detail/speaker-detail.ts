@@ -7,6 +7,7 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 import { calendar } from '../../interfaces/user-options';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service';
 import { DataDisplayProvider } from '../../providers/data-editing';
+import { RequestsService } from 'app/logInAndSignupService/requests.service';
 
 @Component({
   selector: 'page-speaker-detail',
@@ -14,6 +15,8 @@ import { DataDisplayProvider } from '../../providers/data-editing';
   styleUrls: ['./speaker-detail.scss'],
 })
 export class SpeakerDetailPage {
+  public currentUser;
+  public author;
   public listOfStudents = []
   public lessons = []
   public deleteItems = []
@@ -41,13 +44,17 @@ export class SpeakerDetailPage {
     private eventRequest: EventTraningServiceService,
     private datas: calendar,
     private dataRequest: DataRequestsService,
-    public dataDisplays: DataDisplayProvider
+    public dataDisplays: DataDisplayProvider,
+    public request: RequestsService
   ) {}
 
   ionViewWillEnter() {
+      this.getUserID()
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
       this.selectedItemId = speakerId
       this.segmentModel = this.route.snapshot.paramMap.get('addType');
+      this.author = this.route.snapshot.paramMap.get('author');
+
       this.getClassDetails()
       this.getStudentsOfSelectedClass()
   }
@@ -123,6 +130,14 @@ export class SpeakerDetailPage {
           this.listOfStudents.push(usersDetails[0])
         })
       });
+    })
+  }
+
+  // Kini siya nga function kay kuhaon ang user sa storage 
+  getUserID() {
+    const userID = this.request.getTheCurrentUserIdInStorage()
+    userID.then((id: any) => {
+      this.currentUser = id
     })
   }
 }

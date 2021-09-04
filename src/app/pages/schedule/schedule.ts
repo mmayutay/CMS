@@ -7,6 +7,9 @@ import { ConferenceData } from '../../providers/conference-data';
 import { UserData } from '../../providers/user-data';
 import { EventTraningServiceService } from '../../events-and-trainings/event-traning-service.service';
 import { calendar } from '../../interfaces/user-options';
+import { PastorUser } from 'app/request-to-BE/pastor-user';
+import { RequestsService } from 'app/logInAndSignupService/requests.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'page-schedule',
@@ -14,6 +17,8 @@ import { calendar } from '../../interfaces/user-options';
   styleUrls: ['./schedule.scss'],
 })
 export class SchedulePage implements OnInit {
+  loading = false;
+  users = []
   public partialArray = []
   // Gets a reference to the list element
   @ViewChild('scheduleList', { static: true }) scheduleList: IonList;
@@ -40,28 +45,21 @@ export class SchedulePage implements OnInit {
     public user: UserData,
     public config: Config,
     private eventRequest: EventTraningServiceService,
-    private calendar: calendar
-  ) { }
+    private calendar: calendar,
+    private pastorUser: PastorUser,
+    private request: RequestsService
+  ) { 
+    this.getRole()
+  }
 
   ngOnInit() {
+    this.loading = true
+
     this.menu.enable(true)
-    // this.updateSchedule();
     this.getAllTheEventsAndDisplay({target: {value: 'all'}});
 
     this.ios = this.config.get('mode') === 'ios';
   }
-
-  // updateSchedule() {
-  //   // Close any open sliding items when the schedule updates
-  //   if (this.scheduleList) {
-  //     this.scheduleList.closeSlidingItems();
-  //   }
-
-  //   this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
-  //     this.shownSessions = data.shownSessions;
-  //     this.groups = data.groups;
-  //   });
-  // }
 
   async presentFilter() {
     const modal = await this.modalCtrl.create({
@@ -172,4 +170,14 @@ export class SchedulePage implements OnInit {
     }
     console.log(this.groups)
   }
+
+  // Kini siya nga function kay kuhaon ang current user role
+  getRole() {
+    const getUserRole = this.request.getTheUserRoleFromTheStorage()
+    getUserRole.then((role: any) => {
+      if(role == '1') {
+        this.pastorUser.returnAttendanceOfAllUsers()
+      }
+    })
+  } 
 }

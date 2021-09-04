@@ -57,6 +57,9 @@ export class ReportingsPage implements OnInit {
   public classes;
   pageOfItems: Array<any>;
 
+
+  public currentUserRole = ''
+
   constructor(
     private datarequest: DataRequestsService,
     private request: RequestsService,
@@ -68,15 +71,11 @@ export class ReportingsPage implements OnInit {
   }
 
   ngOnInit() {
-    var time = "2021-05-11, 08:00"
-    var test = new Date(time).getHours()
-    console.log(test)
-
     this.getTheCurrentUser();
     this.leaders.typeChoice(this.leaders.choice)
-    const user = this.request.getTheCurrentUserIdInStorage()
-    user.then(id => {
-      // this.leaders.getMembersOfCertainLeader({target: {value: {id: id}}})
+    const user = this.request.getTheUserRoleFromTheStorage()
+    user.then(role => {
+      this.currentUserRole = role
     })
   }
 
@@ -193,17 +192,6 @@ export class ReportingsPage implements OnInit {
     return years;
   }
 
-  // Kini siya nga function kay kuhaon ang selected week
-  // getSelectedWeek(week: any) {
-  //   this.selectedTypeDate.week = week.target.value
-  //   const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
-  //   members.subscribe((response: any) => {
-  //     response.forEach(element => {
-  //       this.returnGroupsAttendance(element, this.calendar.returnWeek(this.selectedTypeDate.month + ' ' + this.selectedTypeDate.year, this.selectedTypeDate.week))
-  //     });
-  //   })
-  // }
-
   // Kini siya nga function kay kuhaon ang selected Month 
   getSelectedDate(selectedDate: any) {
     this.currentDate = selectedDate.target.value
@@ -219,25 +207,8 @@ export class ReportingsPage implements OnInit {
         }
       })
     })
-    // this.selectedTypeDate.month = month.target.value
-    // const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
-    // members.subscribe((response: any) => {
-    //   response.forEach(element => {
-    //     this.returnGroupsAttendance(element, this.calendar.getDaysInMonth(new Date(month.target.value + " " + this.selectedTypeDate.year).getMonth(), 2021))
-    //   });
-    // })
   }
 
-  // Kini siya nga function kay kuhaon ang selected year 
-  // getSelectedYear(year: any) {
-  //   this.selectedTypeDate.year = year.target.value
-  //   const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
-  //   members.subscribe((response: any) => {
-  //     response.forEach(element => {
-  //       this.returnGroupsAttendance(element, this.calendar.returnDatesOfWholeYear(year.target.value + "-1-1", year.target.value + "-31-12"))
-  //     });
-  //   })
-  // }
 
   // Kini siya nga function kay display na ni siya sa mga students ug sa ilang mga attendance ana nga selected week or month 
   returnGroupsAttendance(member, dates) {

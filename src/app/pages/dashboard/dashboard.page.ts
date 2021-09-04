@@ -6,6 +6,7 @@ import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { PopoverController } from '@ionic/angular';
 import { DashboardPopoverPage } from '../dashboard-popover/dashboard-popover.page';
 import { calendar } from '../../interfaces/user-options'
+import { PastorUser } from "app/request-to-BE/pastor-user";
 
 @Component({
   selector: "app-dashboard",
@@ -35,10 +36,10 @@ export class DashboardPage implements OnInit {
   //These are the variables for weekly view
   public weeklyBool = true
   public weeklyView = [
-    {display: '1st', value: 1}, 
-    {display: '2nd', value: 2},
-    {display: '3rd', value: 3},
-    {display: '4th', value: 4}
+    { display: '1st', value: 1 },
+    { display: '2nd', value: 2 },
+    { display: '3rd', value: 3 },
+    { display: '4th', value: 4 }
   ];
   //These are the variables for yearly view
   public yearlyBool = false
@@ -77,18 +78,26 @@ export class DashboardPage implements OnInit {
     private dataRequest: DataRequestsService,
     private request: RequestsService,
     private popoverCtrl: PopoverController,
-
+    public pastor: PastorUser,
     public calendar: calendar
   ) { }
 
   ngOnInit() {
-    this.request.getTheCurrentUserIdInStorage().then((id) => {
-      this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
-        this.calendar.returnAttendance(data)
-        this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
-      });
-    });
-    
+    const userRole = this.request.getTheUserRoleFromTheStorage()
+    userRole.then(role => {
+      // if(role != '1') {
+      this.request.getTheCurrentUserIdInStorage().then((id) => {
+        this.dataRequest.getMemberSCAndEventsAttendance(id).subscribe((data) => {
+          console.log(data)
+          this.calendar.returnAttendance(data)
+          this.weeklyStats = this.calendar.weekOfAMonth(data[0].currentUserAttendance)
+        });
+      })
+      // }else {
+      //   this.pastor.returnAttendanceOfAllUsers()
+      // }
+    })
+
     this.userIsActiveOrNot();
     var slides = document.querySelector("ion-slides");
     slides.options = {
@@ -127,7 +136,7 @@ export class DashboardPage implements OnInit {
             data: arrayForData,
             backgroundColor: [
               "rgba(84, 216, 58, 0.4)"
-                        ],
+            ],
             borderColor: [
               "rgba(84, 216, 58, 1)"
             ],
@@ -238,7 +247,7 @@ export class DashboardPage implements OnInit {
   getTheRegularMembers() {
     let userRole = 0
     const currentUserRole = this.request.getTheUserRoleFromTheStorage()
-    currentUserRole.then(role => {userRole = Number(role) / 12})
+    currentUserRole.then(role => { userRole = Number(role) / 12 })
     var arrayRegularMembers = []
     var regularMembers;
     this.dataRequest.getRegularMembers(userRole).subscribe(result => {
@@ -272,20 +281,20 @@ export class DashboardPage implements OnInit {
       this.arrayOfSundayCeleb = this.calendar.returnStatisticsForAYear(this.calendar.membersAttendance.currentEventsAttendance, this.chosenYear)
     }
     this.graphCreated(this.barCanvas, this.arrayOfCellgroup);
-    this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb); 
+    this.graphCreated(this.lineCanvas, this.arrayOfSundayCeleb);
   }
 
   getMonth(value) {
     this.chosenMonth = value.target.value
-    this.monthsToView({target: {value: this.whatWeek}})
+    this.monthsToView({ target: { value: this.whatWeek } })
   }
 
   getChosenYear(value) {
     this.chosenYear = value.target.value
-    if(this.typeOfViewChosed == 'Quarterly') {
-      this.monthsToView({target: {value: {months: ["Jan", "Feb", "Mar"]}}})
-    }else {
-      this.monthsToView({target: {value: this.whatWeek}})
+    if (this.typeOfViewChosed == 'Quarterly') {
+      this.monthsToView({ target: { value: { months: ["Jan", "Feb", "Mar"] } } })
+    } else {
+      this.monthsToView({ target: { value: this.whatWeek } })
     }
   }
 

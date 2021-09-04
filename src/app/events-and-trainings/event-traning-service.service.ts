@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class EventTraningServiceService {
-  public url = "https://thesisprojectgroup8.herokuapp.com/api/"
+  public url = "http://localhost:8000/api/"
 
   constructor(
     private http: HttpClient
@@ -27,7 +27,7 @@ export class EventTraningServiceService {
 
   // This function is to update the users posted event
   updateEvent(id, updatedData) {
-    return this.http.post(this.url + 'add-event-announcement/update/' + id, updatedData)
+    return this.http.post(this.url + 'event-announcement/update/' + id, updatedData)
   }
 
   // This function return the selected item to edit
@@ -37,7 +37,7 @@ export class EventTraningServiceService {
 
   // This function will delete the selected item by the user
   deleteSelectedEvent(id) {
-    return this.http.delete(this.url + 'add-event-announcement/delete/' + id)
+    return this.http.delete(this.url + 'event-announcement/delete/' + id)
   }
 
   // This function is to delete multiple students

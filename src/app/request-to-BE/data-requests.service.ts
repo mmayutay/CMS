@@ -7,7 +7,7 @@ import { UserData } from '../providers/user-data'
   providedIn: 'root'
 })
 export class DataRequestsService {
-  public url = "https://thesisprojectgroup8.herokuapp.com/api/"
+  public url = "http://localhost:8000/api/"
   public currentUserRole = ''
   public roleToLogged = ""
 
@@ -20,6 +20,11 @@ export class DataRequestsService {
   // Kini siya nga function kay i return ang tanan nga user from admin to members 
   returnAllUser() {
     return this.request.get(this.url + 'list')
+  }
+
+  // Kini siya nga function kay i return ang active ug inactive users 
+  returnActiveAndInactiveUsers(boolean) {
+    return this.request.get(this.url + 'get-active-or-inactive-users/' + boolean)
   }
 
   //This will get all the users of a certain group
@@ -38,6 +43,11 @@ export class DataRequestsService {
 
   getTheCurrentUser(userId) {
     return this.request.post(this.url + "info", userId);
+  }
+
+  // Kini siya nga function kay pag kuha ni sa certain member sa leader kung ang member kay naay member, i display ug apil
+  returnMembersWithMembers(leaderID) {
+    return this.request.get(this.url + 'certain-leader/' + leaderID)
   }
 
   editUserInfo(userId) {

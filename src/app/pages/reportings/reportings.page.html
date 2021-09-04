@@ -65,7 +65,7 @@
         </div> -->
     </div>
 </ion-content>
-<div *ngIf="leaders.returnLeaderIDBoolean()">
+<div *ngIf="currentUserRole == '12' || currentUserRole == '1'">
     <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
         <ion-fab-button routerLink="/support/reportings">
             <ion-icon name="add"></ion-icon>

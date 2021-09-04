@@ -100,9 +100,9 @@ export class AppComponent implements OnInit {
 
   checkLoginStatus() {
     this.request.getCurrentUserInStorage().then(res => {
-      if(res != null) {
+      if (res != null) {
         this.updateLoggedInStatus(true)
-      }else {
+      } else {
         this.updateLoggedInStatus(false)
       }
     })
@@ -129,6 +129,8 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
+    this.request.logoutService();
+    this.router.navigate(['/login']);
     this.request.logoutService().then(res => {
       location.reload()
     })
