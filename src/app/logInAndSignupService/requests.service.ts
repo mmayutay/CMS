@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class RequestsService {
+  public darkmode = false
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
   public storageKey = 'current-logged'
@@ -18,6 +19,7 @@ export class RequestsService {
   public storageKeyVIP = 'is-vip'
   public boolean = true
   public userDataLength;
+  // public url = "https://group8finalthesis.herokuapp.com/api/"
   public url = "http://localhost:8000/api/"
 
   constructor(
@@ -87,26 +89,6 @@ export class RequestsService {
   // This route is to get all the leaders 
   getLeaders(role) {
     return this.http.get(this.url + 'get-leaders/' + role)
-  }
-
-  sendCodeReset(value) {
-    // console.log("Request value: ", value);
-    return this.http.get(this.url + 'send-code/' + value)
-  }
-
-  verifyCodeReset(codeInput) {
-    console.log("Request code input: " + codeInput);
-    return this.http.get(this.url + 'verify-code/' + codeInput)
-  }
-
-  // resetPass(inputData){
-  //   console.log("request:" , inputData);
-  //   return this.http.post(this.url + 'reset-password', inputData)
-
-  // }
-  sendCodeForgot(value) {
-    console.log("Request value: ", value);
-    return this.http.get(this.url + 'send-code/' + value)
   }
 
   resetPass(password) {

@@ -71,7 +71,8 @@
                     <ion-item>
                         <div class="input-container">
                             <ion-icon class="iconLogin" name="settings"></ion-icon>
-                            <ion-input [(ngModel)]="signup.role.code" name="code" class="input">
+                            <ion-input (ionChange)="getSelectedRole($event)" [(ngModel)]="signup.role.code" name="code"
+                                class="input">
                                 <ion-select placeholder="Role" *ngIf="role === 1">
                                     <ion-select-option value="12">Primary</ion-select-option>
                                     <ion-select-option value="144">Member(144)</ion-select-option>

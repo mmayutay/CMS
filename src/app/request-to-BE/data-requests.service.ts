@@ -7,6 +7,7 @@ import { UserData } from '../providers/user-data'
   providedIn: 'root'
 })
 export class DataRequestsService {
+  // public url = "https://group8finalthesis.herokuapp.com/api/"
   public url = "http://localhost:8000/api/"
   public currentUserRole = ''
   public roleToLogged = ""

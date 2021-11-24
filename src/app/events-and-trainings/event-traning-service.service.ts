@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class EventTraningServiceService {
+  // public url = "https://group8finalthesis.herokuapp.com/api/"
   public url = "http://localhost:8000/api/"
 
   constructor(

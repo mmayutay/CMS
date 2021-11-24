@@ -12,6 +12,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 // import { DataDisplayProvider } from 'app/providers/data-editing';
 import { DataDisplayProvider } from '../../providers/data-editing';
 import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
+import { TrainingsStorage } from 'app/model/user.model';
 
 @Component({
   selector: 'page-speaker-list',
@@ -19,13 +20,15 @@ import { DataRequestsService } from 'app/request-to-BE/data-requests.service';
   styleUrls: ['./speaker-list.scss'],
 })
 export class SpeakerListPage {
+  public partialSelectedTraining = ''
+  public selectedTrainingAuthorAndCurrentUser = false
   public currentUsersId = ''
   public defaultTraining = ''
   public defaultLesson = ''
   public defaultClass = ''
   public defaultType = 'Attendance'
 
-  public selectedTrainingID;
+  public selectedTrainingID = { instructor: '', id: '' };
   public selectedClass;
   public selectedLesson;
   public studentsClassesScores = []
@@ -47,7 +50,9 @@ export class SpeakerListPage {
     private dataDisplays: DataDisplayProvider,
     private dataRequest: DataRequestsService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    public training: TrainingsStorage,
+    public trainingStorage: TrainingsStorage
   ) { }
 
 
@@ -74,6 +79,7 @@ export class SpeakerListPage {
 
   ionViewDidEnter() {
     this.displayDefaultTraining()
+    this.partialSelectedTraining = this.trainingStorage.allTrainings[0].id
   }
 
 
@@ -119,12 +125,13 @@ export class SpeakerListPage {
 
   // Kini siya function kay ang pag add ug lesson sa certain trainings 
   navigateAddLesson() {
-    this.router.navigate(['/add-lesson/' + this.selectedTrainingID.id])
+    this.router.navigate(['/add-lesson/' + this.selectedTrainingID])
   }
 
   // Kini siya nga function kay kuhaon ang details selected training 
   getIDSelectedTraining(value) {
     this.selectedTrainingID = value.target.value
+    this.selectedTrainingAuthorAndCurrentUser = (this.selectedTrainingID.instructor == this.currentUsersId)
     this.returnAllLessons(value.target.value.id)
   }
 
@@ -180,7 +187,8 @@ export class SpeakerListPage {
 
   // Kini siya nga function kay i return ang classes sa certain lessons sa selected trainings 
   returnClassesOfTraining(trainingID) {
-    const classes = this.eventsService.returnClassesOfTraining(trainingID)
+    this.selectedTrainingID = trainingID
+    const classes = this.eventsService.returnClassesOfTraining(trainingID.id)
     classes.subscribe((data: any) => {
       this.classesOfSelectedTraining = data
       if (data.length != 0) {

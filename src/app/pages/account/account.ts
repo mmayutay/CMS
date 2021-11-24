@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { RequestsService } from '../../logInAndSignupService/requests.service'
 import { DataRequestsService } from '../../request-to-BE/data-requests.service'
 import { ModalPagePage } from '../modal-page/modal-page.page';
+import { calendar } from '../../interfaces/user-options'
 // import { MenuController } from '@ionic/angular';
 
 
@@ -39,7 +40,7 @@ export class AccountPage implements AfterViewInit {
     leader: ''
   };
   public roleHolder;
-  public isMember:boolean = true;
+  public isMember: boolean = true;
 
 
 
@@ -51,21 +52,23 @@ export class AccountPage implements AfterViewInit {
     public request: RequestsService,
     public modal: ModalPagePage,
     public datasRequest: DataRequestsService,
+    public calendar: calendar
     // public menuController: MenuController,
   ) { }
 
   ngAfterViewInit() {
     // this.menuController.enable(true);
     this.userData.storage.get(this.request.storageUserRole).then(res => {
-      this.role = res      
+      this.role = res
     })
-    
+
     this.request.getTheCurrentUserIdInStorage().then(res => {
       this.datasRequest.getTheCurrentUser({ userID: res }).subscribe(data => {
         this.holder = data[0];
+        this.holder.birthday = this.calendar.convertMonth(new Date(this.holder.birthday).getMonth()) + ' ' + new Date(this.holder.birthday).getDate() + ', ' + new Date(this.holder.birthday).getFullYear()
         this.auxiliary = data[0].auxilliary
         this.ministries = data[0].ministries
-        
+
       })
     })
   }
@@ -98,8 +101,8 @@ export class AccountPage implements AfterViewInit {
     });
     await alert.present();
   }
-  
-  
+
+
 
 
   getUsername() {
@@ -122,21 +125,21 @@ export class AccountPage implements AfterViewInit {
   }
 
   optAuxiliary(value) {
-    this.router.navigate(['auxiliary/' + value.target.value], { queryParams: {content: value.target.value} })
+    this.router.navigate(['auxiliary/' + value.target.value], { queryParams: { content: value.target.value } })
     console.log("Selected auxiliary: ", value);
   }
 
-  optAuxiliaryMember(event){
+  optAuxiliaryMember(event) {
     this.router.navigate(['auxiliary/' + this.auxiliary])
   }
 
-  optMinistryMember(event){
+  optMinistryMember(event) {
     this.router.navigate(['ministries/' + this.ministries])
   }
 
   optMinistry(value) {
     console.log(value);
-    this.router.navigate(['ministries/:type'], { queryParams: {content: value.target.value} })
+    this.router.navigate(['ministries/:type'], { queryParams: { content: value.target.value } })
     console.log("Selected ministry: ", value);
 
   }
@@ -148,5 +151,5 @@ export class AccountPage implements AfterViewInit {
     roles[12] = "Leader"
     roles[144] = "Member"
     return roles[Number(role)]
-}
+  }
 }

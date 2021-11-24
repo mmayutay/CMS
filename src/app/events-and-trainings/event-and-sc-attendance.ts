@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class EventAndSCAttendance {
+    // public url = "https://group8finalthesis.herokuapp.com/api/"
     public url = "http://localhost:8000/api/"
 
     // viewAttendancesOfSCandEvents

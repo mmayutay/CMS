@@ -41,67 +41,67 @@ const routes: Routes = [
   },
   {
     path: 'ministries/:type',
-    loadChildren: () => import('./pages/ministries/ministries.module').then( m => m.MinistriesPageModule)
+    loadChildren: () => import('./pages/ministries/ministries.module').then(m => m.MinistriesPageModule)
   },
   {
     path: 'modal-page',
-    loadChildren: () => import('./pages/modal-page/modal-page.module').then( m => m.ModalPagePageModule)
+    loadChildren: () => import('./pages/modal-page/modal-page.module').then(m => m.ModalPagePageModule)
   },
   {
     path: 'my-cell-admin',
-    loadChildren: () => import('./pages/my-cell-admin/my-cell-admin.module').then( m => m.MyCellAdminPageModule)
+    loadChildren: () => import('./pages/my-cell-admin/my-cell-admin.module').then(m => m.MyCellAdminPageModule)
   },
   {
     path: 'reportings',
-    loadChildren: () => import('./pages/reportings/reportings.module').then( m => m.ReportingsPageModule)
+    loadChildren: () => import('./pages/reportings/reportings.module').then(m => m.ReportingsPageModule)
   },
   {
     path: 'add-event',
-    loadChildren: () => import('./pages/add-event/add-event.module').then( m => m.AddEventPageModule)
+    loadChildren: () => import('./pages/add-event/add-event.module').then(m => m.AddEventPageModule)
   },
   {
     path: 'dashboard-popover',
-    loadChildren: () => import('./pages/dashboard-popover/dashboard-popover.module').then( m => m.DashboardPopoverPageModule)
+    loadChildren: () => import('./pages/dashboard-popover/dashboard-popover.module').then(m => m.DashboardPopoverPageModule)
   },
   {
     path: 'display-members/:type',
-    loadChildren: () => import('./pages/display-members/display-members.module').then( m => m.DisplayMembersPageModule)
+    loadChildren: () => import('./pages/display-members/display-members.module').then(m => m.DisplayMembersPageModule)
   },
   {
     path: 'update-my-events-posted/:id',
-    loadChildren: () => import('./pages/update-my-events-posted/update-my-events-posted.module').then( m => m.UpdateMyEventsPostedPageModule)
+    loadChildren: () => import('./pages/update-my-events-posted/update-my-events-posted.module').then(m => m.UpdateMyEventsPostedPageModule)
   },
   {
     path: 'add-training',
-    loadChildren: () => import('./pages/add-training/add-training.module').then( m => m.AddTrainingPageModule)
+    loadChildren: () => import('./pages/add-training/add-training.module').then(m => m.AddTrainingPageModule)
   },
   {
     path: 'add-classes',
-    loadChildren: () => import('./pages/add-classes/add-classes.module').then( m => m.AddClassesPageModule)
+    loadChildren: () => import('./pages/add-classes/add-classes.module').then(m => m.AddClassesPageModule)
   },
   {
     path: 'update-class-or-trainings/:typeUpdate/:selectedItemID',
-    loadChildren: () => import('./pages/update-class-or-trainings/update-class-or-trainings.module').then( m => m.UpdateClassOrTrainingsPageModule)
+    loadChildren: () => import('./pages/update-class-or-trainings/update-class-or-trainings.module').then(m => m.UpdateClassOrTrainingsPageModule)
   },
   {
     path: 'speaker-filter',
-    loadChildren: () => import('./pages/speaker-filter/speaker-filter.module').then( m => m.SpeakerFilterPageModule)
+    loadChildren: () => import('./pages/speaker-filter/speaker-filter.module').then(m => m.SpeakerFilterPageModule)
   },
   {
     path: 'add-student/:typeOfAdd/:selectedItemID',
-    loadChildren: () => import('./pages/add-student/add-student.module').then( m => m.AddStudentPageModule)
+    loadChildren: () => import('./pages/add-student/add-student.module').then(m => m.AddStudentPageModule)
   },
   {
     path: 'add-student-score/:trainingID/:lessonID/:classID',
-    loadChildren: () => import('./pages/add-student-score/add-student-score.module').then( m => m.AddStudentScorePageModule)
+    loadChildren: () => import('./pages/add-student-score/add-student-score.module').then(m => m.AddStudentScorePageModule)
   },
   {
     path: 'add-lesson/:id',
-    loadChildren: () => import('./pages/add-lesson/add-lesson.module').then( m => m.AddLessonPageModule)
+    loadChildren: () => import('./pages/add-lesson/add-lesson.module').then(m => m.AddLessonPageModule)
   },
   {
     path: 'update-selected-training/:id',
-    loadChildren: () => import('./pages/update-selected-training/update-selected-training.module').then( m => m.UpdateSelectedTrainingPageModule)
+    loadChildren: () => import('./pages/update-selected-training/update-selected-training.module').then(m => m.UpdateSelectedTrainingPageModule)
   },
   // {
   //   path: 'forgotpassword',
@@ -109,11 +109,11 @@ const routes: Routes = [
   // },
   {
     path: 'my-network',
-    loadChildren: () => import('./pages/my-network/my-network.module').then( m => m.MyNetworkPageModule)
+    loadChildren: () => import('./pages/my-network/my-network.module').then(m => m.MyNetworkPageModule)
   },
   {
     path: 'resetpassword',
-    loadChildren: () => import('./pages/resetpassword/resetpassword.module').then( m => m.ResetpasswordPageModule)
+    loadChildren: () => import('./pages/resetpassword/resetpassword.module').then(m => m.ResetpasswordPageModule)
   }
 
 

@@ -21,9 +21,7 @@ export class AddLessonPage implements OnInit {
     description: []
   }
 
-  public data = {
-
-  }
+  public data = {}
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -36,9 +34,9 @@ export class AddLessonPage implements OnInit {
     this.lessonsAdded.trainingsID = this.activatedRoute.snapshot.paramMap.get('id')
     const getLessons = this.eventRequest.returnLessons(this.lessonsAdded.trainingsID)
     getLessons.subscribe((lessons: any) => {
-      if(lessons.length != 0) {
+      if (lessons.length != 0) {
         this.currentLengthLesson = Number(lessons[lessons.length - 1].lesson)
-      }else {
+      } else {
         this.currentLengthLesson = 0
       }
     })
@@ -49,6 +47,7 @@ export class AddLessonPage implements OnInit {
   addLessonOfTraining(data, index) {
     this.addLessonCounter += 1
     this.data = data.form.value
+    this.data['name'] = 'Lesson ' + Number(this.currentLengthLesson + this.addLessonCounter)
     this.arrayOfLessons.push(this.data)
     this.arrayOfLessons[index].lesson = this.currentLengthLesson + this.addLessonCounter
   }
@@ -63,12 +62,13 @@ export class AddLessonPage implements OnInit {
 
   submitLessons() {
     this.arrayOfLessons.forEach(element => {
+      console.log(element)
       const addLessons = this.eventRequest.addLessonTraining(element, this.lessonsAdded.trainingsID)
       addLessons.subscribe((data: any) => {
         this.dataDisplays.lessonsAdded.push(data)
         this.router.navigate(['/app/tabs/speakers'])
       })
-    }); 
+    });
   }
 
   // Kini siya nga function kay kuhaon ang details sa trainings nga adto i add ang lesson 

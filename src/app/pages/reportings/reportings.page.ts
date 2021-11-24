@@ -14,6 +14,7 @@ import { calendar } from "../../interfaces/user-options";
   styleUrls: ["./reportings.page.scss"],
 })
 export class ReportingsPage implements OnInit {
+  public choice = ''
   public currentDate = this.calendar.convertMonth(new Date().getMonth()) + ' ' + new Date().getDate() + ' ' + new Date().getFullYear()
   public selectedLeader = 0
   public selectedTypeDate = {
@@ -77,11 +78,16 @@ export class ReportingsPage implements OnInit {
     user.then(role => {
       this.currentUserRole = role
     })
+    const userID = this.request.getTheCurrentUserIdInStorage()
+    userID.then(id => {
+      this.leaders.getMembersOfCertainLeader(id)
+    })
   }
 
 
   // Kini siya nga function kay i render ang mga attendance sa certain month 
   chosenType(choice) {
+    this.choice = choice
     if (choice == 'Weekly') {
       this.leaders.eventCounter = 1
     } else if (choice == 'Monthly') {
@@ -92,7 +98,7 @@ export class ReportingsPage implements OnInit {
       this.leaders.eventCounter = 52
     }
     this.leaders.members.length = 0
-    this.getData({target: {value: {id: this.selectedLeader}}})
+    this.getData({ target: { value: { id: this.selectedLeader } } })
   }
 
   getData(members) {
@@ -158,6 +164,8 @@ export class ReportingsPage implements OnInit {
 
     await alert.present();
   }
+
+
   //This is to get the current user's data and also his/her role
   getTheCurrentUser() {
     this.request.getTheCurrentUserIdInStorage().then((res) => {
@@ -198,11 +206,11 @@ export class ReportingsPage implements OnInit {
     const members = this.datarequest.getMyCellgroup({ leaderid: this.selectedLeader })
     members.subscribe((response: any) => {
       response.forEach(element => {
-        if(this.typeChoice == 'Weekly') {
+        if (this.typeChoice == 'Weekly') {
           this.returnGroupsAttendance(element, this.calendar.dates(new Date(this.currentDate)))
-        }else if(this.typeChoice == 'Monthly') {
+        } else if (this.typeChoice == 'Monthly') {
           this.returnGroupsAttendance(element, this.calendar.getDaysInMonth(new Date(this.currentDate).getMonth(), new Date(selectedDate.target.value).getFullYear()))
-        }else {
+        } else {
           this.returnGroupsAttendance(element, this.calendar.returnDatesOfWholeYear(new Date(this.currentDate).getFullYear() + "-1-1", new Date(selectedDate.target.value).getFullYear() + "-31-12"))
         }
       })
@@ -238,9 +246,17 @@ export class ReportingsPage implements OnInit {
           }
         })
       })
-      this.leaders.members.push({user: member, event: eventCounter, attendance: sundayCounter})
+      this.leaders.members.push({ user: member, event: eventCounter, attendance: sundayCounter })
     })
   }
 
-  
+  // Kini siya nga function kay refresh pareho sa facebook
+  doRefresh(event) {
+    setTimeout(() => {
+      event.target.complete();
+      this.chosenType(this.choice)
+    }, 2000);
+  }
+
+
 }

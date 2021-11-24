@@ -4,6 +4,7 @@ import { EventTraningServiceService } from '../../events-and-trainings/event-tra
 // import { DataDisplayProvider } from 'app/providers/data-editing';
 import { DataDisplayProvider } from '../../providers/data-editing';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-training',
@@ -30,7 +31,8 @@ export class AddTrainingPage implements OnInit {
     private request: RequestsService,
     private eventsService: EventTraningServiceService,
     private dataDisplays: DataDisplayProvider,
-    private router: Router
+    private router: Router,
+    public loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -46,11 +48,24 @@ export class AddTrainingPage implements OnInit {
   }
 
   onaddEvents(data) {
+    this.presentLoading()
     const trainings = this.eventsService.addTrainings(this.addTrainings.newTrainings)
     trainings.subscribe((data: any) => {
       this.dataDisplays.trainings.push(data)
       this.router.navigate(['/app/tabs/speakers'])
     })
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 3000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
 }

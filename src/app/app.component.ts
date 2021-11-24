@@ -142,4 +142,13 @@ export class AppComponent implements OnInit {
     this.storage.set('ion_did_tutorial', false);
     this.router.navigateByUrl('/tutorial');
   }
+
+  // Kini siya nga function kay ang sa dark mode 
+  activateDarkMode() {
+    if (this.request.darkmode) {
+      this.request.darkmode = true
+    } else {
+      this.request.darkmode = false
+    }
+  }
 }

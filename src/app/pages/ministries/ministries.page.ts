@@ -67,9 +67,6 @@ export class MinistriesPage implements AfterViewInit {
 
     this.dataRequest.ministryList().subscribe(lists => {
       this.list = lists;
-      // for (let index = 0; index < this.list.length; index++) {
-      //   this.ministryMembers.push({ name: this.list[index].firstname + "-" + this.list[index].lastname, id: this.list[index].id })
-      // }
       this.list.forEach((element, index) => {
         console.log(this.list[index]);
         if (element.ministries == this.content) {
@@ -104,6 +101,7 @@ export class MinistriesPage implements AfterViewInit {
 
   addMember(memberId) {
     this.dataRequest.getTheCurrentUser({ userID: memberId.id }).subscribe(data => {
+      console.log(data)
       this.storage.push(data[0])
     })
 
@@ -131,7 +129,7 @@ export class MinistriesPage implements AfterViewInit {
   getUserRole() {
     this.request.getTheUserRoleFromTheStorage().then(res => {
       this.dataRequest.getNetworkWhereIBelong(res).subscribe(data => {
-        console.log(data[0].roles)
+        console.log(data)
         this.role = data[0].roles
       })
     })

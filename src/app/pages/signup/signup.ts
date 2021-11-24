@@ -5,6 +5,7 @@ import { UserData } from '../../providers/user-data';
 
 import { RequestsService } from '../../logInAndSignupService/requests.service';
 import { DataRequestsService } from '../../request-to-BE/data-requests.service'
+import { LoadingController } from '@ionic/angular';
 
 
 
@@ -35,7 +36,7 @@ export class SignupPage {
       Instagram: '',
       Twitter: '',
       Category: '',
-      Description:'A new member added!',
+      Description: 'A new member added!',
       isCGVIP: 'true',
       isSCVIP: 'true'
     }, groupBelong: {
@@ -50,7 +51,8 @@ export class SignupPage {
     public router: Router,
     public userData: UserData,
     public request: RequestsService,
-    public dataRequest: DataRequestsService
+    public dataRequest: DataRequestsService,
+    public loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -80,11 +82,18 @@ export class SignupPage {
   }
 
   onSignup(form: NgForm) {
-    this.signup.role.code = this.role.toString()
+    this.presentLoading()
     console.log(this.signup)
     this.request.signUp(this.signup).subscribe(res => {
-      this.router.navigate(['/support'])
+      console.log(this.signup)
+      this.router.navigate(['/support/reportings'])
     })
+  }
+
+  // Kini siya nga function kay kuhaon ang role nga gi select
+  getSelectedRole(role: any) {
+    this.signup.role.code = role.target.value
+    console.log(role.target.value)
   }
 
   declaringTheCurrentRole() {
@@ -98,6 +107,7 @@ export class SignupPage {
       }
     })
   }
+
   roleDeclaration() {
     this.request.getTheUserRoleFromTheStorage().then((result: any) => {
       this.role = Number(result)
@@ -109,14 +119,27 @@ export class SignupPage {
   }
 
   getValueOfGender(variable, value) {
-    if(variable == 'Marital_status') {
+    if (variable == 'Marital_status') {
       this.signup.newUser.Marital_status = value.target.value
-    }else if(variable == "Gender") {
+    } else if (variable == "Gender") {
       this.signup.newUser.Gender = value.target.value
-    }else {
+    } else {
       this.signup.role.code = value.target.value
     }
     variable = value
     // this.signup.newUser.Gender = value.target.value
+  }
+
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 3000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 }
